@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
 
         log("Saving BudgetBook ''{0}''...", b.getName());
         BudgetBookService service = ServiceRepository.getBudgetBookService();
-        service.saveAndLoad(b);
+        b = service.saveAndLoad(b);
 
         log("Listing all saved BudgetBooks...");
         List<BudgetBook> books = service.getAll();

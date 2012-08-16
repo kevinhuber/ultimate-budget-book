@@ -15,7 +15,7 @@ import de.g18.ubb.server.service.local.BookingServiceLocal;
 @Remote(BookingServiceRemote.class)
 @Stateless
 public class BookingServiceImpl extends AbstractPersistanceBean<Booking> implements BookingServiceLocal,
-                                                                                  BookingServiceRemote {
+                                                                                    BookingServiceRemote {
 
     @Override
     protected Class<Booking> getEntityClass() {
