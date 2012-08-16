@@ -5,4 +5,19 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Ultimate Budget Book</string>
 
+    <!-- Anmelde Activity -->
+    <string name="e_loginname">E-Mail</string>
+    <string name="e_loginpassword">Passwort</string>
+    <string name="b_login">Anmelden</string>
+    <string name="b_loginregister">Registrieren</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    
+    <!-- Register Activity -->
+	<string name="t_ueberschrift">Registrierung</string>
+	<string name="t_anzeigename">Name</string>
+	<string name="t_email">E-Mail</string>
+	<string name="t_password1">Passwort</string>
+	<string name="t_password2">Bestätigung</string>
+	<string name="b_register">Registrieren</string>
+	
 </resources>
