@@ -3,12 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
+    <EditText
+        android:id="@+id/e_loginname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".MainActivity" />
+        android:layout_marginTop="106dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/e_loginname" />
+
+    <EditText
+        android:id="@+id/e_loginpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/e_loginname"
+        android:layout_below="@+id/e_loginname"
+        android:layout_marginTop="42dp"
+        android:ems="10"
+        android:inputType="textPassword" 
+        android:text="@string/e_loginpassword">
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/b_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/e_loginpassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp"
+        android:text="@string/b_login" 
+        android:onClick="login"/>
+
+    <Button
+        android:id="@+id/b_loginregister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/b_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="@string/b_loginregister" />
 
 </RelativeLayout>
