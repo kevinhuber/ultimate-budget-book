@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,11 +24,12 @@ import de.g18.ubb.common.service.repository.ServiceRepository;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class MainActivity extends Activity {
+public final class MainActivity extends Activity {
 
     static {
         ServiceRepository.setProvider(new WebServiceProvider());
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    public void login(View aView){
+    private void login(View aView){
     	EditText e_loginname = (EditText)findViewById(R.id.e_loginname);
     	String name = e_loginname.getText().toString();
 
@@ -54,7 +57,6 @@ public class MainActivity extends Activity {
     			" Passwort: " + password , Toast.LENGTH_SHORT);
 		t.show();
     }
-
 
     private void executeTestCase() {
         log("Creating new BudgetBook...");
@@ -100,6 +102,11 @@ public class MainActivity extends Activity {
         return ServiceRepository.getUserService().saveAndLoad(user);
     }
 
+    private void switchToBudgetBookOverview() {
+        Intent myIntent = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
+        startActivityForResult(myIntent, 0);
+    }
+
     // -------------------------------------------------------------------------
     // Inner Classes
     // -------------------------------------------------------------------------
@@ -107,8 +114,18 @@ public class MainActivity extends Activity {
     private final class LoginButtonListener implements OnClickListener {
 
         public void onClick(View aView) {
+            new TestServiceTask().execute();
+            login(aView);
+            switchToBudgetBookOverview();
+        }
+    }
+
+    private final class TestServiceTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
             executeTestCase();
-//            login(aView);
+            return null;
         }
     }
 }

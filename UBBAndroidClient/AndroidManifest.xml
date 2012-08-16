@@ -29,6 +29,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.MainActivity" />
         </activity>
+        <activity
+            android:name=".BudgetBookOverviewActivity"
+            android:label="@string/title_activity_budget_book_overview" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.g18.ubb.android.client.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
