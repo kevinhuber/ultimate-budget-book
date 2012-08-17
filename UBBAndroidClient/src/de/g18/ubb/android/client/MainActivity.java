@@ -57,8 +57,7 @@ public final class MainActivity extends Activity {
             .show();
         break;
       case R.id.menu_category:
-        Toast.makeText(this, "Menü Kategorie wurde ausgewählt", Toast.LENGTH_SHORT)
-            .show();
+    	switchToCategoryOverview();
         break;
 
       default:
@@ -130,6 +129,11 @@ public final class MainActivity extends Activity {
 
     private void switchToBudgetBookOverview() {
         Intent myIntent = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
+        startActivityForResult(myIntent, 0);
+    }
+    
+    private void switchToCategoryOverview() {
+        Intent myIntent = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
         startActivityForResult(myIntent, 0);
     }
 

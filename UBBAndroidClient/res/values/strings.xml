@@ -22,5 +22,7 @@
     <string name="title_activity_budget_book_overview">Meine Haushaltsbücher</string>
     <string name="b_newBudgetBook">Neues Haushaltsbuch</string>
     <string name="menu_category">Kategorien</string>
+    <string name="menu_new">Erstellen</string>
+    <string name="menu_delete">Löschen</string>
 
 </resources>
