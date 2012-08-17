@@ -7,6 +7,7 @@ import javax.persistence.Table;
 
 import de.g18.ubb.common.util.HashUtil;
 import de.g18.ubb.common.util.ObjectUtil;
+import de.g18.ubb.common.util.StringUtil;
 
 /**
  * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
@@ -112,6 +113,16 @@ public final class User extends AbstractEntity {
 		User other = (User) aObject;
 		return super.equals(other)
 		        && ObjectUtil.equals(getEmail(), other.getEmail());
+	}
+
+	@Override
+	public String toString() {
+	    return getClass().getSimpleName() + "[id=" + getId()
+	                                      + ",name=" + StringUtil.toString(getName())
+                                          + ",email=" + StringUtil.toString(getEmail())
+                                          + ",password=" + StringUtil.toString(getPassword())
+                                          + ",salt=" + StringUtil.toString(getSalt())
+                                          + ",session=" + StringUtil.toString(getSession()) + "]";
 	}
 }
 
