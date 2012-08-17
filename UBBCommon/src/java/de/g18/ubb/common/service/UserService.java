@@ -17,8 +17,7 @@ import de.g18.ubb.common.service.exception.NotFoundExcpetion;
  */
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public interface UserService /*extends StoreService<User>,
-                                     LoadService<User>*/ {
+public interface UserService {
 
     public static final String RESTFUL_SERVICE_NAME = "UserService";
 
@@ -30,4 +29,7 @@ public interface UserService /*extends StoreService<User>,
 
     @POST
     User loadById(Long aId) throws NotFoundExcpetion;
+    
+    @POST
+    boolean login(String aEmail, String aPassword);
 }
