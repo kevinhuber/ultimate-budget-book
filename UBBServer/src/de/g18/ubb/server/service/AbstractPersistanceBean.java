@@ -7,6 +7,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -28,8 +30,11 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
 
     @PersistenceContext(unitName = "UBB")
     private Session session;
+    
+    @Context
+    private HttpServletRequest httpRequest;
 
-    @EJB
+	@EJB
     private UserServiceLocal userService;
 
 
@@ -61,22 +66,11 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     }
 
     protected final User getCurrentUser() {
-        return getTestUser(); // TODO (kopatz): Aktuellen Benutzer über JSessionID laden!
-    }
-
-    @Deprecated
-    private User getTestUser() {
-        List<User> users = userService.getAll();
-        if (!users.isEmpty()) {
-            return users.get(0);
-        }
-        return createNewPersistedUser();
-    }
-
-    @Deprecated
-    private User createNewPersistedUser() {
-        User user = new User();
-        return userService.saveAndLoad(user);
+        try {
+			return userService.loadBySessionId(getHttpRequest().getSession().getId());
+		} catch (NotFoundExcpetion e) {
+			throw new IllegalStateException("There is no user with sessionid " + getHttpRequest().getSession().getId());
+		}
     }
 
     public final _Entity loadById(Long aId) throws NotFoundExcpetion {
@@ -117,4 +111,8 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     }
 
     abstract protected Class<_Entity> getEntityClass();
+    
+    protected final HttpServletRequest getHttpRequest() {
+		return httpRequest;
+	}
 }
