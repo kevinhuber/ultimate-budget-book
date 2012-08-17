@@ -20,6 +20,7 @@ import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.repository.ServiceRepository;
+import de.g18.ubb.common.util.ObjectUtil;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
@@ -46,7 +47,7 @@ public final class MainActivity extends Activity {
         return true;
     }
 
-    private void login(View aView){
+    private void login(View aView) {
     	EditText e_loginname = (EditText)findViewById(R.id.e_loginname);
     	String name = e_loginname.getText().toString();
 
@@ -86,20 +87,23 @@ public final class MainActivity extends Activity {
     private User getTestUser() {
         log("Resolving test user...");
         List<User> users = ServiceRepository.getUserService().getAll();
-        if (!users.isEmpty()) {
-            log("Test user is ''{0}''...", users.get(0));
-            return users.get(0);
+        for (User u : users) {
+            if (ObjectUtil.equals("TestUser", u.getName())) {
+                log("Test user is ''{0}''...", users.get(0));
+                return u;
+            }
         }
 
         User testUser = createNewPersistedUser();
-        log("Test user is ''{0}''...", testUser);
+        log("Created new TestUser ''{0}''...", testUser);
         return testUser;
     }
 
     private User createNewPersistedUser() {
         User user = new User();
-        user.setName(("SomeGeneratedUserName #" + Math.random()).substring(0, 31));
-        user.setEmail("someEmail@blub.de");
+        user.setName("TestUser");
+        user.setEmail("test@user.de");
+        user.setPassword("password");
         return ServiceRepository.getUserService().saveAndLoad(user);
     }
 
@@ -115,8 +119,13 @@ public final class MainActivity extends Activity {
     private final class LoginButtonListener implements OnClickListener {
 
         public void onClick(View aView) {
+            User testUser = getTestUser();
+            if (!ServiceRepository.getUserService().login(testUser.getEmail(), "password")) {
+                Toast.makeText(getApplicationContext(), "Login with TestUser and password failed!", Toast.LENGTH_LONG).show();
+                return;
+            }
             new TestServiceTask().execute();
-            login(aView);
+//            login(aView);
             switchToBudgetBookOverview();
         }
     }
