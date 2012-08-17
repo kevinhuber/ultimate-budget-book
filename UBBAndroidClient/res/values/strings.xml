@@ -11,13 +11,15 @@
     <string name="b_login">Anmelden</string>
     <string name="b_loginregister">Registrieren</string>
     <string name="title_activity_register">RegisterActivity</string>
-    
+
     <!-- Register Activity -->
-	<string name="t_ueberschrift">Registrierung</string>
-	<string name="t_anzeigename">Name</string>
-	<string name="t_email">E-Mail</string>
-	<string name="t_password1">Passwort</string>
-	<string name="t_password2">Bestätigung</string>
-	<string name="b_register">Registrieren</string>
-	
+    <string name="t_ueberschrift">Registrierung</string>
+    <string name="t_anzeigename">Name</string>
+    <string name="t_email">E-Mail</string>
+    <string name="t_password1">Passwort</string>
+    <string name="t_password2">Bestätigung</string>
+    <string name="b_register">Registrieren</string>
+    <string name="title_activity_budget_book_overview">Meine Haushaltsbücher</string>
+    <string name="b_newBudgetBook">Neues Haushaltsbuch</string>
+
 </resources>
