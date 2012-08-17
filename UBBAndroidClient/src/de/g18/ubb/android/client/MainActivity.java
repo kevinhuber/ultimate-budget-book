@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -46,6 +47,25 @@ public final class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+      switch (item.getItemId()) {
+      case R.id.menu_settings:
+        Toast.makeText(this, "Menü Einstellungen wurde ausgewählt", Toast.LENGTH_SHORT)
+            .show();
+        break;
+      case R.id.menu_category:
+        Toast.makeText(this, "Menü Kategorie wurde ausgewählt", Toast.LENGTH_SHORT)
+            .show();
+        break;
+
+      default:
+        break;
+      }
+
+      return true;
     }
 
     private void login(View aView) {
