@@ -98,7 +98,8 @@ public final class MainActivity extends Activity {
 
     private User createNewPersistedUser() {
         User user = new User();
-        user.setName("SomeGeneratedUserName #" + Math.random());
+        user.setName(("SomeGeneratedUserName #" + Math.random()).substring(0, 31));
+        user.setEmail("someEmail@blub.de");
         return ServiceRepository.getUserService().saveAndLoad(user);
     }
 
