@@ -20,6 +20,7 @@ import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.repository.ServiceRepository;
+import de.g18.ubb.common.util.HashUtil;
 import de.g18.ubb.common.util.ObjectUtil;
 
 /**
@@ -103,7 +104,7 @@ public final class MainActivity extends Activity {
         User user = new User();
         user.setName("TestUser");
         user.setEmail("test@user.de");
-        user.setPassword("password");
+        user.setPasswordHash(HashUtil.toMD5("password", user.getSalt()));
         return ServiceRepository.getUserService().saveAndLoad(user);
     }
 

@@ -49,7 +49,7 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
 			User userResult = loadByEMail(aEmail);
 			byte[] salt = userResult.getSalt();
 			String typedInPassword = new String(HashUtil.toMD5(aPassword, salt));
-			String userPassword = userResult.getPassword();
+			String userPassword = userResult.getPasswordHash();
 			if (ObjectUtil.equals(typedInPassword, userPassword)) {
 				userResult.setSession(getHttpRequest().getSession().getId());
 				saveAndLoad(userResult);

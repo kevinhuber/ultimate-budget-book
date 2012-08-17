@@ -16,16 +16,16 @@ public final class HashUtil {
     public static final int DEFAULT_SALT_LENGTH = 12;
 
 
-    public static char[] toMD5(String aPassword, byte[] aSalt) {
+    public static String toMD5(String aPassword, byte[] aSalt) {
         if (StringUtil.isEmpty(aPassword)) {
-            return new char[0];
+            return StringUtil.EMPTY;
         }
         return toMD5(aPassword.toCharArray(), aSalt);
     }
 
-    public static char[] toMD5(char[] aPassword, byte[] aSalt) {
+    public static String toMD5(char[] aPassword, byte[] aSalt) {
         if (aPassword == null) {
-            return new char[0];
+            return StringUtil.EMPTY;
         }
 
     	try {
@@ -34,7 +34,7 @@ public final class HashUtil {
     		MessageDigest mdEnc = MessageDigest.getInstance("MD5");
     		mdEnc.update(aSalt, 0, aSalt.length);
     		mdEnc.update(passwdBytes, 0, aPassword.length);
-    		return new BigInteger(1, mdEnc.digest()).toString(16).toCharArray();
+    		return new BigInteger(1, mdEnc.digest()).toString(16);
     	} catch (NoSuchAlgorithmException e) {
     	    throw new IllegalStateException("MD5 is not available!", e);
     	}

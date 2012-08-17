@@ -26,7 +26,7 @@ public final class User extends AbstractEntity {
 
 	private String name;
 	private String email;
-	private String password;
+	private String passwordHash;
 	private byte[] salt;
 	private String session;
 
@@ -56,15 +56,15 @@ public final class User extends AbstractEntity {
 		return email;
 	}
 
-	public void setPassword(String aNewValue) {
-	    String oldValue = getPassword();
-		password = new String(HashUtil.toMD5(aNewValue, getSalt()));
-		fireChange(PROPERTY_PASSWORD, oldValue, getPassword());
+	public void setPasswordHash(String aNewValue) {
+	    String oldValue = getPasswordHash();
+		passwordHash = aNewValue;
+		fireChange(PROPERTY_PASSWORD, oldValue, getPasswordHash());
 	}
 
 	@Column(length = 32)
-	public String getPassword() {
-		return password;
+	public String getPasswordHash() {
+		return passwordHash;
 	}
 
 	public void setSalt(byte[] aNewValue) {
@@ -120,7 +120,7 @@ public final class User extends AbstractEntity {
 	    return getClass().getSimpleName() + "[id=" + getId()
 	                                      + ",name=" + StringUtil.toString(getName())
                                           + ",email=" + StringUtil.toString(getEmail())
-                                          + ",password=" + StringUtil.toString(getPassword())
+                                          + ",password=" + StringUtil.toString(getPasswordHash())
                                           + ",salt=" + StringUtil.toString(getSalt())
                                           + ",session=" + StringUtil.toString(getSession()) + "]";
 	}
