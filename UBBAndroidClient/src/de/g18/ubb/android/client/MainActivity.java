@@ -41,6 +41,9 @@ public final class MainActivity extends Activity {
 
         Button login = (Button) findViewById(R.id.b_login);
         login.setOnClickListener(new LoginButtonListener());
+        
+        Button register = (Button) findViewById(R.id.b_loginregister);
+        register.setOnClickListener(new RegisterButtonListener());
     }
 
     @Override
