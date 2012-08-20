@@ -43,7 +43,7 @@ public final class MainActivity extends Activity {
         login.setOnClickListener(new LoginButtonListener());
         
         Button register = (Button) findViewById(R.id.b_loginregister);
-        register.setOnClickListener(new RegisterButtonListener());
+        register.setOnClickListener(new RegisternButtonListener());
     }
 
     @Override
@@ -155,6 +155,17 @@ public final class MainActivity extends Activity {
             new TestServiceTask().execute();
 //            login(aView);
             switchToBudgetBookOverview();
+        }
+    }
+    
+    // -------------------------------------------------------------------------
+    // Inner Classes
+    // -------------------------------------------------------------------------
+
+    private final class RegisternButtonListener implements OnClickListener {
+
+        public void onClick(View aView) {
+        startActivity(new Intent(getBaseContext(), RegisterActivity.class));
         }
     }
 
