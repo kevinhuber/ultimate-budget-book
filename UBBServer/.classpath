@@ -18,5 +18,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/shiro-core-1.2.1.jar" sourcepath="WebContent/WEB-INF/lib/shiro-core-1.2.1-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/shiro-web-1.2.1.jar" sourcepath="WebContent/WEB-INF/lib/shiro-web-1.2.1-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-android-1.6.1-RC1.jar" sourcepath="WebContent/WEB-INF/lib/slf4j-android-1.6.1-RC1-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-beanutils-1.8.3.jar" sourcepath="WebContent/WEB-INF/lib/commons-beanutils-1.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-lang-2.6.jar" sourcepath="WebContent/WEB-INF/lib/commons-lang-2.6-sources.jar"/>
 	<classpathentry kind="output" path="target"/>
 </classpath>
