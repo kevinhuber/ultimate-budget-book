@@ -4,14 +4,13 @@ import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
+import org.apache.shiro.SecurityUtils;
 import org.hibernate.Query;
 import org.jboss.resteasy.spi.NotFoundException;
 
 import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.remote.UserServiceRemote;
-import de.g18.ubb.common.util.HashUtil;
-import de.g18.ubb.common.util.ObjectUtil;
 import de.g18.ubb.common.util.StringUtil;
 import de.g18.ubb.server.service.local.UserServiceLocal;
 
@@ -42,25 +41,6 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
 		 return uniqueResult(q);
 	}
 
-    @Override
-    public boolean login(String aEmail, String aPassword) {
-    	try {
-			User userResult = loadByEMail(aEmail);
-			byte[] salt = userResult.getSalt();
-			String typedInPassword = new String(HashUtil.toMD5(aPassword, salt));
-			String userPassword = userResult.getPasswordHash();
-			if (ObjectUtil.equals(typedInPassword, userPassword)) {
-				userResult.setSession(getHttpRequest().getSession().getId());
-				saveAndLoad(userResult);
-				return true;
-			} else {
-				return false;
-			}
-		} catch (NotFoundExcpetion e) {
-			return false;
-		}
-    }
-
 	@Override
 	public User loadByEMail(String aEmail) throws NotFoundExcpetion {
 		if (StringUtil.isEmpty(aEmail)) {
@@ -73,4 +53,9 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
 		            .setString("email", aEmail);
 		 return uniqueResult(q);
 	}
+
+    @Override
+    public boolean isAuthenticated() {
+        return SecurityUtils.getSubject().isAuthenticated();
+    }
 }

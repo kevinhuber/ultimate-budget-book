@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
 
+import org.apache.shiro.SecurityUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -67,6 +68,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
 
     protected final User getCurrentUser() {
         try {
+            SecurityUtils.getSubject().getPrincipal();
 			return userService.loadBySessionId(getHttpRequest().getSession().getId());
 		} catch (NotFoundExcpetion e) {
 			throw new IllegalStateException("There is no user with sessionid " + getHttpRequest().getSession().getId());
