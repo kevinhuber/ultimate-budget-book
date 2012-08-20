@@ -3,7 +3,6 @@ package de.g18.ubb.server.security;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -21,6 +20,7 @@ import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.util.HashUtil;
 import de.g18.ubb.common.util.ObjectUtil;
+import de.g18.ubb.common.util.StringUtil;
 import de.g18.ubb.server.service.UserServiceImpl;
 import de.g18.ubb.server.service.local.UserServiceLocal;
 
@@ -40,7 +40,7 @@ public final class UBBSecurityRealm extends AuthorizingRealm {
         UsernamePasswordToken upToken = (UsernamePasswordToken) aToken;
         String email = upToken.getUsername();
 
-        if (StringUtils.isEmpty(email)) {
+        if (StringUtil.isEmpty(email)) {
             throw new AccountException("Username is required for authentification!");
         }
 
