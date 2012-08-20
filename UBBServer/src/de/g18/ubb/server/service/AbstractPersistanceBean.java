@@ -30,7 +30,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
 
     @PersistenceContext(unitName = "UBB")
     private Session session;
-    
+
     @Context
     private HttpServletRequest httpRequest;
 
@@ -111,7 +111,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     }
 
     abstract protected Class<_Entity> getEntityClass();
-    
+
     protected final HttpServletRequest getHttpRequest() {
 		return httpRequest;
 	}

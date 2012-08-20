@@ -3,7 +3,6 @@ package de.g18.ubb.server.service;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.ws.rs.POST;
 
 import org.hibernate.Query;
 import org.jboss.resteasy.spi.NotFoundException;
@@ -35,9 +34,9 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
     	if (StringUtil.isEmpty(aJSessionId)) {
 			throw new NotFoundException(aJSessionId);
 		}
-		
+
 		 Query q = getHibernateSession()
-		            .createQuery("SELECT u FROM " + getEntityClass().getSimpleName() + " u " 
+		            .createQuery("SELECT u FROM " + getEntityClass().getSimpleName() + " u "
 		            			  + "WHERE u." + User.PROPERTY_SESSION + "= :session")
 		            .setString("session", aJSessionId);
 		 return uniqueResult(q);
@@ -67,9 +66,9 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
 		if (StringUtil.isEmpty(aEmail)) {
 			throw new NotFoundException(aEmail);
 		}
-		
+
 		 Query q = getHibernateSession()
-		            .createQuery("SELECT u FROM " + getEntityClass().getSimpleName() + " u " 
+		            .createQuery("SELECT u FROM " + getEntityClass().getSimpleName() + " u "
 		            			  + "WHERE u." + User.PROPERTY_EMAIL + "= :email")
 		            .setString("email", aEmail);
 		 return uniqueResult(q);

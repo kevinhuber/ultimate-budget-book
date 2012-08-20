@@ -4,6 +4,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.shiro.authc.UsernamePasswordToken;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -40,6 +42,12 @@ public final class MainActivity extends Activity {
 
         Button login = (Button) findViewById(R.id.b_login);
         login.setOnClickListener(new LoginButtonListener());
+
+        UsernamePasswordToken token = new UsernamePasswordToken("username", "password");
+        token.setRememberMe(true);
+//
+//        Subject s = SecurityUtils.getSubject();
+//        s.login(token);
     }
 
     @Override
