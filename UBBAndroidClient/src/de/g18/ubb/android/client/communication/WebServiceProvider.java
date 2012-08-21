@@ -1,8 +1,11 @@
 package de.g18.ubb.android.client.communication;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -12,6 +15,7 @@ import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 
 import android.util.Log;
+import de.g18.ubb.common.service.UserService;
 import de.g18.ubb.common.service.repository.ServiceProvider;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
@@ -28,6 +32,9 @@ public final class WebServiceProvider implements ServiceProvider {
     private static WebServiceProvider instance;
 
     private ClientExecutor clientExecutor;
+
+    private String userEmail;
+    private String userPassword;
 
 
     /**
@@ -56,7 +63,7 @@ public final class WebServiceProvider implements ServiceProvider {
     }
 
     public <_Service> _Service lookup(Class<_Service> aServiceClass) {
-        return ProxyFactory.create(aServiceClass, createServiceURL(aServiceClass), getClientExecutor());
+        return ProxyFactory.create(aServiceClass, createServiceURL(aServiceClass), createAuthentificatedClientExecutor());
     }
 
     private static String createServiceURL(Class<?> aServiceClass) {
@@ -64,31 +71,54 @@ public final class WebServiceProvider implements ServiceProvider {
         return BASE_URL + serviceName;
     }
 
-    private void setClientExecutor(ClientExecutor aExecutor) {
-        clientExecutor = aExecutor;
-    }
-
-    private ClientExecutor getClientExecutor() {
-        if (clientExecutor == null) {
-            throw new IllegalStateException("Executor has not been initialized! "
+    private ClientExecutor createAuthentificatedClientExecutor() {
+        if (StringUtil.isEmpty(userEmail) || StringUtil.isEmpty(userPassword)) {
+            throw new IllegalStateException("ServiceProvider has not been initialized! "
                                           + "You may want to authentificate yourself first!");
         }
-        return clientExecutor;
+
+        HttpClient client = createAuthentificatedHttpClient(userEmail, userPassword);
+        return new ApacheHttpClient4Executor(client);
     }
 
     public static boolean authentificate(String aEMail, String aPassword) {
-        getInstance().setClientExecutor(createAuthentificatedClientExecutor(aEMail, aPassword));
-        if (!ServiceRepository.getUserService().isAuthenticated()) {
+        HttpClient httpClient = createAuthentificatedHttpClient(aEMail, aPassword);
+        if (!isAuthentificatedClient(httpClient)) {
             Log.e(WebServiceProvider.class.getSimpleName(), "Authentification for user '" + aEMail + "' failed.");
-            getInstance().clientExecutor = null;
+            getInstance().userEmail = null;
+            getInstance().userPassword = null;
             return false;
         }
+
+        getInstance().userEmail = aEMail;
+        getInstance().userPassword = aPassword;
         return true;
     }
 
-    private static ClientExecutor createAuthentificatedClientExecutor(String aEMail, String aPassword) {
-        HttpClient httpClient = createAuthentificatedHttpClient(aEMail, aPassword);
-        return new ApacheHttpClient4Executor(httpClient);
+    private static boolean isAuthentificatedClient(HttpClient aClient) {
+        HttpGet testRequest = new HttpGet(BASE_URL + UserService.AUTHENTIFICATION_TEST_PATH);
+        int httpStatusCode;
+        try {
+            HttpResponse response = aClient.execute(testRequest);
+            httpStatusCode = response.getStatusLine().getStatusCode();
+        } catch (Exception e) {
+            Log.e(WebServiceProvider.class.getSimpleName(),
+                  "Authentification failed due to unknown exception!", e);
+            return false;
+        }
+
+        switch (httpStatusCode) {
+            case HttpStatus.SC_OK:
+                return true;
+
+            case HttpStatus.SC_UNAUTHORIZED:
+                return false;
+
+            default:
+                Log.e(WebServiceProvider.class.getSimpleName(),
+                      "Authentification failed due to unknown status-code " + httpStatusCode + "!");
+                return false;
+        }
     }
 
     private static HttpClient createAuthentificatedHttpClient(String aEMail, String aPassword) {

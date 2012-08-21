@@ -19,6 +19,7 @@ import de.g18.ubb.common.domain.User;
 public interface UserService {
 
     public static final String RESTFUL_SERVICE_NAME = "UserService";
+    public static final String AUTHENTIFICATION_TEST_PATH = RESTFUL_SERVICE_NAME + "/isAuthenticated";
 
     @GET
     List<User> getAll();
