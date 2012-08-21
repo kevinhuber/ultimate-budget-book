@@ -21,8 +21,8 @@ import de.g18.ubb.server.service.local.UserServiceLocal;
 @Local(UserServiceLocal.class)
 @Remote(UserServiceRemote.class)
 @Stateless
-public final class UserServiceImpl extends AbstractPersistanceBean<User> implements UserServiceLocal,
-                                                                                    UserServiceRemote {
+public class UserServiceImpl extends AbstractPersistanceBean<User> implements UserServiceLocal,
+                                                                              UserServiceRemote {
 
     @Override
     protected Class<User> getEntityClass() {
