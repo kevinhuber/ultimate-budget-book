@@ -67,12 +67,12 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     }
 
     protected final User getCurrentUser() {
-        try {
+//        try {
             SecurityUtils.getSubject().getPrincipal();
-			return userService.loadBySessionId(getHttpRequest().getSession().getId());
-		} catch (NotFoundExcpetion e) {
-			throw new IllegalStateException("There is no user with sessionid " + getHttpRequest().getSession().getId());
-		}
+			return null;
+//		} catch (NotFoundExcpetion e) {
+//			throw new IllegalStateException("There is no user with sessionid " + getHttpRequest().getSession().getId());
+//		}
     }
 
     public final _Entity loadById(Long aId) throws NotFoundExcpetion {
