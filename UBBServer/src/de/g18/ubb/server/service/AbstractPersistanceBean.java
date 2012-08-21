@@ -68,6 +68,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
 
     protected final User getCurrentUser() {
 //        try {
+        // TODO (huber): CurrentUser über login-email laden!
             SecurityUtils.getSubject().getPrincipal();
 			return null;
 //		} catch (NotFoundExcpetion e) {
