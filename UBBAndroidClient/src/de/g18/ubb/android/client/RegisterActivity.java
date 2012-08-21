@@ -1,10 +1,10 @@
 package de.g18.ubb.android.client;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
 
 public class RegisterActivity extends Activity {
 
@@ -21,7 +21,7 @@ public class RegisterActivity extends Activity {
         return true;
     }
 
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -31,5 +31,4 @@ public class RegisterActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
