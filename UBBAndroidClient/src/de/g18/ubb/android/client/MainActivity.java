@@ -30,7 +30,7 @@ import de.g18.ubb.common.util.ObjectUtil;
 public final class MainActivity extends Activity {
 
     static {
-        ServiceRepository.setProvider(new WebServiceProvider());
+        WebServiceProvider.register();
     }
 
 
@@ -147,8 +147,7 @@ public final class MainActivity extends Activity {
     private final class LoginButtonListener implements OnClickListener {
 
         public void onClick(View aView) {
-            User testUser = getTestUser();
-            if (!ServiceRepository.getUserService().login(testUser.getEmail(), "password")) {
+            if (!WebServiceProvider.authentificate("test@user.de", "password")) {
                 Toast.makeText(getApplicationContext(), "Login with TestUser and password failed!", Toast.LENGTH_LONG).show();
                 return;
             }

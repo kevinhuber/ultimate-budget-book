@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
 
+import org.apache.shiro.SecurityUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -30,7 +31,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
 
     @PersistenceContext(unitName = "UBB")
     private Session session;
-    
+
     @Context
     private HttpServletRequest httpRequest;
 
@@ -66,11 +67,12 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     }
 
     protected final User getCurrentUser() {
-        try {
-			return userService.loadBySessionId(getHttpRequest().getSession().getId());
-		} catch (NotFoundExcpetion e) {
-			throw new IllegalStateException("There is no user with sessionid " + getHttpRequest().getSession().getId());
-		}
+//        try {
+            SecurityUtils.getSubject().getPrincipal();
+			return null;
+//		} catch (NotFoundExcpetion e) {
+//			throw new IllegalStateException("There is no user with sessionid " + getHttpRequest().getSession().getId());
+//		}
     }
 
     public final _Entity loadById(Long aId) throws NotFoundExcpetion {
@@ -111,7 +113,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     }
 
     abstract protected Class<_Entity> getEntityClass();
-    
+
     protected final HttpServletRequest getHttpRequest() {
 		return httpRequest;
 	}

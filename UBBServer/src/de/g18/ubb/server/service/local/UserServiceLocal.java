@@ -11,8 +11,6 @@ import de.g18.ubb.common.service.exception.NotFoundExcpetion;
  */
 @Local
 public interface UserServiceLocal extends UserService {
-	
-	User loadBySessionId(String aJSessionId) throws NotFoundExcpetion;
-	
+
 	User loadByEMail(String aEmail) throws NotFoundExcpetion;
 }

@@ -22,13 +22,11 @@ public final class User extends AbstractEntity {
 	public static final String PROPERTY_EMAIL = "email";
 	public static final String PROPERTY_PASSWORD = "password";
 	public static final String PROPERTY_SALT = "salt";
-	public static final String PROPERTY_SESSION = "session";
 
 	private String name;
 	private String email;
 	private String passwordHash;
 	private byte[] salt;
-	private String session;
 
 
 	public User() {
@@ -81,17 +79,6 @@ public final class User extends AbstractEntity {
 		return salt;
 	}
 
-	public void setSession(String aNewValue) {
-	    String oldValue = getSession();
-		session = aNewValue;
-		fireChange(PROPERTY_SESSION, oldValue, getSession());
-	}
-
-	@Column(length = 32)
-	public String getSession() {
-		return session;
-	}
-
 	// -------------------------------------------------------------------------
     // Helper
     // -------------------------------------------------------------------------
@@ -121,8 +108,7 @@ public final class User extends AbstractEntity {
 	                                      + ",name=" + StringUtil.toString(getName())
                                           + ",email=" + StringUtil.toString(getEmail())
                                           + ",password=" + StringUtil.toString(getPasswordHash())
-                                          + ",salt=" + StringUtil.toString(getSalt())
-                                          + ",session=" + StringUtil.toString(getSession()) + "]";
+                                          + ",salt=" + StringUtil.toString(getSalt()) + "]";
 	}
 }
 
