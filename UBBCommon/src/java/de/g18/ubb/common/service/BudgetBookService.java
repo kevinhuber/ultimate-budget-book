@@ -20,6 +20,7 @@ public interface BudgetBookService {
 
     public static final String RESTFUL_SERVICE_NAME = "BudgetBookService";
 
+    @POST
     BudgetBook createNew(String aName);
 
     @GET
