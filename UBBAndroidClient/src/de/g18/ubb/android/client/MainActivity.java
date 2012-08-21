@@ -41,7 +41,7 @@ public final class MainActivity extends Activity {
 
         Button login = (Button) findViewById(R.id.b_login);
         login.setOnClickListener(new LoginButtonListener());
-        
+
         Button register = (Button) findViewById(R.id.b_loginregister);
         register.setOnClickListener(new RegisternButtonListener());
     }
@@ -51,7 +51,7 @@ public final class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
@@ -70,16 +70,14 @@ public final class MainActivity extends Activity {
       return true;
     }
 
-    private void login(View aView) {
+    private boolean login() {
     	EditText e_loginname = (EditText)findViewById(R.id.e_loginname);
-    	String name = e_loginname.getText().toString();
+    	String username = e_loginname.getText().toString();
 
     	EditText e_password = (EditText)findViewById(R.id.e_loginpassword);
     	String password = e_password.getText().toString();
 
-    	Toast t = Toast.makeText(getApplicationContext(), "Toast: Name:" + name +
-    			" Passwort: " + password , Toast.LENGTH_SHORT);
-		t.show();
+        return WebServiceProvider.authentificate(username, password);
     }
 
     private void executeTestCase() {
@@ -134,7 +132,7 @@ public final class MainActivity extends Activity {
         Intent myIntent = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
         startActivityForResult(myIntent, 0);
     }
-    
+
     private void switchToCategoryOverview() {
         Intent myIntent = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
         startActivityForResult(myIntent, 0);
@@ -147,24 +145,19 @@ public final class MainActivity extends Activity {
     private final class LoginButtonListener implements OnClickListener {
 
         public void onClick(View aView) {
-            if (!WebServiceProvider.authentificate("test@user.de", "password")) {
+            if (!login()) {
                 Toast.makeText(getApplicationContext(), "Login with TestUser and password failed!", Toast.LENGTH_LONG).show();
-                return;
             }
+
             new TestServiceTask().execute();
-//            login(aView);
             switchToBudgetBookOverview();
         }
     }
-    
-    // -------------------------------------------------------------------------
-    // Inner Classes
-    // -------------------------------------------------------------------------
 
     private final class RegisternButtonListener implements OnClickListener {
 
         public void onClick(View aView) {
-        startActivity(new Intent(getBaseContext(), RegisterActivity.class));
+            startActivity(new Intent(getBaseContext(), RegisterActivity.class));
         }
     }
 
