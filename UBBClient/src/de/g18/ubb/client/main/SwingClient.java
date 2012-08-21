@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -16,7 +15,6 @@ import javax.swing.JTextArea;
 
 import de.g18.ubb.client.communication.JNDIServiceProvider;
 import de.g18.ubb.common.domain.BudgetBook;
-import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
@@ -60,17 +58,10 @@ public class SwingClient extends JFrame {
     }
 
     private void doSomething() {
-        log("Creating new BudgetBook...");
-        BudgetBook b = new BudgetBook();
-
-        List<User> assignedUsers = new ArrayList<User>();
-        assignedUsers.add(getTestUser());
-        b.setAssignedUser(assignedUsers);
-        b.setName("BudgetBook #" + Math.random());
-
-        log("Saving BudgetBook ''{0}''...", b.getName());
         BudgetBookService service = ServiceRepository.getBudgetBookService();
-        service.saveAndLoad(b);
+
+        log("Creating new BudgetBook...");
+        service.createNew("BudgetBook #" + Math.random());
 
         log("Listing all saved BudgetBooks...");
         List<BudgetBook> books = service.getAll();
@@ -96,24 +87,6 @@ public class SwingClient extends JFrame {
     private void log(String aMessage, Object... aMessageParams) {
         String formattedMessage = MessageFormat.format(aMessage, aMessageParams);
         debugArea.append(formattedMessage + "\n");
-    }
-
-    private User getTestUser() {
-        log("Resolving test user...");
-        List<User> users = ServiceRepository.getUserService().getAll();
-        if (!users.isEmpty()) {
-            log("Test user is ''{0}''...", users.get(0));
-            return users.get(0);
-        }
-
-        User testUser = createNewPersistedUser();
-        log("Test user is ''{0}''...", testUser);
-        return testUser;
-    }
-
-    private User createNewPersistedUser() {
-        User user = new User();
-        return ServiceRepository.getUserService().saveAndLoad(user);
     }
 
 

@@ -11,6 +11,7 @@ import org.jboss.resteasy.spi.NotFoundException;
 import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.remote.UserServiceRemote;
+import de.g18.ubb.common.util.HashUtil;
 import de.g18.ubb.common.util.StringUtil;
 import de.g18.ubb.server.service.local.UserServiceLocal;
 
@@ -20,12 +21,21 @@ import de.g18.ubb.server.service.local.UserServiceLocal;
 @Local(UserServiceLocal.class)
 @Remote(UserServiceRemote.class)
 @Stateless
-public class UserServiceImpl extends AbstractPersistanceBean<User> implements UserServiceLocal,
-                                                                              UserServiceRemote {
+public final class UserServiceImpl extends AbstractPersistanceBean<User> implements UserServiceLocal,
+                                                                                    UserServiceRemote {
 
     @Override
     protected Class<User> getEntityClass() {
         return User.class;
+    }
+
+    private boolean existsUserWithEMail(String aEMail) {
+        try {
+            loadByEMail(aEMail);
+        } catch (NotFoundExcpetion e) {
+            return false;
+        }
+        return true;
     }
 
 	@Override
@@ -44,5 +54,24 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
     @Override
     public boolean isAuthenticated() {
         return SecurityUtils.getSubject().isAuthenticated();
+    }
+
+    @Override
+    public boolean register(String aEMail, String aUsername, String aPassword) {
+        if (existsUserWithEMail(aEMail)) {
+            return false;
+        }
+
+        User user = new User();
+        user.setEmail(aEMail);
+        user.setName(aUsername);
+        setPassword(user, aPassword);
+        saveAndLoad(user);
+        return true;
+    }
+
+    private void setPassword(User aUser, String aPassword) {
+        String newPasswordHash = HashUtil.toMD5(aPassword, aUser.getSalt());
+        aUser.setPasswordHash(newPasswordHash);
     }
 }

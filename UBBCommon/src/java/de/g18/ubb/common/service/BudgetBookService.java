@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -21,11 +20,10 @@ public interface BudgetBookService {
 
     public static final String RESTFUL_SERVICE_NAME = "BudgetBookService";
 
+    BudgetBook createNew(String aName);
+
     @GET
     List<BudgetBook> getAll(); // TODO (huber): ENTFERNEN!!!!
-
-    @PUT
-    BudgetBook saveAndLoad(BudgetBook aEntity);
 
     @POST
     BudgetBook loadById(Long aId) throws NotFoundExcpetion;

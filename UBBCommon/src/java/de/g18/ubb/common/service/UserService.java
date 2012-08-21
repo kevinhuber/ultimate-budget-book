@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -24,10 +25,13 @@ public interface UserService {
     @GET
     List<User> getAll();
 
-    @PUT
-    User saveAndLoad(User aEntity);
-
     @GET
     @Path("isAuthenticated")
     boolean isAuthenticated();
+
+    @POST
+    @Path("register")
+    boolean register(@HeaderParam("email") String aEMail,
+                     @HeaderParam("username") String aUsername,
+                     @HeaderParam("password") String aPassword);
 }
