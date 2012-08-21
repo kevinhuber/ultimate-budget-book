@@ -31,10 +31,8 @@ public final class WebServiceProvider implements ServiceProvider {
 
     private static WebServiceProvider instance;
 
-    private ClientExecutor clientExecutor;
-
-    private String userEmail;
-    private String userPassword;
+    private String username;
+    private String password;
 
 
     /**
@@ -72,26 +70,38 @@ public final class WebServiceProvider implements ServiceProvider {
     }
 
     private ClientExecutor createAuthentificatedClientExecutor() {
-        if (StringUtil.isEmpty(userEmail) || StringUtil.isEmpty(userPassword)) {
+        if (StringUtil.isEmpty(username) || StringUtil.isEmpty(password)) {
             throw new IllegalStateException("ServiceProvider has not been initialized! "
                                           + "You may want to authentificate yourself first!");
         }
 
-        HttpClient client = createAuthentificatedHttpClient(userEmail, userPassword);
+        HttpClient client = createAuthentificatedHttpClient(username, password);
         return new ApacheHttpClient4Executor(client);
     }
 
-    public static boolean authentificate(String aEMail, String aPassword) {
-        HttpClient httpClient = createAuthentificatedHttpClient(aEMail, aPassword);
+    public void resetAuthentificationData() {
+        getInstance().setUsername(null);
+        getInstance().setPassword(null);
+    }
+
+    private void setUsername(String aUsername) {
+        username = aUsername;
+    }
+
+    private void setPassword(String aPassword) {
+        password = aPassword;
+    }
+
+    public static boolean authentificate(String aUsername, String aPassword) {
+        HttpClient httpClient = createAuthentificatedHttpClient(aUsername, aPassword);
         if (!isAuthentificatedClient(httpClient)) {
-            Log.e(WebServiceProvider.class.getSimpleName(), "Authentification for user '" + aEMail + "' failed.");
-            getInstance().userEmail = null;
-            getInstance().userPassword = null;
+            getInstance().resetAuthentificationData();
+            Log.e(WebServiceProvider.class.getSimpleName(), "Authentification for user '" + aUsername + "' failed.");
             return false;
         }
 
-        getInstance().userEmail = aEMail;
-        getInstance().userPassword = aPassword;
+        getInstance().setUsername(aUsername);
+        getInstance().setPassword(aPassword);
         return true;
     }
 
@@ -121,8 +131,8 @@ public final class WebServiceProvider implements ServiceProvider {
         }
     }
 
-    private static HttpClient createAuthentificatedHttpClient(String aEMail, String aPassword) {
-        return createAuthentificatedHttpClient(new UsernamePasswordCredentials(aEMail, aPassword));
+    private static HttpClient createAuthentificatedHttpClient(String aUsername, String aPassword) {
+        return createAuthentificatedHttpClient(new UsernamePasswordCredentials(aUsername, aPassword));
     }
 
     private static HttpClient createAuthentificatedHttpClient(UsernamePasswordCredentials aCredentials) {
