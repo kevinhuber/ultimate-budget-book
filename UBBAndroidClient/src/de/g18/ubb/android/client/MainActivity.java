@@ -112,6 +112,7 @@ public final class MainActivity extends Activity {
         public void onClick(View aView) {
             if (!login()) {
                 Toast.makeText(getApplicationContext(), "Login failed!", Toast.LENGTH_LONG).show();
+                return;
             }
 
             new TestServiceTask().execute();
