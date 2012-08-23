@@ -30,6 +30,7 @@ public interface UserService {
     boolean isAuthenticated();
 
     @POST
+    @Path("existsUserWithEMail")
     boolean existsUserWithEMail(String aEMail);
 
     @POST
