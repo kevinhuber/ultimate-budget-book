@@ -103,6 +103,7 @@ public final class MainActivity extends Activity {
         startActivityForResult(myIntent, 0);
     }
 
+    
     // -------------------------------------------------------------------------
     // Inner Classes
     // -------------------------------------------------------------------------

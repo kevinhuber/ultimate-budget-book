@@ -1,8 +1,12 @@
 package de.g18.ubb.common.service;
 
+import java.util.List;
+
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 
+import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 
@@ -21,4 +25,7 @@ public interface CategoryService {
 
     @PUT
     Category saveAndLoad(Category aEntity);
+    
+    @GET
+    List<Category> getAll(BudgetBook book);
 }
