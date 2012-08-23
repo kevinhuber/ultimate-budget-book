@@ -25,16 +25,11 @@ public class BudgetBookOverviewActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget_book_overview);
-<<<<<<< HEAD
         
         Button create = (Button) findViewById(R.id.newBudgetBook);
         create.setOnClickListener(new CreateNewBudgetBookButtonListener());
         
         fillBudgetBooksView();
-=======
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        fillBudgetBooksView();
->>>>>>> branch 'master' of https://sk9@github.com/kevinhuber/ultimate-budget-book.git
     }
 
     @Override
