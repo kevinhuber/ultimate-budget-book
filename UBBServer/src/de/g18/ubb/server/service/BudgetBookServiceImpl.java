@@ -6,7 +6,6 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.ws.rs.GET;
 
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.User;
@@ -36,11 +35,4 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
         b.setName(aName);
         return saveAndLoad(b);
     }
-
-	@Override
-	@GET
-	public List<BudgetBook> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

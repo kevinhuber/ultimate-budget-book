@@ -104,7 +104,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     }
 
     @SuppressWarnings("unchecked")
-    public List<_Entity> getAll(BudgetBook book) {
+    public final List<_Entity> getAll() {
         Query q = getHibernateSession()
             .createQuery("SELECT e FROM " + getEntityClass().getSimpleName() + " e ");
         return q.list();

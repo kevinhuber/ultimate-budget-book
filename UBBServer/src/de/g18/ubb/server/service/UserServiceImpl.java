@@ -79,12 +79,4 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
         String newPasswordHash = HashUtil.toMD5(aPassword, aUser.getSalt());
         aUser.setPasswordHash(newPasswordHash);
     }
-
-	@Override
-	@GET
-	public
-	List<User> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
