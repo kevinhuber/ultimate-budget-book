@@ -73,7 +73,7 @@ public class BudgetBookOverviewActivity extends Activity {
     private final class CreateNewBudgetBookButtonListener implements OnClickListener {
 
         public void onClick(View aView) {
-        	BudgetBookService service = ServiceRepository.getBudgetBookService();
+            BudgetBookService service = ServiceRepository.getBudgetBookService();
 
             log("Creating new BudgetBook...");
             service.createNew("BudgetBook #" + Math.random());

@@ -1,5 +1,8 @@
 package de.g18.ubb.android.client.communication;
 
+import java.lang.reflect.Proxy;
+import java.util.concurrent.ExecutionException;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.auth.AuthScope;
@@ -15,10 +18,12 @@ import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import de.g18.ubb.common.service.UserService;
 import de.g18.ubb.common.service.repository.ServiceProvider;
 import de.g18.ubb.common.service.repository.ServiceRepository;
+import de.g18.ubb.common.util.ObjectUtil;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
@@ -57,12 +62,21 @@ public final class WebServiceProvider implements ServiceProvider {
         instance = new WebServiceProvider();
     }
 
-
     private WebServiceProvider() {
     }
 
     public <_Service> _Service lookup(Class<_Service> aServiceClass) {
-        return ProxyFactory.create(aServiceClass, createServiceURL(aServiceClass), createClientExecutor());
+        _Service serviceProxy = ProxyFactory.create(aServiceClass,
+                                                    createServiceURL(aServiceClass),
+                                                    createClientExecutor());
+        return dispatchService(aServiceClass, serviceProxy);
+    }
+
+    @SuppressWarnings({"unchecked"})
+    private <_Service> _Service dispatchService(Class<_Service> aServiceClass, _Service aService) {
+        return (_Service) Proxy.newProxyInstance(aService.getClass().getClassLoader(),
+                                                 new Class[] {aServiceClass},
+                                                 new WebServiceDispatcher(aService));
     }
 
     private static String createServiceURL(Class<?> aServiceClass) {
@@ -82,18 +96,17 @@ public final class WebServiceProvider implements ServiceProvider {
     }
 
     private ClientExecutor createAuthentificatedClientExecutor() {
-        if (StringUtil.isEmpty(username) || StringUtil.isEmpty(password)) {
-            throw new IllegalStateException("ServiceProvider has not been initialized! "
-                                          + "You may want to authentificate yourself first!");
-        }
-
         HttpClient client = createAuthentificatedHttpClient(username, password);
         return new ApacheHttpClient4Executor(client);
     }
 
     public void resetAuthentificationData() {
-        getInstance().setUsername(null);
-        getInstance().setPassword(null);
+        setAuthentificationData(null, null);
+    }
+
+    public void setAuthentificationData(String aUsername, String aPassword) {
+        setUsername(aUsername);
+        setPassword(aPassword);
     }
 
     private void setUsername(String aUsername) {
@@ -105,42 +118,27 @@ public final class WebServiceProvider implements ServiceProvider {
     }
 
     public static boolean authentificate(String aUsername, String aPassword) {
-        HttpClient httpClient = createAuthentificatedHttpClient(aUsername, aPassword);
-        if (!isAuthentificatedClient(httpClient)) {
+        HttpClient client = createAuthentificatedHttpClient(aUsername, aPassword);
+        if (!isAuthentificatedClient(client)) {
             getInstance().resetAuthentificationData();
             Log.e(WebServiceProvider.class.getSimpleName(), "Authentification for user '" + aUsername + "' failed.");
             return false;
         }
 
-        getInstance().setUsername(aUsername);
-        getInstance().setPassword(aPassword);
+        getInstance().setAuthentificationData(aUsername, aPassword);
         return true;
     }
 
     private static boolean isAuthentificatedClient(HttpClient aClient) {
-        HttpGet testRequest = new HttpGet(BASE_URL + UserService.AUTHENTIFICATION_TEST_PATH);
-        int httpStatusCode;
+        AsyncTask<Void, Void, Boolean> dispatchedTask = new AsyncAuthentificationTest(aClient).execute();
         try {
-            HttpResponse response = aClient.execute(testRequest);
-            httpStatusCode = response.getStatusLine().getStatusCode();
-        } catch (Exception e) {
-            Log.e(WebServiceProvider.class.getSimpleName(),
-                  "Authentification failed due to unknown exception!", e);
-            return false;
+            return ObjectUtil.equals(dispatchedTask.get(), Boolean.TRUE);
+        } catch (InterruptedException e) {
+            Log.e(WebServiceProvider.class.getSimpleName(), "Login failed due to interruption!", e);
+        } catch (ExecutionException e) {
+            Log.e(WebServiceProvider.class.getSimpleName(), "Login failed due to unknown error!", e);
         }
-
-        switch (httpStatusCode) {
-            case HttpStatus.SC_OK:
-                return true;
-
-            case HttpStatus.SC_UNAUTHORIZED:
-                return false;
-
-            default:
-                Log.e(WebServiceProvider.class.getSimpleName(),
-                      "Authentification failed due to unknown status-code " + httpStatusCode + "!");
-                return false;
-        }
+        return false;
     }
 
     private static HttpClient createAuthentificatedHttpClient(String aUsername, String aPassword) {
@@ -159,5 +157,47 @@ public final class WebServiceProvider implements ServiceProvider {
         HttpConnectionParams.setConnectionTimeout(httpParams, connection_Timeout);
         HttpConnectionParams.setSoTimeout(httpParams, connection_Timeout);
         return new DefaultHttpClient(httpParams);
+    }
+
+
+    // -------------------------------------------------------------------------
+    // Inner Classes
+    // -------------------------------------------------------------------------
+
+    private static final class AsyncAuthentificationTest extends AsyncTask<Void, Void, Boolean> {
+
+        private final HttpClient clientToCheck;
+
+
+        public AsyncAuthentificationTest(HttpClient aClientToCheck) {
+            clientToCheck = aClientToCheck;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            HttpGet testRequest = new HttpGet(BASE_URL + UserService.AUTHENTIFICATION_TEST_PATH);
+            int httpStatusCode;
+            try {
+                HttpResponse response = clientToCheck.execute(testRequest);
+                httpStatusCode = response.getStatusLine().getStatusCode();
+            } catch (Exception e) {
+                Log.e(WebServiceProvider.class.getSimpleName(),
+                      "Authentification failed due to unknown exception!", e);
+                return false;
+            }
+
+            switch (httpStatusCode) {
+                case HttpStatus.SC_OK:
+                    return true;
+
+                case HttpStatus.SC_UNAUTHORIZED:
+                    return false;
+
+                default:
+                    Log.e(WebServiceProvider.class.getSimpleName(),
+                          "Authentification failed due to unknown status-code " + httpStatusCode + "!");
+                    return false;
+            }
+        }
     }
 }

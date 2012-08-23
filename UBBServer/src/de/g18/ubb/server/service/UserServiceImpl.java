@@ -48,11 +48,12 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
 			throw new NotFoundException(aEmail);
 		}
 
-		 Query q = getHibernateSession()
-		            .createQuery("SELECT u FROM " + getEntityClass().getSimpleName() + " u "
-		            			  + "WHERE u." + User.PROPERTY_EMAIL + "= :email")
-		            .setString("email", aEmail);
-		 return uniqueResult(q);
+        Query q = getHibernateSession()
+            .createQuery(
+                "SELECT u FROM " + getEntityClass().getSimpleName() + " u "
+              + " WHERE u." + User.PROPERTY_EMAIL + "= :email")
+            .setString("email", aEmail);
+        return uniqueResult(q);
 	}
 
     @Override
