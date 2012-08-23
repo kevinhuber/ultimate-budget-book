@@ -36,4 +36,8 @@
     <string name="title_activity_budget_book_create_new">Neues Haushaltsbuch anlegen</string>
 	<!-- categorie change -->
 	<string name="title_activity_category_change">MainActivity</string>
+	<string name="add_budget_book_user">weiteren Benutzer Hinzufügen</string>
+	<string name="save_new_budget_book">Speichern</string>
+	<string name="owner_budget_book">Benutzer</string>
+	<string name="new_name_for_budget_book">Name</string>
 </resources>
