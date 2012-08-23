@@ -11,6 +11,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.jboss.resteasy.client.ClientExecutor;
+import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 
@@ -61,12 +62,23 @@ public final class WebServiceProvider implements ServiceProvider {
     }
 
     public <_Service> _Service lookup(Class<_Service> aServiceClass) {
-        return ProxyFactory.create(aServiceClass, createServiceURL(aServiceClass), createAuthentificatedClientExecutor());
+        return ProxyFactory.create(aServiceClass, createServiceURL(aServiceClass), createClientExecutor());
     }
 
     private static String createServiceURL(Class<?> aServiceClass) {
         String serviceName = StringUtil.removeEnd(aServiceClass.getSimpleName(), "Remote");
         return BASE_URL + serviceName;
+    }
+
+    private ClientExecutor createClientExecutor() {
+        if (isUserAuthentificationDataSet()) {
+            return createAuthentificatedClientExecutor();
+        }
+        return ClientRequest.getDefaultExecutor();
+    }
+
+    private boolean isUserAuthentificationDataSet() {
+        return StringUtil.isNotEmpty(username) && StringUtil.isNotEmpty(password);
     }
 
     private ClientExecutor createAuthentificatedClientExecutor() {
