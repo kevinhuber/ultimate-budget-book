@@ -30,6 +30,9 @@ public interface UserService {
     boolean isAuthenticated();
 
     @POST
+    boolean existsUserWithEMail(String aEMail);
+
+    @POST
     @Path("register")
     boolean register(@HeaderParam("email") String aEMail,
                      @HeaderParam("username") String aUsername,

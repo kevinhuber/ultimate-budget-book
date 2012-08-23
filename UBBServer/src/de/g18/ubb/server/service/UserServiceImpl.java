@@ -29,7 +29,8 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
         return User.class;
     }
 
-    private boolean existsUserWithEMail(String aEMail) {
+    @Override
+    public boolean existsUserWithEMail(String aEMail) {
         try {
             loadByEMail(aEMail);
         } catch (NotFoundExcpetion e) {
