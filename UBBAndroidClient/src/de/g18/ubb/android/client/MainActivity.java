@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
@@ -22,16 +23,36 @@ public final class MainActivity extends Activity {
     }
 
 
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+
+    private CheckBox stayLoggedInCheckBox;
+    private Button loginButton;
+    private Button registerButton;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button login = (Button) findViewById(R.id.b_login);
-        login.setOnClickListener(new LoginButtonListener());
+        initComponents();
+        initEventHandling();
+    }
 
-        Button register = (Button) findViewById(R.id.b_loginregister);
-        register.setOnClickListener(new RegisternButtonListener());
+    private void initComponents() {
+        usernameEditText = (EditText) findViewById(R.id.e_loginname);
+        passwordEditText = (EditText) findViewById(R.id.e_loginpassword);
+
+        stayLoggedInCheckBox = (CheckBox) findViewById(R.id.checkbox_stayLoggedIn);
+
+        loginButton = (Button) findViewById(R.id.b_login);
+        registerButton = (Button) findViewById(R.id.b_loginregister);
+    }
+
+    private void initEventHandling() {
+        loginButton.setOnClickListener(new LoginButtonListener());
+        registerButton.setOnClickListener(new RegisternButtonListener());
     }
 
     @Override
@@ -57,14 +78,12 @@ public final class MainActivity extends Activity {
         return true;
     }
 
-    private boolean login() {
-    	EditText usernameTextField = (EditText) findViewById(R.id.e_loginname);
-    	String username = usernameTextField.getText().toString();
+    private String getEMail() {
+        return usernameEditText.getText().toString();
+    }
 
-    	EditText passwordTextField = (EditText) findViewById(R.id.e_loginpassword);
-    	String password = passwordTextField.getText().toString();
-
-        return WebServiceProvider.authentificate(username, password);
+    private String getPassword() {
+        return passwordEditText.getText().toString();
     }
 
     private void switchToBudgetBookOverview() {
@@ -90,6 +109,10 @@ public final class MainActivity extends Activity {
                 return;
             }
             switchToBudgetBookOverview();
+        }
+
+        private boolean login() {
+            return WebServiceProvider.authentificate(getEMail(), getPassword());
         }
     }
 

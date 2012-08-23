@@ -1,7 +1,6 @@
 <resources>
 
     <string name="app_name">Ultimate Budget Book</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Einstellungen</string>
     <string name="title_activity_main">Ultimate Budget Book</string>
 
@@ -17,7 +16,7 @@
     <string name="t_anzeigename">Name</string>
     <string name="t_email">E-Mail</string>
     <string name="t_password1">Passwort</string>
-    <string name="t_password2">Bestätigung</string>
+    <string name="t_password2">Wiederholen</string>
     <string name="b_register">Registrieren</string>
     <string name="title_activity_budget_book_overview">Meine Haushaltsbücher</string>
     <string name="b_newBudgetBook">Neues Haushaltsbuch</string>
@@ -40,4 +39,5 @@
 	<string name="save_new_budget_book">Speichern</string>
 	<string name="owner_budget_book">Benutzer</string>
 	<string name="new_name_for_budget_book">Name</string>
+	<string name="stayLoggedIn">Angemeldet bleiben</string>
 </resources>

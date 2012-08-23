@@ -1,104 +1,129 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/TableLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/t_ueberschrift"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/t_ueberschrift"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/e_anzeigename"
-        android:layout_width="113dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/t_ueberschrift"
-        android:layout_marginRight="46dp"
-        android:layout_marginTop="31dp"
-        android:ems="10"
-        android:inputType="text" />
-
-    <TextView
-        android:id="@+id/t_anzeigename"
+
+    <TableRow
+        android:id="@+id/tableRow1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/e_anzeigename"
-        android:layout_alignBottom="@+id/e_anzeigename"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="32dp"
-        android:text="@string/t_anzeigename" />
+        android:layout_marginBottom="15pt"
+        android:layout_marginTop="10pt"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/t_ueberschrift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/t_ueberschrift"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/t_email"
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/t_anzeigename"
-        android:layout_below="@+id/e_anzeigename"
-        android:layout_marginTop="42dp"
-        android:text="@string/t_email" />
+        android:layout_marginLeft="@dimen/default_boarder"
+        android:layout_marginRight="@dimen/default_boarder" >
+
+        <TextView
+            android:id="@+id/t_anzeigename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/t_anzeigename" />
+
+        <EditText
+            android:id="@+id/e_anzeigename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" >
 
-    <EditText
-        android:id="@+id/e_email"
+            <requestFocus />
+
+        </EditText>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/e_anzeigename"
-        android:layout_alignTop="@+id/t_email"
-        android:ems="10"
-        android:inputType="textEmailAddress" >
+        android:layout_marginLeft="@dimen/default_boarder"
+        android:layout_marginRight="@dimen/default_boarder" >
+
+        <TextView
+            android:id="@+id/t_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/t_email" />
 
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/t_password1"
+        <EditText
+            android:id="@+id/e_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/t_email"
-        android:layout_below="@+id/e_email"
-        android:layout_marginTop="35dp"
-        android:text="@string/t_password1" />
+        android:layout_marginLeft="@dimen/default_boarder"
+        android:layout_marginRight="@dimen/default_boarder" >
+
+        <TextView
+            android:id="@+id/t_password1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/t_password1" />
 
-    <EditText
-        android:id="@+id/e_password1"
+        <EditText
+            android:id="@+id/e_password1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" >
+        </EditText>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/e_email"
-        android:layout_alignTop="@+id/t_password1"
-        android:ems="10"
-        android:inputType="textPassword" />
+        android:layout_marginLeft="@dimen/default_boarder"
+        android:layout_marginRight="@dimen/default_boarder" >
+
+        <TextView
+            android:id="@+id/t_password2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/t_password2" />
 
-    <TextView
-        android:id="@+id/t_password2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/t_password1"
-        android:layout_below="@+id/e_password1"
-        android:layout_marginTop="33dp"
-        android:text="@string/t_password2" />
-
-    <EditText
-        android:id="@+id/e_password2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/t_password2"
-        android:layout_alignBottom="@+id/t_password2"
-        android:layout_alignLeft="@+id/e_password1"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:inputType="textPassword" />
-
+        <EditText
+            android:id="@+id/e_password2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+    </TableRow>
+
     <Button
         android:id="@+id/b_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/e_password2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp"
+        android:layout_marginLeft="@dimen/default_boarder"
+        android:layout_marginRight="@dimen/default_boarder"
+        android:layout_marginTop="10pt"
         android:text="@string/b_register" />
 
-</RelativeLayout>
+</TableLayout>

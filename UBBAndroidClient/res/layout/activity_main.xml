@@ -1,50 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <EditText
-        android:id="@+id/e_loginname"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/default_boarder"
+    android:paddingRight="@dimen/default_boarder"
+    android:paddingTop="@dimen/default_boarder"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="106dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/e_loginname" />
-
-    <EditText
-        android:id="@+id/e_loginpassword"
-        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15pt"
+        android:layout_marginTop="10pt"
+        android:text="@string/b_login"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:id="@+id/components"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/e_loginname"
-        android:layout_below="@+id/e_loginname"
-        android:layout_marginTop="42dp"
-        android:ems="10"
-        android:inputType="textPassword" 
-        android:text="@string/e_loginpassword">
+        android:orientation="vertical" >
 
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/e_loginname"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/e_loginname" >
+            
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/e_loginpassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2pt"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:text="@string/e_loginpassword" />
 
-    <Button
-        android:id="@+id/b_login"
-        android:layout_width="wrap_content"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/e_loginpassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp"
-        android:text="@string/b_login" 
-        android:onClick="login"/>
+        android:layout_marginTop="10pt"
+        android:orientation="vertical" >
+
+        <CheckBox
+            android:id="@+id/checkbox_stayLoggedIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stayLoggedIn" />
 
-    <Button
-        android:id="@+id/b_loginregister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/b_login"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:text="@string/b_loginregister" />
+        <Button
+            android:id="@+id/b_login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="login"
+            android:text="@string/b_login" />
+
+        <Button
+            android:id="@+id/b_loginregister"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@string/b_loginregister" />
 
-</RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
