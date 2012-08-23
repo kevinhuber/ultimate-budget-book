@@ -43,6 +43,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.CategoryOverviewActivity" />
         </activity>
+        <activity
+            android:name=".CategoryChangeActivity"
+            android:label="@string/title_activity_category_change" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.g18.ubb.android.client.CategoryOverviewActivity" />
+        </activity>
     </application>
 
 </manifest>

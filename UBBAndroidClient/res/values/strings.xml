@@ -29,9 +29,11 @@
     <string name="b_category_create">Kategorie anlegen</string>
     <string name="b_category_change">Kategorie ändern</string>
     <string name="title_activity_categorie_create">MainActivity</string>
-    
+
     <!-- categorie create -->
     <string name="e_categorie_create">Name der Kategorie</string>
     <string name="b_categorie_create">Kategorie anlegen</string>
-
+    <string name="title_activity_category_change">MainActivity</string>
+    
+    <!-- categorie change -->
 </resources>

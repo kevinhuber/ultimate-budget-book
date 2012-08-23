@@ -1,9 +1,14 @@
 package de.g18.ubb.server.service;
 
+import java.util.List;
+
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
+import org.hibernate.Query;
+
+import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.remote.CategoryServiceRemote;
 import de.g18.ubb.server.service.local.CategoryServiceLocal;
@@ -20,5 +25,15 @@ public class CategoryServiceImpl extends AbstractPersistanceBean<Category> imple
     @Override
     protected Class<Category> getEntityClass() {
         return Category.class;
+    }
+    
+    @SuppressWarnings("unchecked")
+	@Override
+    public List<Category> getAll(BudgetBook book) {
+    	
+    	Query q = getHibernateSession()
+                .createQuery("SELECT e FROM " + getEntityClass().getSimpleName() + " e Where budgetBook=:book")
+                .setEntity("book", book);
+         return q.list();
     }
 }

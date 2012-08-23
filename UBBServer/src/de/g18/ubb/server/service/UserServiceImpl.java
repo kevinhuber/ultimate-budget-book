@@ -1,8 +1,11 @@
 package de.g18.ubb.server.service;
 
+import java.util.List;
+
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.ws.rs.GET;
 
 import org.apache.shiro.SecurityUtils;
 import org.hibernate.Query;
@@ -75,4 +78,12 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
         String newPasswordHash = HashUtil.toMD5(aPassword, aUser.getSalt());
         aUser.setPasswordHash(newPasswordHash);
     }
+
+	@Override
+	@GET
+	public
+	List<User> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
