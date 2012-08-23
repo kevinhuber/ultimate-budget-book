@@ -1,13 +1,8 @@
 package de.g18.ubb.android.client;
 
-import java.text.MessageFormat;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
-import de.g18.ubb.common.domain.BudgetBook;
-import de.g18.ubb.common.service.BudgetBookService;
-import de.g18.ubb.common.service.repository.ServiceRepository;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
@@ -75,24 +67,6 @@ public final class MainActivity extends Activity {
         return WebServiceProvider.authentificate(username, password);
     }
 
-    private void executeTestCase() {
-        BudgetBookService service = ServiceRepository.getBudgetBookService();
-
-        log("Creating new BudgetBook...");
-        service.createNew("BudgetBook #" + Math.random());
-
-        log("Listing all saved BudgetBooks...");
-        List<BudgetBook> books = service.getAll();
-        for (BudgetBook book : books) {
-            log("-> {0}", book);
-        }
-    }
-
-    private void log(String aMessage, Object... aMessageParams) {
-        String formattedMessage = MessageFormat.format(aMessage, aMessageParams);
-        Log.w(getClass().getSimpleName(), formattedMessage);
-    }
-
     private void switchToBudgetBookOverview() {
         Intent myIntent = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
         startActivityForResult(myIntent, 0);
@@ -103,7 +77,7 @@ public final class MainActivity extends Activity {
         startActivityForResult(myIntent, 0);
     }
 
-    
+
     // -------------------------------------------------------------------------
     // Inner Classes
     // -------------------------------------------------------------------------
@@ -115,8 +89,6 @@ public final class MainActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Login failed!", Toast.LENGTH_LONG).show();
                 return;
             }
-
-            new TestServiceTask().execute();
             switchToBudgetBookOverview();
         }
     }
@@ -125,15 +97,6 @@ public final class MainActivity extends Activity {
 
         public void onClick(View aView) {
             startActivity(new Intent(getBaseContext(), RegisterActivity.class));
-        }
-    }
-
-    private final class TestServiceTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            executeTestCase();
-            return null;
         }
     }
 }

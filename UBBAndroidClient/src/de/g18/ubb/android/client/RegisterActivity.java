@@ -1,9 +1,5 @@
 package de.g18.ubb.android.client;
 
-import de.g18.ubb.android.client.communication.WebServiceProvider;
-import de.g18.ubb.common.service.repository.ServiceRepository;
-import de.g18.ubb.common.util.ObjectUtil;
-import de.g18.ubb.common.util.StringUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -17,6 +13,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import de.g18.ubb.android.client.communication.WebServiceProvider;
+import de.g18.ubb.common.service.repository.ServiceRepository;
+import de.g18.ubb.common.util.ObjectUtil;
+import de.g18.ubb.common.util.StringUtil;
 
 public class RegisterActivity extends Activity {
 
@@ -25,7 +25,7 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 //        getActionBar().setDisplayHomeAsUpEnabled(true);
-        
+
         Button register = (Button) findViewById(R.id.b_register);
         register.setOnClickListener(new RegisterButtonListener());
     }
@@ -36,7 +36,6 @@ public class RegisterActivity extends Activity {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -46,7 +45,7 @@ public class RegisterActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     // -------------------------------------------------------------------------
     // Inner Classes
     // -------------------------------------------------------------------------
@@ -56,16 +55,16 @@ public class RegisterActivity extends Activity {
         public void onClick(View aView) {
         	EditText e_anzeigename = (EditText) findViewById(R.id.e_anzeigename);
         	String aUsername = e_anzeigename.getText().toString();
-        	
+
         	EditText e_email = (EditText) findViewById(R.id.e_email);
         	String aEMail = e_email.getText().toString();
-        	
+
         	EditText e_password1 = (EditText) findViewById(R.id.e_password1);
         	String password1 = e_password1.getText().toString();
-        	
+
         	EditText e_password2 = (EditText) findViewById(R.id.e_password2);
         	String password2 = e_password2.getText().toString();
-        	
+
         	TestServiceTask t = new TestServiceTask(aUsername, aEMail, password1, password2);
         	AsyncTask<Void, Void, String> dispachedTask = t.execute();
         	try {
@@ -77,19 +76,19 @@ public class RegisterActivity extends Activity {
 			}
         }
     }
-    
+
 
     // -------------------------------------------------------------------------
     // Inner Classes
     // -------------------------------------------------------------------------
 
     private final class TestServiceTask extends AsyncTask<Void, Void, String> {
-    	
+
     	private final String username;
     	private final String eMail;
     	private final String password;
     	private final String passwordCheck;
-    	
+
 
     	public TestServiceTask(String aUsername, String aEMail, String aPassword, String aPasswordCheck) {
     		username = aUsername;
@@ -97,15 +96,15 @@ public class RegisterActivity extends Activity {
     		password = aPassword;
     		passwordCheck = aPasswordCheck;
     	}
-    	
+
         @Override
         protected String doInBackground(Void... params) {
-        	if (checkNotEmpty(username) && (checkNotEmpty(eMail))) {
+        	if (checkNotEmpty(username) && checkNotEmpty(eMail)) {
         		if (!ServiceRepository.getUserService().existsUserWithEMail(eMail)) {
         			if (checkPw(password, passwordCheck)) {
         				ServiceRepository.getUserService().register(eMail, username, password);
         				WebServiceProvider.authentificate(username, password);
-        				
+
         				Intent i = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
         				startActivity(i);
         				return "Registration erfolgreich!!!";
@@ -118,11 +117,11 @@ public class RegisterActivity extends Activity {
         	}
         	return "Wie konnte das den passieren, du PENIS?";
         }
-        
+
         private boolean checkPw(String pw1, String pw2){
         	return ObjectUtil.equals(pw1, pw2);
         }
-        
+
         private boolean checkNotEmpty(String input){
         	return !StringUtil.isEmpty(input);
         }
