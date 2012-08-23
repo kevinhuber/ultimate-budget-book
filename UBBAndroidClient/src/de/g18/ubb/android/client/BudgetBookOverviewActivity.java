@@ -19,7 +19,7 @@ public class BudgetBookOverviewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget_book_overview);
 //        getActionBar().setDisplayHomeAsUpEnabled(true);
-        fillBudgetBooksView();
+//        fillBudgetBooksView();
     }
 
     @Override
