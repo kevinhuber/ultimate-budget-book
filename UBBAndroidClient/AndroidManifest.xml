@@ -37,6 +37,13 @@
                 android:value="de.g18.ubb.android.client.MainActivity" />
         </activity>
         <activity
+            android:name=".BudgetBookCreateNewActivity"
+            android:label="@string/title_activity_budget_book_create_new" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.g18.ubb.android.client.MainActivity" />
+        </activity>
+        <activity
             android:name=".CategorieCreateActivity"
             android:label="@string/title_activity_categorie_create" >
             <meta-data

@@ -33,5 +33,6 @@
     <!-- categorie create -->
     <string name="e_categorie_create">Name der Kategorie</string>
     <string name="b_categorie_create">Kategorie anlegen</string>
+    <string name="title_activity_budget_book_create_new">Neues Haushaltsbuch anlegen</string>
 
 </resources>
