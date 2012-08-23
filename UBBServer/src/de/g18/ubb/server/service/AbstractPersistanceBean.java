@@ -15,6 +15,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import de.g18.ubb.common.domain.Auditable;
+import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Identifiable;
 import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
@@ -103,7 +104,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     }
 
     @SuppressWarnings("unchecked")
-    public final List<_Entity> getAll() {
+    public List<_Entity> getAll(BudgetBook book) {
         Query q = getHibernateSession()
             .createQuery("SELECT e FROM " + getEntityClass().getSimpleName() + " e ");
         return q.list();

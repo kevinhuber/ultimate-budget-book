@@ -66,7 +66,6 @@ public class BudgetBookOverviewActivity extends Activity {
         startActivityForResult(myIntent, 0);
     }
     
-    
     // -------------------------------------------------------------------------
     // Inner Classes
     // -------------------------------------------------------------------------
