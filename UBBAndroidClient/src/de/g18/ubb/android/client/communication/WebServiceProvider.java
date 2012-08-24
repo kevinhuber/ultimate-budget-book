@@ -92,11 +92,11 @@ public final class WebServiceProvider implements ServiceProvider {
     }
 
     private boolean isUserAuthentificationDataSet() {
-        return StringUtil.isNotEmpty(username) && StringUtil.isNotEmpty(password);
+        return StringUtil.isNotEmpty(getUsername()) && StringUtil.isNotEmpty(getPassword());
     }
 
     private ClientExecutor createAuthentificatedClientExecutor() {
-        HttpClient client = createAuthentificatedHttpClient(username, password);
+        HttpClient client = createAuthentificatedHttpClient(getUsername(), getPassword());
         return new ApacheHttpClient4Executor(client);
     }
 
@@ -112,11 +112,19 @@ public final class WebServiceProvider implements ServiceProvider {
     private void setUsername(String aUsername) {
         username = aUsername;
     }
+    
+    public static String getUsername() {
+    	return getInstance().username;
+    }
 
     private void setPassword(String aPassword) {
         password = aPassword;
     }
-
+    
+    private String getPassword() {
+    	return password;
+    }
+    
     public static boolean authentificate(String aUsername, String aPassword) {
         HttpClient client = createAuthentificatedHttpClient(aUsername, aPassword);
         if (!isAuthentificatedClient(client)) {

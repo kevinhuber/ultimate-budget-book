@@ -21,7 +21,7 @@ public interface BudgetBookService {
     public static final String RESTFUL_SERVICE_NAME = "BudgetBookService";
 
     @POST
-    BudgetBook createNew(String aName);
+    BudgetBook createNew(String aName, List<String> aUserNameList);
 
     @GET
     List<BudgetBook> getAll(); // TODO (huber): ENTFERNEN!!!!

@@ -37,14 +37,14 @@
         android:inputType="textEmailAddress" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/b_add_budgetbook_owner"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_budget_book_user" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/b_save_budgetbook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save_new_budget_book" />

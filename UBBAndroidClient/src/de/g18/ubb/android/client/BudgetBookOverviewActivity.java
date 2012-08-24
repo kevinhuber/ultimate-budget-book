@@ -14,13 +14,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
 public class BudgetBookOverviewActivity extends Activity {
-
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,8 @@ public class BudgetBookOverviewActivity extends Activity {
         
         fillBudgetBooksView();
     }
+    
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,7 +67,7 @@ public class BudgetBookOverviewActivity extends Activity {
 
     private void switchToBudgetBookCreateNew() {
         Intent myIntent = new Intent(getApplicationContext(), BudgetBookCreateNewActivity.class);
-        startActivityForResult(myIntent, 0);
+        startActivity(myIntent);
     }
     
     // -------------------------------------------------------------------------
@@ -73,11 +77,7 @@ public class BudgetBookOverviewActivity extends Activity {
     private final class CreateNewBudgetBookButtonListener implements OnClickListener {
 
         public void onClick(View aView) {
-            BudgetBookService service = ServiceRepository.getBudgetBookService();
-
-            log("Creating new BudgetBook...");
-            service.createNew("BudgetBook #" + Math.random());
-            
+                        
             switchToBudgetBookCreateNew();
         }
     }
