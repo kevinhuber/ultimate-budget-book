@@ -58,7 +58,8 @@
             android:id="@+id/checkbox_stayLoggedIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/stayLoggedIn" />
+            android:text="@string/stayLoggedIn" 
+            android:checked="true"/>
 
         <Button
             android:id="@+id/b_login"
