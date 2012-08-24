@@ -1,12 +1,9 @@
 package de.g18.ubb.android.client;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.Preference;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.utils.Preferences;
+import de.g18.ubb.common.service.exception.NotFoundExcpetion;
+import de.g18.ubb.common.service.repository.ServiceRepository;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
@@ -34,13 +33,15 @@ public final class MainActivity extends Activity {
     private CheckBox stayLoggedInCheckBox;
     private Button loginButton;
     private Button registerButton;
-    private Preferences p;
+    private Preferences preferences;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferences = new Preferences(getSharedPreferences("userdetails", MODE_PRIVATE));
 
         initComponents();
         initEventHandling();
@@ -54,15 +55,9 @@ public final class MainActivity extends Activity {
 
         loginButton = (Button) findViewById(R.id.b_login);
         registerButton = (Button) findViewById(R.id.b_loginregister);
-        
-        
-//        SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
-//        usernameEditText.setText(userDetails.getString("username", "E-Mail"));
-//        passwordEditText.setText(userDetails.getString("password", "Passwort"));
-        
-        p = new Preferences(getSharedPreferences("userdetails", MODE_PRIVATE));
-        usernameEditText.setText(p.getUserNamePreferences());
-        passwordEditText.setText(p.getPasswordPreferences());
+
+        usernameEditText.setText(preferences.getUserNamePreferences());
+        passwordEditText.setText(preferences.getPasswordPreferences());
     }
 
     private void initEventHandling() {
@@ -123,17 +118,16 @@ public final class MainActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Login failed!", Toast.LENGTH_LONG).show();
                 return;
             }
-            if (saveLogin() == true) {
-				/*speicher Login für keine erneute eingabe*/
-//            	SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
-//            	Editor edit = userDetails.edit();
-//            	edit.clear();
-//            	edit.putString("username", usernameEditText.getText().toString().trim());
-//            	edit.putString("password", passwordEditText.getText().toString().trim());
-//            	edit.commit();
-            	
-            	p.savePreferences(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+
+            if (saveLogin()) {
+			    // speicher Login für keine erneute eingabe
+            	preferences.savePreferences(usernameEditText.getText().toString(), passwordEditText.getText().toString());
 			}
+            try {
+                ServiceRepository.getBookingService().loadById(1000L);
+            } catch (NotFoundExcpetion e) {
+                Log.e(MainActivity.class.getSimpleName(), "NFE has been caught!", e);
+            }
             switchToBudgetBookOverview();
         }
 
@@ -152,5 +146,4 @@ public final class MainActivity extends Activity {
             startActivity(new Intent(getBaseContext(), RegisterActivity.class));
         }
     }
-    
 }
