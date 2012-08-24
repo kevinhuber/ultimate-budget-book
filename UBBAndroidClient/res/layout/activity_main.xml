@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/default_boarder"
     android:paddingTop="@dimen/default_boarder"
     tools:context=".MainActivity" >
-
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
         android:layout_marginTop="10pt"
         android:text="@string/b_login"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <LinearLayout
         android:id="@+id/components"
         android:layout_width="fill_parent"
@@ -35,7 +35,7 @@
             
             <requestFocus />
         </EditText>
-
+
         <EditText
             android:id="@+id/e_loginpassword"
             android:layout_width="fill_parent"
@@ -46,14 +46,14 @@
             android:text="@string/e_loginpassword" />
 
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10pt"
         android:orientation="vertical" >
-
+
         <CheckBox
             android:id="@+id/checkbox_stayLoggedIn"
             android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:onClick="login"
             android:text="@string/b_login" />
-
+
         <Button
             android:id="@+id/b_loginregister"
             android:layout_width="fill_parent"
