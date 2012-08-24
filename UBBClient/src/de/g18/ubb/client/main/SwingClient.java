@@ -16,6 +16,8 @@ import javax.swing.JTextArea;
 import de.g18.ubb.client.communication.JNDIServiceProvider;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.BudgetBookService;
+import de.g18.ubb.common.service.exception.NotFoundExcpetion;
+import de.g18.ubb.common.service.exception.UserWithGivenEmailNotFound;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
 
@@ -57,7 +59,7 @@ public class SwingClient extends JFrame {
         pack();
     }
 
-    private void doSomething() {
+    private void doSomething() throws UserWithGivenEmailNotFound, NotFoundExcpetion {
         BudgetBookService service = ServiceRepository.getBudgetBookService();
 
         log("Creating new BudgetBook...");

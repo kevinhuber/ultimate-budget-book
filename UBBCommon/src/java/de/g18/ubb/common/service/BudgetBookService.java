@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
+import de.g18.ubb.common.service.exception.UserWithGivenEmailNotFound;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
@@ -21,7 +22,7 @@ public interface BudgetBookService {
     public static final String RESTFUL_SERVICE_NAME = "BudgetBookService";
 
     @POST
-    BudgetBook createNew(String aName, List<String> aUserNameList);
+    BudgetBook createNew(String aName, List<String> aUserNameList) throws UserWithGivenEmailNotFound, NotFoundExcpetion;
 
     @GET
     List<BudgetBook> getAll(); // TODO (huber): ENTFERNEN!!!!
