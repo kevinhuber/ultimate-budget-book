@@ -27,7 +27,7 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
     }
 
     @Override
-    public BudgetBook createNew(String aName) {
+    public BudgetBook createNew(String aName, List<String> aUserNameList) {
         BudgetBook b = new BudgetBook();
         List<User> assignedUsers = new ArrayList<User>();
         assignedUsers.add(getCurrentUser());

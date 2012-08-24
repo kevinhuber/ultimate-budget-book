@@ -61,7 +61,7 @@ public class SwingClient extends JFrame {
         BudgetBookService service = ServiceRepository.getBudgetBookService();
 
         log("Creating new BudgetBook...");
-        service.createNew("BudgetBook #" + Math.random());
+        service.createNew("BudgetBook #" + Math.random(), null);
 
         log("Listing all saved BudgetBooks...");
         List<BudgetBook> books = service.getAll();
