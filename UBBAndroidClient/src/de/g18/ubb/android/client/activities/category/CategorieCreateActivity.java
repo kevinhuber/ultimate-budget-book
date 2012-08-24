@@ -1,5 +1,8 @@
-package de.g18.ubb.android.client;
+package de.g18.ubb.android.client.activities.category;
 
+import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.R.layout;
+import de.g18.ubb.android.client.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;

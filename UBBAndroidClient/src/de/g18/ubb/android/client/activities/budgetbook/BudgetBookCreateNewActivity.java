@@ -1,10 +1,13 @@
-package de.g18.ubb.android.client;
+package de.g18.ubb.android.client.activities.budgetbook;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.resteasy.spi.NotFoundException;
 
+import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.R.id;
+import de.g18.ubb.android.client.R.layout;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;

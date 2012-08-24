@@ -1,4 +1,4 @@
-package de.g18.ubb.android.client;
+package de.g18.ubb.android.client.activities.register;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,12 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.R.id;
+import de.g18.ubb.android.client.R.layout;
+import de.g18.ubb.android.client.R.menu;
 import de.g18.ubb.android.client.action.AbstractWaitAction;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.utils.Preferences;
 import de.g18.ubb.common.service.repository.ServiceRepository;
