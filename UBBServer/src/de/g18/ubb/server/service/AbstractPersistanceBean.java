@@ -15,7 +15,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import de.g18.ubb.common.domain.Auditable;
-import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Identifiable;
 import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
@@ -68,13 +67,12 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     }
 
     protected final User getCurrentUser() {
-//        try {
-        // TODO (huber): CurrentUser über login-email laden!
-            SecurityUtils.getSubject().getPrincipal();
-			return null;
-//		} catch (NotFoundExcpetion e) {
-//			throw new IllegalStateException("There is no user with sessionid " + getHttpRequest().getSession().getId());
-//		}
+        try {
+            String userEmail = (String) SecurityUtils.getSubject().getPrincipal();
+			return userService.loadByEMail(userEmail);
+		} catch (NotFoundExcpetion e) {
+			throw new IllegalStateException("Session is not authentificated! (EMail: " + SecurityUtils.getSubject().getPrincipal() + ")");
+		}
     }
 
     public final _Entity loadById(Long aId) throws NotFoundExcpetion {

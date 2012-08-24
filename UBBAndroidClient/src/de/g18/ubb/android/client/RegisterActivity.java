@@ -2,10 +2,8 @@ package de.g18.ubb.android.client;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,65 +63,36 @@ public class RegisterActivity extends Activity {
         	EditText e_password2 = (EditText) findViewById(R.id.e_password2);
         	String password2 = e_password2.getText().toString();
 
-        	TestServiceTask t = new TestServiceTask(aUsername, aEMail, password1, password2);
-        	AsyncTask<Void, Void, String> dispachedTask = t.execute();
-        	try {
-				String result = dispachedTask.get();
-				Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-			} catch (Exception e) {
-				Toast.makeText(getApplicationContext(), "Fehler: Registrierung konnte nicht abgeschlossen werden!", Toast.LENGTH_LONG).show();
-				Log.e(getClass().getSimpleName(), "Error while registering user!", e);
-			}
+        	String result = register(aUsername, aEMail, password1, password2);
+        	Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
-    }
 
+        private String register(String aUsername, String aEMail, String aPassword, String aPasswordCheck) {
+            if (checkNotEmpty(aUsername) && checkNotEmpty(aEMail)) {
+                if (!ServiceRepository.getUserService().existsUserWithEMail(aEMail)) {
+                    if (checkPw(aPassword, aPasswordCheck)) {
+                        ServiceRepository.getUserService().register(aEMail, aUsername, aPassword);
+                        WebServiceProvider.authentificate(aEMail, aPassword);
 
-    // -------------------------------------------------------------------------
-    // Inner Classes
-    // -------------------------------------------------------------------------
-
-    private final class TestServiceTask extends AsyncTask<Void, Void, String> {
-
-    	private final String username;
-    	private final String eMail;
-    	private final String password;
-    	private final String passwordCheck;
-
-
-    	public TestServiceTask(String aUsername, String aEMail, String aPassword, String aPasswordCheck) {
-    		username = aUsername;
-    		eMail = aEMail;
-    		password = aPassword;
-    		passwordCheck = aPasswordCheck;
-    	}
-
-        @Override
-        protected String doInBackground(Void... params) {
-        	if (checkNotEmpty(username) && checkNotEmpty(eMail)) {
-        		if (!ServiceRepository.getUserService().existsUserWithEMail(eMail)) {
-        			if (checkPw(password, passwordCheck)) {
-        				ServiceRepository.getUserService().register(eMail, username, password);
-        				WebServiceProvider.authentificate(username, password);
-
-        				Intent i = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
-        				startActivity(i);
-        				return "Registration erfolgreich!!!";
-        			} else {
-        				return "Passwörter stimmen nicht überein!";
-        			}
-				} else {
-    				return "EMail wird bereits verwendet!";
-				}
-        	}
-        	return "Wie konnte das den passieren, du PENIS?";
+                        Intent i = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
+                        startActivity(i);
+                        return "Registration erfolgreich!!!";
+                    } else {
+                        return "Passwörter stimmen nicht überein!";
+                    }
+                } else {
+                    return "EMail wird bereits verwendet!";
+                }
+            }
+            return "Wie konnte das den passieren, du PENIS?";
         }
 
         private boolean checkPw(String pw1, String pw2){
-        	return ObjectUtil.equals(pw1, pw2);
+            return ObjectUtil.equals(pw1, pw2);
         }
 
         private boolean checkNotEmpty(String input){
-        	return !StringUtil.isEmpty(input);
+            return !StringUtil.isEmpty(input);
         }
     }
 }
