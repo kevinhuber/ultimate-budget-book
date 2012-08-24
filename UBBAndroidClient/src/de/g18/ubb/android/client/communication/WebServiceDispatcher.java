@@ -1,5 +1,6 @@
 package de.g18.ubb.android.client.communication;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.ExecutionException;
@@ -10,9 +11,10 @@ import android.util.Log;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class WebServiceDispatcher implements java.lang.reflect.InvocationHandler {
+public final class WebServiceDispatcher implements InvocationHandler {
 
     private final Object service;
+
 
     public WebServiceDispatcher(Object aService) {
         service = aService;
