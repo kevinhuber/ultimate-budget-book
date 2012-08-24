@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
+import de.g18.ubb.android.client.utils.Preferences;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
@@ -32,6 +34,7 @@ public final class MainActivity extends Activity {
     private CheckBox stayLoggedInCheckBox;
     private Button loginButton;
     private Button registerButton;
+    private Preferences p;
 
 
     @Override
@@ -52,9 +55,14 @@ public final class MainActivity extends Activity {
         loginButton = (Button) findViewById(R.id.b_login);
         registerButton = (Button) findViewById(R.id.b_loginregister);
         
-        SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
-        usernameEditText.setText(userDetails.getString("username", "E-Mail"));
-       	passwordEditText.setText(userDetails.getString("password", "Passwort"));
+        
+//        SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
+//        usernameEditText.setText(userDetails.getString("username", "E-Mail"));
+//        passwordEditText.setText(userDetails.getString("password", "Passwort"));
+        
+        p = new Preferences(getSharedPreferences("userdetails", MODE_PRIVATE));
+        usernameEditText.setText(p.getUserNamePreferences());
+        passwordEditText.setText(p.getPasswordPreferences());
     }
 
     private void initEventHandling() {
@@ -117,12 +125,14 @@ public final class MainActivity extends Activity {
             }
             if (saveLogin() == true) {
 				/*speicher Login für keine erneute eingabe*/
-            	SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
-            	Editor edit = userDetails.edit();
-            	edit.clear();
-            	edit.putString("username", usernameEditText.getText().toString().trim());
-            	edit.putString("password", passwordEditText.getText().toString().trim());
-            	edit.commit();
+//            	SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
+//            	Editor edit = userDetails.edit();
+//            	edit.clear();
+//            	edit.putString("username", usernameEditText.getText().toString().trim());
+//            	edit.putString("password", passwordEditText.getText().toString().trim());
+//            	edit.commit();
+            	
+            	p.savePreferences(usernameEditText.getText().toString(), passwordEditText.getText().toString());
 			}
             switchToBudgetBookOverview();
         }
