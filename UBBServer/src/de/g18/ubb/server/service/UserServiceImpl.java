@@ -1,11 +1,8 @@
 package de.g18.ubb.server.service;
 
-import java.util.List;
-
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.ws.rs.GET;
 
 import org.apache.shiro.SecurityUtils;
 import org.hibernate.Query;
