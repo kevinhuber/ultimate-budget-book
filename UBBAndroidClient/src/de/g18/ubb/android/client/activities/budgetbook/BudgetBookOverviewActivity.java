@@ -10,27 +10,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.R.id;
-import de.g18.ubb.android.client.R.layout;
-import de.g18.ubb.android.client.R.menu;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
 public class BudgetBookOverviewActivity extends Activity {
+
+    private Button createButton;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget_book_overview);
 
-        Button create = (Button) findViewById(R.id.newBudgetBook);
-        create.setOnClickListener(new CreateNewBudgetBookButtonListener());
+        initComponents();
+        initEventHandling();
 
+        // TODO (huber): In AsyncTask auslagern
         fillBudgetBooksView();
+    }
+
+    private void initComponents() {
+        createButton = (Button) findViewById(R.id.newBudgetBook);
+    }
+
+    private void initEventHandling() {
+        createButton.setOnClickListener(new CreateNewBudgetBookButtonListener());
     }
 
     @Override
@@ -51,8 +59,7 @@ public class BudgetBookOverviewActivity extends Activity {
 
     private void fillBudgetBooksView() {
         List<BudgetBook> books = ServiceRepository.getBudgetBookService().getAll();
-        ArrayAdapter<BudgetBook> adapter = new ArrayAdapter<BudgetBook>(this, android.R.layout.simple_list_item_1,
-                                                                        books);
+        BudgetBookAdapter adapter = new BudgetBookAdapter(this, books);
 
         ListView budgetBooksListView = (ListView) findViewById(R.id.budgetBooks);
         budgetBooksListView.setAdapter(adapter);
