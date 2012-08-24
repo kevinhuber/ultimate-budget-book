@@ -51,7 +51,7 @@
                 android:value="de.g18.ubb.android.client.CategoryOverviewActivity" />
         </activity>
         <activity
-            android:name=".activities.category.CategoryChangeActivitytegoryChangeActivity"
+            android:name=".activities.category.CategoryChangeActivity"
             android:label="@string/title_activity_category_change" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
