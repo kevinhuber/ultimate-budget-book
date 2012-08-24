@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
+import de.g18.ubb.android.client.utils.Preferences;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.ObjectUtil;
 import de.g18.ubb.common.util.StringUtil;
@@ -74,6 +75,9 @@ public class RegisterActivity extends Activity {
                         ServiceRepository.getUserService().register(aEMail, aUsername, aPassword);
                         WebServiceProvider.authentificate(aEMail, aPassword);
 
+                        Preferences p = new Preferences(getSharedPreferences("userdetails", MODE_PRIVATE));
+                        p.savePreferences(aEMail, aPassword);
+                        
                         Intent i = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
                         startActivity(i);
                         return "Registration erfolgreich!!!";
