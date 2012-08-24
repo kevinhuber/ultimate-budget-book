@@ -7,10 +7,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.Spinner;
 import android.widget.Toast;
+import de.g18.ubb.android.client.BuildConfig;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitAction;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
@@ -37,6 +44,9 @@ public final class MainActivity extends Activity {
     private Button registerButton;
     private Preferences preferences;
 
+    // DEBUG COMPONENTS (MAY BE NULL)
+    private Spinner debug_serverAddressSpinner;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +57,10 @@ public final class MainActivity extends Activity {
 
         initComponents();
         initEventHandling();
+
+        if (BuildConfig.DEBUG) {
+            addDebugComponents();
+        }
     }
 
     private void initComponents() {
@@ -65,6 +79,30 @@ public final class MainActivity extends Activity {
     private void initEventHandling() {
         loginButton.setOnClickListener(new LoginButtonListener());
         registerButton.setOnClickListener(new RegisternButtonListener());
+    }
+
+    private void addDebugComponents() {
+        debug_serverAddressSpinner = new Spinner(this);
+        debug_serverAddressSpinner.setLayoutParams(
+                new LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                                                                WebServiceProvider.SERVER_ADDRESSES);
+        debug_serverAddressSpinner.setAdapter(adapter);
+
+        debug_serverAddressSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                WebServiceProvider.changeServerAddress((String) arg0.getSelectedItem());
+            }
+
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        LinearLayout buttonContainer = (LinearLayout) findViewById(R.MainLayout.buttonContainer);
+        buttonContainer.addView(debug_serverAddressSpinner);
     }
 
     @Override

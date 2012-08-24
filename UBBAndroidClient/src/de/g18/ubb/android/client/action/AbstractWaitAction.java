@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.View.OnClickListener;
+import de.g18.ubb.android.client.utils.AsyncTaskUtils;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
@@ -25,7 +26,7 @@ public abstract class AbstractWaitAction implements OnClickListener {
     public final void onClick(View aView) {
         dialog = ProgressDialog.show(context, "Bitte warten...", detailMessage, true, false);
         preExecute();
-        new ActionExecutor().execute();
+        AsyncTaskUtils.dispatchExecution(new ActionExecutor());
     }
 
     /**

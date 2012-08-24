@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import de.g18.ubb.android.client.utils.AsyncTaskUtils;
 import de.g18.ubb.common.service.exception.ServiceException;
 
 /**
@@ -22,9 +23,9 @@ public final class WebServiceDispatcher implements InvocationHandler {
     }
 
     public Object invoke(Object aProxy, Method aMethod, Object[] aArgs) throws Throwable {
-        AsyncTask<Void, Void, Object> dispatchedInvoker = new DispatchedMethodTask(aMethod, aArgs).execute();
+        AsyncTask<Void, Void, Object> task = AsyncTaskUtils.dispatchExecution(new DispatchedMethodTask(aMethod, aArgs));
         try {
-            return dispatchedInvoker.get();
+            return task.get();
         } catch (InterruptedException e) {
             Log.e(getClass().getSimpleName(), "Async Service Call was interrupted!", e);
             throw new IllegalStateException("Async Service Call was interrupted!", e);

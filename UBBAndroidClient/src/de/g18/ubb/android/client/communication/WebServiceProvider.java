@@ -31,12 +31,15 @@ import de.g18.ubb.common.util.StringUtil;
  */
 public final class WebServiceProvider implements ServiceProvider {
 
-    public static final String SERVER_ADDRESS = "10.0.2.2:8080";
     public static final String CONTEXT = "UBBServer";
-    public static final String BASE_URL = "http://" + SERVER_ADDRESS + "/" + CONTEXT + "/";
+
+    public static final String[] SERVER_ADDRESSES = new String[] {"10.0.2.2:8080",        // AVM Loop-Back
+                                                                  "192.168.1.42:8080",    // Kevin (Home)
+                                                                 };
 
     private static WebServiceProvider instance;
 
+    private String serverAddress;
     private String username;
     private String password;
 
@@ -63,6 +66,7 @@ public final class WebServiceProvider implements ServiceProvider {
     }
 
     private WebServiceProvider() {
+        serverAddress = SERVER_ADDRESSES[0];
     }
 
     public <_Service> _Service lookup(Class<_Service> aServiceClass) {
@@ -81,7 +85,11 @@ public final class WebServiceProvider implements ServiceProvider {
 
     private static String createServiceURL(Class<?> aServiceClass) {
         String serviceName = StringUtil.removeEnd(aServiceClass.getSimpleName(), "Remote");
-        return BASE_URL + serviceName;
+        return getBaseURL() + serviceName;
+    }
+
+    public static String getBaseURL() {
+        return "http://" + getInstance().getServerAddress() + "/" + CONTEXT + "/";
     }
 
     private ClientExecutor createClientExecutor() {
@@ -112,7 +120,7 @@ public final class WebServiceProvider implements ServiceProvider {
     private void setUsername(String aUsername) {
         username = aUsername;
     }
-    
+
     public static String getUsername() {
     	return getInstance().username;
     }
@@ -120,11 +128,19 @@ public final class WebServiceProvider implements ServiceProvider {
     private void setPassword(String aPassword) {
         password = aPassword;
     }
-    
+
     private String getPassword() {
     	return password;
     }
-    
+
+    private String getServerAddress() {
+        return serverAddress;
+    }
+
+    public static void changeServerAddress(String aNewServerAddress) {
+        getInstance().serverAddress = aNewServerAddress;
+    }
+
     public static boolean authentificate(String aUsername, String aPassword) {
         HttpClient client = createAuthentificatedHttpClient(aUsername, aPassword);
         if (!isAuthentificatedClient(client)) {
@@ -183,7 +199,7 @@ public final class WebServiceProvider implements ServiceProvider {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            HttpGet testRequest = new HttpGet(BASE_URL + UserService.AUTHENTIFICATION_TEST_PATH);
+            HttpGet testRequest = new HttpGet(getBaseURL() + UserService.AUTHENTIFICATION_TEST_PATH);
             int httpStatusCode;
             try {
                 HttpResponse response = clientToCheck.execute(testRequest);
