@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+import de.g18.ubb.android.client.action.AbstractWaitAction;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.utils.Preferences;
 
@@ -108,19 +109,18 @@ public final class MainActivity extends Activity {
     // Inner Classes
     // -------------------------------------------------------------------------
 
-    private final class LoginButtonListener implements OnClickListener {
+    private final class LoginButtonListener extends AbstractWaitAction {
 
-        public void onClick(View aView) {
-            if (!login()) {
-                Toast.makeText(getApplicationContext(), "Login failed!", Toast.LENGTH_LONG).show();
-                return;
-            }
+        private boolean loginSuccessfull;
 
-            if (saveLogin()) {
-			    // speicher Login für keine erneute eingabe
-            	preferences.savePreferences(usernameEditText.getText().toString(), passwordEditText.getText().toString());
-			}
-            switchToBudgetBookOverview();
+
+        public LoginButtonListener() {
+            super(MainActivity.this, "Anmeldung läuft...");
+        }
+
+        @Override
+        protected void execute() {
+            loginSuccessfull = login();
         }
 
         private boolean login() {
@@ -129,6 +129,20 @@ public final class MainActivity extends Activity {
 
         private boolean saveLogin(){
         	return stayLoggedInCheckBox.isChecked();
+        }
+
+        @Override
+        protected void postExecute() {
+            if (!loginSuccessfull) {
+                Toast.makeText(getApplicationContext(), "Login fehlgeschlagen!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if (saveLogin()) {
+                // speicher Login für keine erneute eingabe
+                preferences.savePreferences(getEMail(), getPassword());
+            }
+            switchToBudgetBookOverview();
         }
     }
 
