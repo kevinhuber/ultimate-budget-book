@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import de.g18.ubb.android.client.action.AbstractWaitAction;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.utils.Preferences;
 import de.g18.ubb.common.service.repository.ServiceRepository;
@@ -45,27 +44,43 @@ public class RegisterActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+
     // -------------------------------------------------------------------------
     // Inner Classes
     // -------------------------------------------------------------------------
 
-    private final class RegisterButtonListener implements OnClickListener {
+    private final class RegisterButtonListener extends AbstractWaitAction {
 
-        public void onClick(View aView) {
-        	EditText e_anzeigename = (EditText) findViewById(R.id.e_anzeigename);
-        	String aUsername = e_anzeigename.getText().toString();
+        private String username;
+        private String eMail;
+        private String password;
+        private String passwordCheck;
 
-        	EditText e_email = (EditText) findViewById(R.id.e_email);
-        	String aEMail = e_email.getText().toString();
+        private String result;
 
-        	EditText e_password1 = (EditText) findViewById(R.id.e_password1);
-        	String password1 = e_password1.getText().toString();
 
-        	EditText e_password2 = (EditText) findViewById(R.id.e_password2);
-        	String password2 = e_password2.getText().toString();
+        public RegisterButtonListener() {
+            super(RegisterActivity.this, "Registrierung wird abgeschlossen...");
+        }
 
-        	String result = register(aUsername, aEMail, password1, password2);
-        	Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+        @Override
+        protected void preExecute() {
+            EditText e_anzeigename = (EditText) findViewById(R.id.e_anzeigename);
+            username = e_anzeigename.getText().toString();
+
+            EditText e_email = (EditText) findViewById(R.id.e_email);
+            eMail = e_email.getText().toString();
+
+            EditText e_password1 = (EditText) findViewById(R.id.e_password1);
+            password = e_password1.getText().toString();
+
+            EditText e_password2 = (EditText) findViewById(R.id.e_password2);
+            passwordCheck = e_password2.getText().toString();
+        }
+
+        @Override
+        protected void execute() {
+        	result = register(username, eMail, password, passwordCheck);
         }
 
         private String register(String aUsername, String aEMail, String aPassword, String aPasswordCheck) {
@@ -77,7 +92,7 @@ public class RegisterActivity extends Activity {
 
                         Preferences p = new Preferences(getSharedPreferences("userdetails", MODE_PRIVATE));
                         p.savePreferences(aEMail, aPassword);
-                        
+
                         Intent i = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
                         startActivity(i);
                         return "Registration erfolgreich!!!";
@@ -97,6 +112,11 @@ public class RegisterActivity extends Activity {
 
         private boolean checkNotEmpty(String input){
             return !StringUtil.isEmpty(input);
+        }
+
+        @Override
+        protected void postExecute() {
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
     }
 }

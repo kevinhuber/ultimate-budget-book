@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="wrap_content"
@@ -12,7 +12,7 @@
         android:layout_marginBottom="15pt"
         android:layout_marginTop="10pt"
         android:gravity="center" >
-
+
         <TextView
             android:id="@+id/t_ueberschrift"
             android:layout_width="wrap_content"
@@ -22,21 +22,21 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </TableRow>
-
+
     <TableRow
         android:id="@+id/tableRow2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_boarder"
         android:layout_marginRight="@dimen/default_boarder" >
-
+
         <TextView
             android:id="@+id/t_anzeigename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/t_anzeigename" />
-
+
         <EditText
             android:id="@+id/e_anzeigename"
             android:layout_width="wrap_content"
@@ -49,14 +49,14 @@
         </EditText>
 
     </TableRow>
-
+
     <TableRow
         android:id="@+id/tableRow3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_boarder"
         android:layout_marginRight="@dimen/default_boarder" >
-
+
         <TextView
             android:id="@+id/t_email"
             android:layout_width="wrap_content"
@@ -71,14 +71,14 @@
             android:ems="10"
             android:inputType="textEmailAddress" />
     </TableRow>
-
+
     <TableRow
         android:id="@+id/tableRow4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_boarder"
         android:layout_marginRight="@dimen/default_boarder" >
-
+
         <TextView
             android:id="@+id/t_password1"
             android:layout_width="wrap_content"
@@ -94,14 +94,14 @@
             android:inputType="textPassword" >
         </EditText>
     </TableRow>
-
+
     <TableRow
         android:id="@+id/tableRow5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_boarder"
         android:layout_marginRight="@dimen/default_boarder" >
-
+
         <TextView
             android:id="@+id/t_password2"
             android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
             android:ems="10"
             android:inputType="textPassword" />
     </TableRow>
-
+
     <Button
         android:id="@+id/b_register"
         android:layout_width="wrap_content"
