@@ -33,8 +33,6 @@ public class BudgetBookOverviewActivity extends Activity {
         
         fillBudgetBooksView();
     }
-    
-    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,10 +57,6 @@ public class BudgetBookOverviewActivity extends Activity {
 
         ListView budgetBooksListView = (ListView) findViewById(R.id.budgetBooks);
         budgetBooksListView.setAdapter(adapter);
-    }
-    private void log(String aMessage, Object... aMessageParams) {
-        String formattedMessage = MessageFormat.format(aMessage, aMessageParams);
-        Log.w(getClass().getSimpleName(), formattedMessage);
     }
 
     private void switchToBudgetBookCreateNew() {

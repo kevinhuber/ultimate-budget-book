@@ -19,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,8 +80,7 @@ public class BudgetBookCreateNewActivity extends Activity {
 
 		public void onClick(View aView) {
 			try {
-				LinearLayout layout = (LinearLayout) findViewById(R.id.BudgetBookCreateNewLayout);
-
+				LinearLayout layout = (LinearLayout) findViewById(R.id.userEditTexts);
 				EditText temp = new EditText(BudgetBookCreateNewActivity.this);
 				temp.setLayoutParams(new LayoutParams(
 						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
@@ -89,7 +89,7 @@ public class BudgetBookCreateNewActivity extends Activity {
 
 				layout.addView(temp);
 			} catch (Exception e) {
-				Log.d(TAG, "Failed to create new EditText");
+				Log.d(TAG, "Failed to create new EditText" + e);
 			}
 		}
 	}

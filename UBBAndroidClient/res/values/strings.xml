@@ -32,7 +32,7 @@
     <!-- categorie create -->
     <string name="e_categorie_create">Name der Kategorie</string>
     <string name="b_categorie_create">Kategorie anlegen</string>
-    <string name="title_activity_budget_book_create_new">Neues Haushaltsbuch anlegen</string>
+    <string name="title_activity_budget_book_create_new">Neues Haushaltsbuch</string>
 	<!-- categorie change -->
 	<string name="title_activity_category_change">MainActivity</string>
 	<string name="add_budget_book_user">weiteren Benutzer Hinzufügen</string>
