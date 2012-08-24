@@ -3,7 +3,6 @@ package de.g18.ubb.android.client;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.utils.Preferences;
-import de.g18.ubb.common.service.exception.NotFoundExcpetion;
-import de.g18.ubb.common.service.repository.ServiceRepository;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
@@ -123,11 +120,6 @@ public final class MainActivity extends Activity {
 			    // speicher Login für keine erneute eingabe
             	preferences.savePreferences(usernameEditText.getText().toString(), passwordEditText.getText().toString());
 			}
-            try {
-                ServiceRepository.getBookingService().loadById(1000L);
-            } catch (NotFoundExcpetion e) {
-                Log.e(MainActivity.class.getSimpleName(), "NFE has been caught!", e);
-            }
             switchToBudgetBookOverview();
         }
 
