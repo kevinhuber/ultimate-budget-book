@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout1"
+    android:id="@+MainLayout/contentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,9 +8,9 @@
     android:paddingRight="@dimen/default_boarder"
     android:paddingTop="@dimen/default_boarder"
     tools:context=".MainActivity" >
-
+
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+MainLayout/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -18,15 +18,15 @@
         android:layout_marginTop="10pt"
         android:text="@string/b_login"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <LinearLayout
-        android:id="@+id/components"
+        android:id="@+MainLayout/editTextContainer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/e_loginname"
+            android:id="@+MainLayout/email"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -35,9 +35,9 @@
             
             <requestFocus />
         </EditText>
-
+
         <EditText
-            android:id="@+id/e_loginpassword"
+            android:id="@+MainLayout/password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2pt"
@@ -46,30 +46,30 @@
             android:text="@string/e_loginpassword" />
 
     </LinearLayout>
-
+
     <LinearLayout
-        android:id="@+id/buttons"
+        android:id="@+MainLayout/buttonContainer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10pt"
         android:orientation="vertical" >
-
+
         <CheckBox
-            android:id="@+id/checkbox_stayLoggedIn"
+            android:id="@+MainLayout/stayLoggedIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/stayLoggedIn" 
-            android:checked="true"/>
+            android:checked="true"
+            android:text="@string/stayLoggedIn" />
 
         <Button
-            android:id="@+id/b_login"
+            android:id="@+MainLayout/login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="login"
             android:text="@string/b_login" />
-
+
         <Button
-            android:id="@+id/b_loginregister"
+            android:id="@+MainLayout/register"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

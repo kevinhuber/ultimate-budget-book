@@ -10,9 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.R.id;
-import de.g18.ubb.android.client.R.layout;
-import de.g18.ubb.android.client.R.menu;
 import de.g18.ubb.android.client.action.AbstractWaitAction;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
@@ -29,7 +26,7 @@ public class RegisterActivity extends Activity {
         setContentView(R.layout.activity_register);
 //        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button register = (Button) findViewById(R.id.b_register);
+        Button register = (Button) findViewById(R.RegisterLayout.register);
         register.setOnClickListener(new RegisterButtonListener());
     }
 
@@ -70,16 +67,16 @@ public class RegisterActivity extends Activity {
 
         @Override
         protected void preExecute() {
-            EditText e_anzeigename = (EditText) findViewById(R.id.e_anzeigename);
+            EditText e_anzeigename = (EditText) findViewById(R.RegisterLayout.name);
             username = e_anzeigename.getText().toString();
 
-            EditText e_email = (EditText) findViewById(R.id.e_email);
+            EditText e_email = (EditText) findViewById(R.RegisterLayout.email);
             eMail = e_email.getText().toString();
 
-            EditText e_password1 = (EditText) findViewById(R.id.e_password1);
+            EditText e_password1 = (EditText) findViewById(R.RegisterLayout.password);
             password = e_password1.getText().toString();
 
-            EditText e_password2 = (EditText) findViewById(R.id.e_password2);
+            EditText e_password2 = (EditText) findViewById(R.RegisterLayout.passwordCheck);
             passwordCheck = e_password2.getText().toString();
         }
 

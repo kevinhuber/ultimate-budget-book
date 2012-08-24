@@ -12,9 +12,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.R.id;
-import de.g18.ubb.android.client.R.layout;
-import de.g18.ubb.android.client.R.menu;
 import de.g18.ubb.android.client.action.AbstractWaitAction;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
@@ -53,13 +50,13 @@ public final class MainActivity extends Activity {
     }
 
     private void initComponents() {
-        usernameEditText = (EditText) findViewById(R.id.e_loginname);
-        passwordEditText = (EditText) findViewById(R.id.e_loginpassword);
+        usernameEditText = (EditText) findViewById(R.MainLayout.email);
+        passwordEditText = (EditText) findViewById(R.MainLayout.password);
 
-        stayLoggedInCheckBox = (CheckBox) findViewById(R.id.checkbox_stayLoggedIn);
+        stayLoggedInCheckBox = (CheckBox) findViewById(R.MainLayout.stayLoggedIn);
 
-        loginButton = (Button) findViewById(R.id.b_login);
-        registerButton = (Button) findViewById(R.id.b_loginregister);
+        loginButton = (Button) findViewById(R.MainLayout.login);
+        registerButton = (Button) findViewById(R.MainLayout.register);
 
         usernameEditText.setText(preferences.getUserNamePreferences());
         passwordEditText.setText(preferences.getPasswordPreferences());
