@@ -1,52 +1,100 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/BudgetBookCreateNewLayout"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/labelBudgetBookName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_name_for_budget_book"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/budgetBookName"
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/BudgetBookCreateNewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" >
+        android:layout_marginLeft="@dimen/default_boarder"
+        android:layout_marginRight="@dimen/default_boarder" >
 
-        <requestFocus />
-    </EditText>
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15pt"
+            android:layout_marginTop="10pt"
+            android:gravity="center_horizontal" >
 
-    <TextView
-        android:id="@+id/labelBudgetBookOwnerName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/owner_budget_book"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_budget_book_create_new"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </TableRow>
 
-    <EditText
-        android:id="@+id/budgetBookOwnerName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-    <Button
-        android:id="@+id/b_add_budgetbook_owner"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_budget_book_user" />
+            <TextView
+                android:id="@+id/labelBudgetBookName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/new_name_for_budget_book"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/b_save_budgetbook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save_new_budget_book" />
+            <EditText
+                android:id="@+id/budgetBookName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" >
 
-</LinearLayout>
+                <requestFocus />
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/userTableRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_boarder" >
+
+            <TextView
+                android:id="@+id/labelBudgetBookOwnerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_boarder"
+                android:layout_weight="1"
+                android:text="@string/owner_budget_book"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <LinearLayout
+                android:id="@+id/userEditTexts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/budgetBookOwnerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textEmailAddress" />
+            </LinearLayout>
+        </TableRow>
+
+        <Button
+            android:id="@+id/b_add_budgetbook_owner"
+            style="android:buttonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10pt"
+            android:text="@string/add_budget_book_user" />
+
+        <Button
+            android:id="@+id/b_save_budgetbook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_new_budget_book" />
+    </TableLayout>
+
+</ScrollView>
