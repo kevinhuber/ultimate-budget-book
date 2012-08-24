@@ -4,9 +4,9 @@
     android:layout_height="match_parent" >
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/lv_categories"
         android:layout_width="match_parent"
-        android:layout_height="300dp" >
+        android:layout_height="300dp">
 
     </ListView>
 
