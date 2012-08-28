@@ -19,12 +19,12 @@ public final class User extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	public static final String PROPERTY_NAME = "name";
-	public static final String PROPERTY_EMAIL = "email";
-	public static final String PROPERTY_PASSWORD = "password";
+	public static final String PROPERTY_EMAIL = "eMail";
+	public static final String PROPERTY_PASSWORD_HASH = "passwordHash";
 	public static final String PROPERTY_SALT = "salt";
 
 	private String name;
-	private String email;
+	private String eMail;
 	private String passwordHash;
 	private byte[] salt;
 
@@ -43,21 +43,21 @@ public final class User extends AbstractEntity {
 		return name;
 	}
 
-	public void setEmail(String aNewValue) {
-	    String oldValue = getEmail();
-		email = aNewValue;
-		fireChange(PROPERTY_EMAIL, oldValue, getEmail());
+	public void setEMail(String aNewValue) {
+	    String oldValue = getEMail();
+		eMail = aNewValue;
+		fireChange(PROPERTY_EMAIL, oldValue, getEMail());
 	}
 
 	@Column(length = 32, nullable = false)
-	public String getEmail() {
-		return email;
+	public String getEMail() {
+		return eMail;
 	}
 
 	public void setPasswordHash(String aNewValue) {
 	    String oldValue = getPasswordHash();
 		passwordHash = aNewValue;
-		fireChange(PROPERTY_PASSWORD, oldValue, getPasswordHash());
+		fireChange(PROPERTY_PASSWORD_HASH, oldValue, getPasswordHash());
 	}
 
 	@Column(length = 32)
@@ -86,8 +86,8 @@ public final class User extends AbstractEntity {
 	@Override
 	public int hashCode() {
 	    int hashCode = super.hashCode();
-	    if (getEmail() != null) {
-	        hashCode ^= getEmail().hashCode();
+	    if (getEMail() != null) {
+	        hashCode ^= getEMail().hashCode();
 	    }
 	    return hashCode;
 	}
@@ -99,15 +99,15 @@ public final class User extends AbstractEntity {
 		}
 		User other = (User) aObject;
 		return super.equals(other)
-		        && ObjectUtil.equals(getEmail(), other.getEmail());
+		        && ObjectUtil.equals(getEMail(), other.getEMail());
 	}
 
 	@Override
 	public String toString() {
 	    return getClass().getSimpleName() + "[id=" + getId()
 	                                      + ",name=" + StringUtil.toString(getName())
-                                          + ",email=" + StringUtil.toString(getEmail())
-                                          + ",password=" + StringUtil.toString(getPasswordHash())
+                                          + ",email=" + StringUtil.toString(getEMail())
+                                          + ",passwordHash=" + StringUtil.toString(getPasswordHash())
                                           + ",salt=" + StringUtil.toString(getSalt()) + "]";
 	}
 }
