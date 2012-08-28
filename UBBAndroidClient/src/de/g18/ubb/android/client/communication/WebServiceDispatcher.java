@@ -33,7 +33,13 @@ public final class WebServiceDispatcher implements InvocationHandler {
             if (e.getCause() instanceof DelegatingServiceException) {
                 throw e.getCause();
             }
-            Log.e(getClass().getSimpleName(), "Async Service Call failed!", e);
+            if (e.getCause() instanceof RuntimeException) {
+                Log.e(getClass().getSimpleName(), "Async Service Call failed! "
+                                                + "Exception: " + e.getCause().getLocalizedMessage(), e);
+                throw (RuntimeException) e.getCause();
+            }
+            Log.e(getClass().getSimpleName(), "Async Service Call failed!"
+                                            + "Exception: " + e.getLocalizedMessage(), e);
             throw new IllegalStateException("Async Service Call failed!", e);
         }
     }
@@ -59,8 +65,13 @@ public final class WebServiceDispatcher implements InvocationHandler {
             try {
                 return methodToInvoke.invoke(service, invocationArgs);
             } catch (InvocationTargetException e) {
-                if (e != null && e.getTargetException() instanceof ServiceException) {
-                    throw new DelegatingServiceException((ServiceException) e.getTargetException());
+                if (e != null) {
+                    if (e.getTargetException() instanceof ServiceException) {
+                        throw new DelegatingServiceException((ServiceException) e.getTargetException());
+                    }
+                    if (e.getTargetException() instanceof RuntimeException) {
+                        throw (RuntimeException) e.getTargetException();
+                    }
                 }
                 throw new IllegalStateException("Service has throwed a Exception!", e.getTargetException());
             } catch (Exception e) {

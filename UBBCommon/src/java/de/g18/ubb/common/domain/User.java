@@ -20,7 +20,7 @@ public final class User extends AbstractEntity {
 
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_EMAIL = "email";
-	public static final String PROPERTY_PASSWORD = "password";
+	public static final String PROPERTY_PASSWORD_HASH = "passwordHash";
 	public static final String PROPERTY_SALT = "salt";
 
 	private String name;
@@ -57,7 +57,7 @@ public final class User extends AbstractEntity {
 	public void setPasswordHash(String aNewValue) {
 	    String oldValue = getPasswordHash();
 		passwordHash = aNewValue;
-		fireChange(PROPERTY_PASSWORD, oldValue, getPasswordHash());
+		fireChange(PROPERTY_PASSWORD_HASH, oldValue, getPasswordHash());
 	}
 
 	@Column(length = 32)
@@ -107,7 +107,7 @@ public final class User extends AbstractEntity {
 	    return getClass().getSimpleName() + "[id=" + getId()
 	                                      + ",name=" + StringUtil.toString(getName())
                                           + ",email=" + StringUtil.toString(getEmail())
-                                          + ",password=" + StringUtil.toString(getPasswordHash())
+                                          + ",passwordHash=" + StringUtil.toString(getPasswordHash())
                                           + ",salt=" + StringUtil.toString(getSalt()) + "]";
 	}
 }

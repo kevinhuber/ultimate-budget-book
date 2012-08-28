@@ -62,6 +62,42 @@ public class StringUtilTest {
     }
 
     @Test
+    public void testEndsWithIgnoreCase() {
+        String testString = "TestString";
+
+        Assert.assertTrue(StringUtil.endsWithIgnoreCase(testString, "StrIng"));
+        Assert.assertFalse(StringUtil.endsWithIgnoreCase(testString, "StrIngs"));
+        Assert.assertTrue(StringUtil.endsWithIgnoreCase(testString, ""));
+        Assert.assertFalse(StringUtil.endsWithIgnoreCase(testString, null));
+        Assert.assertFalse(StringUtil.endsWithIgnoreCase(null, "StrIngs"));
+        Assert.assertFalse(StringUtil.endsWithIgnoreCase("", "StrIngs"));
+    }
+
+    @Test
+    public void testStartsNotWith() {
+        String testString = "TestString";
+
+        Assert.assertFalse(StringUtil.startsNotWith(testString, "Test"));
+        Assert.assertTrue(StringUtil.startsNotWith(testString, "Tests"));
+        Assert.assertFalse(StringUtil.startsNotWith(testString, ""));
+        Assert.assertTrue(StringUtil.startsNotWith(testString, null));
+        Assert.assertTrue(StringUtil.startsNotWith(null, "Tests"));
+        Assert.assertTrue(StringUtil.startsNotWith("", "Tests"));
+    }
+
+    @Test
+    public void testStartsWith() {
+        String testString = "TestString";
+
+        Assert.assertTrue(StringUtil.startsWith(testString, "Test"));
+        Assert.assertFalse(StringUtil.startsWith(testString, "Tests"));
+        Assert.assertTrue(StringUtil.startsWith(testString, ""));
+        Assert.assertFalse(StringUtil.startsWith(testString, null));
+        Assert.assertFalse(StringUtil.startsWith(null, "Tests"));
+        Assert.assertFalse(StringUtil.startsWith("", "Tests"));
+    }
+
+    @Test
     public void testSubStringBefore() {
         String testString = "TestString";
         String firstSubString = "Test";
