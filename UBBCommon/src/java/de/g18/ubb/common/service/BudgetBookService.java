@@ -27,7 +27,4 @@ public interface BudgetBookService {
 
     @GET
     List<BudgetBook> getAll(); // TODO (huber): ENTFERNEN!!!!
-
-    @POST
-    BudgetBook loadById(Long aId) throws NotFoundExcpetion;
 }
