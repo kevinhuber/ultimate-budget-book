@@ -1,15 +1,19 @@
 package de.g18.ubb.android.client.preferences;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.util.StringUtil;
 
 public class Preferences {
 
 	private final SharedPreferences sp;
 
-	public Preferences(SharedPreferences sp) {
-		this.sp = sp;
+	public Preferences(Activity aActivity) {
+		sp = aActivity.getSharedPreferences(UBBConstants.PREFERENCES_FILENAME,
+		                                    Context.MODE_PRIVATE);
 	}
 
 	public void clearLoginData() {
@@ -41,9 +45,8 @@ public class Preferences {
     // Helper
     // -------------------------------------------------------------------------
 
-	protected final void putString(PreferenceKey aKey, String aValue) {
+	protected final void putString(final PreferenceKey aKey, final String aValue) {
         Editor edit = sp.edit();
-        edit.clear();
         edit.putString(aKey.getKey(), StringUtil.isEmpty(aValue) ? null : aValue);
         edit.commit();
 	}
