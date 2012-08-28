@@ -1,7 +1,5 @@
 package de.g18.ubb.android.client.activities.register;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -11,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitAction;
+import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.utils.Preferences;
@@ -18,15 +17,25 @@ import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.ObjectUtil;
 import de.g18.ubb.common.util.StringUtil;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends AbstractActivity {
+
+    private Button register;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button register = (Button) findViewById(R.RegisterLayout.register);
+        initComponents();
+        initEventHandling();
+    }
+
+    private void initComponents() {
+        register = (Button) findViewById(R.RegisterLayout.register);
+    }
+
+    private void initEventHandling() {
         register.setOnClickListener(new RegisterButtonListener());
     }
 
@@ -95,8 +104,7 @@ public class RegisterActivity extends Activity {
                         Preferences p = new Preferences(getSharedPreferences("userdetails", MODE_PRIVATE));
                         p.saveLoginData(aEMail, aPassword);
 
-                        Intent i = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
-                        startActivity(i);
+                        switchActivity(BudgetBookOverviewActivity.class);
                         return "Registration erfolgreich!!!";
                     } else {
                         return "Passwörter stimmen nicht überein!";
