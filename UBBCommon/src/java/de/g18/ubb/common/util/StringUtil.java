@@ -55,6 +55,30 @@ public final class StringUtil {
         return aString.endsWith(aEnd);
     }
 
+    public static boolean endsWithIgnoreCase(String aString, String aEnd) {
+        if (aString == null || aEnd == null) {
+            return false;
+        }
+        return endsWith(aString.toLowerCase(), aEnd.toLowerCase());
+    }
+
+    /**
+     * @see #startsWith(String, String)
+     */
+    public static boolean startsNotWith(String aString, String aEnd) {
+        return !startsWith(aString, aEnd);
+    }
+
+    /**
+     * Null-Safe Aufruf der Methode {@link String#startsWith(String)}
+     */
+    public static boolean startsWith(String aString, String aEnd) {
+        if (aString == null || aEnd == null) {
+            return false;
+        }
+        return aString.startsWith(aEnd);
+    }
+
     // TODO (huber): Add docs
     public static String subStringBefore(String aString, String aDelimiter) {
         if (isEmpty(aString) || isEmpty(aDelimiter) ) {
