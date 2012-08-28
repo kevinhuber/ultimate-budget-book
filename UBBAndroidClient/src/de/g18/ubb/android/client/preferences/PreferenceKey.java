@@ -1,4 +1,6 @@
-package de.g18.ubb.android.client.utils;
+package de.g18.ubb.android.client.preferences;
+
+import de.g18.ubb.android.client.utils.UBBConstants;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>

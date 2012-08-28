@@ -2,7 +2,7 @@ package de.g18.ubb.android.client.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import de.g18.ubb.android.client.utils.Preferences;
+import de.g18.ubb.android.client.preferences.Preferences;
 import de.g18.ubb.android.client.utils.UBBConstants;
 
 /**

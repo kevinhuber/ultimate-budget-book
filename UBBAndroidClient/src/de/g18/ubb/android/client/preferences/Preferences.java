@@ -1,4 +1,4 @@
-package de.g18.ubb.android.client.utils;
+package de.g18.ubb.android.client.preferences;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
