@@ -1,6 +1,7 @@
 package de.g18.ubb.android.client.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import de.g18.ubb.android.client.utils.Preferences;
 import de.g18.ubb.android.client.utils.UBBConstants;
 
@@ -17,5 +18,10 @@ public abstract class AbstractActivity extends Activity {
             preferences = new Preferences(getSharedPreferences(UBBConstants.PREFERENCES_FILENAME, MODE_PRIVATE));
         }
         return preferences;
+    }
+
+    protected final void switchActivity(Class<? extends Activity> aActivityClass) {
+        Intent myIntent = new Intent(getApplicationContext(), aActivityClass);
+        startActivityForResult(myIntent, 0);
     }
 }

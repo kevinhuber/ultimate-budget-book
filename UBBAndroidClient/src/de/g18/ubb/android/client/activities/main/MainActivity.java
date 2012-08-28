@@ -118,13 +118,11 @@ public final class MainActivity extends AbstractActivity {
     }
 
     private void switchToBudgetBookOverview() {
-        Intent myIntent = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
-        startActivityForResult(myIntent, 0);
+        switchActivity(BudgetBookOverviewActivity.class);
     }
 
     private void switchToCategoryOverview() {
-        Intent myIntent = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
-        startActivityForResult(myIntent, 0);
+        switchActivity(CategoryOverviewActivity.class);
     }
 
 
