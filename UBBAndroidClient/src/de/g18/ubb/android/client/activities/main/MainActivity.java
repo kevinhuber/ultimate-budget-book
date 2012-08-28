@@ -2,6 +2,8 @@ package de.g18.ubb.android.client.activities.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,17 +16,19 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitAction;
-import de.g18.ubb.android.client.activities.AbstractActivity;
+import de.g18.ubb.android.client.activities.AbstractValidationActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.activities.register.RegisterActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.utils.UBBConstants;
+import de.g18.ubb.common.domain.UserLogin;
+import de.g18.ubb.common.util.StringUtil;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public final class MainActivity extends AbstractActivity {
+public final class MainActivity extends AbstractValidationActivity<UserLogin, UserLoginValidator> {
 
     static {
         WebServiceProvider.register();
@@ -40,6 +44,16 @@ public final class MainActivity extends AbstractActivity {
 
     private EditText serverAddress;
 
+
+    @Override
+    protected UserLogin createModel() {
+        return new UserLogin();
+    }
+
+    @Override
+    protected UserLoginValidator createValidator() {
+        return new UserLoginValidator(getModel());
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +82,30 @@ public final class MainActivity extends AbstractActivity {
     private void initEventHandling() {
         loginButton.setOnClickListener(new LoginButtonListener());
         registerButton.setOnClickListener(new RegisternButtonListener());
+
+        usernameEditText.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void afterTextChanged(Editable aEditable) {
+                getModel().setEMail(aEditable.toString());
+            }
+        });
+
+        passwordEditText.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void afterTextChanged(Editable aEditable) {
+                getModel().setPassword(aEditable.toString());
+            }
+        });
     }
 
     private void addDebugComponents() {
@@ -104,14 +142,6 @@ public final class MainActivity extends AbstractActivity {
         return true;
     }
 
-    private String getEMail() {
-        return usernameEditText.getText().toString();
-    }
-
-    private String getPassword() {
-        return passwordEditText.getText().toString();
-    }
-
     private String getServerAddress() {
         return serverAddress == null ? UBBConstants.EMULATOR_SERVER_ADDRESS
                                      : serverAddress.getText().toString();
@@ -133,6 +163,7 @@ public final class MainActivity extends AbstractActivity {
     private final class LoginButtonListener extends AbstractWaitAction {
 
         private boolean loginSuccessfull;
+        private String errorMessage;
 
 
         public LoginButtonListener() {
@@ -148,11 +179,16 @@ public final class MainActivity extends AbstractActivity {
 
         @Override
         protected void execute() {
+            errorMessage = getValidator().validate();
+            if (getValidator().hasErrors()) {
+                return;
+            }
             loginSuccessfull = login();
         }
 
         private boolean login() {
-            return WebServiceProvider.authentificate(getEMail(), getPassword());
+            return WebServiceProvider.authentificate(getModel().getEMail(),
+                                                     getModel().getPassword());
         }
 
         private boolean saveLogin() {
@@ -162,13 +198,15 @@ public final class MainActivity extends AbstractActivity {
         @Override
         protected void postExecute() {
             if (!loginSuccessfull) {
-                Toast.makeText(getApplicationContext(), "Login fehlgeschlagen!", Toast.LENGTH_LONG).show();
+                String message = "Login fehlgeschlagen!" + (StringUtil.isEmpty(errorMessage) ? StringUtil.EMPTY
+                                                                                             : "\n" + errorMessage);
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                 return;
             }
 
             if (saveLogin()) {
-                // speicher Login für keine erneute eingabe
-                getPreferences().saveLoginData(getEMail(), getPassword());
+                getPreferences().saveLoginData(getModel().getEMail(),
+                                               getModel().getPassword());
             }
             switchToBudgetBookOverview();
         }
