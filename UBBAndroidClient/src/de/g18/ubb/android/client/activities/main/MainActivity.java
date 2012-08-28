@@ -72,8 +72,8 @@ public final class MainActivity extends Activity {
         loginButton = (Button) findViewById(R.MainLayout.login);
         registerButton = (Button) findViewById(R.MainLayout.register);
 
-        usernameEditText.setText(preferences.getUserNamePreferences());
-        passwordEditText.setText(preferences.getPasswordPreferences());
+        usernameEditText.setText(preferences.getUsername());
+        passwordEditText.setText(preferences.getPassword());
     }
 
     private void initEventHandling() {
@@ -182,7 +182,7 @@ public final class MainActivity extends Activity {
 
             if (saveLogin()) {
                 // speicher Login für keine erneute eingabe
-                preferences.savePreferences(getEMail(), getPassword());
+                preferences.saveLoginData(getEMail(), getPassword());
             }
             switchToBudgetBookOverview();
         }

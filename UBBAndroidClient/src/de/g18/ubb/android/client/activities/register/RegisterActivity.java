@@ -93,7 +93,7 @@ public class RegisterActivity extends Activity {
                         WebServiceProvider.authentificate(aEMail, aPassword);
 
                         Preferences p = new Preferences(getSharedPreferences("userdetails", MODE_PRIVATE));
-                        p.savePreferences(aEMail, aPassword);
+                        p.saveLoginData(aEMail, aPassword);
 
                         Intent i = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
                         startActivity(i);

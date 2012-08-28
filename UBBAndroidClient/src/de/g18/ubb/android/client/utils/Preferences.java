@@ -2,34 +2,45 @@ package de.g18.ubb.android.client.utils;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import de.g18.ubb.common.util.StringUtil;
 
 public class Preferences {
 
-	
 	private final SharedPreferences sp;
-	
+
 	public Preferences(SharedPreferences sp) {
 		this.sp = sp;
 	}
-	
-	public void savePreferences(String username, String password){
-    	Editor edit = sp.edit();
-    	edit.clear();
-    	edit.putString("username", username == null ? null : username.trim());
-    	edit.putString("password", password == null ? null : password.trim());
-    	edit.commit();
-	}
-	
-	public void clearPreferences(){
-		savePreferences(null, null);
+
+	public void clearLoginData() {
+	    saveLoginData(null, null);
 	}
 
-	public String getUserNamePreferences(){
-		return sp.getString("username", "E-Mail");
-	}
-	
-	public String getPasswordPreferences(){
-		return sp.getString("password", "Passwort");
+	public void saveLoginData(String username, String password) {
+    	putString(PreferenceKey.USERNAME, username);
+    	putString(PreferenceKey.PASSWORD, password);
 	}
 
+	public String getUsername() {
+		return getString(PreferenceKey.USERNAME);
+	}
+
+	public String getPassword() {
+        return getString(PreferenceKey.PASSWORD);
+	}
+
+	// -------------------------------------------------------------------------
+    // Helper
+    // -------------------------------------------------------------------------
+
+	protected final void putString(PreferenceKey aKey, String aValue) {
+        Editor edit = sp.edit();
+        edit.clear();
+        edit.putString(aKey.getKey(), StringUtil.isEmpty(aValue) ? null : aValue);
+        edit.commit();
+	}
+
+	protected final String getString(PreferenceKey aKey) {
+	    return sp.getString(aKey.getKey(), aKey.getDefaultValue());
+	}
 }
