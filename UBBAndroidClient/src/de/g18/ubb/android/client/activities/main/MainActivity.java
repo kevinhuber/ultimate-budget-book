@@ -2,8 +2,6 @@ package de.g18.ubb.android.client.activities.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +18,7 @@ import de.g18.ubb.android.client.activities.AbstractValidationActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.activities.register.RegisterActivity;
+import de.g18.ubb.android.client.binding.BindingUtils;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.domain.UserLogin;
@@ -32,6 +31,7 @@ public final class MainActivity extends AbstractValidationActivity<UserLogin, Us
 
     static {
         WebServiceProvider.register();
+        WebServiceProvider.setServerAddress(UBBConstants.EMULATOR_SERVER_ADDRESS);
     }
 
 
@@ -68,7 +68,10 @@ public final class MainActivity extends AbstractValidationActivity<UserLogin, Us
 
     private void initComponents() {
         usernameEditText = (EditText) findViewById(R.MainLayout.email);
+        BindingUtils.bind(usernameEditText, getModel(), UserLogin.PROPERTY_PASSWORD);
+
         passwordEditText = (EditText) findViewById(R.MainLayout.password);
+        BindingUtils.bind(passwordEditText, getModel(), UserLogin.PROPERTY_EMAIL);
 
         stayLoggedInCheckBox = (CheckBox) findViewById(R.MainLayout.stayLoggedIn);
 
@@ -82,35 +85,14 @@ public final class MainActivity extends AbstractValidationActivity<UserLogin, Us
     private void initEventHandling() {
         loginButton.setOnClickListener(new LoginButtonListener());
         registerButton.setOnClickListener(new RegisternButtonListener());
-
-        usernameEditText.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void afterTextChanged(Editable aEditable) {
-                getModel().setEMail(aEditable.toString());
-            }
-        });
-
-        passwordEditText.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void afterTextChanged(Editable aEditable) {
-                getModel().setPassword(aEditable.toString());
-            }
-        });
     }
 
     private void addDebugComponents() {
+        String address = getPreferences().getServerAddress();
+        WebServiceProvider.setServerAddress(address);
+
         serverAddress = new EditText(this);
-        serverAddress.setText(getPreferences().getServerAddress());
+        serverAddress.setText(address);
         serverAddress.setLayoutParams(
                 new LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                                  android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
