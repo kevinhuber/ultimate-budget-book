@@ -8,6 +8,7 @@ import org.jboss.resteasy.spi.NotFoundException;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.R.id;
 import de.g18.ubb.android.client.R.layout;
+import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
@@ -27,7 +28,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class BudgetBookCreateNewActivity extends Activity {
+public class BudgetBookCreateNewActivity extends AbstractActivity {
 
 	private EditText budgetBookName;
 	private List<EditText> budgetBookOwner;
@@ -67,9 +68,7 @@ public class BudgetBookCreateNewActivity extends Activity {
 	}
 
 	private void switchToBudgetBookOverview() {
-		Intent myIntent = new Intent(getApplicationContext(),
-				BudgetBookOverviewActivity.class);
-		startActivityForResult(myIntent, 0);
+		switchActivity(BudgetBookOverviewActivity.class);
 	}
 
 	// -------------------------------------------------------------------------
@@ -102,8 +101,8 @@ public class BudgetBookCreateNewActivity extends Activity {
 		public void onClick(View aView) {
 
 			try {
-				BudgetBookService service = ServiceRepository
-						.getBudgetBookService();
+				BudgetBookService service = ServiceRepository.getBudgetBookService();
+				
 				// fügt den ersten benutzer hinzu, im normal fall ist dies der
 				// angemeldete benutzer
 				for (EditText budgetBookOwnerEntry : budgetBookOwner) {
@@ -111,7 +110,7 @@ public class BudgetBookCreateNewActivity extends Activity {
 				}
 				service.createNew(budgetBookName.getText().toString(),
 						userNameList);
-
+				
 				switchToBudgetBookOverview();
 			} catch (UserWithGivenEmailNotFound e) {
 				Toast.makeText(getApplicationContext(),
