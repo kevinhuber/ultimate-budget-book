@@ -20,6 +20,7 @@ import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.service.UserService;
 import de.g18.ubb.common.service.repository.ServiceProvider;
 import de.g18.ubb.common.service.repository.ServiceRepository;
@@ -32,10 +33,6 @@ import de.g18.ubb.common.util.StringUtil;
 public final class WebServiceProvider implements ServiceProvider {
 
     public static final String CONTEXT = "UBBServer";
-
-    public static final String[] SERVER_ADDRESSES = new String[] {"10.0.2.2:8080",        // AVM Loop-Back
-                                                                  "192.168.1.42:8080",    // Kevin (Home)
-                                                                 };
 
     private static WebServiceProvider instance;
 
@@ -66,7 +63,7 @@ public final class WebServiceProvider implements ServiceProvider {
     }
 
     private WebServiceProvider() {
-        serverAddress = SERVER_ADDRESSES[0];
+        serverAddress = UBBConstants.PREFERENCES_FILENAME;
     }
 
     public <_Service> _Service lookup(Class<_Service> aServiceClass) {
@@ -137,7 +134,7 @@ public final class WebServiceProvider implements ServiceProvider {
         return serverAddress;
     }
 
-    public static void changeServerAddress(String aNewServerAddress) {
+    public static void setServerAddress(String aNewServerAddress) {
         getInstance().serverAddress = aNewServerAddress;
     }
 

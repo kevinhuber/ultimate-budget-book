@@ -7,6 +7,7 @@ public enum PreferenceKey {
 
     USERNAME("EMail"),
     PASSWORD("Password"),
+    SERVER_ADDRESS(UBBConstants.EMULATOR_SERVER_ADDRESS);
     ;
 
     private final String key;

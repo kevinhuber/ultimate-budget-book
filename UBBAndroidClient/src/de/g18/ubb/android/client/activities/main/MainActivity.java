@@ -1,35 +1,30 @@
 package de.g18.ubb.android.client.activities.main;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.Spinner;
 import android.widget.Toast;
-import de.g18.ubb.android.client.BuildConfig;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitAction;
+import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.activities.register.RegisterActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
-import de.g18.ubb.android.client.utils.Preferences;
+import de.g18.ubb.android.client.utils.UBBConstants;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public final class MainActivity extends Activity {
+public final class MainActivity extends AbstractActivity {
 
     static {
         WebServiceProvider.register();
@@ -42,10 +37,8 @@ public final class MainActivity extends Activity {
     private CheckBox stayLoggedInCheckBox;
     private Button loginButton;
     private Button registerButton;
-    private Preferences preferences;
 
-    // DEBUG COMPONENTS (MAY BE NULL)
-    private Spinner debug_serverAddressSpinner;
+    private EditText serverAddress;
 
 
     @Override
@@ -53,14 +46,10 @@ public final class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        preferences = new Preferences(getSharedPreferences("userdetails", MODE_PRIVATE));
-
         initComponents();
         initEventHandling();
 
-        if (BuildConfig.DEBUG) {
-            addDebugComponents();
-        }
+        addDebugComponents();
     }
 
     private void initComponents() {
@@ -72,8 +61,8 @@ public final class MainActivity extends Activity {
         loginButton = (Button) findViewById(R.MainLayout.login);
         registerButton = (Button) findViewById(R.MainLayout.register);
 
-        usernameEditText.setText(preferences.getUsername());
-        passwordEditText.setText(preferences.getPassword());
+        usernameEditText.setText(getPreferences().getUsername());
+        passwordEditText.setText(getPreferences().getPassword());
     }
 
     private void initEventHandling() {
@@ -82,27 +71,14 @@ public final class MainActivity extends Activity {
     }
 
     private void addDebugComponents() {
-        debug_serverAddressSpinner = new Spinner(this);
-        debug_serverAddressSpinner.setLayoutParams(
+        serverAddress = new EditText(this);
+        serverAddress.setText(getPreferences().getServerAddress());
+        serverAddress.setLayoutParams(
                 new LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                                  android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-                                                                WebServiceProvider.SERVER_ADDRESSES);
-        debug_serverAddressSpinner.setAdapter(adapter);
-
-        debug_serverAddressSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                WebServiceProvider.changeServerAddress((String) arg0.getSelectedItem());
-            }
-
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-
         LinearLayout buttonContainer = (LinearLayout) findViewById(R.MainLayout.buttonContainer);
-        buttonContainer.addView(debug_serverAddressSpinner);
+        buttonContainer.addView(serverAddress);
     }
 
     @Override
@@ -136,6 +112,11 @@ public final class MainActivity extends Activity {
         return passwordEditText.getText().toString();
     }
 
+    private String getServerAddress() {
+        return serverAddress == null ? UBBConstants.EMULATOR_SERVER_ADDRESS
+                                     : serverAddress.getText().toString();
+    }
+
     private void switchToBudgetBookOverview() {
         Intent myIntent = new Intent(getApplicationContext(), BudgetBookOverviewActivity.class);
         startActivityForResult(myIntent, 0);
@@ -161,6 +142,11 @@ public final class MainActivity extends Activity {
         }
 
         @Override
+        protected void preExecute() {
+            WebServiceProvider.setServerAddress(getServerAddress());
+        }
+
+        @Override
         protected void execute() {
             loginSuccessfull = login();
         }
@@ -169,7 +155,7 @@ public final class MainActivity extends Activity {
             return WebServiceProvider.authentificate(getEMail(), getPassword());
         }
 
-        private boolean saveLogin(){
+        private boolean saveLogin() {
         	return stayLoggedInCheckBox.isChecked();
         }
 
@@ -182,7 +168,7 @@ public final class MainActivity extends Activity {
 
             if (saveLogin()) {
                 // speicher Login für keine erneute eingabe
-                preferences.saveLoginData(getEMail(), getPassword());
+                getPreferences().saveLoginData(getEMail(), getPassword());
             }
             switchToBudgetBookOverview();
         }

@@ -29,6 +29,14 @@ public class Preferences {
         return getString(PreferenceKey.PASSWORD);
 	}
 
+	public void saveServerAddress(String aNewValue) {
+	    putString(PreferenceKey.SERVER_ADDRESS, aNewValue);
+	}
+
+	public String getServerAddress() {
+	    return getString(PreferenceKey.SERVER_ADDRESS);
+	}
+
 	// -------------------------------------------------------------------------
     // Helper
     // -------------------------------------------------------------------------
