@@ -20,7 +20,6 @@ import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.service.UserService;
 import de.g18.ubb.common.service.repository.ServiceProvider;
 import de.g18.ubb.common.service.repository.ServiceRepository;
@@ -60,10 +59,6 @@ public final class WebServiceProvider implements ServiceProvider {
             return;
         }
         instance = new WebServiceProvider();
-    }
-
-    private WebServiceProvider() {
-        serverAddress = UBBConstants.PREFERENCES_FILENAME;
     }
 
     public <_Service> _Service lookup(Class<_Service> aServiceClass) {
