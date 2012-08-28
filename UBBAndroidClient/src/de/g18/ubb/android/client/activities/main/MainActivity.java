@@ -141,7 +141,9 @@ public final class MainActivity extends AbstractActivity {
 
         @Override
         protected void preExecute() {
-            WebServiceProvider.setServerAddress(getServerAddress());
+            String serverAddress = getServerAddress();
+            getPreferences().saveServerAddress(serverAddress);
+            WebServiceProvider.setServerAddress(serverAddress);
         }
 
         @Override
