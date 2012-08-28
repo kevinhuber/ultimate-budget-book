@@ -12,14 +12,18 @@ import de.g18.ubb.android.client.action.AbstractWaitAction;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
-import de.g18.ubb.android.client.utils.Preferences;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.ObjectUtil;
 import de.g18.ubb.common.util.StringUtil;
 
 public class RegisterActivity extends AbstractActivity {
 
-    private Button register;
+    private EditText usernameField;
+    private EditText eMailField;
+    private EditText passwordField;
+    private EditText passwordCheckField;
+
+    private Button registerButton;
 
 
     @Override
@@ -32,11 +36,16 @@ public class RegisterActivity extends AbstractActivity {
     }
 
     private void initComponents() {
-        register = (Button) findViewById(R.RegisterLayout.register);
+        usernameField = (EditText) findViewById(R.RegisterLayout.name);
+        eMailField = (EditText) findViewById(R.RegisterLayout.email);
+        passwordField = (EditText) findViewById(R.RegisterLayout.password);
+        passwordCheckField = (EditText) findViewById(R.RegisterLayout.passwordCheck);
+
+        registerButton = (Button) findViewById(R.RegisterLayout.register);
     }
 
     private void initEventHandling() {
-        register.setOnClickListener(new RegisterButtonListener());
+        registerButton.setOnClickListener(new RegisterButtonListener());
     }
 
     @Override
@@ -76,17 +85,10 @@ public class RegisterActivity extends AbstractActivity {
 
         @Override
         protected void preExecute() {
-            EditText e_anzeigename = (EditText) findViewById(R.RegisterLayout.name);
-            username = e_anzeigename.getText().toString();
-
-            EditText e_email = (EditText) findViewById(R.RegisterLayout.email);
-            eMail = e_email.getText().toString();
-
-            EditText e_password1 = (EditText) findViewById(R.RegisterLayout.password);
-            password = e_password1.getText().toString();
-
-            EditText e_password2 = (EditText) findViewById(R.RegisterLayout.passwordCheck);
-            passwordCheck = e_password2.getText().toString();
+            username = usernameField.getText().toString();
+            eMail = eMailField.getText().toString();
+            password = passwordField.getText().toString();
+            passwordCheck = passwordCheckField.getText().toString();
         }
 
         @Override
@@ -101,8 +103,7 @@ public class RegisterActivity extends AbstractActivity {
                         ServiceRepository.getUserService().register(aEMail, aUsername, aPassword);
                         WebServiceProvider.authentificate(aEMail, aPassword);
 
-                        Preferences p = new Preferences(getSharedPreferences("userdetails", MODE_PRIVATE));
-                        p.saveLoginData(aEMail, aPassword);
+                        getPreferences().saveLoginData(aEMail, aPassword);
 
                         switchActivity(BudgetBookOverviewActivity.class);
                         return "Registration erfolgreich!!!";
