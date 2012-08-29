@@ -35,8 +35,10 @@ public final class BindingUtils {
 
 
         public EditTextConnector(EditText aEditText, AbstractModel aModel, String aPropertyname) {
-            super(aModel, aPropertyname, aEditText.getText().toString());
+            super(aModel, aPropertyname);
             editText = aEditText;
+
+            updateComponent();
             editText.addTextChangedListener(this);
         }
 
@@ -64,25 +66,27 @@ public final class BindingUtils {
         private boolean running;
 
 
-        public AbstractPropertyConnector(AbstractModel aModel, String aPropertyname, _PropertyType aInitialValue) {
+        public AbstractPropertyConnector(AbstractModel aModel, String aPropertyname) {
             propertyAccessor = new PropertyAccessor<_PropertyType>(aModel, aPropertyname);
-
-            updateModel(aInitialValue);
             aModel.addPropertyChangeListener(aPropertyname, this);
         }
 
-        public void propertyChange(PropertyChangeEvent event) {
+        public final void propertyChange(PropertyChangeEvent event) {
             if (running) {
                 return;
             }
             running = true;
 
             try {
-                _PropertyType value = propertyAccessor.invokeGetter();
-                updateComponent(value);
+                updateComponent();
             } finally {
                 running = false;
             }
+        }
+
+        protected final void updateComponent() {
+            _PropertyType value = propertyAccessor.invokeGetter();
+            updateComponent(value);
         }
 
         protected final void updateModel(_PropertyType aNewValue) {
