@@ -1,15 +1,14 @@
-package de.g18.ubb.android.client.binding;
+package de.g18.ubb.common.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import de.g18.ubb.common.domain.AbstractModel;
-import de.g18.ubb.common.util.StringUtil;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-final class PropertyAccessor<_PropertyType> {
+public final class PropertyAccessor<_PropertyType> {
 
     private final AbstractModel model;
     private final String propertyname;
