@@ -65,18 +65,25 @@ public final class StringUtil {
     /**
      * @see #startsWith(String, String)
      */
-    public static boolean startsNotWith(String aString, String aEnd) {
-        return !startsWith(aString, aEnd);
+    public static boolean startsNotWith(String aString, String aStart) {
+        return !startsWith(aString, aStart);
     }
 
     /**
      * Null-Safe Aufruf der Methode {@link String#startsWith(String)}
      */
-    public static boolean startsWith(String aString, String aEnd) {
-        if (aString == null || aEnd == null) {
+    public static boolean startsWith(String aString, String aStart) {
+        if (aString == null || aStart == null) {
             return false;
         }
-        return aString.startsWith(aEnd);
+        return aString.startsWith(aStart);
+    }
+
+    public static boolean startsWithIgnoreCase(String aString, String aStart) {
+        if (aString == null || aStart == null) {
+            return false;
+        }
+        return startsWith(aString.toLowerCase(), aStart.toLowerCase());
     }
 
     // TODO (huber): Add docs
