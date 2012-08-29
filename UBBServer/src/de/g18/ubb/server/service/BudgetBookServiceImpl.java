@@ -13,7 +13,6 @@ import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.exception.UserWithGivenEmailNotFound;
 import de.g18.ubb.common.service.remote.BudgetBookServiceRemote;
-import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 import de.g18.ubb.server.service.local.BudgetBookServiceLocal;
 import de.g18.ubb.server.service.local.UserServiceLocal;
@@ -29,8 +28,8 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 
 	@EJB
 	private UserServiceLocal userService;
-	
-	
+
+
     @Override
     protected Class<BudgetBook> getEntityClass() {
         return BudgetBook.class;
@@ -41,12 +40,12 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
     	if (StringUtil.isEmpty(aName) || aUserNameList == null) {
 			throw new IllegalArgumentException("Benutzername und Haushaltsbuchname dürfen nicht leer sein");
 		}
-    	
+
         BudgetBook b = new BudgetBook();
         List<User> assignedUsers = new ArrayList<User>();
-        
+
     	for (String userEmail : aUserNameList) {
-    		if (ServiceRepository.getUserService().existsUserWithEMail(userEmail)) {
+    		if (userService.existsUserWithEMail(userEmail)) {
 				try {
 					assignedUsers.add(userService.loadByEMail(userEmail));
 				} catch (NotFoundExcpetion e) {
@@ -54,7 +53,7 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 				}
     		}
     	}
-    	
+
     	if (!assignedUsers.contains(getCurrentUser())) {
     		assignedUsers.add(getCurrentUser());
 		}
