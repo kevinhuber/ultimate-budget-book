@@ -10,13 +10,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
-public class BudgetBookOverviewActivity extends Activity {
+public class BudgetBookOverviewActivity extends AbstractActivity {
 
     private Button createButton;
 
@@ -63,11 +66,21 @@ public class BudgetBookOverviewActivity extends Activity {
 
         ListView budgetBooksListView = (ListView) findViewById(R.id.budgetBooks);
         budgetBooksListView.setAdapter(adapter);
+        budgetBooksListView.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				switchToBudgetBookDetailActivity();
+			}
+
+			private void switchToBudgetBookDetailActivity() {
+				switchActivity(BudgetBookDetailActivity.class);
+			}
+		});
     }
 
     private void switchToBudgetBookCreateNew() {
-        Intent myIntent = new Intent(getApplicationContext(), BudgetBookCreateNewActivity.class);
-        startActivity(myIntent);
+    	switchActivity(BudgetBookCreateNewActivity.class);
     }
 
 
