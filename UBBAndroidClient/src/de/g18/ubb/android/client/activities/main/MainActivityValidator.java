@@ -15,11 +15,11 @@ public class MainActivityValidator extends AbstractValidator<MainActivityModel> 
     @Override
     protected String computeValidationResult() {
         if (StringUtil.isEmpty(getModel().getEMail())) {
-            return "EMail-Adresse darf nicht leer sein!";
+            return createMustNotBeEmptyMessage(MainActivityResource.FIELD_EMAIL);
         }
         if (StringUtil.isEmpty(getModel().getPassword())) {
-            return "Passwort darf nicht leer sein!";
+            return createMustNotBeEmptyMessage(MainActivityResource.FIELD_PASSWORD);
         }
-        return StringUtil.EMPTY;
+        return createEmptyMessage();
     }
 }

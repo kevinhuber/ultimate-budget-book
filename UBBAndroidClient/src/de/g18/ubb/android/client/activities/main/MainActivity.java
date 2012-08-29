@@ -112,7 +112,7 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
         boolean loginSuccessfull = WebServiceProvider.authentificate(getModel().getEMail(),
                                                                      getModel().getPassword());
         if (!loginSuccessfull) {
-            return "Login fehlgeschlagen!";
+            return MainActivityResource.MESSAGE_LOGIN_FAILED.formatted();
         }
         return StringUtil.EMPTY;
     }
@@ -134,7 +134,7 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
 
     @Override
     protected String getSubmitWaitMessage() {
-        return "Anmeldung läuft...";
+        return MainActivityResource.MESSAGE_LOGIN.formatted();
     }
 
 
