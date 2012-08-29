@@ -1,5 +1,7 @@
 package de.g18.ubb.android.client.validation;
 
+import de.g18.ubb.android.client.resource.CommonValidationResource;
+import de.g18.ubb.android.client.resource.Resource;
 import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.util.StringUtil;
 
@@ -34,5 +36,17 @@ public abstract class AbstractValidator<_Model extends AbstractModel> {
 
     public final _Model getModel() {
         return model;
+    }
+
+    // -------------------------------------------------------------------------
+    // Helper
+    // -------------------------------------------------------------------------
+
+    protected final String createEmptyMessage() {
+        return StringUtil.EMPTY;
+    }
+
+    protected final String createMustNotBeEmptyMessage(Resource aResource) {
+        return CommonValidationResource.MUST_NOT_BE_EMPTY.formatted(aResource.formatted());
     }
 }
