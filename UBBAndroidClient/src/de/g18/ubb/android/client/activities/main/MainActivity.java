@@ -1,6 +1,5 @@
 package de.g18.ubb.android.client.activities.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,8 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.action.AbstractWaitAction;
-import de.g18.ubb.android.client.activities.AbstractValidationActivity;
+import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.activities.register.RegisterActivity;
@@ -27,7 +25,7 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public final class MainActivity extends AbstractValidationActivity<UserLogin, UserLoginValidator> {
+public final class MainActivity extends AbstractValidationFormularActivity<UserLogin, UserLoginValidator> {
 
     static {
         WebServiceProvider.register();
@@ -39,11 +37,15 @@ public final class MainActivity extends AbstractValidationActivity<UserLogin, Us
     private EditText passwordEditText;
 
     private CheckBox stayLoggedInCheckBox;
-    private Button loginButton;
     private Button registerButton;
 
     private EditText serverAddress;
 
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected UserLogin createModel() {
@@ -58,7 +60,6 @@ public final class MainActivity extends AbstractValidationActivity<UserLogin, Us
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         initComponents();
         initEventHandling();
@@ -75,7 +76,6 @@ public final class MainActivity extends AbstractValidationActivity<UserLogin, Us
 
         stayLoggedInCheckBox = (CheckBox) findViewById(R.MainLayout.stayLoggedIn);
 
-        loginButton = (Button) findViewById(R.MainLayout.login);
         registerButton = (Button) findViewById(R.MainLayout.register);
 
         usernameEditText.setText(getPreferences().getUsername());
@@ -83,7 +83,6 @@ public final class MainActivity extends AbstractValidationActivity<UserLogin, Us
     }
 
     private void initEventHandling() {
-        loginButton.setOnClickListener(new LoginButtonListener());
         registerButton.setOnClickListener(new RegisternButtonListener());
     }
 
@@ -115,7 +114,7 @@ public final class MainActivity extends AbstractValidationActivity<UserLogin, Us
                 break;
 
             case R.id.menu_category:
-                switchToCategoryOverview();
+                switchActivity(CategoryOverviewActivity.class);
                 break;
 
             default:
@@ -129,12 +128,50 @@ public final class MainActivity extends AbstractValidationActivity<UserLogin, Us
                                      : serverAddress.getText().toString();
     }
 
-    private void switchToBudgetBookOverview() {
+    @Override
+    protected int getSubmitButtonId() {
+        return R.MainLayout.login;
+    }
+
+    @Override
+    protected void preSubmit() {
+        String serverAddress = getServerAddress();
+        getPreferences().saveServerAddress(serverAddress);
+        WebServiceProvider.setServerAddress(serverAddress);
+    }
+
+    @Override
+    protected String submit() {
+        boolean loginSuccessfull = WebServiceProvider.authentificate(getModel().getEMail(),
+                                                                     getModel().getPassword());
+        if (!loginSuccessfull) {
+            return "Login fehlgeschlagen!";
+        }
+        return StringUtil.EMPTY;
+    }
+
+    private boolean saveLogin() {
+        return stayLoggedInCheckBox.isChecked();
+    }
+
+    @Override
+    protected void postSubmit() {
+        super.postSubmit();
+
+        if (!isSubmitSuccessfull()) {
+            return;
+        }
+
+        if (saveLogin()) {
+            getPreferences().saveLoginData(getModel().getEMail(),
+                                           getModel().getPassword());
+        }
         switchActivity(BudgetBookOverviewActivity.class);
     }
 
-    private void switchToCategoryOverview() {
-        switchActivity(CategoryOverviewActivity.class);
+    @Override
+    protected String getSubmitWaitMessage() {
+        return "Anmeldung läuft...";
     }
 
 
@@ -142,62 +179,10 @@ public final class MainActivity extends AbstractValidationActivity<UserLogin, Us
     // Inner Classes
     // -------------------------------------------------------------------------
 
-    private final class LoginButtonListener extends AbstractWaitAction {
-
-        private boolean loginSuccessfull;
-        private String errorMessage;
-
-
-        public LoginButtonListener() {
-            super(MainActivity.this, "Anmeldung läuft...");
-        }
-
-        @Override
-        protected void preExecute() {
-            String serverAddress = getServerAddress();
-            getPreferences().saveServerAddress(serverAddress);
-            WebServiceProvider.setServerAddress(serverAddress);
-        }
-
-        @Override
-        protected void execute() {
-            errorMessage = getValidator().validate();
-            if (getValidator().hasErrors()) {
-                return;
-            }
-            loginSuccessfull = login();
-        }
-
-        private boolean login() {
-            return WebServiceProvider.authentificate(getModel().getEMail(),
-                                                     getModel().getPassword());
-        }
-
-        private boolean saveLogin() {
-        	return stayLoggedInCheckBox.isChecked();
-        }
-
-        @Override
-        protected void postExecute() {
-            if (!loginSuccessfull) {
-                String message = "Login fehlgeschlagen!" + (StringUtil.isEmpty(errorMessage) ? StringUtil.EMPTY
-                                                                                             : "\n" + errorMessage);
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            if (saveLogin()) {
-                getPreferences().saveLoginData(getModel().getEMail(),
-                                               getModel().getPassword());
-            }
-            switchToBudgetBookOverview();
-        }
-    }
-
     private final class RegisternButtonListener implements OnClickListener {
 
         public void onClick(View aView) {
-            startActivity(new Intent(getBaseContext(), RegisterActivity.class));
+            switchActivity(RegisterActivity.class);
         }
     }
 }

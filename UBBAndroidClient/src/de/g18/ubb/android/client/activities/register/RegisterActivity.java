@@ -27,9 +27,13 @@ public class RegisterActivity extends AbstractActivity {
 
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.activity_register;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
 
         initComponents();
         initEventHandling();
