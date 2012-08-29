@@ -23,7 +23,7 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public final class MainActivity extends AbstractValidationFormularActivity<UserLogin, UserLoginValidator> {
+public final class MainActivity extends AbstractValidationFormularActivity<UserLoginModel, UserLoginValidator> {
 
     static {
         WebServiceProvider.register();
@@ -43,8 +43,8 @@ public final class MainActivity extends AbstractValidationFormularActivity<UserL
     }
 
     @Override
-    protected UserLogin createModel() {
-        return new UserLogin();
+    protected UserLoginModel createModel() {
+        return new UserLoginModel();
     }
 
     @Override
@@ -72,8 +72,8 @@ public final class MainActivity extends AbstractValidationFormularActivity<UserL
     }
 
     private void bindComponents() {
-        bind(UserLogin.PROPERTY_PASSWORD, R.MainLayout.password);
-        bind(UserLogin.PROPERTY_EMAIL, R.MainLayout.email);
+        bind(UserLoginModel.PROPERTY_PASSWORD, R.MainLayout.password);
+        bind(UserLoginModel.PROPERTY_EMAIL, R.MainLayout.email);
     }
 
     private void initEventHandling() {

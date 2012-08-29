@@ -5,7 +5,7 @@ import de.g18.ubb.common.domain.AbstractModel;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class UserLogin extends AbstractModel {
+public class UserLoginModel extends AbstractModel {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,7 +16,7 @@ public class UserLogin extends AbstractModel {
     private String password;
 
 
-    public UserLogin() {
+    public UserLoginModel() {
     }
 
     public void setEMail(String aNewValue) {

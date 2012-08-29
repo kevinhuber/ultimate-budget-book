@@ -6,9 +6,9 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class UserLoginValidator extends AbstractValidator<UserLogin> {
+public class UserLoginValidator extends AbstractValidator<UserLoginModel> {
 
-    public UserLoginValidator(UserLogin aModel) {
+    public UserLoginValidator(UserLoginModel aModel) {
         super(aModel);
     }
 
