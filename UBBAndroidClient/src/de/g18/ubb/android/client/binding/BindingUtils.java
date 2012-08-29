@@ -146,14 +146,14 @@ public final class BindingUtils {
         private Method resolveGetter() {
             for (Method m : model.getClass().getMethods()) {
                 if (StringUtil.startsNotWith(m.getName(), "get")
-                      || StringUtil.startsNotWith(m.getName(), "is")) {
+                      && StringUtil.startsNotWith(m.getName(), "is")) {
                     continue;
                 }
                 if (StringUtil.endsWithIgnoreCase(m.getName(), propertyname)) {
                     return m;
                 }
             }
-            throw new IllegalStateException("Setter for property " + propertyname + " not found!");
+            throw new IllegalStateException("Getter for property " + propertyname + " not found in class " + model.getClass().getName() + "!");
         }
 
         public void invokeSetter(_PropertyType aNewValue) {
@@ -190,7 +190,7 @@ public final class BindingUtils {
                     return m;
                 }
             }
-            throw new IllegalStateException("Setter for property " + propertyname + " not found!");
+            throw new IllegalStateException("Setter for property " + propertyname + " not found in class " + model.getClass().getName() + "!");
         }
     }
 }
