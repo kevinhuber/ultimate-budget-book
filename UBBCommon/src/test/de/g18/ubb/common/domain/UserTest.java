@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
  */
-public class UserEntityTest extends AbstractEntityTest<User> {
+public class UserTest extends AbstractEntityTest<User> {
 
     @Override
     protected User createEntity() {
@@ -14,5 +14,6 @@ public class UserEntityTest extends AbstractEntityTest<User> {
 
     @Test
     public void testEquals() {
+        // TODO implementieren!
     }
 }
