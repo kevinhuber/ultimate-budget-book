@@ -39,7 +39,7 @@ public final class PropertyAccessor<_PropertyType> {
         return model.getClass().getName() + "#" + getGetter().getName();
     }
 
-    private Method getGetter() {
+    public Method getGetter() {
         if (getter == null) {
             getter = resolveGetter();
         }
@@ -77,7 +77,7 @@ public final class PropertyAccessor<_PropertyType> {
         return model.getClass().getName() + "#" + getSetter().getName();
     }
 
-    private Method getSetter() {
+    public Method getSetter() {
         if (setter == null) {
             setter = resolveSetter();
         }
