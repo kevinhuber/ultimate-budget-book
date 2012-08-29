@@ -12,11 +12,12 @@ import de.g18.ubb.android.client.action.AbstractWaitAction;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
+import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.ObjectUtil;
 import de.g18.ubb.common.util.StringUtil;
 
-public class RegisterActivity extends AbstractActivity {
+public class RegisterActivity extends AbstractActivity<User> {
 
     private EditText usernameField;
     private EditText eMailField;
@@ -29,6 +30,11 @@ public class RegisterActivity extends AbstractActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_register;
+    }
+
+    @Override
+    protected User createModel() {
+        return new User();
     }
 
     @Override

@@ -16,7 +16,6 @@ import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.activities.register.RegisterActivity;
-import de.g18.ubb.android.client.binding.BindingUtils;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.domain.UserLogin;
@@ -32,9 +31,6 @@ public final class MainActivity extends AbstractValidationFormularActivity<UserL
         WebServiceProvider.setServerAddress(UBBConstants.EMULATOR_SERVER_ADDRESS);
     }
 
-
-    private EditText usernameEditText;
-    private EditText passwordEditText;
 
     private CheckBox stayLoggedInCheckBox;
     private Button registerButton;
@@ -61,25 +57,24 @@ public final class MainActivity extends AbstractValidationFormularActivity<UserL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getModel().setEMail(getPreferences().getUsername());
+        getModel().setPassword(getPreferences().getPassword());
+
         initComponents();
+        bindComponents();
         initEventHandling();
 
         addDebugComponents();
     }
 
     private void initComponents() {
-        usernameEditText = (EditText) findViewById(R.MainLayout.email);
-        BindingUtils.bind(usernameEditText, getModel(), UserLogin.PROPERTY_PASSWORD);
-
-        passwordEditText = (EditText) findViewById(R.MainLayout.password);
-        BindingUtils.bind(passwordEditText, getModel(), UserLogin.PROPERTY_EMAIL);
-
         stayLoggedInCheckBox = (CheckBox) findViewById(R.MainLayout.stayLoggedIn);
-
         registerButton = (Button) findViewById(R.MainLayout.register);
+    }
 
-        usernameEditText.setText(getPreferences().getUsername());
-        passwordEditText.setText(getPreferences().getPassword());
+    private void bindComponents() {
+        bind(UserLogin.PROPERTY_PASSWORD, R.MainLayout.password);
+        bind(UserLogin.PROPERTY_EMAIL, R.MainLayout.email);
     }
 
     private void initEventHandling() {
