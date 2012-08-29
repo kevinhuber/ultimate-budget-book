@@ -24,13 +24,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
+
         <EditText
             android:id="@+MainLayout/email"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:text="@string/e_loginname" >
             
             <requestFocus />
@@ -74,6 +74,13 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="@string/b_loginregister" />
+
+        <EditText
+            android:id="@+MainLayout/serverAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
 
     </LinearLayout>
 

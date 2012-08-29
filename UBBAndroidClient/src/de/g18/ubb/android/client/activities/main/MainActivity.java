@@ -6,10 +6,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
@@ -17,7 +13,6 @@ import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivit
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.activities.register.RegisterActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
-import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
@@ -27,14 +22,10 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
 
     static {
         WebServiceProvider.register();
-        WebServiceProvider.setServerAddress(UBBConstants.EMULATOR_SERVER_ADDRESS);
     }
 
 
-    private CheckBox stayLoggedInCheckBox;
     private Button registerButton;
-
-    private EditText serverAddress;
 
 
     @Override
@@ -58,40 +49,27 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
 
         getModel().setEMail(getPreferences().getUsername());
         getModel().setPassword(getPreferences().getPassword());
+        getModel().setStayLoggedInChecked(true);
+        getModel().setServerAddress(getPreferences().getServerAddress());
 
         initComponents();
         bindComponents();
         initEventHandling();
-
-        addDebugComponents();
     }
 
     private void initComponents() {
-        stayLoggedInCheckBox = (CheckBox) findViewById(R.MainLayout.stayLoggedIn);
         registerButton = (Button) findViewById(R.MainLayout.register);
     }
 
     private void bindComponents() {
         bind(MainActivityModel.PROPERTY_PASSWORD, R.MainLayout.password);
         bind(MainActivityModel.PROPERTY_EMAIL, R.MainLayout.email);
+        bind(MainActivityModel.PROPERTY_STAY_LOGGED_IN, R.MainLayout.stayLoggedIn);
+        bind(MainActivityModel.PROPERTY_SERVER_ADDRESS, R.MainLayout.serverAddress);
     }
 
     private void initEventHandling() {
         registerButton.setOnClickListener(new RegisternButtonListener());
-    }
-
-    private void addDebugComponents() {
-        String address = getPreferences().getServerAddress();
-        WebServiceProvider.setServerAddress(address);
-
-        serverAddress = new EditText(this);
-        serverAddress.setText(address);
-        serverAddress.setLayoutParams(
-                new LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-                                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        LinearLayout buttonContainer = (LinearLayout) findViewById(R.MainLayout.buttonContainer);
-        buttonContainer.addView(serverAddress);
     }
 
     @Override
@@ -117,11 +95,6 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
         return true;
     }
 
-    private String getServerAddress() {
-        return serverAddress == null ? UBBConstants.EMULATOR_SERVER_ADDRESS
-                                     : serverAddress.getText().toString();
-    }
-
     @Override
     protected int getSubmitButtonId() {
         return R.MainLayout.login;
@@ -129,7 +102,7 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
 
     @Override
     protected void preSubmit() {
-        String serverAddress = getServerAddress();
+        String serverAddress = getModel().getServerAddress();
         getPreferences().saveServerAddress(serverAddress);
         WebServiceProvider.setServerAddress(serverAddress);
     }
@@ -144,10 +117,6 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
         return StringUtil.EMPTY;
     }
 
-    private boolean saveLogin() {
-        return stayLoggedInCheckBox.isChecked();
-    }
-
     @Override
     protected void postSubmit() {
         super.postSubmit();
@@ -156,7 +125,7 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
             return;
         }
 
-        if (saveLogin()) {
+        if (getModel().isStayLoggedInChecked()) {
             getPreferences().saveLoginData(getModel().getEMail(),
                                            getModel().getPassword());
         }

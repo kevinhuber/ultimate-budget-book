@@ -3,7 +3,7 @@ package de.g18.ubb.android.client.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.view.View;
 import de.g18.ubb.android.client.binding.BindingUtils;
 import de.g18.ubb.android.client.preferences.Preferences;
 import de.g18.ubb.common.domain.AbstractModel;
@@ -42,15 +42,27 @@ public abstract class AbstractActivity<_Model extends AbstractModel> extends Act
         startActivityForResult(myIntent, 0);
     }
 
-    protected final EditText bind(String aPropertyname, int aComponentId) {
-        EditText component = (EditText) findViewById(aComponentId);
-        BindingUtils.bind(component, getModel(), aPropertyname);
-        return component;
+    protected final View bind(String aPropertyname, int aComponentId) {
+        return bind(getModel(), aPropertyname, aComponentId);
     }
 
-    protected final EditText bind(AbstractModel aModel, String aPropertyname, int aComponentId) {
-        EditText component = (EditText) findViewById(aComponentId);
-        BindingUtils.bind(component, aModel, aPropertyname);
+    protected final View bind(AbstractModel aModel, String aPropertyname, int aComponentId) {
+        return bind(aModel, aPropertyname, aComponentId, View.class);
+    }
+
+    protected final <_ComponentType extends View> _ComponentType bind(String aPropertyname,
+                                                                      int aComponentId,
+                                                                      Class<? extends _ComponentType> aComponentType) {
+        return bind(getModel(), aPropertyname, aComponentId, aComponentType);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected final <_ComponentType extends View> _ComponentType bind(AbstractModel aModel,
+                                                                      String aPropertyname,
+                                                                      int aComponentId,
+                                                                      Class<? extends _ComponentType> aComponentType) {
+        _ComponentType component = (_ComponentType) findViewById(aComponentId);
+        BindingUtils.bind(component, getModel(), aPropertyname);
         return component;
     }
 

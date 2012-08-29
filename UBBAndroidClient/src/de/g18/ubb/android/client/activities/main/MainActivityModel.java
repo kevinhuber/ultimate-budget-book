@@ -11,9 +11,13 @@ public class MainActivityModel extends AbstractModel {
 
     public static final String PROPERTY_EMAIL = "eMail";
     public static final String PROPERTY_PASSWORD = "password";
+    public static final String PROPERTY_SERVER_ADDRESS = "serverAddress";
+    public static final String PROPERTY_STAY_LOGGED_IN = "stayLoggedInChecked";
 
     private String eMail;
     private String password;
+    private String serverAddress;
+    private boolean stayLoggedInChecked;
 
 
     public MainActivityModel() {
@@ -37,5 +41,25 @@ public class MainActivityModel extends AbstractModel {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setServerAddress(String aNewValue) {
+        String oldValue = getServerAddress();
+        serverAddress = aNewValue;
+        fireChange(PROPERTY_SERVER_ADDRESS, oldValue, getServerAddress());
+    }
+
+    public String getServerAddress() {
+        return serverAddress;
+    }
+
+    public void setStayLoggedInChecked(boolean aNewValue) {
+        boolean oldValue = isStayLoggedInChecked();
+        stayLoggedInChecked = aNewValue;
+        fireChange(PROPERTY_STAY_LOGGED_IN, oldValue, isStayLoggedInChecked());
+    }
+
+    public boolean isStayLoggedInChecked() {
+        return stayLoggedInChecked;
     }
 }
