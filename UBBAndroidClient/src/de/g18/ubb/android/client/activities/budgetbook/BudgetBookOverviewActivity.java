@@ -14,19 +14,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
-public class BudgetBookOverviewActivity extends AbstractActivity {
+public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverviewModel> {
 
     private Button createButton;
 
 
     @Override
-    protected AbstractModel createModel() {
-        // TODO Auto-generated method stub
-        return null;
+    protected BudgetBookOverviewModel createModel() {
+        return new BudgetBookOverviewModel();
     }
 
     @Override
@@ -70,7 +68,7 @@ public class BudgetBookOverviewActivity extends AbstractActivity {
     }
 
     private void fillBudgetBooksView() {
-        List<BudgetBook> books = ServiceRepository.getBudgetBookService().getAll();
+        List<BudgetBook> books = ServiceRepository.getBudgetBookService().getAllForCurrentUser();
         BudgetBookAdapter adapter = new BudgetBookAdapter(this, books);
 
         ListView budgetBooksListView = (ListView) findViewById(R.id.budgetBooks);

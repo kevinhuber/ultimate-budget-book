@@ -8,6 +8,8 @@ import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
+import org.hibernate.Query;
+
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
@@ -60,5 +62,16 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
         b.setAssignedUser(assignedUsers);
         b.setName(aName);
         return saveAndLoad(b);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<BudgetBook> getAllForCurrentUser() {
+        Query q = getHibernateSession()
+            .createQuery("SELECT b FROM " + getEntityClass().getSimpleName() + " b "
+                       + "  LEFT JOIN b." + BudgetBook.PROPERTY_ASSIGNED_USER + " assignedUsers "
+                       + " WHERE :currentUser IN (assignedUsers)")
+            .setEntity("currentUser", getCurrentUser());
+        return q.list();
     }
 }

@@ -23,8 +23,10 @@ public interface BudgetBookService {
     public static final String RESTFUL_SERVICE_NAME = "BudgetBookService";
 
     @POST
-    BudgetBook createNew(@HeaderParam("bookname") String aName, @HeaderParam("username") List<String> aUserNameList) throws UserWithGivenEmailNotFound, NotFoundExcpetion;
+    BudgetBook createNew(@HeaderParam("bookname") String aName,
+                         @HeaderParam("username") List<String> aUserNameList) throws UserWithGivenEmailNotFound,
+                                                                                     NotFoundExcpetion;
 
     @GET
-    List<BudgetBook> getAll(); // TODO (huber): ENTFERNEN!!!!
+    List<BudgetBook> getAllForCurrentUser();
 }
