@@ -18,7 +18,6 @@ import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.activities.register.RegisterActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.utils.UBBConstants;
-import de.g18.ubb.common.domain.UserLogin;
 import de.g18.ubb.common.util.StringUtil;
 
 /**

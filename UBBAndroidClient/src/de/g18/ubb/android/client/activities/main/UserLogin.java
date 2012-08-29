@@ -1,4 +1,6 @@
-package de.g18.ubb.common.domain;
+package de.g18.ubb.android.client.activities.main;
+
+import de.g18.ubb.common.domain.AbstractModel;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>

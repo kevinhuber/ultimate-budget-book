@@ -1,7 +1,6 @@
 package de.g18.ubb.android.client.activities.main;
 
 import de.g18.ubb.android.client.validation.AbstractValidator;
-import de.g18.ubb.common.domain.UserLogin;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
