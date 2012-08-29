@@ -1,6 +1,7 @@
 package de.g18.ubb.android.client.activities.register;
 
 import de.g18.ubb.android.client.communication.MockServiceProvider;
+import de.g18.ubb.android.client.mock.service.MockUserServiceImpl;
 import de.g18.ubb.android.client.validation.AbstractValidatorTestCase;
 import de.g18.ubb.common.util.StringUtil;
 
@@ -64,6 +65,7 @@ public class RegisterValidatorTest extends AbstractValidatorTestCase<RegisterMod
     }
 
     public void testEMailMustBeUnique() {
-        // TODO (huber): Implementieren!
+        getModel().setEMail(MockUserServiceImpl.REGISTERED_USER_EMAIL);
+        assertValidationResult(RegisterResource.VALIDATION_EMAIL_ALREADY_USED);
     }
 }
