@@ -1,13 +1,11 @@
 package de.g18.ubb.android.client.activities.category;
 
-import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.R.layout;
-import de.g18.ubb.android.client.R.menu;
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import de.g18.ubb.android.client.R;
 
 public class CategorieCreateActivity extends Activity {
 
@@ -15,7 +13,6 @@ public class CategorieCreateActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorie_create);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -24,7 +21,7 @@ public class CategorieCreateActivity extends Activity {
         return true;
     }
 
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
