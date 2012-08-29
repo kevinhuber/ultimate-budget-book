@@ -64,7 +64,7 @@ public class RegisterActivity extends AbstractValidationFormularActivity<Registe
                                                                                       getModel().getUsername(),
                                                                                       getModel().getPassword());
         if (!registrationSuccessfull) {
-            return "Registration fehlgeschlagen!";
+            return RegisterResource.MESSAGE_REGISTRATION_FAILED.formatted();
         }
         return StringUtil.EMPTY;
     }
@@ -83,7 +83,7 @@ public class RegisterActivity extends AbstractValidationFormularActivity<Registe
 
     @Override
     protected String getSubmitWaitMessage() {
-        return "Registrierung wird abgeschlossen...";
+        return RegisterResource.MESSAGE_REGISTRATION_IN_PROGRESS.formatted();
     }
 
     @Override
