@@ -1,28 +1,38 @@
 package de.g18.ubb.android.client.activities.budgetbook;
 
-import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.activities.AbstractActivity;
+import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 
-public class BudgetBookDetailActivity extends AbstractActivity {
-	
-	private Button delete; 
+public class BudgetBookDetailActivity extends AbstractActivity<BudgetBookOverviewModel> {
+
+	private Button delete;
+
+
+    @Override
+    protected BudgetBookOverviewModel createModel() {
+        return new BudgetBookOverviewModel();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_budget_book_create_new;
+    }
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_budget_book_create_new);
 
 		initComponents();
 		initEventHandling();
 	}
-	
+
 	 @Override
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	        switch (item.getItemId()) {
@@ -56,12 +66,10 @@ public class BudgetBookDetailActivity extends AbstractActivity {
 	// Inner Classes
 	// -------------------------------------------------------------------------
 
-
 	private final class DeleteBudgetBookButtonListener implements OnClickListener {
 
 		public void onClick(View aView) {
 
 		}
 	}
-
 }

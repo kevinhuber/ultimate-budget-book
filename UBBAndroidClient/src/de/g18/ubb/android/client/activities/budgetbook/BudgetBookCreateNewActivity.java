@@ -3,32 +3,25 @@ package de.g18.ubb.android.client.activities.budgetbook;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.resteasy.spi.NotFoundException;
-
-import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.R.id;
-import de.g18.ubb.android.client.R.layout;
-import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.android.client.communication.WebServiceProvider;
-import de.g18.ubb.common.service.BudgetBookService;
-import de.g18.ubb.common.service.exception.NotFoundExcpetion;
-import de.g18.ubb.common.service.exception.UserWithGivenEmailNotFound;
-import de.g18.ubb.common.service.repository.ServiceRepository;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.activities.AbstractActivity;
+import de.g18.ubb.android.client.communication.WebServiceProvider;
+import de.g18.ubb.common.service.BudgetBookService;
+import de.g18.ubb.common.service.exception.NotFoundExcpetion;
+import de.g18.ubb.common.service.exception.UserWithGivenEmailNotFound;
+import de.g18.ubb.common.service.repository.ServiceRepository;
 
-public class BudgetBookCreateNewActivity extends AbstractActivity {
+public class BudgetBookCreateNewActivity extends AbstractActivity<BudgetBookModel> {
 
 	private EditText budgetBookName;
 	private List<EditText> budgetBookOwner;
@@ -37,10 +30,20 @@ public class BudgetBookCreateNewActivity extends AbstractActivity {
 	private Button addUser;
 	private Button save;
 
+
+    @Override
+    protected BudgetBookModel createModel() {
+        return new BudgetBookModel();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_budget_book_create_new;
+    }
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_budget_book_create_new);
 
 		initComponents();
 		initEventHandling();
@@ -71,6 +74,7 @@ public class BudgetBookCreateNewActivity extends AbstractActivity {
 		switchActivity(BudgetBookOverviewActivity.class);
 	}
 
+
 	// -------------------------------------------------------------------------
 	// Inner Classes
 	// -------------------------------------------------------------------------
@@ -85,7 +89,7 @@ public class BudgetBookCreateNewActivity extends AbstractActivity {
 				LinearLayout layout = (LinearLayout) findViewById(R.id.userEditTexts);
 				EditText temp = new EditText(BudgetBookCreateNewActivity.this);
 				temp.setLayoutParams(new LayoutParams(
-						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+						android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 
 				budgetBookOwner.add(temp);
 
@@ -102,7 +106,7 @@ public class BudgetBookCreateNewActivity extends AbstractActivity {
 
 			try {
 				BudgetBookService service = ServiceRepository.getBudgetBookService();
-				
+
 				// fügt den ersten benutzer hinzu, im normal fall ist dies der
 				// angemeldete benutzer
 				for (EditText budgetBookOwnerEntry : budgetBookOwner) {
@@ -110,7 +114,7 @@ public class BudgetBookCreateNewActivity extends AbstractActivity {
 				}
 				service.createNew(budgetBookName.getText().toString(),
 						userNameList);
-				
+
 				switchToBudgetBookOverview();
 			} catch (UserWithGivenEmailNotFound e) {
 				Toast.makeText(getApplicationContext(),
@@ -122,5 +126,4 @@ public class BudgetBookCreateNewActivity extends AbstractActivity {
 			}
 		}
 	}
-
 }

@@ -2,8 +2,6 @@ package de.g18.ubb.android.client.activities.budgetbook;
 
 import java.util.List;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -16,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
+import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
@@ -25,9 +24,19 @@ public class BudgetBookOverviewActivity extends AbstractActivity {
 
 
     @Override
+    protected AbstractModel createModel() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_budget_book_overview;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_budget_book_overview);
 
         initComponents();
         initEventHandling();
