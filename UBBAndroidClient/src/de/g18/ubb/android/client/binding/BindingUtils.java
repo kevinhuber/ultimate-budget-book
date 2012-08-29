@@ -17,9 +17,11 @@ public final class BindingUtils {
     public static void bind(View aComponent, AbstractModel aModel, String aPropertyname) {
         if (aComponent instanceof EditText) {
             bind((EditText) aComponent, aModel, aPropertyname);
+            return;
         }
         if (aComponent instanceof CheckBox) {
             bind((CheckBox) aComponent, aModel, aPropertyname);
+            return;
         }
         throw new IllegalStateException("Can not bind instances of " + aComponent.getClass().getName());
     }
