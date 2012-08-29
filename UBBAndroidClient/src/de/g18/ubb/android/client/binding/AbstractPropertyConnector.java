@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 
 import android.view.View;
 import de.g18.ubb.common.domain.AbstractModel;
+import de.g18.ubb.common.util.PropertyAccessor;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>

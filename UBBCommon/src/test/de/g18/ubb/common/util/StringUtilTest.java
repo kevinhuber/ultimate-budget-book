@@ -98,6 +98,18 @@ public class StringUtilTest {
     }
 
     @Test
+    public void testStartsWithIgnoreCase() {
+        String testString = "TestString";
+
+        Assert.assertTrue(StringUtil.startsWithIgnoreCase(testString, "tEst"));
+        Assert.assertFalse(StringUtil.startsWithIgnoreCase(testString, "tEstt"));
+        Assert.assertTrue(StringUtil.startsWithIgnoreCase(testString, ""));
+        Assert.assertFalse(StringUtil.startsWithIgnoreCase(testString, null));
+        Assert.assertFalse(StringUtil.startsWithIgnoreCase(null, "tEstt"));
+        Assert.assertFalse(StringUtil.startsWithIgnoreCase("", "tEstt"));
+    }
+
+    @Test
     public void testSubStringBefore() {
         String testString = "TestString";
         String firstSubString = "Test";
