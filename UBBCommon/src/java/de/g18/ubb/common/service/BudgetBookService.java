@@ -29,4 +29,7 @@ public interface BudgetBookService {
 
     @GET
     List<BudgetBook> getAllForCurrentUser();
+    
+    @GET
+    BudgetBook loadSinglebudgetBookById(int id);
 }
