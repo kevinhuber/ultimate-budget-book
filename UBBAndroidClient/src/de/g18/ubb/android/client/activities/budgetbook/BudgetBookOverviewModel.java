@@ -9,7 +9,6 @@ public class BudgetBookOverviewModel extends AbstractModel {
 
     private static final long serialVersionUID = 1L;
 
-
     public BudgetBookOverviewModel() {
     }
 }

@@ -12,13 +12,14 @@
         android:layout_height="fill_parent" >
 
         <LinearLayout
+            android:id="@+BudgetBook/daylinearLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#ffffff"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+MainLayout/title"
+                android:id="@+BudgetBook/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -45,13 +46,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+BudgetBook/monthlinearLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#ffffff"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+MainLayout/title"
+                android:id="@+BudgetBook/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -86,13 +88,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+BudgetBook/yearlinearLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#ffffff"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+MainLayout/title"
+                android:id="@+BudgetBook/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
