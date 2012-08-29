@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.android.client.activities.category.CategorieCreateActivity;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 

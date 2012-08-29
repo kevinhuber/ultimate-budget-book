@@ -19,11 +19,20 @@
     <string name="t_password2">Wiederholen</string>
     <string name="b_register">Registrieren</string>
     <string name="title_activity_budget_book_overview">Meine Haushaltsbücher</string>
-    <string name="b_newBudgetBook">Neues Haushaltsbuch</string>
     <string name="menu_category">Kategorien</string>
     <string name="menu_new">Erstellen</string>
     <string name="menu_delete">Löschen</string>
-
+    <!-- BuudgetBook Übersicht und Detail Activity -->
+    <string name="b_newBudgetBook">Neues Haushaltsbuch</string>
+    <string name="title_dayView">Tagesansicht</string>
+    <string name="title_monthView">Monatsansicht</string>
+    <string name="title_yearView">Jahresansicht</string>
+    <string name="title_activity_budget_book_create_new">Neues Haushaltsbuch</string>
+    <string name="menu_newBooking">Neuer Eintrag</string>
+    <string name="b_next">Next</string>
+    <string name="b_previous">Previous</string>
+    <string name="b_delete">Löschen</string>
+    
     <!-- category overview -->
     <string name="b_category_create">Kategorie anlegen</string>
     <string name="b_category_change">Kategorie ändern</string>
@@ -32,7 +41,7 @@
     <!-- categorie create -->
     <string name="e_categorie_create">Name der Kategorie</string>
     <string name="b_categorie_create">Kategorie anlegen</string>
-    <string name="title_activity_budget_book_create_new">Neues Haushaltsbuch</string>
+  
 	<!-- categorie change -->
 	<string name="title_activity_category_change">MainActivity</string>
 	<string name="add_budget_book_user">weiteren Benutzer Hinzufügen</string>
@@ -40,5 +49,5 @@
 	<string name="owner_budget_book">Benutzer</string>
 	<string name="new_name_for_budget_book">Name</string>
 	<string name="stayLoggedIn">Angemeldet bleiben</string>
-	<string name="menu_newBooking">Neuer Eintrag</string>
+	
 </resources>

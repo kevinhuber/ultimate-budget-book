@@ -1,19 +1,20 @@
 package de.g18.ubb.android.client.activities.budgetbook;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import org.hibernate.cfg.NotYetImplementedException;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.android.client.activities.category.CategorieCreateActivity;
-import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
@@ -21,6 +22,9 @@ public class BudgetBookDetailActivity extends
 		AbstractActivity<BudgetBookOverviewModel> {
 
 	private Button delete;
+	private Button buttonPrevious;
+	private Button buttonNext;
+
 	private ArrayList<BudgetBookModel> transferredData;
 
 	@Override
@@ -30,7 +34,7 @@ public class BudgetBookDetailActivity extends
 
 	@Override
 	protected int getLayoutId() {
-		return R.layout.activity_budget_book_create_new;
+		return R.layout.activity_budget_book_detail;
 	}
 
 	@Override
@@ -38,9 +42,11 @@ public class BudgetBookDetailActivity extends
 		super.onCreate(savedInstanceState);
 		initComponents();
 		loadExtraContent("BudgetBookModel");
-		//TODO: DebugToast entfernen
-		Toast.makeText(this, "Der Adler "+ transferredData.get(0).getName() +" ist gelandet",
-				Toast.LENGTH_SHORT).show();
+		// TODO: DebugToast entfernen
+		Toast.makeText(
+				this,
+				"Der Adler " + transferredData.get(0).getName()
+						+ " ist gelandet", Toast.LENGTH_SHORT).show();
 		initEventHandling();
 	}
 
@@ -67,24 +73,31 @@ public class BudgetBookDetailActivity extends
 		return true;
 	}
 
+	@SuppressWarnings("unused")
 	private BudgetBook getSelectedBudgetBook(int id) {
 		BudgetBook book = ServiceRepository.getBudgetBookService()
 				.loadSinglebudgetBookById(id);
 		return book;
 	}
-	
-	
-	 private void switchToCategoryOverview() {
-			Intent i = new Intent(getApplicationContext(), BudgetBookDetailActivity.class);
-			i.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
-			startActivity(i);
-		}
+
+	private void switchToCategoryOverview() {
+		Intent i = new Intent(getApplicationContext(),
+				BudgetBookDetailActivity.class);
+		i.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
+		startActivity(i);
+	}
 
 	private void initComponents() {
+		delete = (Button) findViewById(R.BudgetBookDetails.deleteEntry);
+		buttonNext = (Button) findViewById(R.BudgetBookDetails.Button_next);
+		buttonPrevious = (Button) findViewById(R.BudgetBookDetails.Button_previous);
 	}
 
 	private void initEventHandling() {
 		delete.setOnClickListener(new DeleteBudgetBookButtonListener());
+		buttonPrevious
+				.setOnClickListener(new PreviousBudgetBookViewButtonListener());
+		buttonNext.setOnClickListener(new NextBudgetBookViewButtonListener());
 	}
 
 	// -------------------------------------------------------------------------
@@ -95,7 +108,29 @@ public class BudgetBookDetailActivity extends
 			OnClickListener {
 
 		public void onClick(View aView) {
+			throw new NotYetImplementedException("Todo: nach drücken auf delete sollen checkboxen dem layout hinzugefügt werden");
+		}
+	}
 
+	private final class NextBudgetBookViewButtonListener implements
+			OnClickListener {
+
+		public void onClick(View view) {
+			ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
+			vf.setAnimation(AnimationUtils.loadAnimation(view.getContext(),
+					R.anim.slide_right));
+			vf.showNext();
+		}
+	}
+
+	private final class PreviousBudgetBookViewButtonListener implements
+			OnClickListener {
+
+		public void onClick(View view) {
+			ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
+			vf.setAnimation(AnimationUtils.loadAnimation(view.getContext(),
+					R.anim.slide_left));
+			vf.showPrevious();
 		}
 	}
 }

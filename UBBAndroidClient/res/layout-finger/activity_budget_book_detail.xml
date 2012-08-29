@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="UselessParent" >
+
+    <ViewFlipper
+        android:id="@+BudgetBook/details"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+MainLayout/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15pt"
+                android:layout_marginTop="10pt"
+                android:text="@string/title_dayView"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:id="@+BudgetBookDetails/deleteEntry"
+                android:layout_width="166dp"
+                android:layout_height="36dp"
+                android:text="@string/b_delete"
+                android:textSize="12dp" >
+            </Button>
+
+            <Button
+                android:id="@+BudgetBookDetails/Button_next"
+                android:layout_width="166dp"
+                android:layout_height="36dp"
+                android:text="@string/b_next"
+                android:textSize="12dp" >
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+MainLayout/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15pt"
+                android:layout_marginTop="10pt"
+                android:text="@string/title_monthView"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:id="@+BudgetBookDetails/deleteEntry"
+                android:layout_width="166dp"
+                android:layout_height="36dp"
+                android:text="@string/b_delete"
+                android:textSize="12dp" >
+            </Button>
+
+            <Button
+                android:id="@+BudgetBookDetails/Button_next"
+                android:layout_width="166dp"
+                android:layout_height="36dp"
+                android:text="@string/b_next"
+                android:textSize="12dp" >
+            </Button>
+
+            <Button
+                android:id="@+BudgetBookDetails/Button_previous"
+                android:layout_width="166dp"
+                android:layout_height="36dp"
+                android:text="@string/b_previous"
+                android:textSize="12dp" >
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+MainLayout/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15pt"
+                android:layout_marginTop="10pt"
+                android:text="@string/title_yearView"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:id="@+BudgetBookDetails/deleteEntry"
+                android:layout_width="166dp"
+                android:layout_height="36dp"
+                android:text="@string/b_delete"
+                android:textSize="12dp" >
+            </Button>
+
+            <Button
+                android:id="@+BudgetBookDetails/Button_previous"
+                android:layout_width="166dp"
+                android:layout_height="36dp"
+                android:text="@string/b_previous"
+                android:textSize="12dp" >
+            </Button>
+        </LinearLayout>
+    </ViewFlipper>
+
+</LinearLayout>
