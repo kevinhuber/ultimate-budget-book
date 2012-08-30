@@ -20,13 +20,14 @@ public class BudgetBookModel extends AbstractModel implements Parcelable {
 	private static final String TAG = "BudgetBookModel";
 	
 	// braucht der compiler, sonst gibts was ...
-	private static BudgetBookParcableCreator CREATOR;
+	public static BudgetBookParcableCreator CREATOR = new BudgetBookParcableCreator();
 
 	private String name;
 
 	private Long id;
-
-	public BudgetBookModel() {
+	
+	public BudgetBookModel(){
+		this(null);
 	}
 
 	public BudgetBookModel(Parcel source) {
@@ -34,8 +35,8 @@ public class BudgetBookModel extends AbstractModel implements Parcelable {
          * Reconstruct from the Parcel - FIFO
          */
         Log.v(TAG, "BudgetBookModel(Parcel source): und wieder alles zurück");
-        id = source.readLong();
-        name = source.readString();
+        id = source == null ? -1 : source.readLong();
+        name = source == null ? null : source.readString();
 	}
 
 	public void setName(String aNewValue) {

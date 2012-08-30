@@ -44,6 +44,13 @@
                 android:value="de.g18.ubb.android.client.MainActivity" />
         </activity>
         <activity
+            android:name=".activities.budgetbook.BudgetBookDetailActivity"
+            android:label="@string/title_activity_budget_book_detail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.g18.ubb.android.client.BudgetBookOverviewActivity" />
+        </activity>
+        <activity
             android:name=".activities.category.CategorieCreateActivity"
             android:label="@string/title_activity_categorie_create" >
             <meta-data

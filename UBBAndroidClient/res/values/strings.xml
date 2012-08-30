@@ -32,6 +32,7 @@
     <string name="b_next">Next</string>
     <string name="b_previous">Previous</string>
     <string name="b_delete">Löschen</string>
+    <string name="title_activity_budget_book_detail">Haushaltsbuch Detailansicht</string>
     
     <!-- category overview -->
     <string name="b_category_create">Kategorie anlegen</string>
