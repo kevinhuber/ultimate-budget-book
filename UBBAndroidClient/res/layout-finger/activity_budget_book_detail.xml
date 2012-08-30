@@ -36,13 +36,6 @@
                 android:textSize="12dp" >
             </Button>
 
-            <Button
-                android:id="@+BudgetBookDetails/Button_next"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_next"
-                android:textSize="12dp" >
-            </Button>
         </LinearLayout>
 
         <LinearLayout
@@ -70,21 +63,6 @@
                 android:textSize="12dp" >
             </Button>
 
-            <Button
-                android:id="@+BudgetBookDetails/Button_next"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_next"
-                android:textSize="12dp" >
-            </Button>
-
-            <Button
-                android:id="@+BudgetBookDetails/Button_previous"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_previous"
-                android:textSize="12dp" >
-            </Button>
         </LinearLayout>
 
         <LinearLayout
@@ -112,13 +90,6 @@
                 android:textSize="12dp" >
             </Button>
 
-            <Button
-                android:id="@+BudgetBookDetails/Button_previous"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_previous"
-                android:textSize="12dp" >
-            </Button>
         </LinearLayout>
     </ViewFlipper>
 

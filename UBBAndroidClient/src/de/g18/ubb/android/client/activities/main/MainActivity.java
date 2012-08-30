@@ -84,11 +84,6 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
             case R.id.menu_settings:
                 Toast.makeText(this, "Menü Einstellungen wurde ausgewählt", Toast.LENGTH_SHORT).show();
                 break;
-
-            case R.id.menu_category:
-                switchActivity(CategoryOverviewActivity.class);
-                break;
-
             default:
                 break;
         }
