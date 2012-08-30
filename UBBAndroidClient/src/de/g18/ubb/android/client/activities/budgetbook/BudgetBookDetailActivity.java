@@ -6,7 +6,10 @@ import org.hibernate.cfg.NotYetImplementedException;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
@@ -32,6 +35,11 @@ public class BudgetBookDetailActivity extends
 	
 	//maps to: 0 = day, 1 = month and 2 = year // default = 0
 	private int dynamicViewLayoutID = 0;
+	
+	private static final int SWIPE_MIN_DISTANCE = 120;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private GestureDetector gestureDetector;
 
 	@Override
 	protected BudgetBookOverviewModel createModel() {
@@ -54,7 +62,6 @@ public class BudgetBookDetailActivity extends
 			return R.BudgetBook.monthlinearLayout;
 		case 2:
 			return R.BudgetBook.yearlinearLayout;
-
 		default:
 			return R.BudgetBook.daylinearLayout;
 		}
@@ -67,13 +74,20 @@ public class BudgetBookDetailActivity extends
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		gestureDetector = new GestureDetector(new BudgetBookDetailGestureDetector());
+		ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
+		vf.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (gestureDetector.onTouchEvent(event)) {
+                    return true;
+                }
+                return false;
+            }
+        });
+		
 		initComponents();
 		loadExtraContent("BudgetBookModel");
-		// TODO: DebugToast entfernen
-		Toast.makeText(
-				this,
-				"Der Adler " + transferredData.get(0).getName()
-						+ " ist gelandet", Toast.LENGTH_SHORT).show();
 		showDetailsOnView();
 		initEventHandling();
 	}
@@ -161,6 +175,7 @@ public class BudgetBookDetailActivity extends
 				.setOnClickListener(new PreviousBudgetBookViewButtonListener());
 		buttonNext.setOnClickListener(new NextBudgetBookViewButtonListener());
 	}
+	
 
 	// -------------------------------------------------------------------------
 	// Inner Classes
@@ -180,11 +195,14 @@ public class BudgetBookDetailActivity extends
 		public void onClick(View view) {
 			ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
 			//TODO: überprüfen der child id und setzen von setLinearLayoutID() current + 1
-			//current --> vf.getChildAt(vf.getDisplayedChild()).getId();
+			setdynamicLinearLayoutID(vf.getChildAt(vf.getDisplayedChild()).getId() + 1);
+			Toast.makeText(
+					getApplicationContext(),
+					("CurrentViewID" + Integer.toString(vf.getChildAt(vf.getDisplayedChild()).getId()) + ""), Toast.LENGTH_SHORT).show();
+			
 			vf.setAnimation(AnimationUtils.loadAnimation(view.getContext(),
 					R.anim.slide_right));
 			vf.showNext();
-			
 		}
 	}
 
@@ -193,9 +211,46 @@ public class BudgetBookDetailActivity extends
 
 		public void onClick(View view) {
 			ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
+			setdynamicLinearLayoutID(vf.getChildAt(vf.getDisplayedChild()).getId() - 1);
+			
 			vf.setAnimation(AnimationUtils.loadAnimation(view.getContext(),
 					R.anim.slide_left));
 			vf.showPrevious();
 		}
 	}
+	
+	class BudgetBookDetailGestureDetector extends SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        	ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
+            if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
+                return false;
+            }
+ 
+            // right to left swipe
+            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+            	vf.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+    					R.anim.slide_in_left));
+            	vf.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+    					R.anim.slide_out_right));
+    			vf.showNext();
+    	    // right to left swipe
+            }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+            	vf.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+    					R.anim.slide_in_right));
+            	vf.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+    					R.anim.slide_out_left));
+    			vf.showPrevious();
+            }
+ 
+            return false;
+        }
+        
+        @Override
+        public boolean onDown(MotionEvent e) {
+	        	return true;
+        }
+	}
+        
+        
 }
