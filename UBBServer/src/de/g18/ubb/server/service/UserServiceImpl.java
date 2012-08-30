@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.jboss.resteasy.spi.NotFoundException;
 
 import de.g18.ubb.common.domain.User;
+import de.g18.ubb.common.service.UserService;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.remote.UserServiceRemote;
 import de.g18.ubb.common.util.HashUtil;
@@ -16,6 +17,8 @@ import de.g18.ubb.common.util.StringUtil;
 import de.g18.ubb.server.service.local.UserServiceLocal;
 
 /**
+ * Implementierung des {@link UserService}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 @Local(UserServiceLocal.class)
@@ -72,6 +75,9 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
         return true;
     }
 
+    /**
+     * Erstellt aus dem übergebenen Passwort einen Hash und speichert diesem im User.
+     */
     private void setPassword(User aUser, String aPassword) {
         String newPasswordHash = HashUtil.toMD5(aPassword, aUser.getSalt());
         aUser.setPasswordHash(newPasswordHash);

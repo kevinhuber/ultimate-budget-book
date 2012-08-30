@@ -25,6 +25,9 @@ import de.g18.ubb.server.service.UserServiceImpl;
 import de.g18.ubb.server.service.local.UserServiceLocal;
 
 /**
+ * Klasse zum authentifizieren von eingehenden Client-Anfragen.
+ * Clients senden ihre email-adresse und ihr passwort, diese werden über den UserService mit der Datenbank abgeglichen.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class UBBSecurityRealm extends AuthorizingRealm {
@@ -48,7 +51,7 @@ public final class UBBSecurityRealm extends AuthorizingRealm {
         try {
             user = getUserService().loadByEMail(email);
         } catch (NotFoundExcpetion e) {
-            throw new UnknownAccountException("No account found for user [" + email + "]");
+            throw new UnknownAccountException("No account found for user " + email);
         }
 
         byte[] salt = user.getSalt();
