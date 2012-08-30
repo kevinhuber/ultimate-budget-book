@@ -61,6 +61,22 @@ public class RegisterValidatorTest extends AbstractValidatorTestCase<RegisterMod
         getModel().setEMail(email);
         assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
 
+        email = "@address";
+        getModel().setEMail(email);
+        assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
+
+        email = "@address.";
+        getModel().setEMail(email);
+        assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
+
+        email = "@address.de";
+        getModel().setEMail(email);
+        assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
+
+        email = "@.";
+        getModel().setEMail(email);
+        assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
+
         email = "validemail@address.de";
         getModel().setEMail(email);
         assertValidationSuccessfull();
