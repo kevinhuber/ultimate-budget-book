@@ -11,7 +11,7 @@ import de.g18.ubb.common.util.StringUtil;
  */
 public final class ValidationUtil {
 
-    public static final String EMAIL_ADDRESS_VALIDATION_PATTERN = "^\\w*@\\w*\\.\\w*$";
+    public static final String EMAIL_ADDRESS_VALIDATION_PATTERN = "^\\w+@\\w+\\.\\w+$";
 
 
     private ValidationUtil() {

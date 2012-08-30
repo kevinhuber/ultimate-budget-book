@@ -42,6 +42,14 @@ public class MainActivityValidatorTest  extends AbstractValidatorTestCase<MainAc
         getModel().setEMail(email);
         assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
 
+        email = "invalidemailaddress.";
+        getModel().setEMail(email);
+        assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
+
+        email = "invalidemail@address.";
+        getModel().setEMail(email);
+        assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
+
         email = "validemail@address.de";
         getModel().setEMail(email);
         assertValidationSuccessfull();
