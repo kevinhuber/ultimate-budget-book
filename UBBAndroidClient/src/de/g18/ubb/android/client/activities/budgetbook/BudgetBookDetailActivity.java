@@ -101,8 +101,6 @@ public class BudgetBookDetailActivity extends
 	
 	private void showDetailsOnView(){
 		 // über getLinearLayoutID() wissen wir in welcher view wir uns befinden
-		
-		
 		switch (dynamicViewLayoutID) {
 		case 0:
 			showDayDetailsOnView();

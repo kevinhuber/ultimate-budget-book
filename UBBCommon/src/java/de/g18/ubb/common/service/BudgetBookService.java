@@ -30,6 +30,6 @@ public interface BudgetBookService {
     @GET
     List<BudgetBook> getAllForCurrentUser();
     
-    @GET
+    @POST
     BudgetBook loadSinglebudgetBookById(int id);
 }

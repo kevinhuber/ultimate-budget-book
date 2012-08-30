@@ -76,7 +76,6 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook>
 	}
 
 	@Override
-	@GET
 	public BudgetBook loadSinglebudgetBookById(int id) {
 //		Query q = getHibernateSession().createQuery(
 //				"SELECT b FROM " + getEntityClass().getSimpleName() + " b"
