@@ -4,6 +4,7 @@ import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.R.id;
 import de.g18.ubb.android.client.R.layout;
 import de.g18.ubb.android.client.R.menu;
+import de.g18.ubb.android.client.activities.AbstractActivity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,11 +28,12 @@ public class CategoryOverviewActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_new:
+		case R.id.b_category_create:
 			Toast.makeText(this, "Kategorie neuerstellen ausgewählt",
 					Toast.LENGTH_SHORT).show();
+			
 			break;
-		case R.id.menu_delete:
+		case R.id.category_change:
 			Toast.makeText(this, "Kategorie löschen ausgewählt",
 					Toast.LENGTH_SHORT).show();
 			break;
@@ -42,5 +44,7 @@ public class CategoryOverviewActivity extends Activity {
 
 		return true;
 	}
+	
+	
 
 }
