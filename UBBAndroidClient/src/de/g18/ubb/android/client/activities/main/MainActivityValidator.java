@@ -18,6 +18,9 @@ public class MainActivityValidator extends AbstractValidator<MainActivityModel> 
         if (StringUtil.isEmpty(getModel().getEMail())) {
             return ValidationUtil.createMustNotBeEmptyMessage(MainActivityResource.FIELD_EMAIL);
         }
+        if (!ValidationUtil.isValidEMail(getModel().getEMail())) {
+            return ValidationUtil.createInvalidEMailFormatMessage(getModel().getEMail());
+        }
         if (StringUtil.isEmpty(getModel().getPassword())) {
             return ValidationUtil.createMustNotBeEmptyMessage(MainActivityResource.FIELD_PASSWORD);
         }

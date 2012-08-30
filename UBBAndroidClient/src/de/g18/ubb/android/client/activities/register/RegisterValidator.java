@@ -1,5 +1,6 @@
 package de.g18.ubb.android.client.activities.register;
 
+
 import de.g18.ubb.android.client.validation.AbstractValidator;
 import de.g18.ubb.android.client.validation.ValidationUtil;
 import de.g18.ubb.common.service.repository.ServiceRepository;
@@ -22,6 +23,9 @@ public class RegisterValidator extends AbstractValidator<RegisterModel> {
         }
         if (StringUtil.isEmpty(getModel().getEMail())) {
             return ValidationUtil.createMustNotBeEmptyMessage(RegisterResource.FIELD_EMAIL);
+        }
+        if (!ValidationUtil.isValidEMail(getModel().getEMail())) {
+            return ValidationUtil.createInvalidEMailFormatMessage(getModel().getEMail());
         }
         if (StringUtil.isEmpty(getModel().getPassword())) {
             return ValidationUtil.createMustNotBeEmptyMessage(RegisterResource.FIELD_PASSWORD);
