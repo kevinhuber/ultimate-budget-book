@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
+ * Entität für Haushaltsbücher.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 @Entity

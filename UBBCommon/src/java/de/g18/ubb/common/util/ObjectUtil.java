@@ -1,6 +1,8 @@
 package de.g18.ubb.common.util;
 
 /**
+ * Util-Klasse für alle Arten von Objekten.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class ObjectUtil {

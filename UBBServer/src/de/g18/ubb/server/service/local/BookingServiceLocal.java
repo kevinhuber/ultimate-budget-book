@@ -5,6 +5,8 @@ import javax.ejb.Local;
 import de.g18.ubb.common.service.BookingService;
 
 /**
+ * Local-Interface für den {@link BookingService}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 @Local

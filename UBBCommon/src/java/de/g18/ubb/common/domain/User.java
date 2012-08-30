@@ -10,6 +10,8 @@ import de.g18.ubb.common.util.ObjectUtil;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
+ * Entität für Benutzer.
+ *
  * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
  */
 @Entity

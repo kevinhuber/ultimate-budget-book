@@ -3,6 +3,8 @@ package de.g18.ubb.common.util;
 import de.g18.ubb.common.domain.Identifiable;
 
 /**
+ * Util-Klasse für {@link Identifiable}-Objekte.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class EntityUtil {

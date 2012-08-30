@@ -1,22 +1,25 @@
 package de.g18.ubb.common.util;
 
 /**
+ * Util-Klasse für {@link String} -Objekte
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class StringUtil {
 
     /**
-     * String representing a <code>null</code> value.
+     * String der einen <code>null</code> Wert darstellt.
      */
     public static final String NULL = "null";
 
     /**
-     * Representiert einen leeren String.
+     * Leerer String
      */
     public static final String EMPTY = "";
 
 
-    // TODO (huber): Add docs
+    /**
+     * Entfernt den zweiten {@link String}s vom ende des ersten {@link String}s.
+     */
     public static String removeEnd(String aString, String aToRemove) {
         if (isEmpty(aString) || !endsWith(aString, aToRemove)) {
             return aString;
@@ -32,7 +35,7 @@ public final class StringUtil {
     }
 
     /**
-     * @return <code>true</code> falls der übergebene String <code>null</code> oder <code>""</code> ist
+     * @return <code>true</code> falls der übergebene String <code>null</code> oder <code>""</code> ist.
      */
     public static boolean isEmpty(String aString) {
         return aString == null || ObjectUtil.equals(EMPTY, aString);
@@ -46,7 +49,7 @@ public final class StringUtil {
     }
 
     /**
-     * Null-Safe Aufruf der Methode {@link String#endsWith(String)}
+     * Null-Safe Aufruf der Methode {@link String#endsWith(String)}.
      */
     public static boolean endsWith(String aString, String aEnd) {
         if (aString == null || aEnd == null) {
@@ -55,6 +58,9 @@ public final class StringUtil {
         return aString.endsWith(aEnd);
     }
 
+    /**
+     * @see #endsWith(String, String)
+     */
     public static boolean endsWithIgnoreCase(String aString, String aEnd) {
         if (aString == null || aEnd == null) {
             return false;
@@ -79,6 +85,9 @@ public final class StringUtil {
         return aString.startsWith(aStart);
     }
 
+    /**
+     * @see #startsWith(String, String)
+     */
     public static boolean startsWithIgnoreCase(String aString, String aStart) {
         if (aString == null || aStart == null) {
             return false;
@@ -86,7 +95,9 @@ public final class StringUtil {
         return startsWith(aString.toLowerCase(), aStart.toLowerCase());
     }
 
-    // TODO (huber): Add docs
+    /**
+     * Gibt den Teil des erstens {@link String}s zurück, der vor dem zweiten steht.
+     */
     public static String subStringBefore(String aString, String aDelimiter) {
         if (isEmpty(aString) || isEmpty(aDelimiter) ) {
             return aString;
@@ -99,7 +110,10 @@ public final class StringUtil {
         return aString.substring(0, delimiterIndex);
     }
 
-    // TODO (huber): Add docs
+
+    /**
+     * Null-Safe Aufruf der Methode {@link String#indexOf(String)}
+     */
     public static int indexOf(String aString, String aToFind) {
         if (isEmpty(aString) || isEmpty(aToFind)) {
             return -1;
@@ -108,8 +122,8 @@ public final class StringUtil {
     }
 
     /**
-     * Null-Safe call of {@link Object#toString()}.
-     * @return result of {@link Object#toString()} or "null" on <code>null</code> input
+     * Null-Safe Aufruf der Methode {@link Object#toString()}.
+     * Wird der Methode <code>null</code> übergeben, wird {@link #NULL} zurückgegeben.
      */
     public static String toString(Object aObject) {
         if (aObject == null) {

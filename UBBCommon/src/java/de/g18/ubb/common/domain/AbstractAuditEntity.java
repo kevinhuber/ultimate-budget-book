@@ -8,6 +8,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
+ * Abstrakte implementierung des {@link Auditable} Interfaces.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 @MappedSuperclass

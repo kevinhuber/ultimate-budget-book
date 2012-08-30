@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
+ * Abstrakte Entität die in einer Datenbank persistiert werden kann.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 @MappedSuperclass

@@ -4,6 +4,8 @@ import de.g18.ubb.common.domain.Identifiable;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
+ * {@link ServiceException}, die von Services geworfen wird, sollte eine Entität nicht gefunden wurden sein.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class NotFoundExcpetion extends ServiceException {
