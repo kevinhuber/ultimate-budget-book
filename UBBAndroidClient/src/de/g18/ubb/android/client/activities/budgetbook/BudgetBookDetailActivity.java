@@ -6,6 +6,7 @@ import org.hibernate.cfg.NotYetImplementedException;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
+import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
@@ -40,6 +42,11 @@ public class BudgetBookDetailActivity extends
 	private static final int SWIPE_MIN_DISTANCE = 120;
 	private static final int SWIPE_MAX_OFF_PATH = 250;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+	private boolean viewMonthSet = false;
+	private boolean viewYearSet = false;
+	private boolean viewDaySet = false;
+
 	private GestureDetector gestureDetector;
 
 	@Override
@@ -85,12 +92,13 @@ public class BudgetBookDetailActivity extends
 		initComponents();
 		initGestureComponent();
 		loadExtraContent("BudgetBookModel");
-		showDetailsOnView();
+		showDayDetailsOnView();
 		initEventHandling();
 	}
 
 	private void initGestureComponent() {
-		gestureDetector = new GestureDetector(this, new BudgetBookDetailGestureDetector());
+		gestureDetector = new GestureDetector(this,
+				new BudgetBookDetailGestureDetector());
 		ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
 		vf.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
@@ -108,37 +116,47 @@ public class BudgetBookDetailActivity extends
 	}
 
 	private void showDayDetailsOnView() {
-		LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
-		budgetBookDetails = new TextView(this);
-		budgetBookDetails.setText(transferredData.get(0).getName());
-		lView.addView(budgetBookDetails);
+		if (!viewDaySet) {
+			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
+			budgetBookDetails = new TextView(this);
+			budgetBookDetails.setText(transferredData.get(0).getName());
+			lView.addView(budgetBookDetails);
+			viewDaySet = true;
+		}
 	}
 
 	private void showMonthDetailsOnView() {
-		LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
-		budgetBookDetails = new TextView(this);
-		budgetBookDetails.setText(transferredData.get(0).getName());
-		lView.addView(budgetBookDetails);
+		if (!viewMonthSet) {
+			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
+			budgetBookDetails = new TextView(this);
+			budgetBookDetails.setText(transferredData.get(0).getName());
+			lView.addView(budgetBookDetails);
+			viewMonthSet = true;
+		}
 	}
 
 	private void showYearDetailsOnView() {
-		LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
-		budgetBookDetails = new TextView(this);
-		budgetBookDetails.setText(transferredData.get(0).getName());
-		lView.addView(budgetBookDetails);
+		if (!viewYearSet) {
+			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
+			budgetBookDetails = new TextView(this);
+			budgetBookDetails.setText(transferredData.get(0).getName());
+			lView.addView(budgetBookDetails);
+			viewMonthSet = true;
+		}
 	}
 
 	private void showDetailsOnView() {
-		// über getLinearLayoutID() wissen wir in welcher view wir uns befinden
+		// über getDynamicLinearLayoutID() wissen wir in welcher view wir uns
+		// befinden
 		switch (dynamicViewLayoutID) {
 		case 0:
-			showDayDetailsOnView();
+			showDayDetailsOnView(); // per default immer initialisiert
 			break;
 		case 1:
-			showMonthDetailsOnView();
+			showMonthDetailsOnView(); // wird dynamisch initialisiert
 			break;
 		case 2:
-			showYearDetailsOnView();
+			showYearDetailsOnView(); // wird dynamisch initialisiert
 			break;
 		default:
 			showDayDetailsOnView();
@@ -164,16 +182,9 @@ public class BudgetBookDetailActivity extends
 		return true;
 	}
 
-	@SuppressWarnings("unused")
-	private BudgetBook getSelectedBudgetBook(Long id) {
-		BudgetBook book = ServiceRepository.getBudgetBookService()
-				.loadSinglebudgetBookById(id);
-		return book;
-	}
-
 	private void switchToCategoryOverview() {
 		Intent i = new Intent(getApplicationContext(),
-				BudgetBookDetailActivity.class);
+				CategoryOverviewActivity.class);
 		i.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
 		startActivity(i);
 	}
@@ -200,6 +211,8 @@ public class BudgetBookDetailActivity extends
 	}
 
 	class BudgetBookDetailGestureDetector extends SimpleOnGestureListener {
+		private static final String TAG = "BudgetBookDetailGestureDetector";
+
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
@@ -217,7 +230,8 @@ public class BudgetBookDetailActivity extends
 						getApplicationContext(), R.anim.slide_out_left));
 				vf.showNext();
 				setdynamicLinearLayoutID(vf.getDisplayedChild());
-				
+				showDetailsOnView();
+				// Log.d(TAG, Integer.toString(getdynamicLinearLayoutID()));
 				// links nach rechts
 			} else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
 					&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
@@ -227,6 +241,8 @@ public class BudgetBookDetailActivity extends
 						getApplicationContext(), R.anim.slide_out_right));
 				vf.showPrevious();
 				setdynamicLinearLayoutID(vf.getDisplayedChild());
+				showDetailsOnView();
+				// Log.d(TAG, Integer.toString(getdynamicLinearLayoutID()));
 			}
 			return false;
 		}

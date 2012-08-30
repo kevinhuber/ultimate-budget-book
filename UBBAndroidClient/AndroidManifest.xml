@@ -50,6 +50,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.BudgetBookOverviewActivity" />
         </activity>
+         <activity
+            android:name=".activities.category.CategoryOverviewActivity"
+            android:label="@string/title_activity_categorie_overview" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.g18.ubb.android.client.BudgetBookDetailActivity" />
+        </activity>
         <activity
             android:name=".activities.category.CategorieCreateActivity"
             android:label="@string/title_activity_categorie_create" >
