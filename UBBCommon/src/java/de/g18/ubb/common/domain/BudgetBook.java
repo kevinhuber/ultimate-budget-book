@@ -70,7 +70,7 @@ public final class BudgetBook extends AbstractEntity {
         assignedUser = aNewValue;
         fireChange(PROPERTY_ASSIGNED_USER, oldValue, getAssignedUser());
     }
-
+    
     // -------------------------------------------------------------------------
     // Heler
     // -------------------------------------------------------------------------

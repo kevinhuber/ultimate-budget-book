@@ -1,8 +1,10 @@
 package de.g18.ubb.android.client.activities.category;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -14,11 +16,13 @@ import android.widget.EditText;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
 import de.g18.ubb.common.domain.BudgetBook;
+import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
 public class CategorieCreateActivity extends Activity {
 
 	private ArrayList<BudgetBookModel> transferredData;
+	private List<Category> categorieList;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,13 +57,20 @@ public class CategorieCreateActivity extends Activity {
 			String categorie = et.getText().toString();
 			// speichere Kategorie
 			
-			
 			Bundle b = getIntent().getExtras();
 			transferredData = b.getParcelableArrayList("SingleBudgetBook");
 			Long i  = transferredData.get(0).getId();
 			BudgetBook bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
 			
+			Category c = new Category();
+			c.setBudgetBook(bb);
+			c.setName(categorie);
+			ServiceRepository.getCategoryService().saveAndLoad(c);
 			
+//			categorieList = ServiceRepository.getCategoryService().getAll(bb);
+			
+			Intent befor = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
+			startActivity(befor);
 		}
     	
     }
