@@ -31,5 +31,5 @@ public interface BudgetBookService {
     List<BudgetBook> getAllForCurrentUser();
     
     @POST
-    BudgetBook loadSinglebudgetBookById(int id);
+    BudgetBook loadSinglebudgetBookById(Long id);
 }
