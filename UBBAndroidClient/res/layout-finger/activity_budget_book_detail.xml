@@ -30,11 +30,10 @@
 
             <Button
                 android:id="@+BudgetBookDetails/deleteEntry"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/b_delete"
-                android:textSize="12dp" >
-            </Button>
+                android:textSize="12dp" />
 
         </LinearLayout>
 

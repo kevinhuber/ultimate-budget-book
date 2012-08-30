@@ -120,7 +120,7 @@ public class BudgetBookDetailActivity extends
 			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
 			budgetBookDetails = new TextView(this);
 			budgetBookDetails.setText(transferredData.get(0).getName());
-			lView.addView(budgetBookDetails);
+			lView.addView(budgetBookDetails, 1); // position auf 1 setzen 
 			viewDaySet = true;
 		}
 	}
@@ -130,7 +130,7 @@ public class BudgetBookDetailActivity extends
 			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
 			budgetBookDetails = new TextView(this);
 			budgetBookDetails.setText(transferredData.get(0).getName());
-			lView.addView(budgetBookDetails);
+			lView.addView(budgetBookDetails, 1); // position auf 1 setzen 
 			viewMonthSet = true;
 		}
 	}
@@ -140,7 +140,7 @@ public class BudgetBookDetailActivity extends
 			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
 			budgetBookDetails = new TextView(this);
 			budgetBookDetails.setText(transferredData.get(0).getName());
-			lView.addView(budgetBookDetails);
+			lView.addView(budgetBookDetails, 1); // position auf 1 setzen 
 			viewMonthSet = true;
 		}
 	}
