@@ -3,6 +3,7 @@ package de.g18.ubb.android.client.activities.register;
 import de.g18.ubb.android.client.communication.MockServiceProvider;
 import de.g18.ubb.android.client.mock.service.MockUserServiceImpl;
 import de.g18.ubb.android.client.validation.AbstractValidatorTestCase;
+import de.g18.ubb.android.client.validation.ValidationUtil;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
@@ -41,6 +42,20 @@ public class RegisterValidatorTest extends AbstractValidatorTestCase<RegisterMod
     public void testEMailMandatory() {
         getModel().setEMail(StringUtil.EMPTY);
         assertValidationMustNotBeEmpty(RegisterResource.FIELD_EMAIL);
+    }
+
+    public void testEMailFormat() {
+        String email = "invalidemailaddressde";
+        getModel().setEMail(email);
+        assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
+
+        email = "invalidemailaddress.de";
+        getModel().setEMail(email);
+        assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
+
+        email = "validemail@address.de";
+        getModel().setEMail(email);
+        assertValidationSuccessfull();
     }
 
     public void testPasswordMandatory() {
