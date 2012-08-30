@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
-import de.g18.ubb.common.service.exception.UserWithGivenEmailNotFound;
+import de.g18.ubb.common.service.exception.UserWithEMailNotFound;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
@@ -24,7 +24,7 @@ public interface BudgetBookService {
 
     @POST
     BudgetBook createNew(@HeaderParam("bookname") String aName,
-                         @HeaderParam("username") List<String> aUserNameList) throws UserWithGivenEmailNotFound,
+                         @HeaderParam("username") List<String> aUserNameList) throws UserWithEMailNotFound,
                                                                                      NotFoundExcpetion;
 
     @GET

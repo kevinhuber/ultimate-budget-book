@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 /**
+ * Entität für Kategorien.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 @Entity

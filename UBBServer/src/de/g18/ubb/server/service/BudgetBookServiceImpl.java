@@ -14,7 +14,7 @@ import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
-import de.g18.ubb.common.service.exception.UserWithGivenEmailNotFound;
+import de.g18.ubb.common.service.exception.UserWithEMailNotFound;
 import de.g18.ubb.common.service.remote.BudgetBookServiceRemote;
 import de.g18.ubb.common.util.StringUtil;
 import de.g18.ubb.server.service.local.BudgetBookServiceLocal;
@@ -42,7 +42,7 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 
 	@Override
 	public BudgetBook createNew(String aName, List<String> aUserNameList)
-			throws UserWithGivenEmailNotFound {
+			throws UserWithEMailNotFound {
 		if (StringUtil.isEmpty(aName) || aUserNameList == null) {
 			throw new IllegalArgumentException(
 					"Benutzername und Haushaltsbuchname dürfen nicht leer sein");
@@ -56,7 +56,7 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 				try {
 					assignedUsers.add(userService.loadByEMail(userEmail));
 				} catch (NotFoundExcpetion e) {
-					throw new UserWithGivenEmailNotFound(userEmail, e);
+					throw new UserWithEMailNotFound(userEmail, e);
 				}
 			}
 		}

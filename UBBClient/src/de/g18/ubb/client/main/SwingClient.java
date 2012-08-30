@@ -17,7 +17,7 @@ import de.g18.ubb.client.communication.JNDIServiceProvider;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
-import de.g18.ubb.common.service.exception.UserWithGivenEmailNotFound;
+import de.g18.ubb.common.service.exception.UserWithEMailNotFound;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
 
@@ -59,7 +59,7 @@ public class SwingClient extends JFrame {
         pack();
     }
 
-    private void doSomething() throws UserWithGivenEmailNotFound, NotFoundExcpetion {
+    private void doSomething() throws UserWithEMailNotFound, NotFoundExcpetion {
         BudgetBookService service = ServiceRepository.getBudgetBookService();
 
         log("Creating new BudgetBook...");

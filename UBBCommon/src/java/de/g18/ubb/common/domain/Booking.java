@@ -12,6 +12,8 @@ import javax.persistence.TemporalType;
 import de.g18.ubb.common.domain.enumType.BookingType;
 
 /**
+ * Entität für Buchungen, die einem Haushaltsbuch hinzugefügt werden können.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 @Entity

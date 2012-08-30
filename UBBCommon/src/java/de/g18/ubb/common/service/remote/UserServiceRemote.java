@@ -6,6 +6,8 @@ import javax.ws.rs.Path;
 import de.g18.ubb.common.service.UserService;
 
 /**
+ * Remote-Interface für den {@link UserService}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 @Remote

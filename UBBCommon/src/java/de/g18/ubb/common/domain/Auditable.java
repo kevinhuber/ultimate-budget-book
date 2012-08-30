@@ -3,6 +3,8 @@ package de.g18.ubb.common.domain;
 import java.util.Date;
 
 /**
+ * Interface für Entitäten, die Informationen über Änderungen bereitstellen.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public interface Auditable extends Identifiable {

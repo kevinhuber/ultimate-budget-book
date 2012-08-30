@@ -1,6 +1,8 @@
 package de.g18.ubb.common.service.exception;
 
 /**
+ * Abstrakte Exception, die von Services geworfen wird.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public class ServiceException extends Exception {

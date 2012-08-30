@@ -9,20 +9,33 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 /**
+ * Util-Klasse für das erstellen von Hashs und Salts.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class HashUtil {
 
+    /**
+     * Standard länge für Salts.
+     */
     public static final int DEFAULT_SALT_LENGTH = 12;
 
 
-    public static String toMD5(String aPassword, byte[] aSalt) {
-        if (StringUtil.isEmpty(aPassword)) {
+    /**
+     * Erstellt aus dem übergebenen String einen Hash.
+     * Der Hash wird mit dem übergebenen Salt zusätzlich "gesichert".
+     */
+    public static String toMD5(String aString, byte[] aSalt) {
+        if (StringUtil.isEmpty(aString)) {
             return StringUtil.EMPTY;
         }
-        return toMD5(aPassword.toCharArray(), aSalt);
+        return toMD5(aString.toCharArray(), aSalt);
     }
 
+    /**
+     * Erstellt aus dem übergebenen Char-Array einen Hash.
+     * Der Hash wird mit dem übergebenen Salt zusätzlich "gesichert".
+     */
     public static String toMD5(char[] aPassword, byte[] aSalt) {
         if (aPassword == null) {
             return StringUtil.EMPTY;
@@ -40,10 +53,16 @@ public final class HashUtil {
     	}
     }
 
+    /**
+     * Erstellt einen zufälligen Salt mit der Länge {@value #DEFAULT_SALT_LENGTH}.
+     */
     public static byte[] generateSalt() {
         return generateSalt(DEFAULT_SALT_LENGTH);
     }
 
+    /**
+     * Erstellt einen zufälligen Salt mit der angegebenen Länge.
+     */
     public static byte[] generateSalt(int aSize) {
     	byte[] generatedSalt = new byte[aSize];
     	SecureRandom random = new SecureRandom();
