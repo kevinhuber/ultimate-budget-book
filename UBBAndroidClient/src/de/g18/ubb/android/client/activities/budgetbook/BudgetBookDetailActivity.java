@@ -136,7 +136,7 @@ public class BudgetBookDetailActivity extends
 	}
 
 	@SuppressWarnings("unused")
-	private BudgetBook getSelectedBudgetBook(int id) {
+	private BudgetBook getSelectedBudgetBook(Long id) {
 		BudgetBook book = ServiceRepository.getBudgetBookService()
 				.loadSinglebudgetBookById(id);
 		return book;
