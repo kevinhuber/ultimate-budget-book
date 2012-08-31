@@ -57,7 +57,7 @@ public final class BudgetBook extends AbstractEntity {
         return bookings;
     }
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(joinColumns = @JoinColumn(name = "book_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id"))
     public List<User> getAssignedUser() {

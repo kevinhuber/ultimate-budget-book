@@ -20,6 +20,9 @@ public final class User extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final int EMAIL_LENGTH = 32;
+    public static final int PASSWORD_LENGTH = 32;
+
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_EMAIL = "email";
 	public static final String PROPERTY_PASSWORD_HASH = "passwordHash";
@@ -51,7 +54,7 @@ public final class User extends AbstractEntity {
 		fireChange(PROPERTY_EMAIL, oldValue, getEmail());
 	}
 
-	@Column(length = 32, nullable = false)
+	@Column(length = EMAIL_LENGTH, nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -62,7 +65,7 @@ public final class User extends AbstractEntity {
 		fireChange(PROPERTY_PASSWORD_HASH, oldValue, getPasswordHash());
 	}
 
-	@Column(length = 32)
+	@Column(length = PASSWORD_LENGTH)
 	public String getPasswordHash() {
 		return passwordHash;
 	}
