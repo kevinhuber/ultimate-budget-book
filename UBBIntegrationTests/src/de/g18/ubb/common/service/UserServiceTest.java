@@ -1,5 +1,7 @@
 package de.g18.ubb.common.service;
 
+import java.util.UUID;
+
 import org.jboss.resteasy.client.ClientResponseFailure;
 import org.junit.Assert;
 import org.junit.Before;
@@ -51,7 +53,7 @@ public class UserServiceTest extends AbstractServiceTest<UserService> {
     }
 
     private String generateRandomUserEMail() {
-        return new String(HashUtil.generateSalt(User.EMAIL_LENGTH - TEST_USER_EMAIL_SUFFIX.length()));
+        return UUID.randomUUID().toString().substring(0, User.EMAIL_LENGTH - TEST_USER_EMAIL_SUFFIX.length()) + TEST_USER_EMAIL_SUFFIX;
     }
 
     private String generateRandomPassword() {
