@@ -30,7 +30,6 @@
 
             <Button
                 android:id="@+BudgetBookDetails/deleteEntry"
-<<<<<<< HEAD
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/b_delete"
@@ -90,98 +89,6 @@
                 android:textSize="12dp" >
             </Button>
 
-=======
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_delete"
-                android:textSize="12dp" >
-            </Button>
-
-            <Button
-                android:id="@+BudgetBookDetails/Button_next"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_next"
-                android:textSize="12dp" >
-            </Button>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+BudgetBook/monthlinearLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="#ffffff"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+BudgetBook/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="15pt"
-                android:layout_marginTop="10pt"
-                android:text="@string/title_monthView"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:id="@+BudgetBookDetails/deleteEntry"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_delete"
-                android:textSize="12dp" >
-            </Button>
-
-            <Button
-                android:id="@+BudgetBookDetails/Button_next"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_next"
-                android:textSize="12dp" >
-            </Button>
-
-            <Button
-                android:id="@+BudgetBookDetails/Button_previous"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_previous"
-                android:textSize="12dp" >
-            </Button>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+BudgetBook/yearlinearLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="#ffffff"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+BudgetBook/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="15pt"
-                android:layout_marginTop="10pt"
-                android:text="@string/title_yearView"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:id="@+BudgetBookDetails/deleteEntry"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_delete"
-                android:textSize="12dp" >
-            </Button>
-
-            <Button
-                android:id="@+BudgetBookDetails/Button_previous"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
-                android:text="@string/b_previous"
-                android:textSize="12dp" >
-            </Button>
->>>>>>> branch 'master' of https://github.com/kevinhuber/ultimate-budget-book.git
         </LinearLayout>
     </ViewFlipper>
-
 </LinearLayout>
