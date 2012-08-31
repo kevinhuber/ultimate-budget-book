@@ -6,10 +6,8 @@ import org.hibernate.cfg.NotYetImplementedException;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,53 +20,41 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
 public class BudgetBookDetailActivity extends
 		AbstractActivity<BudgetBookOverviewModel> {
-
+	
 	private Button delete;
 	private Button buttonPrevious;
 	private Button buttonNext;
 
 	private ArrayList<BudgetBookModel> transferredData;
 	private TextView budgetBookDetails;
-
-	// maps to: 0 = day, 1 = month and 2 = year // default = 0
+	
+	//maps to: 0 = day, 1 = month and 2 = year // default = 0
 	private int dynamicViewLayoutID = 0;
-
+	
 	private static final int SWIPE_MIN_DISTANCE = 120;
-	private static final int SWIPE_MAX_OFF_PATH = 250;
-	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-
-	private boolean viewMonthSet = false;
-	private boolean viewYearSet = false;
-	private boolean viewDaySet = false;
-
-	private GestureDetector gestureDetector;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private GestureDetector gestureDetector;
 
 	@Override
 	protected BudgetBookOverviewModel createModel() {
 		return new BudgetBookOverviewModel();
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_budget_book_details, menu);
-		return true;
-	}
-
-	protected int getdynamicLinearLayoutID() {
+	
+	protected int getdynamicLinearLayoutID(){
 		return dynamicViewLayoutID;
 	}
-
-	protected void setdynamicLinearLayoutID(int aNewValue) {
+	
+	protected void setdynamicLinearLayoutID(int aNewValue){
 		dynamicViewLayoutID = aNewValue;
 	}
-
-	protected int getLinearLayoutID() {
+	
+	protected int getLinearLayoutID(){
 		switch (dynamicViewLayoutID) {
 		case 0:
 			return R.BudgetBook.daylinearLayout;
@@ -80,7 +66,6 @@ public class BudgetBookDetailActivity extends
 			return R.BudgetBook.daylinearLayout;
 		}
 	}
-
 	@Override
 	protected int getLayoutId() {
 		return R.layout.activity_budget_book_detail;
@@ -89,74 +74,56 @@ public class BudgetBookDetailActivity extends
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initComponents();
-		initGestureComponent();
-		loadExtraContent("BudgetBookModel");
-		showDayDetailsOnView();
-		initEventHandling();
-	}
-
-	private void initGestureComponent() {
-		gestureDetector = new GestureDetector(this,
-				new BudgetBookDetailGestureDetector());
+		
+		gestureDetector = new GestureDetector(new BudgetBookDetailGestureDetector());
 		ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
 		vf.setOnTouchListener(new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				if (gestureDetector.onTouchEvent(event)) {
-					return true;
-				}
-				return false;
-			}
-		});
+            public boolean onTouch(View v, MotionEvent event) {
+                if (gestureDetector.onTouchEvent(event)) {
+                    return true;
+                }
+                return false;
+            }
+        });
+		
+		initComponents();
+		loadExtraContent("BudgetBookModel");
+		showDetailsOnView();
+		initEventHandling();
 	}
 
 	private void loadExtraContent(String key) {
 		Bundle b = getIntent().getExtras();
 		transferredData = b.getParcelableArrayList(key);
 	}
-
-	private void showDayDetailsOnView() {
-		if (!viewDaySet) {
-			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
-			budgetBookDetails = new TextView(this);
-			budgetBookDetails.setText(transferredData.get(0).getName());
-			lView.addView(budgetBookDetails, 1); // position auf 1 setzen 
-			viewDaySet = true;
-		}
+	
+	private void showDayDetailsOnView(){
+		LinearLayout lView = (LinearLayout)findViewById(getLinearLayoutID());
+		//TODO: weitere Details wie benutzer und Einträge der Ansicht hinzufügen
+	    budgetBookDetails = new TextView(this);
+	    budgetBookDetails.setText(transferredData.get(0).getName());
+	    lView.addView(budgetBookDetails);
 	}
-
-	private void showMonthDetailsOnView() {
-		if (!viewMonthSet) {
-			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
-			budgetBookDetails = new TextView(this);
-			budgetBookDetails.setText(transferredData.get(0).getName());
-			lView.addView(budgetBookDetails, 1); // position auf 1 setzen 
-			viewMonthSet = true;
-		}
+	
+	private void showMonthDetailsOnView(){
+		//TODO: implement logic
 	}
-
-	private void showYearDetailsOnView() {
-		if (!viewYearSet) {
-			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
-			budgetBookDetails = new TextView(this);
-			budgetBookDetails.setText(transferredData.get(0).getName());
-			lView.addView(budgetBookDetails, 1); // position auf 1 setzen 
-			viewMonthSet = true;
-		}
+	
+	private void showYearDetailsOnView(){
+		//TODO: implement logic
 	}
-
-	private void showDetailsOnView() {
-		// über getDynamicLinearLayoutID() wissen wir in welcher view wir uns
-		// befinden
+	
+	private void showDetailsOnView(){
+		 // über getLinearLayoutID() wissen wir in welcher view wir uns befinden
 		switch (dynamicViewLayoutID) {
 		case 0:
-			showDayDetailsOnView(); // per default immer initialisiert
+			showDayDetailsOnView();
 			break;
 		case 1:
-			showMonthDetailsOnView(); // wird dynamisch initialisiert
+			showMonthDetailsOnView();
 			break;
 		case 2:
-			showYearDetailsOnView(); // wird dynamisch initialisiert
+			showYearDetailsOnView();
 			break;
 		default:
 			showDayDetailsOnView();
@@ -182,20 +149,33 @@ public class BudgetBookDetailActivity extends
 		return true;
 	}
 
+	@SuppressWarnings("unused")
+	private BudgetBook getSelectedBudgetBook(Long id) {
+		BudgetBook book = ServiceRepository.getBudgetBookService()
+				.loadSinglebudgetBookById(id);
+		return book;
+	}
+
 	private void switchToCategoryOverview() {
 		Intent i = new Intent(getApplicationContext(),
-				CategoryOverviewActivity.class);
+				BudgetBookDetailActivity.class);
 		i.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
 		startActivity(i);
 	}
 
 	private void initComponents() {
 		delete = (Button) findViewById(R.BudgetBookDetails.deleteEntry);
+		buttonNext = (Button) findViewById(R.BudgetBookDetails.Button_next);
+		buttonPrevious = (Button) findViewById(R.BudgetBookDetails.Button_previous);
 	}
 
 	private void initEventHandling() {
 		delete.setOnClickListener(new DeleteBudgetBookButtonListener());
+		buttonPrevious
+				.setOnClickListener(new PreviousBudgetBookViewButtonListener());
+		buttonNext.setOnClickListener(new NextBudgetBookViewButtonListener());
 	}
+	
 
 	// -------------------------------------------------------------------------
 	// Inner Classes
@@ -205,52 +185,72 @@ public class BudgetBookDetailActivity extends
 			OnClickListener {
 
 		public void onClick(View aView) {
-			throw new NotYetImplementedException(
-					"Todo: nach drücken auf delete sollen checkboxen dem layout hinzugefügt werden");
+			throw new NotYetImplementedException("Todo: nach drücken auf delete sollen checkboxen dem layout hinzugefügt werden");
 		}
 	}
 
-	class BudgetBookDetailGestureDetector extends SimpleOnGestureListener {
-		private static final String TAG = "BudgetBookDetailGestureDetector";
+	private final class NextBudgetBookViewButtonListener implements
+			OnClickListener {
 
-		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-				float velocityY) {
+		public void onClick(View view) {
 			ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
-			if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
-				return false;
-			}
-
-			// rechts nach links
-			if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
-					&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-				vf.setInAnimation(AnimationUtils.loadAnimation(
-						getApplicationContext(), R.anim.slide_in_right));
-				vf.setOutAnimation(AnimationUtils.loadAnimation(
-						getApplicationContext(), R.anim.slide_out_left));
-				vf.showNext();
-				setdynamicLinearLayoutID(vf.getDisplayedChild());
-				showDetailsOnView();
-				// Log.d(TAG, Integer.toString(getdynamicLinearLayoutID()));
-				// links nach rechts
-			} else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
-					&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-				vf.setInAnimation(AnimationUtils.loadAnimation(
-						getApplicationContext(), R.anim.slide_in_left));
-				vf.setOutAnimation(AnimationUtils.loadAnimation(
-						getApplicationContext(), R.anim.slide_out_right));
-				vf.showPrevious();
-				setdynamicLinearLayoutID(vf.getDisplayedChild());
-				showDetailsOnView();
-				// Log.d(TAG, Integer.toString(getdynamicLinearLayoutID()));
-			}
-			return false;
-		}
-
-		@Override
-		public boolean onDown(MotionEvent e) {
-			return true;
+			//TODO: überprüfen der child id und setzen von setLinearLayoutID() current + 1
+			setdynamicLinearLayoutID(vf.getChildAt(vf.getDisplayedChild()).getId() + 1);
+			Toast.makeText(
+					getApplicationContext(),
+					("CurrentViewID" + Integer.toString(vf.getChildAt(vf.getDisplayedChild()).getId()) + ""), Toast.LENGTH_SHORT).show();
+			
+			vf.setAnimation(AnimationUtils.loadAnimation(view.getContext(),
+					R.anim.slide_right));
+			vf.showNext();
 		}
 	}
 
+	private final class PreviousBudgetBookViewButtonListener implements
+			OnClickListener {
+
+		public void onClick(View view) {
+			ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
+			setdynamicLinearLayoutID(vf.getChildAt(vf.getDisplayedChild()).getId() - 1);
+			
+			vf.setAnimation(AnimationUtils.loadAnimation(view.getContext(),
+					R.anim.slide_left));
+			vf.showPrevious();
+		}
+	}
+	
+	class BudgetBookDetailGestureDetector extends SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        	ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
+            if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
+                return false;
+            }
+ 
+            // right to left swipe
+            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+            	vf.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+    					R.anim.slide_in_left));
+            	vf.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+    					R.anim.slide_out_right));
+    			vf.showNext();
+    	    // right to left swipe
+            }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+            	vf.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+    					R.anim.slide_in_right));
+            	vf.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+    					R.anim.slide_out_left));
+    			vf.showPrevious();
+            }
+ 
+            return false;
+        }
+        
+        @Override
+        public boolean onDown(MotionEvent e) {
+	        	return true;
+        }
+	}
+        
+        
 }

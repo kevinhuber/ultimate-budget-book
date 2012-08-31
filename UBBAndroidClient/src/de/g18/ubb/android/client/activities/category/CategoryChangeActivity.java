@@ -1,11 +1,16 @@
 package de.g18.ubb.android.client.activities.category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.R.id;
 import de.g18.ubb.android.client.R.layout;
 import de.g18.ubb.android.client.R.menu;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookAdapter;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
+import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.CategoryService;
 import de.g18.ubb.common.service.repository.ServiceRepository;
@@ -16,8 +21,10 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.support.v4.app.NavUtils;
 
 public class CategoryChangeActivity extends Activity {
@@ -26,17 +33,9 @@ public class CategoryChangeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_change);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
         
         ListView lv = (ListView) findViewById(R.id.lv_categories);
-//        String[] values = {"a", "b" , "c"};
-        
-//        List<Category> l = ServiceRepository.getCategoryService().getAll(book);
-        
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//        		  android.R.layout.simple_list_item_1, android.R.id.text1, values);
-//
-//    	lv.setAdapter(adapter);
+        filledWithCategories();
     }
 
     @Override
@@ -45,7 +44,35 @@ public class CategoryChangeActivity extends Activity {
         return true;
     }
 
-    
+    public void filledWithCategories(){
+    	List<BudgetBook> books = ServiceRepository.getBudgetBookService().getAllForCurrentUser();
+        BudgetBookAdapter adapter = new BudgetBookAdapter(this, books);
+
+        ListView budgetBooksListView = (ListView) findViewById(R.id.budgetBooks);
+        budgetBooksListView.setAdapter(adapter);
+        budgetBooksListView.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				switchToBudgetBookDetailActivity(arg0.getAdapter().getItem(arg2));
+			}
+
+			private void switchToBudgetBookDetailActivity(Object aBook) {
+				Intent i = new Intent(getApplicationContext(), BudgetBookDetailActivity.class);
+				// erstelle das model (parcable)
+				BudgetBookModel bbm = new BudgetBookModel();
+				BudgetBook bb = (BudgetBook) aBook;
+				bbm.mapBudgetBookToModel(bb);
+				// hier ist es  möglich mehrere daten einer anderen activity zu übergeben
+				ArrayList<BudgetBookModel> dataList = new ArrayList<BudgetBookModel>();
+				dataList.add(bbm);
+				i.putParcelableArrayListExtra("BudgetBookModel", dataList);
+				
+				startActivity(i);
+			}
+		});
+    }
+
     public void onClick(View v){
     	switch (v.getId()) {
 		case R.id.b_categorie_change_create:
