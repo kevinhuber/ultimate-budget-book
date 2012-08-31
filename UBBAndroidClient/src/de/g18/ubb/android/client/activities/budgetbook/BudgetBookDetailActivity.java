@@ -16,12 +16,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+import android.widget.AdapterView.OnItemClickListener;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
@@ -125,12 +127,6 @@ public class BudgetBookDetailActivity extends
 	private List<Booking> getAllBookingsForCurrentBudgetBook(){
 		BudgetBook budgetBook = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(transferredData.get(0).getId());
 		return budgetBook.getBookings();
-		 
-//	     BudgetBookAdapter adapter = new BudgetBookAdapter(this, books);
-
-//	     ListView budgetBooksListView = (ListView) findViewById(R.id.budgetBooks);
-//	     budgetBooksListView.setAdapter(adapter);
-//		
 	}
 	
 	private void showDayDetailsOnView() {
@@ -141,7 +137,23 @@ public class BudgetBookDetailActivity extends
 			budgetBookDetails.setText(transferredData.get(0).getName());
 			budgetBookBookings = new TextView(this);
 			if(!getAllBookingsForCurrentBudgetBook().isEmpty()){
-				budgetBookBookings.setText("Erster Booking Eintrag" + getAllBookingsForCurrentBudgetBook().get(0).toString());
+//				budgetBookBookings.setText("Erster Booking Eintrag" + getAllBookingsForCurrentBudgetBook().get(0).toString());
+				budgetBookBookings = null;
+				BudgetBookBookingsAdapter adapter = new BudgetBookBookingsAdapter(this, getAllBookingsForCurrentBudgetBook());
+				ListView listView = (ListView) findViewById(R.BudgetBook.bookings);
+				listView.setAdapter(adapter);
+				
+				listView.setOnItemClickListener(new OnItemClickListener() {
+
+					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+							long arg3) {
+					//TODO: logik iomplementieren udn weiterreichen an die budgetbookbooking
+						//switchToBudgetBookDetailActivity(arg0.getAdapter().getItem(arg2));
+						Toast.makeText(getApplicationContext(), "Item angewählt", Toast.LENGTH_SHORT);
+					}}
+					);
+				
+				
 			}else {
 				budgetBookBookings.setText("Keine Beiträge vorhanden");	
 			}
@@ -169,7 +181,7 @@ public class BudgetBookDetailActivity extends
 			budgetBookDetails = new TextView(this);
 			budgetBookDetails.setText(transferredData.get(0).getName());
 			lView.addView(budgetBookDetails, 1); // position auf 1 setzen 
-			viewMonthSet = true;
+			viewYearSet = true;
 		}
 	}
 
