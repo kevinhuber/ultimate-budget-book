@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/UBBCommon"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-httpclient-3.1.jar" sourcepath="lib/commons-httpclient-3.1-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.jar" sourcepath="lib/commons-logging-1.1-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-codec-1.6.jar" sourcepath="lib/commons-codec-1.6-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/bin/client/jboss-client.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/jboss/resteasy/resteasy-jaxrs/main/resteasy-jaxrs-2.3.2.Final.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/jboss/resteasy/resteasy-jackson-provider/main/resteasy-jackson-provider-2.3.2.Final.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/jboss/resteasy/resteasy-multipart-provider/main/resteasy-multipart-provider-2.3.2.Final.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/jboss/resteasy/resteasy-cdi/main/resteasy-cdi-2.3.2.Final.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/jboss/resteasy/resteasy-jaxb-provider/main/resteasy-jaxb-provider-2.3.2.Final.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/jboss/resteasy/resteasy-jettison-provider/main/resteasy-jettison-provider-2.3.2.Final.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/jboss/resteasy/resteasy-jsapi/main/resteasy-jsapi-2.3.2.Final.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/jboss/resteasy/resteasy-yaml-provider/main/resteasy-yaml-provider-2.3.2.Final.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/codehaus/jackson/jackson-core-asl/main/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/codehaus/jackson/jackson-jaxrs/main/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/codehaus/jackson/jackson-mapper-asl/main/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/org/codehaus/jackson/jackson-xc/main/jackson-xc-1.9.2.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/javax/servlet/api/main/jboss-servlet-api_3.0_spec-1.0.0.Final.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/javax/servlet/jsp/api/main/jboss-jsp-api_2.2_spec-1.0.0.Final.jar"/>
+	<classpathentry exported="true" kind="var" path="JBOSS_HOME/modules/javax/servlet/jstl/api/main/jboss-jstl-api_1.2_spec-1.0.2.Final.jar"/>
+	<classpathentry kind="output" path="target"/>
+</classpath>

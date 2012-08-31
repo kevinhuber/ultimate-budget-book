@@ -51,6 +51,7 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
         getModel().setPassword(getPreferences().getPassword());
         getModel().setStayLoggedInChecked(true);
         getModel().setServerAddress(getPreferences().getServerAddress());
+        WebServiceProvider.setServerAddress(getModel().getServerAddress());
 
         initComponents();
         bindComponents();
