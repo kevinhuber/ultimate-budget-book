@@ -1,7 +1,7 @@
 package de.g18.ubb.android.client.activities.category;
 
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,7 +22,7 @@ import de.g18.ubb.common.service.repository.ServiceRepository;
 public class CategorieCreateActivity extends Activity {
 
 	private ArrayList<BudgetBookModel> transferredData;
-	private List<Category> categorieList;
+//	private List<Category> categorieList;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
