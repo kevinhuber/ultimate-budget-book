@@ -97,7 +97,7 @@ public class BudgetBookDetailActivity extends
 		super.onCreate(savedInstanceState);
 		
 		loadExtraContent("BudgetBookModel");
-		
+
 		initComponents();
 		initGestureComponent();
 		
