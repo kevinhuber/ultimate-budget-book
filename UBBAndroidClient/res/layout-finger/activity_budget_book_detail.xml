@@ -27,6 +27,11 @@
                 android:layout_marginTop="10pt"
                 android:text="@string/title_dayView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+             <ListView
+		        android:id="@+BudgetBook/bookings"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+BudgetBookDetails/deleteEntry"
@@ -56,8 +61,8 @@
 
             <Button
                 android:id="@+BudgetBookDetails/deleteEntry"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/b_delete"
                 android:textSize="12dp" >
             </Button>
@@ -83,8 +88,8 @@
 
             <Button
                 android:id="@+BudgetBookDetails/deleteEntry"
-                android:layout_width="166dp"
-                android:layout_height="36dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/b_delete"
                 android:textSize="12dp" >
             </Button>
