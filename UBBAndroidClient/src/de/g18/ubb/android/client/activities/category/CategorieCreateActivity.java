@@ -22,6 +22,7 @@ import de.g18.ubb.common.service.repository.ServiceRepository;
 public class CategorieCreateActivity extends Activity {
 
 	private ArrayList<BudgetBookModel> transferredData;
+	private BudgetBook bb;
 //	private List<Category> categorieList;
 	
 	@Override
@@ -29,26 +30,31 @@ public class CategorieCreateActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorie_create);
         
-        Button b = new Button(getApplicationContext());
+        Button b = (Button) findViewById(R.id.b_categorie_create);
         b.setOnClickListener(new CreateListener());
+        
+        Bundle bundle = getIntent().getExtras();
+		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
+		Long i  = transferredData.get(0).getId();
+		this.bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_categorie_create, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.activity_categorie_create, menu);
+//        return true;
+//    }
+//
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                NavUtils.navigateUpFromSameTask(this);
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
     
     public class CreateListener implements OnClickListener {
 
@@ -57,10 +63,10 @@ public class CategorieCreateActivity extends Activity {
 			String categorie = et.getText().toString();
 			// speichere Kategorie
 			
-			Bundle b = getIntent().getExtras();
-			transferredData = b.getParcelableArrayList("SingleBudgetBook");
-			Long i  = transferredData.get(0).getId();
-			BudgetBook bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
+//			Bundle b = getIntent().getExtras();
+//			transferredData = b.getParcelableArrayList("SingleBudgetBook");
+//			Long i  = transferredData.get(0).getId();
+//			this.bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
 			
 			Category c = new Category();
 			c.setBudgetBook(bb);

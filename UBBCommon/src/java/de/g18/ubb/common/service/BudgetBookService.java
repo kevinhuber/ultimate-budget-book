@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -23,6 +24,7 @@ public interface BudgetBookService {
     public static final String RESTFUL_SERVICE_NAME = "BudgetBookService";
 
     @POST
+    @Path("createNew")
     BudgetBook createNew(@HeaderParam("bookname") String aName,
                          @HeaderParam("username") List<String> aUserNameList) throws UserWithEMailNotFound,
                                                                                      NotFoundExcpetion;
@@ -31,5 +33,6 @@ public interface BudgetBookService {
     List<BudgetBook> getAllForCurrentUser();
     
     @POST
+    @Path("loadSinglebudgetBookById")
     BudgetBook loadSinglebudgetBookById(Long id);
 }
