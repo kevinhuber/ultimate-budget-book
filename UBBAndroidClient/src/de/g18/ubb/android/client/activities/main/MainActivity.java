@@ -1,16 +1,12 @@
 package de.g18.ubb.android.client.activities.main;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
-import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.activities.register.RegisterActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.common.util.StringUtil;
@@ -71,29 +67,6 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
 
     private void initEventHandling() {
         registerButton.setOnClickListener(new RegisternButtonListener());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-                Toast.makeText(this, "Menü Einstellungen wurde ausgewählt", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.menu_category:
-                switchActivity(CategoryOverviewActivity.class);
-                break;
-
-            default:
-                break;
-        }
-        return true;
     }
 
     @Override

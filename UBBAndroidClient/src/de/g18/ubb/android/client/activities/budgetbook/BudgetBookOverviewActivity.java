@@ -5,9 +5,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -53,22 +50,6 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
         createButton.setOnClickListener(new CreateNewBudgetBookButtonListener());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_budget_book_overview, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void fillBudgetBooksView() {
         List<BudgetBook> books = ServiceRepository.getBudgetBookService().getAllForCurrentUser();
         BudgetBookAdapter adapter = new BudgetBookAdapter(this, books);
@@ -92,12 +73,12 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 				ArrayList<BudgetBookModel> dataList = new ArrayList<BudgetBookModel>();
 				dataList.add(bbm);
 				i.putParcelableArrayListExtra("BudgetBookModel", dataList);
-				
+
 				startActivity(i);
 			}
 		});
     }
-    
+
     private void switchToBudgetBookCreateNew() {
     	switchActivity(BudgetBookCreateNewActivity.class);
     }

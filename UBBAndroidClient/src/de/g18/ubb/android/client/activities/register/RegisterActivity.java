@@ -1,9 +1,6 @@
 package de.g18.ubb.android.client.activities.register;
 
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
@@ -35,22 +32,6 @@ public class RegisterActivity extends AbstractValidationFormularActivity<Registe
         bind(RegisterModel.PROPERTY_EMAIL, R.RegisterLayout.email);
         bind(RegisterModel.PROPERTY_PASSWORD, R.RegisterLayout.password);
         bind(RegisterModel.PROPERTY_PASSWORD_CHECK, R.RegisterLayout.passwordCheck);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_register, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
