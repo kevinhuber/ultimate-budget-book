@@ -94,7 +94,9 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         @Override
         protected void postExecute() {
-            budgetBookAdapter.addAll(books);
+            for (BudgetBook b : books) {
+                budgetBookAdapter.add(b);
+            }
         }
     }
 
