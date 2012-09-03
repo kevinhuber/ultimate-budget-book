@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.cfg.NotYetImplementedException;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.DateTimeKeyListener;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -20,13 +16,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-import android.widget.AdapterView.OnItemClickListener;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
@@ -106,9 +102,9 @@ public class BudgetBookDetailActivity extends
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		loadExtraContent("BudgetBookModel");
 		adapter = new BudgetBookBookingsAdapter(this,
 				getAllBookingsForCurrentBudgetBook());
-		loadExtraContent("BudgetBookModel");
 
 		initComponents();
 		initGestureComponent();
@@ -141,13 +137,13 @@ public class BudgetBookDetailActivity extends
 				.loadSinglebudgetBookById(transferredData.get(0).getId());
 		return budgetBook.getBookings();
 	}
-	
+
 	private BudgetBook getCurrentBudgetBook() {
 		BudgetBook budgetBook = ServiceRepository.getBudgetBookService()
 				.loadSinglebudgetBookById(transferredData.get(0).getId());
 		return budgetBook;
 	}
-	
+
 	private List<Category> getAllCategorysForCurrentBudgetBook() {
 		return ServiceRepository.getCategoryService()
 				.getAll(getCurrentBudgetBook());
@@ -257,12 +253,12 @@ public class BudgetBookDetailActivity extends
 	}
 	private Booking addBooking() {
 		Booking newBooking = new Booking();
-		
+
 		newBooking.setType(BookingType.SPENDING);
 		newBooking.setAmount(45);
 		newBooking.setCategory(getAllCategorysForCurrentBudgetBook().get(0));
 		newBooking.setBookingTime(new Date());
-		
+
 		return newBooking;
 	}
 
@@ -274,7 +270,7 @@ public class BudgetBookDetailActivity extends
 	private void initEventHandling() {
 		delete.setOnClickListener(new DeleteBudgetBookButtonListener());
 		add.setOnClickListener(new AddBudgetBookBookingButtonListener());
-		
+
 	}
 
 	// -------------------------------------------------------------------------
