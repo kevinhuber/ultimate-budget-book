@@ -30,14 +30,22 @@
             
              <ListView
 		        android:id="@+BudgetBook/bookings"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content" />
+             	android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+        		android:choiceMode="multipleChoice" />
 
             <Button
                 android:id="@+BudgetBookDetails/deleteEntry"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/b_delete"
+                android:textSize="12dp" />
+            
+            <Button
+                android:id="@+BudgetBookDetails/addEntry"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/b_add"
                 android:textSize="12dp" />
 
         </LinearLayout>

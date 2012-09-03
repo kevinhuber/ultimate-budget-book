@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-
+
     <Button
         android:id="@+CategoryOverviewLayout/createButton"
         android:layout_width="match_parent"
@@ -13,14 +13,12 @@
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border"
         android:text="@string/b_category_create" />
-
-    <ListView
-        android:id="@+CategoryOverviewLayout/categoriesListView"
+
+    <Spinner
+        android:id="@+CategoryOverviewLayout/categoriesSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_border"
-        android:layout_marginRight="@dimen/default_border" >
-
-    </ListView>
+        android:layout_marginRight="@dimen/default_border" />
 
 </LinearLayout>
