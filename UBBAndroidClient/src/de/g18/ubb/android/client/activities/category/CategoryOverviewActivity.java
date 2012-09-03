@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
 import de.g18.ubb.common.domain.BudgetBook;
@@ -40,16 +41,15 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		adapter = new ArrayAdapter<Category>(this, android.R.layout.simple_list_item_1);
+
 		Bundle bundle = getIntent().getExtras();
 		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
 
-		Long i  = transferredData.get(0).getId();
-		BudgetBook bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
-        List<Category> catList = ServiceRepository.getCategoryService().getAll(bb);
-		adapter = new ArrayAdapter<Category>(this, android.R.layout.simple_list_item_1, catList);
-
 		initComponents();
 		initEventHandling();
+
+        new CategoryLoadTask().run();
 	}
 
 	private void initComponents() {
@@ -76,4 +76,28 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
             startActivity(intent);
 		}
 	}
+
+    private final class CategoryLoadTask extends AbstractWaitTask {
+
+        private List<Category> categories;
+
+
+        public CategoryLoadTask() {
+            super(CategoryOverviewActivity.this, "Kategorien werden geladen...");
+        }
+
+        @Override
+        protected void execute() {
+            Long i  = transferredData.get(0).getId();
+            BudgetBook bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
+            categories = ServiceRepository.getCategoryService().getAll(bb);
+        }
+
+        @Override
+        protected void postExecute() {
+            for (Category b : categories) {
+                adapter.add(b);
+            }
+        }
+    }
 }
