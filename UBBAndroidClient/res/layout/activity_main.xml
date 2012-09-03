@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/default_boarder"
-    android:paddingRight="@dimen/default_boarder"
-    android:paddingTop="@dimen/default_boarder"
+    android:paddingLeft="@dimen/default_border"
+    android:paddingRight="@dimen/default_border"
+    android:paddingTop="@dimen/default_border"
     tools:context=".MainActivity" >
 
     <TextView

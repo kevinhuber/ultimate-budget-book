@@ -19,40 +19,40 @@ public class CategorieCreateActivity extends Activity {
 
 	private ArrayList<BudgetBookModel> transferredData;
 	public BudgetBook bb;
-	
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorie_create);
-        
-        Button b = (Button) findViewById(R.id.b_categorie_create);
+
+        Button b = (Button) findViewById(R.CategoryCreateLayout.createButton);
         b.setOnClickListener(new CreateListener());
-        
+
         Bundle bundle = getIntent().getExtras();
 		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
 		Long i  = transferredData.get(0).getId();
 		bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
     }
 
-    
+
     public class CreateListener implements OnClickListener {
 
 		public void onClick(View v) {
-			EditText et = (EditText) findViewById(R.id.e_categorie_create);
+			EditText et = (EditText) findViewById(R.CategoryCreateLayout.name);
 			String categorie = et.getText().toString();
-			
+
 			Category c = new Category();
 			c.setBudgetBook(bb);
 			c.setName(categorie);
 			ServiceRepository.getCategoryService().saveAndLoad(c);
-			
-			
+
+
 			Intent intent = new Intent(getApplicationContext(),
 					CategoryOverviewActivity.class);
 			intent.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
 			startActivity(intent);
 		}
-    	
+
     }
 
 }

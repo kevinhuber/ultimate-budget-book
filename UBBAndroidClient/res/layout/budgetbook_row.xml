@@ -9,8 +9,8 @@
         android:id="@+BudgetBookRowLayout/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder"
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border"
         android:layout_weight="1"
         android:text="BudgetBook #0.66616162656565656565"
         android:textAppearance="?android:attr/textAppearanceLarge" />

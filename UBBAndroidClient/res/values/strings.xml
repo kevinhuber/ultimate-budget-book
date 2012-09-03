@@ -29,8 +29,6 @@
     <string name="title_yearView">Jahresansicht</string>
     <string name="title_activity_budget_book_create_new">Neues Haushaltsbuch</string>
     <string name="menu_newBooking">Neuer Eintrag</string>
-    <string name="b_next">Next</string>
-    <string name="b_previous">Previous</string>
     <string name="b_delete">Löschen</string>
     <string name="title_activity_budget_book_detail">Haushaltsbuch Detailansicht</string>
     
@@ -40,15 +38,15 @@
     <string name="title_activity_categorie_create">Kategorien anlegen</string>
     <string name="title_activity_categorie_overview">Kategorien Übersicht</string>
     <!-- categorie create -->
-    <string name="e_categorie_create">Name der Kategorie</string>
-    <string name="b_categorie_create">Kategorie anlegen</string>
+    <string name="b_categorie_create">Anlegen</string>
   
 	<!-- categorie change -->
-	<string name="title_activity_category_change">MainActivity</string>
-	<string name="add_budget_book_user">weiteren Benutzer Hinzufügen</string>
+	<string name="title_activity_category_change">Kategorie ändern</string>
+	<string name="add_budget_book_user">Weiteren Benutzer Hinzufügen</string>
 	<string name="save_new_budget_book">Anlegen</string>
 	<string name="owner_budget_book">Benutzer</string>
 	<string name="new_name_for_budget_book">Name</string>
 	<string name="stayLoggedIn">Angemeldet bleiben</string>
+	<string name="createCategoryTitle">Neue Kategorie</string>
 	
 </resources>

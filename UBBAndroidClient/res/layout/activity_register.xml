@@ -27,8 +27,8 @@
         android:id="@+RegisterLayout/nameContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder" >
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
 
         <TextView
             android:id="@+RegisterLayout/name_label"
@@ -52,8 +52,8 @@
         android:id="@+RegisterLayout/emailContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder" >
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
 
         <TextView
             android:id="@+RegisterLayout/email_label"
@@ -74,8 +74,8 @@
         android:id="@+RegisterLayout/passwordContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder" >
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
 
         <TextView
             android:id="@+RegisterLayout/password_label"
@@ -97,8 +97,8 @@
         android:id="@+RegisterLayout/passwordCheckContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder" >
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
 
         <TextView
             android:id="@+RegisterLayout/passwordCheck_label"
@@ -119,8 +119,8 @@
         android:id="@+RegisterLayout/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder"
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border"
         android:layout_marginTop="10pt"
         android:text="@string/b_register" />
 

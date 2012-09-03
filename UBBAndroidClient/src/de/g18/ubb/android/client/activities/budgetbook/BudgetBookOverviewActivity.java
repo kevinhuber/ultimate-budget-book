@@ -51,9 +51,9 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
     }
 
     private void initComponents() {
-        createButton = (Button) findViewById(R.id.newBudgetBook);
+        createButton = (Button) findViewById(R.BudgetBookOverviewLayout.createButton);
 
-        budgetBooksListView = (ListView) findViewById(R.id.budgetBooks);
+        budgetBooksListView = (ListView) findViewById(R.BudgetBookOverviewLayout.budgetBooksListView);
         budgetBooksListView.setAdapter(budgetBookAdapter);
     }
 
