@@ -12,13 +12,20 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
+/**
+ * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
+ */
 public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverviewModel> {
 
     private Button createButton;
+    private ListView budgetBooksListView;
+
+    private BudgetBookAdapter budgetBookAdapter;
 
 
     @Override
@@ -35,48 +42,24 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        budgetBookAdapter = new BudgetBookAdapter(BudgetBookOverviewActivity.this);
+
         initComponents();
         initEventHandling();
 
-        // TODO (huber): In AsyncTask auslagern
-        fillBudgetBooksView();
+        new BudgetBookLoadTask().run();
     }
 
     private void initComponents() {
         createButton = (Button) findViewById(R.id.newBudgetBook);
+
+        budgetBooksListView = (ListView) findViewById(R.id.budgetBooks);
+        budgetBooksListView.setAdapter(budgetBookAdapter);
     }
 
     private void initEventHandling() {
         createButton.setOnClickListener(new CreateNewBudgetBookButtonListener());
-    }
-
-    private void fillBudgetBooksView() {
-        List<BudgetBook> books = ServiceRepository.getBudgetBookService().getAllForCurrentUser();
-        BudgetBookAdapter adapter = new BudgetBookAdapter(this, books);
-
-        ListView budgetBooksListView = (ListView) findViewById(R.id.budgetBooks);
-        budgetBooksListView.setAdapter(adapter);
-        budgetBooksListView.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				switchToBudgetBookDetailActivity(arg0.getAdapter().getItem(arg2));
-			}
-
-			private void switchToBudgetBookDetailActivity(Object aBook) {
-				Intent i = new Intent(getApplicationContext(), BudgetBookDetailActivity.class);
-				// erstelle das model (parcable)
-				BudgetBookModel bbm = new BudgetBookModel();
-				BudgetBook bb = (BudgetBook) aBook;
-				bbm.mapBudgetBookToModel(bb);
-				// hier ist es  möglich mehrere daten einer anderen activity zu übergeben
-				ArrayList<BudgetBookModel> dataList = new ArrayList<BudgetBookModel>();
-				dataList.add(bbm);
-				i.putParcelableArrayListExtra("BudgetBookModel", dataList);
-
-				startActivity(i);
-			}
-		});
+        budgetBooksListView.setOnItemClickListener(new BudgetBookSelectionHandler());
     }
 
     private void switchToBudgetBookCreateNew() {
@@ -92,6 +75,47 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         public void onClick(View aView) {
             switchToBudgetBookCreateNew();
+        }
+    }
+
+    private final class BudgetBookLoadTask extends AbstractWaitTask {
+
+        private List<BudgetBook> books;
+
+
+        public BudgetBookLoadTask() {
+            super(BudgetBookOverviewActivity.this, "Haushaltsbücher werden geladen...");
+        }
+
+        @Override
+        protected void execute() {
+            books = ServiceRepository.getBudgetBookService().getAllForCurrentUser();
+        }
+
+        @Override
+        protected void postExecute() {
+            budgetBookAdapter.addAll(books);
+        }
+    }
+
+    private final class BudgetBookSelectionHandler implements OnItemClickListener {
+
+        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            switchToBudgetBookDetailActivity(arg0.getAdapter().getItem(arg2));
+        }
+
+        private void switchToBudgetBookDetailActivity(Object aBook) {
+            Intent i = new Intent(getApplicationContext(), BudgetBookDetailActivity.class);
+            // erstelle das model (parcable)
+            BudgetBookModel bbm = new BudgetBookModel();
+            BudgetBook bb = (BudgetBook) aBook;
+            bbm.mapBudgetBookToModel(bb);
+            // hier ist es  möglich mehrere daten einer anderen activity zu übergeben
+            ArrayList<BudgetBookModel> dataList = new ArrayList<BudgetBookModel>();
+            dataList.add(bbm);
+            i.putParcelableArrayListExtra("BudgetBookModel", dataList);
+
+            startActivity(i);
         }
     }
 }

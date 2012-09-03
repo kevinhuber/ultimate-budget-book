@@ -12,11 +12,14 @@ import android.widget.TextView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.common.domain.BudgetBook;
 
-
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class BudgetBookAdapter extends ArrayAdapter<BudgetBook> {
+
+    public BudgetBookAdapter(Context aContext) {
+        super(aContext, R.layout.budgetbook_row);
+    }
 
     public BudgetBookAdapter(Context aContext, List<BudgetBook> aBooks) {
         super(aContext, R.layout.budgetbook_row, aBooks);
