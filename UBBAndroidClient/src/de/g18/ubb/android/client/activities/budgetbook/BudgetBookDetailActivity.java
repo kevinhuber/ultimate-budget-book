@@ -142,10 +142,15 @@ public class BudgetBookDetailActivity extends
 		return budgetBook.getBookings();
 	}
 	
-	private List<Category> getAllCategorysForCurrentBudgetBook() {
+	private BudgetBook getCurrentBudgetBook() {
 		BudgetBook budgetBook = ServiceRepository.getBudgetBookService()
 				.loadSinglebudgetBookById(transferredData.get(0).getId());
-		return null;
+		return budgetBook;
+	}
+	
+	private List<Category> getAllCategorysForCurrentBudgetBook() {
+		return ServiceRepository.getCategoryService()
+				.getAll(getCurrentBudgetBook());
 	}
 
 	private void showDayDetailsOnView() {
@@ -255,7 +260,7 @@ public class BudgetBookDetailActivity extends
 		
 		newBooking.setType(BookingType.SPENDING);
 		newBooking.setAmount(45);
-		//newBooking.setCategory(getAllCategorysForCurrentBudgetBook());
+		newBooking.setCategory(getAllCategorysForCurrentBudgetBook().get(0));
 		newBooking.setBookingTime(new Date());
 		
 		return newBooking;
