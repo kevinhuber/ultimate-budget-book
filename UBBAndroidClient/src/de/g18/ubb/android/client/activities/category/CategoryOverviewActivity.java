@@ -1,21 +1,26 @@
 package de.g18.ubb.android.client.activities.category;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
 import de.g18.ubb.common.domain.BudgetBook;
+import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 public class CategoryOverviewActivity extends Activity {
 
 	private ArrayList<BudgetBookModel> transferredData;
+	private List<Category> catList;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,16 @@ public class CategoryOverviewActivity extends Activity {
 		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
 		Long i  = transferredData.get(0).getId();
 		BudgetBook bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
+		
+		catList = ServiceRepository.getCategoryService().getAll(bb);
+		
+		Spinner sp = (Spinner) findViewById(R.id.sp_categorie);
+		ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this,
+				android.R.layout.simple_list_item_1,
+				catList);
+		
+		sp.setAdapter(adapter);
+		
 		
 	}
 
