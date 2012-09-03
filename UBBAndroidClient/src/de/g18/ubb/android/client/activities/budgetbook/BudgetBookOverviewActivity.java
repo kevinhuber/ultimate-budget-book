@@ -98,24 +98,38 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
         }
     }
 
-    private final class BudgetBookSelectionHandler implements OnItemClickListener {
+    private final class BudgetBookSelectionHandler extends AbstractWaitTask implements OnItemClickListener {
 
-        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-            switchToBudgetBookDetailActivity(arg0.getAdapter().getItem(arg2));
+        private BudgetBook selectedItem;
+        private Intent intentToStart;
+
+
+        public BudgetBookSelectionHandler() {
+            super(BudgetBookOverviewActivity.this, "Detailansicht wird geladen...");
+            // TODO Auto-generated constructor stub
         }
 
-        private void switchToBudgetBookDetailActivity(Object aBook) {
-            Intent i = new Intent(getApplicationContext(), BudgetBookDetailActivity.class);
+        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            selectedItem = (BudgetBook) arg0.getAdapter().getItem(arg2);
+            run();
+        }
+
+        @Override
+        protected void execute() {
+            intentToStart = new Intent(getApplicationContext(), BudgetBookDetailActivity.class);
             // erstelle das model (parcable)
             BudgetBookModel bbm = new BudgetBookModel();
-            BudgetBook bb = (BudgetBook) aBook;
-            bbm.mapBudgetBookToModel(bb);
+            bbm.mapBudgetBookToModel(selectedItem);
+
             // hier ist es  möglich mehrere daten einer anderen activity zu übergeben
             ArrayList<BudgetBookModel> dataList = new ArrayList<BudgetBookModel>();
             dataList.add(bbm);
-            i.putParcelableArrayListExtra("BudgetBookModel", dataList);
+            intentToStart.putParcelableArrayListExtra("BudgetBookModel", dataList);
+        }
 
-            startActivity(i);
+        @Override
+        protected void postExecute() {
+            startActivity(intentToStart);
         }
     }
 }
