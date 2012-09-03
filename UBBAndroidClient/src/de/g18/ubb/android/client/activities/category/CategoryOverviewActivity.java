@@ -21,7 +21,7 @@ public class CategoryOverviewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_category_overview);
 
-		Button b = (Button) findViewById(R.CategoryCreateLayout.createButton);
+		Button b = (Button) findViewById(R.CategoryOverviewLayout.createButton);
 		b.setOnClickListener(new CreateButtonListener());
 
 		Bundle bundle = getIntent().getExtras();
