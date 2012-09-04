@@ -169,7 +169,7 @@ public final class WebServiceProvider implements ServiceProvider {
 
     private static DefaultHttpClient createDefaultHttpClient() {
         HttpParams httpParams = new BasicHttpParams();
-        int connection_Timeout = 20000;
+        int connection_Timeout = 30000;
         HttpConnectionParams.setConnectionTimeout(httpParams, connection_Timeout);
         HttpConnectionParams.setSoTimeout(httpParams, connection_Timeout);
         return new DefaultHttpClient(httpParams);
