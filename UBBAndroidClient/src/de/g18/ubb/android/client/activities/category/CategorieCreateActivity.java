@@ -2,57 +2,79 @@ package de.g18.ubb.android.client.activities.category;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
+import de.g18.ubb.common.util.StringUtil;
 
-public class CategorieCreateActivity extends Activity {
+public class CategorieCreateActivity extends AbstractValidationFormularActivity<Category, CategoryCreateValidator> {
 
 	private ArrayList<BudgetBookModel> transferredData;
 	public BudgetBook bb;
-	
+
+
+    @Override
+    protected int getSubmitButtonId() {
+        return R.CategoryCreateLayout.createButton;
+    }
+
+    @Override
+    protected CategoryCreateValidator createValidator() {
+        return new CategoryCreateValidator(getModel());
+    }
+
+    @Override
+    protected Category createModel() {
+        return new Category();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_categorie_create;
+    }
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_categorie_create);
-        
-        Button b = (Button) findViewById(R.id.b_categorie_create);
-        b.setOnClickListener(new CreateListener());
-        
+
         Bundle bundle = getIntent().getExtras();
 		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
 		Long i  = transferredData.get(0).getId();
 		bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
+		getModel().setBudgetBook(bb);
+
+		initBindings();
     }
 
-    
-    public class CreateListener implements OnClickListener {
+	private void initBindings() {
+	    bind(Category.PROPERTY_NAME, R.CategoryCreateLayout.name);
+	}
 
-		public void onClick(View v) {
-			EditText et = (EditText) findViewById(R.id.e_categorie_create);
-			String categorie = et.getText().toString();
-			
-			Category c = new Category();
-			c.setBudgetBook(bb);
-			c.setName(categorie);
-			ServiceRepository.getCategoryService().saveAndLoad(c);
-			
-			
-			Intent intent = new Intent(getApplicationContext(),
-					CategoryOverviewActivity.class);
-			intent.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
-			startActivity(intent);
-		}
-    	
+    @Override
+    protected String getSubmitWaitMessage() {
+        return "Kategorie wird erstellt...";
     }
 
+    @Override
+    protected String submit() {
+        ServiceRepository.getCategoryService().saveAndLoad(getModel());
+        return StringUtil.EMPTY;
+    }
+
+    @Override
+    protected void postSubmit() {
+        super.postSubmit();
+
+        if (!isSubmitSuccessfull()) {
+            return;
+        }
+        Intent intent = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
+        intent.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
+        startActivity(intent);
+    }
 }

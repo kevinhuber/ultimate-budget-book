@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <TableRow
         android:id="@+RegisterLayout/titleContainer"
         android:layout_width="wrap_content"
@@ -12,7 +12,7 @@
         android:layout_marginBottom="15pt"
         android:layout_marginTop="10pt"
         android:gravity="center" >
-
+
         <TextView
             android:id="@+RegisterLayout/title"
             android:layout_width="wrap_content"
@@ -22,13 +22,13 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </TableRow>
-
+
     <TableRow
         android:id="@+RegisterLayout/nameContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder" >
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
 
         <TextView
             android:id="@+RegisterLayout/name_label"
@@ -47,13 +47,13 @@
             <requestFocus />
         </EditText>
     </TableRow>
-
+
     <TableRow
         android:id="@+RegisterLayout/emailContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder" >
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
 
         <TextView
             android:id="@+RegisterLayout/email_label"
@@ -69,13 +69,13 @@
             android:ems="10"
             android:inputType="textEmailAddress" />
     </TableRow>
-
+
     <TableRow
         android:id="@+RegisterLayout/passwordContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder" >
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
 
         <TextView
             android:id="@+RegisterLayout/password_label"
@@ -92,13 +92,13 @@
             android:inputType="textPassword" >
         </EditText>
     </TableRow>
-
+
     <TableRow
         android:id="@+RegisterLayout/passwordCheckContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder" >
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
 
         <TextView
             android:id="@+RegisterLayout/passwordCheck_label"
@@ -114,13 +114,13 @@
             android:ems="10"
             android:inputType="textPassword" />
     </TableRow>
-
+
     <Button
         android:id="@+RegisterLayout/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_boarder"
-        android:layout_marginRight="@dimen/default_boarder"
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border"
         android:layout_marginTop="10pt"
         android:text="@string/b_register" />
 

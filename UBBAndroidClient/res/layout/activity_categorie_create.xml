@@ -1,27 +1,56 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+CategoryCreateLayout/contentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/e_categorie_create"
+    <TableRow
+        android:id="@+CategoryCreateLayout/titleContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="96dp"
-        android:ems="10" android:inputType="text"
-        android:text="@string/e_categorie_create">
-        <requestFocus />
-    </EditText>
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+CategoryCreateLayout/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15pt"
+            android:layout_marginTop="10pt"
+            android:text="@string/createCategoryTitle"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+CategoryCreateLayout/nameContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
+
+        <TextView
+            android:id="@+CategoryCreateLayout/nameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/t_anzeigename"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <EditText
+            android:id="@+CategoryCreateLayout/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text" />
+    </TableRow>
 
     <Button
-        android:id="@+id/b_categorie_create"
+        android:id="@+CategoryCreateLayout/createButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/e_categorie_create"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="96dp"
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border"
+        android:layout_marginTop="10pt"
         android:text="@string/b_categorie_create" />
 
-</RelativeLayout>
+</TableLayout>

@@ -1,20 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout1"
+    android:id="@+BudgetBookOverviewLayout/contentContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/newBudgetBook"
+        android:id="@+BudgetBookOverviewLayout/createButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border"
         android:text="@string/b_newBudgetBook" />
 
     <ListView
-        android:id="@+id/budgetBooks"
+        android:id="@+BudgetBookOverviewLayout/budgetBooksListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
 
     </ListView>
 

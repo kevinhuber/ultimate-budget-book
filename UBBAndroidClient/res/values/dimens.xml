@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="default_boarder">5pt</dimen>
+    <dimen name="default_border">5pt</dimen>
+    <dimen name="default_top_border">10pt</dimen>
 </resources>

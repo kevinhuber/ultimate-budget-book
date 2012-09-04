@@ -50,19 +50,19 @@ public class BudgetBookCreateNewActivity extends AbstractActivity<BudgetBookMode
 	}
 
 	private void initComponents() {
-		budgetBookName = (EditText) findViewById(R.id.budgetBookName);
+		budgetBookName = (EditText) findViewById(R.BudgetBookCreateLayout.name);
 		// budgetBookOwner = (EditText) findViewById(R.id.budgetBookOwnerName);
 		budgetBookOwner = new ArrayList<EditText>();
 		budgetBookOwner.add((EditText) this
-				.findViewById(R.id.budgetBookOwnerName));
+				.findViewById(R.BudgetBookCreateLayout.user));
 		budgetBookOwner.get(0).setText(WebServiceProvider.getUsername(),
 				TextView.BufferType.EDITABLE);
 		budgetBookOwner.get(0).setEnabled(false);
 
 		userNameList = new ArrayList<String>();
 
-		addUser = (Button) findViewById(R.id.b_add_budgetbook_owner);
-		save = (Button) findViewById(R.id.b_save_budgetbook);
+		addUser = (Button) findViewById(R.BudgetBookCreateLayout.addUserButton);
+		save = (Button) findViewById(R.BudgetBookCreateLayout.createButton);
 	}
 
 	private void initEventHandling() {
@@ -86,7 +86,7 @@ public class BudgetBookCreateNewActivity extends AbstractActivity<BudgetBookMode
 
 		public void onClick(View aView) {
 			try {
-				LinearLayout layout = (LinearLayout) findViewById(R.id.userEditTexts);
+				LinearLayout layout = (LinearLayout) findViewById(R.BudgetBookCreateLayout.userFieldsContainer);
 				EditText temp = new EditText(BudgetBookCreateNewActivity.this);
 				temp.setLayoutParams(new LayoutParams(
 						android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -103,7 +103,6 @@ public class BudgetBookCreateNewActivity extends AbstractActivity<BudgetBookMode
 	private final class SaveBudgetBookButtonListener implements OnClickListener {
 
 		public void onClick(View aView) {
-
 			try {
 				BudgetBookService service = ServiceRepository.getBudgetBookService();
 
@@ -112,8 +111,7 @@ public class BudgetBookCreateNewActivity extends AbstractActivity<BudgetBookMode
 				for (EditText budgetBookOwnerEntry : budgetBookOwner) {
 					userNameList.add(budgetBookOwnerEntry.getText().toString());
 				}
-				service.createNew(budgetBookName.getText().toString(),
-						userNameList);
+				service.createNew(budgetBookName.getText().toString(), userNameList);
 
 				switchToBudgetBookOverview();
 			} catch (UserWithEMailNotFound e) {

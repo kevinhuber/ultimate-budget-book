@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+CategoryOverviewLayout/contentContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
     <Button
-        android:id="@+id/b_category_create"
-        android:layout_width="wrap_content"
+        android:id="@+CategoryOverviewLayout/createButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="92dp"
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border"
         android:text="@string/b_category_create" />
-
-    <Button
-        android:id="@+id/category_change"
-        android:layout_width="wrap_content"
+
+    <ListView
+        android:id="@+CategoryOverviewLayout/categoriesListView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/b_category_create"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
-        android:text="@string/b_category_change" />
-    
-</RelativeLayout>
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
+
+    </ListView>
+
+</LinearLayout>
