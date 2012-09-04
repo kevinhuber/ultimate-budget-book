@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
@@ -55,12 +54,8 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 	private void initComponents() {
         createNewCategoryButton = (Button) findViewById(R.CategoryOverviewLayout.createButton);
 
-
-        ListView lv = (ListView) findViewById(R.id.lv_overview);
+        ListView lv = (ListView) findViewById(R.CategoryOverviewLayout.categoriesListView);
         lv.setAdapter(adapter);
-
-		Spinner sp = (Spinner) findViewById(R.CategoryOverviewLayout.categoriesSpinner);
-		sp.setAdapter(adapter);
 	}
 
 	private void initEventHandling() {

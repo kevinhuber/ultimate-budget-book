@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+CategoryOverviewLayout/contentContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-
+
     <Button
         android:id="@+CategoryOverviewLayout/createButton"
         android:layout_width="match_parent"
@@ -13,18 +12,14 @@
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border"
         android:text="@string/b_category_create" />
-
-    <Spinner
-        android:id="@+CategoryOverviewLayout/categoriesSpinner"
+
+    <ListView
+        android:id="@+CategoryOverviewLayout/categoriesListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_border"
-        android:layout_marginRight="@dimen/default_border" />
+        android:layout_marginRight="@dimen/default_border" >
 
-    <ListView
-        android:id="@+id/lv_overview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
     </ListView>
 
 </LinearLayout>
