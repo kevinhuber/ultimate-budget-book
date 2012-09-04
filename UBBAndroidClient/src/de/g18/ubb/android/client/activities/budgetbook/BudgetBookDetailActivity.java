@@ -95,6 +95,7 @@ public class BudgetBookDetailActivity extends
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Booking newBooking = new Booking();
 		
 		loadExtraContent("BudgetBookModel");
 
