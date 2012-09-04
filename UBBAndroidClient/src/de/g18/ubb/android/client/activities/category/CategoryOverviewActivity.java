@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
@@ -24,7 +24,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
 	private ArrayList<BudgetBookModel> transferredData;
 
-	private ArrayAdapter<Category> adapter;
+	private OverviewAdapter adapter;
 
 
     @Override
@@ -41,7 +41,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		adapter = new ArrayAdapter<Category>(this, android.R.layout.simple_list_item_1);
+		adapter = new OverviewAdapter(this);
 
 		Bundle bundle = getIntent().getExtras();
 		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
@@ -54,6 +54,10 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
 	private void initComponents() {
         createNewCategoryButton = (Button) findViewById(R.CategoryOverviewLayout.createButton);
+
+
+        ListView lv = (ListView) findViewById(R.id.lv_overview);
+        lv.setAdapter(adapter);
 
 		Spinner sp = (Spinner) findViewById(R.CategoryOverviewLayout.categoriesSpinner);
 		sp.setAdapter(adapter);
