@@ -24,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.action.AbstractWaitAction;
+import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.common.domain.Booking;
@@ -42,16 +44,14 @@ public class BudgetBookDetailActivity extends
 	private TextView budgetBookDetails;
 	private TextView budgetBookBookings;
 
-	// maps to: 0 = day, 1 = month and 2 = year // default = 0
-	private int dynamicViewLayoutID = 0;
+	private DynamicLayoutId dynamicViewLayoutID;
 
 	private static final int SWIPE_MIN_DISTANCE = 120;
 	private static final int SWIPE_MAX_OFF_PATH = 250;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
-	private boolean viewMonthSet = false;
-	private boolean viewYearSet = false;
-	private boolean viewDaySet = false;
+	private boolean viewMonthSet;
+	private boolean viewYearSet;
 
 	private GestureDetector gestureDetector;
 
@@ -68,21 +68,21 @@ public class BudgetBookDetailActivity extends
 		return true;
 	}
 
-	protected int getdynamicLinearLayoutID() {
+	protected DynamicLayoutId getDynamicLinearLayoutID() {
 		return dynamicViewLayoutID;
 	}
 
-	protected void setdynamicLinearLayoutID(int aNewValue) {
+	protected void setDynamicLinearLayoutID(DynamicLayoutId aNewValue) {
 		dynamicViewLayoutID = aNewValue;
 	}
 
 	protected int getLinearLayoutID() {
-		switch (dynamicViewLayoutID) {
-		case 0:
+		switch (getDynamicLinearLayoutID()) {
+		case DAY:
 			return R.BudgetBook.daylinearLayout;
-		case 1:
+		case MONTH:
 			return R.BudgetBook.monthlinearLayout;
-		case 2:
+		case YEAR:
 			return R.BudgetBook.yearlinearLayout;
 		default:
 			return R.BudgetBook.daylinearLayout;
@@ -103,14 +103,15 @@ public class BudgetBookDetailActivity extends
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		loadExtraContent("BudgetBookModel");
-		adapter = new BudgetBookBookingsAdapter(this,
-				getAllBookingsForCurrentBudgetBook());
+		adapter = new BudgetBookBookingsAdapter(this);
+		setDynamicLinearLayoutID(DynamicLayoutId.DAY);
 
 		initComponents();
+		initEventHandling();
 		initGestureComponent();
 
+		new BookingsLoadTask().run();
 		showDayDetailsOnView();
-		initEventHandling();
 	}
 
 	private void initGestureComponent() {
@@ -150,42 +151,38 @@ public class BudgetBookDetailActivity extends
 	}
 
 	private void showDayDetailsOnView() {
-		if (!viewDaySet) {
-			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
+		LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
 
-			budgetBookDetails = new TextView(this);
-			budgetBookDetails.setText(transferredData.get(0).getName());
-			budgetBookBookings = new TextView(this);
-			if (!getAllBookingsForCurrentBudgetBook().isEmpty()) {
-				// budgetBookBookings.setText("Erster Booking Eintrag" +
-				// getAllBookingsForCurrentBudgetBook().get(0).toString());
-				budgetBookBookings = null;
-				// BudgetBookBookingsAdapter adapter = new
-				// BudgetBookBookingsAdapter(this,
-				// getAllBookingsForCurrentBudgetBook());
-				ListView listView = (ListView) findViewById(R.BudgetBook.bookings);
-				listView.setAdapter(adapter);
+		budgetBookDetails = new TextView(this);
+		budgetBookDetails.setText(transferredData.get(0).getName());
+		budgetBookBookings = new TextView(this);
+		if (!adapter.isEmpty()) {
+			// budgetBookBookings.setText("Erster Booking Eintrag" +
+			// getAllBookingsForCurrentBudgetBook().get(0).toString());
+			budgetBookBookings = null;
+			// BudgetBookBookingsAdapter adapter = new
+			// BudgetBookBookingsAdapter(this,
+			// getAllBookingsForCurrentBudgetBook());
+			ListView listView = (ListView) findViewById(R.BudgetBook.bookings);
+			listView.setAdapter(adapter);
 
-				listView.setOnItemClickListener(new OnItemClickListener() {
+			listView.setOnItemClickListener(new OnItemClickListener() {
 
-					public void onItemClick(AdapterView<?> arg0, View arg1,
-							int arg2, long arg3) {
-						// TODO: logik iomplementieren und weiterreichen an die
-						// budgetbookbooking
-						// switchToBudgetBookDetailActivity(arg0.getAdapter().getItem(arg2));
-						Toast.makeText(getApplicationContext(),
-								"Item angewählt", Toast.LENGTH_SHORT).show();
-					}
-				});
-			} else {
-				budgetBookBookings.setText("Keine Beiträge vorhanden");
-			}
-
-			lView.addView(budgetBookDetails, 1); // position auf 1 setzen
-			lView.addView(budgetBookBookings, 2);
-
-			viewDaySet = true;
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					// TODO: logik implementieren und weiterreichen an die
+					// budgetbookbooking
+					// switchToBudgetBookDetailActivity(arg0.getAdapter().getItem(arg2));
+					Toast.makeText(getApplicationContext(),
+							"Item angewählt", Toast.LENGTH_SHORT).show();
+				}
+			});
+		} else {
+			budgetBookBookings.setText("Keine Beiträge vorhanden");
 		}
+
+		lView.addView(budgetBookDetails, 1); // position auf 1 setzen
+		lView.addView(budgetBookBookings, 2);
 	}
 
 	private void showMonthDetailsOnView() {
@@ -211,16 +208,19 @@ public class BudgetBookDetailActivity extends
 	private void showDetailsOnView() {
 		// über getDynamicLinearLayoutID() wissen wir in welcher view wir uns
 		// befinden
-		switch (dynamicViewLayoutID) {
-		case 0:
+		switch (getDynamicLinearLayoutID()) {
+		case DAY:
 			showDayDetailsOnView(); // per default immer initialisiert
 			break;
-		case 1:
+
+		case MONTH:
 			showMonthDetailsOnView(); // wird dynamisch initialisiert
 			break;
-		case 2:
+
+		case YEAR:
 			showYearDetailsOnView(); // wird dynamisch initialisiert
 			break;
+
 		default:
 			showDayDetailsOnView();
 			break;
@@ -251,6 +251,7 @@ public class BudgetBookDetailActivity extends
 		i.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
 		startActivity(i);
 	}
+
 	private Booking addBooking() {
 		Booking newBooking = new Booking();
 
@@ -294,17 +295,23 @@ public class BudgetBookDetailActivity extends
 		}
 	}
 
-	private final class AddBudgetBookBookingButtonListener implements
-			OnClickListener {
+	private final class AddBudgetBookBookingButtonListener extends AbstractWaitAction {
 
-		public void onClick(View aView) {
-			int itemCount = getMyListView().getCount();
+        public AddBudgetBookBookingButtonListener() {
+            super(BudgetBookDetailActivity.this, "Buchung wird erstellt...");
+        }
 
-			for (int i = itemCount - 1; i >= 0; i--) {
-				adapter.add(addBooking());
-			}
-			adapter.notifyDataSetChanged();
-		}
+        @Override
+        protected void execute() {
+            adapter.add(addBooking());
+        }
+
+        @Override
+        protected void postExecute() {
+            super.postExecute();
+
+            showDayDetailsOnView();
+        }
 	}
 
 	class BudgetBookDetailGestureDetector extends SimpleOnGestureListener {
@@ -323,7 +330,7 @@ public class BudgetBookDetailActivity extends
 				vf.setOutAnimation(AnimationUtils.loadAnimation(
 						getApplicationContext(), R.anim.slide_out_left));
 				vf.showNext();
-				setdynamicLinearLayoutID(vf.getDisplayedChild());
+				setDynamicLinearLayoutID(DynamicLayoutId.getByChildId(vf.getDisplayedChild()));
 				showDetailsOnView();
 				// links nach rechts
 			} else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
@@ -333,7 +340,7 @@ public class BudgetBookDetailActivity extends
 				vf.setOutAnimation(AnimationUtils.loadAnimation(
 						getApplicationContext(), R.anim.slide_out_right));
 				vf.showPrevious();
-				setdynamicLinearLayoutID(vf.getDisplayedChild());
+				setDynamicLinearLayoutID(DynamicLayoutId.getByChildId(vf.getDisplayedChild()));
 				showDetailsOnView();
 			}
 			return false;
@@ -345,4 +352,53 @@ public class BudgetBookDetailActivity extends
 		}
 	}
 
+    private final class BookingsLoadTask extends AbstractWaitTask {
+
+        private List<Booking> bookings;
+
+
+        public BookingsLoadTask() {
+            super(BudgetBookDetailActivity.this, "Buchungen werden geladen...");
+        }
+
+        @Override
+        protected void execute() {
+            bookings = getAllBookingsForCurrentBudgetBook();
+        }
+
+        @Override
+        protected void postExecute() {
+            for (Booking b : bookings) {
+                adapter.add(b);
+            }
+            showDayDetailsOnView();
+        }
+    }
+
+    private enum DynamicLayoutId {
+
+        DAY(0),
+        MONTH(1),
+        YEAR(2);
+
+        private final int childId;
+
+
+        private DynamicLayoutId(int aChildId) {
+            childId = aChildId;
+        }
+
+        public int getChildId() {
+            return childId;
+        }
+
+        public static DynamicLayoutId getByChildId(int aChildId) {
+            for (DynamicLayoutId entry : values()) {
+                if (aChildId == entry.getChildId()) {
+                    return entry;
+                }
+            }
+            return null;
+        }
+    }
 }
