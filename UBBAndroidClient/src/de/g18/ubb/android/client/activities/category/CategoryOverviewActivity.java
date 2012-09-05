@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import de.g18.ubb.android.client.R;
@@ -20,6 +22,7 @@ import de.g18.ubb.common.service.repository.ServiceRepository;
 public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewModel> {
 
     private Button createNewCategoryButton;
+    private ListView lv;
 
 	private ArrayList<BudgetBookModel> transferredData;
 
@@ -54,12 +57,14 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 	private void initComponents() {
         createNewCategoryButton = (Button) findViewById(R.CategoryOverviewLayout.createButton);
 
-        ListView lv = (ListView) findViewById(R.CategoryOverviewLayout.categoriesListView);
+        lv = (ListView) findViewById(R.CategoryOverviewLayout.categoriesListView);
         lv.setAdapter(adapter);
 	}
 
 	private void initEventHandling() {
         createNewCategoryButton.setOnClickListener(new CreateButtonListener());
+        lv.setOnItemClickListener(new CategorySelectionHandler());
+
 	}
 
 
@@ -80,7 +85,6 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
         private List<Category> categories;
 
-
         public CategoryLoadTask() {
             super(CategoryOverviewActivity.this, "Kategorien werden geladen...");
         }
@@ -97,6 +101,44 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
             for (Category b : categories) {
                 adapter.add(b);
             }
+        }
+
+    }
+
+    private final class CategorySelectionHandler extends AbstractWaitTask implements OnItemClickListener {
+
+		private Category selectedItem;
+        private Intent intentToStart;
+
+
+        public CategorySelectionHandler() {
+            super(CategoryOverviewActivity.this, "Detailansicht wird geladen...");
+        }
+
+        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            selectedItem = (Category) arg0.getAdapter().getItem(arg2);
+            run();
+        }
+
+        @Override
+        protected void execute() {
+            intentToStart = new Intent(getApplicationContext(), CategoryChangeActivity.class);
+
+            intentToStart.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
+            // erstelle das model (parcable)
+
+//            BudgetBookModel bbm = new BudgetBookModel();
+//            bbm.mapBudgetBookToModel(selectedItem);
+
+            // hier ist es  möglich mehrere daten einer anderen activity zu übergeben
+//            ArrayList<BudgetBookModel> dataList = new ArrayList<BudgetBookModel>();
+//            dataList.add(bbm);
+//            intentToStart.putParcelableArrayListExtra("BudgetBookModel", dataList);
+        }
+
+        @Override
+        protected void postExecute() {
+            startActivity(intentToStart);
         }
     }
 }

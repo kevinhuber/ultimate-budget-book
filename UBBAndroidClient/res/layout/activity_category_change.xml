@@ -3,21 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ListView
-        android:id="@+id/lv_categories"
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
-
-    </ListView>
-
     <Button
-        android:id="@+id/b_categorie_change_create"
+        android:id="@+id/b_overchange_delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="65dp"
+        android:text="@string/b_overchange_delete" />
+
+    <TextView
+        android:id="@+id/tv_overchange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="55dp"
-        android:text="@string/b_categorie_create" 
-        android:onClick="onClick"/>
+        android:layout_marginTop="28dp"
+        android:text="@string/tv_overchange" />
+
+    <EditText
+        android:id="@+id/e_overchange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:ems="10"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/b_over_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="@string/b_over_change" />
 
 </RelativeLayout>
