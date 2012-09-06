@@ -25,13 +25,22 @@
     <!-- BuudgetBook Übersicht und Detail Activity -->
     <string name="b_newBudgetBook">Neues Haushaltsbuch</string>
     <string name="title_dayView">Tagesansicht</string>
+    <string name="title_weekView">Jahresansicht</string>
     <string name="title_monthView">Monatsansicht</string>
     <string name="title_yearView">Jahresansicht</string>
     <string name="title_activity_budget_book_create_new">Neues Haushaltsbuch</string>
     <string name="menu_newBooking">Neuer Eintrag</string>
     <string name="b_delete">Löschen</string>
     <string name="title_activity_budget_book_detail">Haushaltsbuch Detailansicht</string>
-
+    <!-- Booking Views -->
+    <string name="text_betrag">Betrag</string>
+    <string name="text_datum">Datum</string>
+    <string name="b_datePicker">Datum auswählen</string>
+    <string name="title_activity_create_booking">Neue Buchung anlegen</string>
+    <string name="title_activity_edit_booking">Buchung bearbeiten</string>
+    <string name="label_category_select">Kategorie auswählen</string>
+    <string name="label_type_select">Buchungsytyp auswählen</string>
+    
     <!-- category overview -->
     <string name="b_category_create">Kategorie anlegen</string>
     <string name="b_category_change">Kategorie ändern</string>
@@ -53,8 +62,6 @@
     <string name="tv_overchange">kategorie</string>
     <string name="e_overchange"></string>
     <string name="b_over_change">Kategorie ändern</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_create_booking">Neue buchung anlegen</string>
-    <string name="title_activity_edit_booking">Buchung bearbeiten</string>
-
+    <string name="b_save_booking">Button</string>
+   
 </resources>

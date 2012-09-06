@@ -27,12 +27,11 @@
                 android:layout_marginTop="10pt"
                 android:text="@string/title_dayView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-            
-             <ListView
-		        android:id="@+BudgetBook/bookings"
-             	android:layout_width="fill_parent"
-        		android:layout_height="wrap_content"
-        		android:choiceMode="multipleChoice" />
+
+            <ListView
+                android:id="@+BudgetBook/bookings"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+BudgetBookDetails/deleteEntry"
@@ -40,14 +39,39 @@
                 android:layout_height="wrap_content"
                 android:text="@string/b_delete"
                 android:textSize="12dp" />
-            
+
             <Button
                 android:id="@+BudgetBookDetails/addEntry"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/b_add"
                 android:textSize="12dp" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+BudgetBook/weeklinearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+BudgetBook/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15pt"
+                android:layout_marginTop="10pt"
+                android:text="@string/title_weekView"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:id="@+BudgetBookDetails/deleteEntry"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/b_delete"
+                android:textSize="12dp" >
+            </Button>
         </LinearLayout>
 
         <LinearLayout
@@ -74,7 +98,6 @@
                 android:text="@string/b_delete"
                 android:textSize="12dp" >
             </Button>
-
         </LinearLayout>
 
         <LinearLayout
@@ -101,7 +124,7 @@
                 android:text="@string/b_delete"
                 android:textSize="12dp" >
             </Button>
-
         </LinearLayout>
     </ViewFlipper>
+
 </LinearLayout>

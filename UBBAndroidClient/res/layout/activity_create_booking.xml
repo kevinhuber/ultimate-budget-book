@@ -1,14 +1,88 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:layout_margin="5pt" >
 
     <TextView
+        android:id="@+BookingCreate/betrag_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".CreateBookingActivity" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/text_betrag"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Spinner
+        android:id="@+BookingCreate/booking_type_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+BookingCreate/Datum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+BookingCreate/betrag_text"
+        android:layout_marginTop="51dp"
+        android:text="@string/text_datum"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+BookingCreate/datePicker_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+BookingCreate/Datum"
+        android:layout_alignBottom="@+BookingCreate/Datum"
+        android:layout_marginLeft="31dp"
+        android:layout_toRightOf="@+BookingCreate/Datum"
+        android:text="@string/b_datePicker" />
+
+    <EditText
+        android:id="@+BookingCreate/betrag_input"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+BookingCreate/datePicker_Button"
+        android:layout_alignTop="@+BookingCreate/betrag_text"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:id="@+BookingCreate/label_booking_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+BookingCreate/booking_type_spinner"
+        android:layout_alignParentLeft="true"
+        android:text="@string/label_type_select"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+BookingCreate/label_booking_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+BookingCreate/booking_type_spinner"
+        android:layout_marginTop="26dp"
+        android:text="@string/label_category_select"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+BookingCreate/category_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+BookingCreate/label_booking_category" />
+
+    <Button
+        android:id="@+BookingCreate/save_booking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+BookingCreate/category_spinner"
+        android:layout_marginTop="23dp"
+        android:text="@string/b_save_booking" />
 
 </RelativeLayout>

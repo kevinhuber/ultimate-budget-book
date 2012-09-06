@@ -53,6 +53,7 @@ public class BudgetBookDetailActivity extends
 
 	private boolean viewMonthSet;
 	private boolean viewYearSet;
+	private boolean viewWeekSet;
 	private boolean viewDaySet;
 
 	private GestureDetector gestureDetector;
@@ -82,6 +83,8 @@ public class BudgetBookDetailActivity extends
 		switch (getDynamicLinearLayoutID()) {
 		case DAY:
 			return R.BudgetBook.daylinearLayout;
+		case WEEK:
+			return R.BudgetBook.weeklinearLayout;
 		case MONTH:
 			return R.BudgetBook.monthlinearLayout;
 		case YEAR:
@@ -133,24 +136,15 @@ public class BudgetBookDetailActivity extends
 
 	private void loadExtraContent(String key) {
 		Bundle b = getIntent().getExtras();
-		transferredData = b.getParcelableArrayList(key);
+		if (b != null) {
+			transferredData = b.getParcelableArrayList(key);
+		}
 	}
 
 	private List<Booking> getAllBookingsForCurrentBudgetBook() {
 		BudgetBook budgetBook = ServiceRepository.getBudgetBookService()
 				.loadSinglebudgetBookById(transferredData.get(0).getId());
 		return budgetBook.getBookings();
-	}
-
-	private BudgetBook getCurrentBudgetBook() {
-		BudgetBook budgetBook = ServiceRepository.getBudgetBookService()
-				.loadSinglebudgetBookById(transferredData.get(0).getId());
-		return budgetBook;
-	}
-
-	private List<Category> getAllCategorysForCurrentBudgetBook() {
-		return ServiceRepository.getCategoryService().getAll(
-				getCurrentBudgetBook());
 	}
 
 	private void showDayDetailsOnView() {
@@ -205,6 +199,13 @@ public class BudgetBookDetailActivity extends
 			showDayDetailsOnView(); // per default immer initialisiert
 			break;
 
+		case WEEK:
+			if (viewWeekSet) {
+				updateDayDetailsView();
+			}
+			showDayDetailsOnView(); // per default immer initialisiert
+			break;
+
 		case MONTH:
 			if (viewMonthSet) {
 				updateMonthDetailsView();
@@ -235,9 +236,15 @@ public class BudgetBookDetailActivity extends
 
 	}
 
+	private void updateWeekDetailsView() {
+		// TODO Auto-generated method stub
+
+	}
+
 	private void updateDayDetailsView() {
 		if (!adapter.isEmpty()) {
 			ListView listView = (ListView) findViewById(R.BudgetBook.bookings);
+			listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 			listView.setAdapter(adapter);
 
 			listView.setOnItemClickListener(new OnItemClickListener() {
@@ -268,7 +275,6 @@ public class BudgetBookDetailActivity extends
 			Toast.makeText(this, "Menü - Neuer Eintrag wurde ausgewählt",
 					Toast.LENGTH_SHORT).show();
 			break;
-
 		case R.menu.menu_categoryBooking:
 			switchToCategoryOverview();
 			break;
@@ -285,26 +291,13 @@ public class BudgetBookDetailActivity extends
 		i.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
 		startActivity(i);
 	}
-	
+
 	private void switchToCreateBookingActivity() {
 		Intent i = new Intent(getApplicationContext(),
 				CreateBookingActivity.class);
 		i.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
 		startActivity(i);
 
-	}
-
-	private Booking addBooking() {
-		Booking newBooking = new Booking();
-
-		newBooking.setType(BookingType.SPENDING);
-		newBooking.setAmount(45);
-		newBooking.setCreateUser(getCurrentBudgetBook().getAssignedUser()
-				.get(0));
-		newBooking.setCategory(getAllCategorysForCurrentBudgetBook().get(0));
-		newBooking.setBookingTime(new Date());
-
-		return newBooking;
 	}
 
 	private void initComponents() {
@@ -351,7 +344,6 @@ public class BudgetBookDetailActivity extends
 			// aufruf der CreateBookingActivity
 			// adapter.add(addBooking());
 			switchToCreateBookingActivity();
-
 		}
 
 		@Override
@@ -426,7 +418,7 @@ public class BudgetBookDetailActivity extends
 
 	private enum DynamicLayoutId {
 
-		DAY(0), MONTH(1), YEAR(2);
+		DAY(0), WEEK(1), MONTH(2), YEAR(3);
 
 		private final int childId;
 
