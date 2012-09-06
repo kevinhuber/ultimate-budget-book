@@ -2,18 +2,28 @@ package de.g18.ubb.android.client.activities.category;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
-import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
+import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
-public class CategoryChangeActivity extends AbstractValidationFormularActivity<Category, CategoryCreateValidator> {
+public class CategoryChangeActivity extends Activity{
 
-	private ArrayList<BudgetBookModel> transferredData;
-	public BudgetBook bb;
+	private  ArrayList<CategoryModel> dataList;
+	public Category bb;
+	public Long categorID;
+	public Category category;
+
+	private TextView tv;
+	private Button b_change;
+	private Button b_delete;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,46 +31,64 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
         setContentView(R.layout.activity_category_change);
 
         Bundle bundle = getIntent().getExtras();
-		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
-		Long i  = transferredData.get(0).getId();
-		bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
-		getModel().setBudgetBook(bb);
+        dataList = bundle.getParcelableArrayList("CategoryModel");
+        categorID  = dataList.get(0).getId();
+//		bb = ServiceRepository.getCategoryService().loadSinglebudgetBookById(i);
 
-		initBindings();
+        initComponents();
+        initEventHandling();
     }
 
-	private void initBindings() {
-//		bind(Category.PROPERTY_NAME, R.CategoryCreateLayout.name);
+    private void initComponents() {
+    	setCateName();
+    	b_change = (Button) findViewById(R.id.b_over_change);
+    	b_delete = (Button) findViewById(R.id.b_overchange_delete);
+    }
+
+    private void initEventHandling() {
+        b_change.setOnClickListener(new ChangeButtonListener());
+        b_delete.setOnClickListener(new DeleteButtonListener());
+
 	}
 
-	@Override
-	protected int getSubmitButtonId() {
-		return 0;
+	// -------------------------------------------------------------------------
+    // Inner Classes
+    // -------------------------------------------------------------------------
+
+	private final class ChangeButtonListener implements OnClickListener{
+
+		public void onClick(View v) {
+
+			Toast.makeText(getApplicationContext(), "change",
+            		Toast.LENGTH_LONG).show();
+		}
 	}
 
-	@Override
-	protected String submit() {
-		return "bearbeite Kategorie....";
+	// -------------------------------------------------------------------------
+    // Inner Classes
+    // -------------------------------------------------------------------------
+
+	private final class DeleteButtonListener implements OnClickListener{
+
+		public void onClick(View v) {
+			try {
+				ServiceRepository.getCategoryService().removeById(categorID);
+			} catch (NotFoundExcpetion e) {
+				e.printStackTrace();
+			}
+			Toast.makeText(getApplicationContext(), "delete",
+            		Toast.LENGTH_LONG).show();
+//			Intent intent = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
+//			startActivity(intent);
+		}
 	}
 
-	@Override
-	protected String getSubmitWaitMessage() {
-		return "Kategorie wird bearbeitet...";
-	}
-
-	@Override
-	protected CategoryCreateValidator createValidator() {
-		return new CategoryCreateValidator(getModel());
-	}
-
-	@Override
-	protected Category createModel() {
-		return new Category();
-	}
-
-	@Override
-	protected int getLayoutId() {
-		return  R.layout.activity_category_change;
-	}
-
+    public void setCateName(){
+    	tv = (TextView) findViewById(R.id.tv_overchange);
+    	if (dataList != null) {
+			tv.setText(dataList.get(0).getName());
+		} else {
+			tv.setText("Leider Falsch");
+		}
+    }
 }

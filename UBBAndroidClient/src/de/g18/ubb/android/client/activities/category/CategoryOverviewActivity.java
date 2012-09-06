@@ -117,6 +117,8 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             selectedItem = (Category) arg0.getAdapter().getItem(arg2);
+//            Toast.makeText(getApplicationContext(), selectedItem.getName(),
+//            		Toast.LENGTH_LONG).show();
             run();
         }
 
@@ -127,13 +129,15 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
             intentToStart.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
             // erstelle das model (parcable)
 
-//            BudgetBookModel bbm = new BudgetBookModel();
-//            bbm.mapBudgetBookToModel(selectedItem);
+            CategoryModel bbm = new CategoryModel();
+            bbm.mapCategoryToModel(selectedItem);
+
 
             // hier ist es  möglich mehrere daten einer anderen activity zu übergeben
-//            ArrayList<BudgetBookModel> dataList = new ArrayList<BudgetBookModel>();
-//            dataList.add(bbm);
-//            intentToStart.putParcelableArrayListExtra("BudgetBookModel", dataList);
+            ArrayList<CategoryModel> dataList = new ArrayList<CategoryModel>();
+            dataList.add(bbm);
+            intentToStart.putParcelableArrayListExtra("CategoryModel", dataList);
+
         }
 
         @Override

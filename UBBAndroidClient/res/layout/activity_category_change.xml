@@ -20,25 +20,23 @@
         android:layout_marginTop="28dp"
         android:text="@string/tv_overchange" />
 
-    <EditText
-        android:id="@+id/e_overchange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:ems="10"
-        android:inputType="text" >
-
-        <requestFocus />
-    </EditText>
-
     <Button
         android:id="@+id/b_over_change"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/b_overchange_delete"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="30dp"
         android:text="@string/b_over_change" />
+
+    <EditText
+        android:id="@+id/e_overchange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_overchange"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:inputType="text" />
 
 </RelativeLayout>
