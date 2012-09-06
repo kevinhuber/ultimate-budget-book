@@ -50,7 +50,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.BudgetBookOverviewActivity" />
         </activity>
-         <activity
+        <activity
             android:name=".activities.category.CategoryOverviewActivity"
             android:label="@string/title_activity_categorie_overview" >
             <meta-data
@@ -71,5 +71,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.CategoryOverviewActivity" />
         </activity>
+        <activity
+            android:name=".activities.booking.CreateBookingActivity"
+            android:label="@string/title_activity_create_booking" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.g18.ubb.android.client.activities.AbstractActivity" />
+        </activity>
+        <activity
+            android:name=".activities.booking.EditBookingActivity"
+            android:label="@string/title_activity_edit_booking" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.g18.ubb.android.client.activities.AbstractActivity" />
+        </activity>
     </application>
+
 </manifest>

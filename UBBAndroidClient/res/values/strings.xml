@@ -31,7 +31,7 @@
     <string name="menu_newBooking">Neuer Eintrag</string>
     <string name="b_delete">Löschen</string>
     <string name="title_activity_budget_book_detail">Haushaltsbuch Detailansicht</string>
-    
+
     <!-- category overview -->
     <string name="b_category_create">Kategorie anlegen</string>
     <string name="b_category_change">Kategorie ändern</string>
@@ -39,20 +39,22 @@
     <string name="title_activity_categorie_overview">Kategorien Übersicht</string>
     <!-- categorie create -->
     <string name="b_categorie_create">Anlegen</string>
-  
-	<!-- categorie change -->
-	<string name="title_activity_category_change">Kategorie ändern</string>
-	<string name="add_budget_book_user">Weiteren Benutzer Hinzufügen</string>
-	<string name="save_new_budget_book">Anlegen</string>
-	<string name="owner_budget_book">Benutzer</string>
-	<string name="new_name_for_budget_book">Name</string>
-	<string name="stayLoggedIn">Angemeldet bleiben</string>
-	<string name="b_add">Buchung hinzufügen</string>
-	<string name="createCategoryTitle">Neue Kategorie</string>
-	
-	<string name="b_overchange_delete">Kategorie löschen</string>
-	<string name="tv_overchange">kategorie</string>
-	<string name="e_overchange"></string>
-	<string name="b_over_change">Kategorie ändern</string>
-	
+
+    <!-- categorie change -->
+    <string name="title_activity_category_change">Kategorie ändern</string>
+    <string name="add_budget_book_user">Weiteren Benutzer Hinzufügen</string>
+    <string name="save_new_budget_book">Anlegen</string>
+    <string name="owner_budget_book">Benutzer</string>
+    <string name="new_name_for_budget_book">Name</string>
+    <string name="stayLoggedIn">Angemeldet bleiben</string>
+    <string name="b_add">Buchung hinzufügen</string>
+    <string name="createCategoryTitle">Neue Kategorie</string>
+    <string name="b_overchange_delete">Kategorie löschen</string>
+    <string name="tv_overchange">kategorie</string>
+    <string name="e_overchange"></string>
+    <string name="b_over_change">Kategorie ändern</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_create_booking">Neue buchung anlegen</string>
+    <string name="title_activity_edit_booking">Buchung bearbeiten</string>
+
 </resources>
