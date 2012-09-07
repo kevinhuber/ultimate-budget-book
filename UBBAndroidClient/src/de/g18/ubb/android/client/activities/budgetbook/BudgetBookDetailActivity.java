@@ -1,7 +1,6 @@
 package de.g18.ubb.android.client.activities.budgetbook;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import android.content.Intent;
@@ -15,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -31,12 +31,10 @@ import de.g18.ubb.android.client.activities.booking.CreateBookingActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
-import de.g18.ubb.common.domain.Category;
-import de.g18.ubb.common.domain.enumType.BookingType;
+import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
-public class BudgetBookDetailActivity extends
-		AbstractActivity<BudgetBookOverviewModel> {
+public class BudgetBookDetailActivity extends AbstractActivity<BudgetBookOverviewModel> {
 
 	private Button delete;
 	private Button add;
@@ -142,8 +140,13 @@ public class BudgetBookDetailActivity extends
 	}
 
 	private List<Booking> getAllBookingsForCurrentBudgetBook() {
-		BudgetBook budgetBook = ServiceRepository.getBudgetBookService()
-				.loadSinglebudgetBookById(transferredData.get(0).getId());
+		BudgetBook budgetBook;
+        try {
+            budgetBook = ServiceRepository.getBudgetBookService()
+            		.load(transferredData.get(0).getId());
+        } catch (NotFoundExcpetion e) {
+            throw new IllegalStateException("BudgetBook with id '" + transferredData.get(0).getId() + "' has not been found!", e);
+        }
 		return budgetBook.getBookings();
 	}
 
@@ -244,7 +247,7 @@ public class BudgetBookDetailActivity extends
 	private void updateDayDetailsView() {
 		if (!adapter.isEmpty()) {
 			ListView listView = (ListView) findViewById(R.BudgetBook.bookings);
-			listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+			listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
 			listView.setAdapter(adapter);
 
 			listView.setOnItemClickListener(new OnItemClickListener() {

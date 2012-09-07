@@ -17,7 +17,7 @@ public class MockUserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean existsUserWithEMail(String aEMail) {
+    public boolean exists(String aEMail) {
         return ObjectUtil.equals(REGISTERED_USER_EMAIL, aEMail);
     }
 

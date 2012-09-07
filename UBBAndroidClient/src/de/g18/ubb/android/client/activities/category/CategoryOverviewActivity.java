@@ -17,6 +17,7 @@ import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
+import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
 public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewModel> {
@@ -98,7 +99,12 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
         @Override
         protected void execute() {
             Long i  = transferredData.get(0).getId();
-            BudgetBook bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
+            BudgetBook bb;
+            try {
+                bb = ServiceRepository.getBudgetBookService().load(i);
+            } catch (NotFoundExcpetion e) {
+                throw new IllegalStateException("BudgetBook with id '" + i + "' has not been found!", e);
+            }
             categories = ServiceRepository.getCategoryService().getAll(bb);
         }
 

@@ -9,6 +9,7 @@ import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
+import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
@@ -45,7 +46,11 @@ public class CategorieCreateActivity extends AbstractValidationFormularActivity<
         Bundle bundle = getIntent().getExtras();
 		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
 		Long i  = transferredData.get(0).getId();
-		bb = ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i);
+		try {
+            bb = ServiceRepository.getBudgetBookService().load(i);
+        } catch (NotFoundExcpetion e) {
+            throw new IllegalStateException("BudgetBook with id '" + i + "' has not been found!", e);
+        }
 		getModel().setBudgetBook(bb);
 
 		initBindings();

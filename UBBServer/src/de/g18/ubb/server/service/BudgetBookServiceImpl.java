@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import org.hibernate.Query;
 
 import de.g18.ubb.common.domain.BudgetBook;
-import de.g18.ubb.common.domain.User;
+import de.g18.ubb.common.domain.UserExtract;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.exception.UserWithEMailNotFound;
@@ -41,28 +41,28 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 	}
 
 	@Override
-	public BudgetBook createNew(String aName, List<String> aUserNameList)
-			throws UserWithEMailNotFound {
-		if (StringUtil.isEmpty(aName) || aUserNameList == null) {
+	public BudgetBook createNew(String aName, List<String> aUserEMails) throws UserWithEMailNotFound {
+		if (StringUtil.isEmpty(aName) || aUserEMails == null) {
 			throw new IllegalArgumentException(
 					"Benutzername und Haushaltsbuchname dürfen nicht leer sein");
 		}
 
 		BudgetBook b = new BudgetBook();
-		List<User> assignedUsers = new ArrayList<User>();
+		List<UserExtract> assignedUsers = new ArrayList<UserExtract>();
 
-		for (String userEmail : aUserNameList) {
-			if (userService.existsUserWithEMail(userEmail)) {
+		for (String userEmail : aUserEMails) {
+			if (userService.exists(userEmail)) {
 				try {
-					assignedUsers.add(userService.loadByEMail(userEmail));
+					assignedUsers.add(userService.loadExtractByEMail(userEmail));
 				} catch (NotFoundExcpetion e) {
 					throw new UserWithEMailNotFound(userEmail, e);
 				}
 			}
 		}
 
-		if (!assignedUsers.contains(getCurrentUser())) {
-			assignedUsers.add(getCurrentUser());
+		UserExtract currentUser = new UserExtract(getCurrentUser());
+		if (!assignedUsers.contains(currentUser)) {
+			assignedUsers.add(currentUser);
 		}
 		b.setAssignedUser(assignedUsers);
 		b.setName(aName);
@@ -79,14 +79,5 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 						+ " WHERE :currentUser IN (assignedUsers)").setEntity(
 				"currentUser", getCurrentUser());
 		return q.list();
-	}
-
-	@Override
-	public BudgetBook loadSinglebudgetBookById(Long id) {
-		try {
-            return loadById(id);
-        } catch (NotFoundExcpetion e) {
-        }
-		return null;
 	}
 }
