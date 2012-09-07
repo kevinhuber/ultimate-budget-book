@@ -204,7 +204,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBookOvervie
 
 		case WEEK:
 			if (viewWeekSet) {
-				updateDayDetailsView();
+				updateWeekDetailsView();
 			}
 			showDayDetailsOnView(); // per default immer initialisiert
 			break;
