@@ -59,6 +59,7 @@ public class CategoryChangeActivity extends Activity{
 			if (s.length() != 0) {
 				ass.getCategory().setName(s);
 				ServiceRepository.getCategoryService().saveAndLoad(ass.getCategory());
+
 				Intent intent = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
 				intent.putParcelableArrayListExtra("SingleBudgetBook", ass.getTransferredData());
 				startActivity(intent);
