@@ -52,7 +52,11 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 		Long i  = transferredData.get(0).getId();
 
 		ApplicationStateStore ass = ApplicationStateStore.getInstance();
-		ass.setBb(ServiceRepository.getBudgetBookService().loadSinglebudgetBookById(i));
+		try {
+			ass.setBb(ServiceRepository.getBudgetBookService().load(i));
+		} catch (NotFoundExcpetion e) {
+			throw new IllegalStateException("Budgetbook could not load by id:" + i, e);
+		}
 		ass.setTransferredData(transferredData);
 
 		initComponents();
