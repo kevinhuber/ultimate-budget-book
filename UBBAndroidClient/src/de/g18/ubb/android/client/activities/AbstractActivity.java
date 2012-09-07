@@ -3,6 +3,7 @@ package de.g18.ubb.android.client.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import de.g18.ubb.android.client.binding.BindingUtils;
 import de.g18.ubb.android.client.preferences.Preferences;
@@ -14,7 +15,7 @@ import de.g18.ubb.common.domain.AbstractModel;
  *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public abstract class AbstractActivity<_Model extends AbstractModel> extends Activity {
+public abstract class AbstractActivity<_Model extends AbstractModel> extends FragmentActivity {
 
     private _Model model;
     private Preferences preferences;
