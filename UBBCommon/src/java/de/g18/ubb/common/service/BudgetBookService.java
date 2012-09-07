@@ -42,7 +42,7 @@ public interface BudgetBookService {
     @POST
     @Path(METHOD_CREATE_NEW)
     BudgetBook createNew(@HeaderParam("bookname") String aName,
-                         @HeaderParam("username") List<String> aUserNameList) throws UserWithEMailNotFound;
+                         @HeaderParam("username") List<String> aUserEMails) throws UserWithEMailNotFound;
 
     /**
      * Gibt eine Liste mit {@link BudgetBook}s zurück, die dem aufrufenden Benutzer zugeordnet sind.

@@ -112,9 +112,8 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     /**
      * Ruft {@link Query#uniqueResult()} auf und schmeisst eine {@link NotFoundExcpetion} falls das Ergebniss null sein sollte.
      */
-    protected final _Entity uniqueResult(Query aQuery) throws NotFoundExcpetion {
-        @SuppressWarnings("unchecked")
-        _Entity result = (_Entity) aQuery.uniqueResult();
+    protected final Object uniqueResult(Query aQuery) throws NotFoundExcpetion {
+        Object result = aQuery.uniqueResult();
         if (result != null) {
             return result;
         }

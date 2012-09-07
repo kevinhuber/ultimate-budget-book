@@ -27,7 +27,7 @@ public final class BudgetBook extends AbstractEntity {
 
     private String name;
     private List<Booking> bookings;
-    private List<User> assignedUser;
+    private List<UserExtract> assignedUser;
 
 
     public BudgetBook() {
@@ -60,19 +60,19 @@ public final class BudgetBook extends AbstractEntity {
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(joinColumns = @JoinColumn(name = "book_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id"))
-    public List<User> getAssignedUser() {
+    public List<UserExtract> getAssignedUser() {
         if (assignedUser == null) {
-            assignedUser = new ArrayList<User>();
+            assignedUser = new ArrayList<UserExtract>();
         }
         return assignedUser;
     }
 
-    public void setAssignedUser(List<User> aNewValue) {
-        List<User> oldValue = getAssignedUser();
+    public void setAssignedUser(List<UserExtract> aNewValue) {
+        List<UserExtract> oldValue = getAssignedUser();
         assignedUser = aNewValue;
         fireChange(PROPERTY_ASSIGNED_USER, oldValue, getAssignedUser());
     }
-    
+
     // -------------------------------------------------------------------------
     // Heler
     // -------------------------------------------------------------------------

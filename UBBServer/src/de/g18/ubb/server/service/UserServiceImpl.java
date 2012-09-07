@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.jboss.resteasy.spi.NotFoundException;
 
 import de.g18.ubb.common.domain.User;
+import de.g18.ubb.common.domain.UserExtract;
 import de.g18.ubb.common.service.UserService;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.remote.UserServiceRemote;
@@ -53,8 +54,22 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
                 "SELECT u FROM " + getEntityClass().getSimpleName() + " u "
               + " WHERE u." + User.PROPERTY_EMAIL + "= :email")
             .setString("email", aEmail);
-        return uniqueResult(q);
+        return (User) uniqueResult(q);
 	}
+
+    @Override
+    public UserExtract loadExtractByEMail(String aEmail) throws NotFoundExcpetion {
+        if (StringUtil.isEmpty(aEmail)) {
+            throw new NotFoundException(aEmail);
+        }
+
+        Query q = getHibernateSession()
+            .createQuery(
+                "SELECT u FROM " + UserExtract.class.getSimpleName() + " u "
+              + " WHERE u." + User.PROPERTY_EMAIL + "= :email")
+            .setString("email", aEmail);
+        return (UserExtract) uniqueResult(q);
+    }
 
     @Override
     public boolean isAuthenticated() {
