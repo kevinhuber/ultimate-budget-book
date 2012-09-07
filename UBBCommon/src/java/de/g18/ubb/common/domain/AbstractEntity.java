@@ -5,6 +5,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import de.g18.ubb.common.util.ObjectUtil;
+
 /**
  * Abstrakte Entität die in einer Datenbank persistiert werden kann.
  *
@@ -59,7 +61,7 @@ public abstract class AbstractEntity extends AbstractModel implements Identifiab
             return false;
         }
 
-        Identifiable otherEntity = (Identifiable) aObject;
-        return getId() == otherEntity.getId();
+        Identifiable other = (Identifiable) aObject;
+        return ObjectUtil.equals(getId(), other.getId());
     }
 }

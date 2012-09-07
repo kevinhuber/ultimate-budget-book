@@ -72,12 +72,12 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<BudgetBook> getAllForCurrentUser() {
-		Query q = getHibernateSession().createQuery(
+		Query q = getHibernateSession()
+		    .createQuery(
 				"SELECT b FROM " + getEntityClass().getSimpleName() + " b "
-						+ "  LEFT JOIN b." + BudgetBook.PROPERTY_ASSIGNED_USER
-						+ " assignedUsers "
-						+ " WHERE :currentUser IN (assignedUsers)").setEntity(
-				"currentUser", getCurrentUser());
+              + "  LEFT JOIN b." + BudgetBook.PROPERTY_ASSIGNED_USER + " assignedUsers "
+              + " WHERE :currentUser IN (assignedUsers)")
+            .setEntity("currentUser", new UserExtract(getCurrentUser()));
 		return q.list();
 	}
 }

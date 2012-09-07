@@ -68,7 +68,7 @@ public final class UserExtract extends AbstractEntity {
 
     @Override
     public boolean equals(Object aObject) {
-        if (!(aObject instanceof User)) {
+        if (!(aObject instanceof UserExtract)) {
             return false;
         }
         UserExtract other = (UserExtract) aObject;
