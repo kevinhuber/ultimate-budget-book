@@ -101,7 +101,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
     /**
      * Lädt eine Entität anhand ihrer ID aus der Datenbank.
      */
-    public final _Entity loadById(Long aId) throws NotFoundExcpetion {
+    public final _Entity load(Long aId) throws NotFoundExcpetion {
         _Entity e = entityManager.find(getEntityClass(), aId);
         if (e == null) {
             throw new NotFoundExcpetion(getEntityClass(), aId);
@@ -126,7 +126,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
      * Falls keine Entität mit der ID existiert, wird eine {@link NotFoundExcpetion} geschmissen.
      */
     public final void removeById(Long aId) throws NotFoundExcpetion {
-        remove(loadById(aId));
+        remove(load(aId));
     }
 
     /**

@@ -33,7 +33,7 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
     }
 
     @Override
-    public boolean existsUserWithEMail(String aEMail) {
+    public boolean exists(String aEMail) {
         try {
             loadByEMail(aEMail);
         } catch (NotFoundExcpetion e) {
@@ -63,7 +63,7 @@ public class UserServiceImpl extends AbstractPersistanceBean<User> implements Us
 
     @Override
     public boolean register(String aEMail, String aUsername, String aPassword) {
-        if (existsUserWithEMail(aEMail)) {
+        if (exists(aEMail)) {
             return false;
         }
 

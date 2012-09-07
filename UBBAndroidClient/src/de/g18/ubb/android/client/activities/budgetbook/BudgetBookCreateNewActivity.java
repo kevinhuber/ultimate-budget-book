@@ -17,7 +17,6 @@ import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.common.service.BudgetBookService;
-import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.exception.UserWithEMailNotFound;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
@@ -116,11 +115,8 @@ public class BudgetBookCreateNewActivity extends AbstractActivity<BudgetBookMode
 				switchToBudgetBookOverview();
 			} catch (UserWithEMailNotFound e) {
 				Toast.makeText(getApplicationContext(),
-						"Benutzer bzw. Email wurde nicht gefunden",
+						"Es wurde kein Benutzer mit der E-Mail '" + e.getEMail() + "' gefunden!",
 						Toast.LENGTH_LONG).show();
-			} catch (NotFoundExcpetion e) {
-				Toast.makeText(getApplicationContext(),
-						"Benutzer nicht gefunden!", Toast.LENGTH_LONG).show();
 			}
 		}
 	}

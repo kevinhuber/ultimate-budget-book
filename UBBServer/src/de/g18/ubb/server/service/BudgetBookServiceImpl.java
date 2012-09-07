@@ -52,7 +52,7 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 		List<User> assignedUsers = new ArrayList<User>();
 
 		for (String userEmail : aUserNameList) {
-			if (userService.existsUserWithEMail(userEmail)) {
+			if (userService.exists(userEmail)) {
 				try {
 					assignedUsers.add(userService.loadByEMail(userEmail));
 				} catch (NotFoundExcpetion e) {
@@ -79,14 +79,5 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 						+ " WHERE :currentUser IN (assignedUsers)").setEntity(
 				"currentUser", getCurrentUser());
 		return q.list();
-	}
-
-	@Override
-	public BudgetBook loadSinglebudgetBookById(Long id) {
-		try {
-            return loadById(id);
-        } catch (NotFoundExcpetion e) {
-        }
-		return null;
 	}
 }

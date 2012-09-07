@@ -8,27 +8,54 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import de.g18.ubb.common.domain.User;
+
 /**
+ * Service-Interface, welches Methoden zum arbeiten mit einem {@link User} ermölicht.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface UserService {
 
+    /**
+     * Name unter dem der Service erreichbar ist.
+     */
     public static final String RESTFUL_SERVICE_NAME = "UserService";
-    public static final String AUTHENTIFICATION_TEST_PATH = RESTFUL_SERVICE_NAME + "/isAuthenticated";
+
+    public static final String METHOD_IS_AUTHENTICATED = "isAuthenticated";
+    public static final String METHOD_EXISTS = "exists";
+    public static final String METHOD_REGISTER = "register";
+
+    public static final String AUTHENTIFICATION_TEST_PATH = RESTFUL_SERVICE_NAME + "/" + METHOD_IS_AUTHENTICATED;
 
 
+    /**
+     * Prüft ob der aufrufende Client authentfiziert ist.
+     *
+     * @return True, falls der aufrufende Client authentifiziert ist.
+     */
     @GET
-    @Path("isAuthenticated")
+    @Path(METHOD_IS_AUTHENTICATED)
     boolean isAuthenticated();
 
+    /**
+     * Prüft ob es für die übergebene EMail-Adresse bereits einen registrierten Benutzer gibt.
+     *
+     * @return True, falls es bereits einen Benutzer mit der übergebenen EMail-Adresse gibt.
+     */
     @POST
-    @Path("existsUserWithEMail")
-    boolean existsUserWithEMail(String aEMail);
+    @Path(METHOD_EXISTS)
+    boolean exists(String aEMail);
 
+    /**
+     * Registriert einen neuen Benutzer mit den übergebenen Parametern.
+     *
+     * @return True, falls die registration erfolgreich abgeschloßen wurde.
+     */
     @POST
-    @Path("register")
+    @Path(METHOD_REGISTER)
     boolean register(@HeaderParam("email") String aEMail,
                      @HeaderParam("username") String aUsername,
                      @HeaderParam("password") String aPassword);
