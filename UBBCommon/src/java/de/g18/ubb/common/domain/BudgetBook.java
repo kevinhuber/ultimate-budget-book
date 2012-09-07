@@ -49,7 +49,8 @@ public final class BudgetBook extends AbstractEntity {
         fireChange(PROPERTY_BOOKINGS, oldValue, getBookings());
     }
 
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.REFRESH,
+                 fetch = FetchType.LAZY)
     public List<Booking> getBookings() {
         if (bookings == null) {
             bookings = new ArrayList<Booking>();
@@ -57,7 +58,8 @@ public final class BudgetBook extends AbstractEntity {
         return bookings;
     }
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.REFRESH,
+                  fetch = FetchType.LAZY)
     @JoinTable(joinColumns = @JoinColumn(name = "book_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id"))
     public List<UserExtract> getAssignedUser() {

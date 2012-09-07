@@ -66,7 +66,8 @@ public final class Booking extends AbstractAuditEntity {
         fireChange(PROPERTY_CATEGORY, oldValue, getCategory());
     }
 
-    @ManyToOne(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH,
+                 fetch = FetchType.EAGER)
     public Category getCategory() {
         return category;
     }

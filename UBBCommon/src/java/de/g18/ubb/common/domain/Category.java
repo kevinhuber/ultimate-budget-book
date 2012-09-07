@@ -43,7 +43,7 @@ public final class Category extends AbstractEntity {
         fireChange(PROPERTY_BUDGET_BOOK, oldValue, getBudgetBook());
     }
 
-    @ManyToOne(cascade = CascadeType.REMOVE,
+    @ManyToOne(cascade = CascadeType.REFRESH,
                  fetch = FetchType.EAGER,
               optional = false)
     public BudgetBook getBudgetBook() {
