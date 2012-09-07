@@ -51,7 +51,7 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 		List<UserExtract> assignedUsers = new ArrayList<UserExtract>();
 
 		for (String userEmail : aUserEMails) {
-			if (userService.exists(userEmail)) {
+			if (userService.isEMailInUse(userEmail)) {
 				try {
 					assignedUsers.add(userService.loadExtractByEMail(userEmail));
 				} catch (NotFoundExcpetion e) {

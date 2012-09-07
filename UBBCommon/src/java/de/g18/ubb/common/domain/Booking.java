@@ -2,15 +2,15 @@ package de.g18.ubb.common.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import de.g18.ubb.common.domain.enumType.BookingType;
 
@@ -66,7 +66,7 @@ public final class Booking extends AbstractAuditEntity {
         fireChange(PROPERTY_CATEGORY, oldValue, getCategory());
     }
 
-    @Cascade({CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
     public Category getCategory() {
         return category;
     }
