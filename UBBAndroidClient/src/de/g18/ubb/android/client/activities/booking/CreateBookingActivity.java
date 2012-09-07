@@ -157,10 +157,13 @@ public class CreateBookingActivity extends FragmentActivity {
 	}
 
 	private void saveBooking() {
-		// TODO: implement the save process
 		 model.setBookingTime(BookingStateBucket.getInstance().getBookingDate());
-		 ServiceRepository.getBookingService().saveAndLoad(model);
-	}
+		 Booking myBooking = ServiceRepository.getBookingService().saveAndLoad(model);
+		 BudgetBook myBook = getCurrentBudgetBook();
+		 myBook.getBookings().add(myBooking);
+		 ServiceRepository.getBudgetBookService().saveAndLoad(myBook);
+		}
+		
 	
 
 	// -------------------------------------------------------------------------

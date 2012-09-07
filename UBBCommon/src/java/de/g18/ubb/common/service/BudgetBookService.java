@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -32,6 +33,7 @@ public interface BudgetBookService {
     public static final String METHOD_CREATE_NEW = "createNew";
     public static final String METHOD_GET_ALL_FOR_CURRENT_USER = "getAllForCurrentUser";
     public static final String METHOD_LOAD = "load";
+    public static final String METHOD_SAVE_AND_LOAD = "saveAndLoad";
 
     /**
      * Erstellt ein neues {@link BudgetBook} anhand der übergebenen Parameter und gibt dieses zurück.
@@ -59,4 +61,13 @@ public interface BudgetBookService {
     @POST
     @Path(METHOD_LOAD)
     BudgetBook load(Long aId) throws NotFoundExcpetion;
+    
+    /**
+     * Persistiert die übergebene Entität in der Datenbank und gibt die Persistierte Entität wieder zurück.
+     *
+     * TODO (huber): Bedenklich!
+     */
+    @PUT
+    @Path(METHOD_SAVE_AND_LOAD)
+    BudgetBook saveAndLoad(BudgetBook aEntity);
 }

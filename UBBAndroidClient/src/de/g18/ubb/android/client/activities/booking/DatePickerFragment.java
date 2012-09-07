@@ -1,5 +1,6 @@
 package de.g18.ubb.android.client.activities.booking;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -69,8 +70,11 @@ public class DatePickerFragment extends DialogFragment implements
 	
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		setDate(day, month, year);
+		String DATE_FORMAT =  "dd.MM.yyyy";
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+		
 		datePickerButton = (Button)this.getActivity().findViewById(R.BookingCreate.datePicker_Button);
-		datePickerButton.setText(this.getDate().toString());
+		datePickerButton.setText( sdf.format(this.getDate()));
 		instance = BookingStateBucket.getInstance();
 		instance.setBookingDate(this.getDate());
 	}
