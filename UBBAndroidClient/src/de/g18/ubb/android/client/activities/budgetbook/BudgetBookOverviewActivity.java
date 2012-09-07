@@ -25,12 +25,10 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
     private Button createButton;
     private ListView budgetBooksListView;
 
-    private BudgetBookAdapter budgetBookAdapter;
-
 
     @Override
     protected BudgetBookOverviewModel createModel() {
-        return new BudgetBookOverviewModel();
+        return new BudgetBookOverviewModel(this);
     }
 
     @Override
@@ -42,8 +40,6 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        budgetBookAdapter = new BudgetBookAdapter(BudgetBookOverviewActivity.this);
-
         initComponents();
         initEventHandling();
 
@@ -54,7 +50,7 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
         createButton = (Button) findViewById(R.BudgetBookOverviewLayout.createButton);
 
         budgetBooksListView = (ListView) findViewById(R.BudgetBookOverviewLayout.budgetBooksListView);
-        budgetBooksListView.setAdapter(budgetBookAdapter);
+        getModel().bindBooksAdapter(budgetBooksListView);
     }
 
     private void initEventHandling() {
@@ -94,9 +90,7 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         @Override
         protected void postExecute() {
-            for (BudgetBook b : books) {
-                budgetBookAdapter.add(b);
-            }
+            getModel().setBudgetBooks(books);
         }
     }
 
@@ -108,7 +102,6 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         public BudgetBookSelectionHandler() {
             super(BudgetBookOverviewActivity.this, "Detailansicht wird geladen...");
-            // TODO Auto-generated constructor stub
         }
 
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {

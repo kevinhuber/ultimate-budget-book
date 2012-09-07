@@ -34,7 +34,7 @@ import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
-public class BudgetBookDetailActivity extends AbstractActivity<BudgetBookOverviewModel> {
+public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	private Button delete;
 	private Button add;
@@ -59,8 +59,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBookOvervie
 	protected BudgetBookBookingsAdapter adapter;
 
 	@Override
-	protected BudgetBookOverviewModel createModel() {
-		return new BudgetBookOverviewModel();
+	protected BudgetBook createModel() {
+		return new BudgetBook();
 	}
 
 	@Override
