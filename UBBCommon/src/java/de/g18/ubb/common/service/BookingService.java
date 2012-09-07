@@ -48,7 +48,7 @@ public interface BookingService {
     void remove(Booking aBooking);
 
     /**
-     * Löscht eine {@link Booking} anhand der übergebenen id aus der Datenbank.
+     * Löscht ein {@link Booking} anhand der übergebenen id aus der Datenbank.
      *
      * TODO (huber): Bedenklich!
      */

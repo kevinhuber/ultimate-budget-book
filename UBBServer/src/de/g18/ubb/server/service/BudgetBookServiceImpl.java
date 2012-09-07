@@ -7,9 +7,15 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.hibernate.Query;
 
+import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.UserExtract;
 import de.g18.ubb.common.service.BudgetBookService;
@@ -25,6 +31,7 @@ import de.g18.ubb.server.service.local.UserServiceLocal;
  *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
+
 @Local(BudgetBookServiceLocal.class)
 @Remote(BudgetBookServiceRemote.class)
 @Stateless
@@ -33,7 +40,6 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 
 	@EJB
 	private UserServiceLocal userService;
-
 
 	@Override
 	protected Class<BudgetBook> getEntityClass() {
@@ -80,4 +86,5 @@ public class BudgetBookServiceImpl extends AbstractPersistanceBean<BudgetBook> i
 				"currentUser", getCurrentUser());
 		return q.list();
 	}
+	
 }
