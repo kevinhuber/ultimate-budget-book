@@ -44,7 +44,7 @@ abstract class AbstractPropertyConnector<_PropertyType, _ComponentType extends V
     }
 
     protected final void updateComponent() {
-        _PropertyType value = propertyAccessor.invokeGetter();
+        _PropertyType value = getPropertyAccessor().invokeGetter();
         updateComponent(value);
     }
 
@@ -55,10 +55,14 @@ abstract class AbstractPropertyConnector<_PropertyType, _ComponentType extends V
         running = true;
 
         try {
-            propertyAccessor.invokeSetter(aNewValue);
+        	getPropertyAccessor().invokeSetter(aNewValue);
         } finally {
             running = false;
         }
+    }
+    
+    protected final PropertyAccessor<_PropertyType> getPropertyAccessor() {
+    	return propertyAccessor;
     }
 
     abstract void updateComponent(_PropertyType aNewValue);

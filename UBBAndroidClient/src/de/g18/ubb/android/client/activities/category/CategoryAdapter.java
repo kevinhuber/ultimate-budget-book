@@ -15,13 +15,13 @@ import de.g18.ubb.common.domain.Category;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public final class OverviewAdapter extends ArrayAdapter<Category> {
+public final class CategoryAdapter extends ArrayAdapter<Category> {
 
-    public OverviewAdapter(Context aContext) {
+    public CategoryAdapter(Context aContext) {
         super(aContext, R.layout.category_row);
     }
 
-    public OverviewAdapter(Context aContext, List<Category> aCategories) {
+    public CategoryAdapter(Context aContext, List<Category> aCategories) {
         super(aContext, R.layout.category_row, aCategories);
     }
 

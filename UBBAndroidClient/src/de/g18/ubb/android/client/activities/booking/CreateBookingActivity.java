@@ -8,7 +8,9 @@ import java.util.List;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
+import de.g18.ubb.android.client.activities.category.CategoryAdapter;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
+import de.g18.ubb.android.client.binding.BindingUtils;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
@@ -22,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -39,19 +42,39 @@ public class CreateBookingActivity extends FragmentActivity {
 
 	private DialogFragment dateFragment;
 
-	private Date bookingDate;
-
+	private BookingStateBucket instance;
+	private ArrayAdapter<BookingType> dataBookingTypeAdapter;
+	private ArrayAdapter<Category> dataBookingCategoryAdapter;
+	
+	private Booking model;
+	
+	private EditText amountEditText;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_booking);
 		loadExtraContent("SingleBudgetBook");
-
+		
+		model = new Booking();
+		
+		initBindings();
 		initComponents();
 		initEventHandling();
-
+		
 		addItemsOnBookingTypeSpinner();
 		addItemsOnCategorySpinner();
+	}
+
+	private void initBindings() {
+		amountEditText = (EditText) findViewById(R.BookingCreate.betrag_input);
+		BindingUtils.bind(amountEditText, model, Booking.PROPERTY_AMOUNT);
+		
+		category_spinner = (Spinner) findViewById(R.BookingCreate.category_spinner);
+		BindingUtils.bind(category_spinner, model, Booking.PROPERTY_CATEGORY);
+		
+		booking_type_spinner = (Spinner) findViewById(R.BookingCreate.booking_type_spinner);
+		BindingUtils.bind(booking_type_spinner, model, Booking.PROPERTY_TYPE);
 	}
 
 	@Override
@@ -87,33 +110,21 @@ public class CreateBookingActivity extends FragmentActivity {
 	}
 
 	public void addItemsOnCategorySpinner() {
-		List<String> list = new ArrayList<String>();
-
 		category_spinner = (Spinner) findViewById(R.BookingCreate.category_spinner);
-		for (Category singleCategory : getAllCategorysForCurrentBudgetBook()) {
-			list.add(singleCategory.getName());
-		}
 
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, list);
-		dataAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		category_spinner.setAdapter(dataAdapter);
+		dataBookingCategoryAdapter = new CategoryAdapter(this, getAllCategorysForCurrentBudgetBook());
+		dataBookingCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		category_spinner.setAdapter(dataBookingCategoryAdapter);
 	}
 
 	public void addItemsOnBookingTypeSpinner() {
 
 		booking_type_spinner = (Spinner) findViewById(R.BookingCreate.booking_type_spinner);
-		List<String> list = new ArrayList<String>();
 		List<BookingType> enumList = Arrays.asList(BookingType.values());
-		for (BookingType singleBookingType : enumList) {
-			list.add(singleBookingType.name().toLowerCase());
-		}
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, list);
-		dataAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		booking_type_spinner.setAdapter(dataAdapter);
+
+		dataBookingTypeAdapter = new BookingTypeAdapter(this, enumList);
+		dataBookingTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		booking_type_spinner.setAdapter(dataBookingTypeAdapter);
 	}
 
 	private void initComponents() {
@@ -126,6 +137,9 @@ public class CreateBookingActivity extends FragmentActivity {
 		datePickerButton.setOnClickListener(new DatePickerButtonListener());
 		saveBookingButton.setOnClickListener(new SaveBookingButtonListener());
 	}
+	public void changeDatePickerButton(){
+		datePickerButton.setText( ((DatePickerFragment) dateFragment).getDate().toString());
+	}
 
 	public void showDatePickerDialog(View v) {
 		dateFragment = new DatePickerFragment();
@@ -133,23 +147,17 @@ public class CreateBookingActivity extends FragmentActivity {
 	}
 
 	private void switchToBudgetBookDetailActivity() {
-		Intent i = new Intent(getApplicationContext(),
-				BudgetBookDetailActivity.class);
+		Intent i = new Intent(getApplicationContext(), BudgetBookDetailActivity.class);
+		i.putParcelableArrayListExtra("BudgetBookModel", transferredData);
 		startActivity(i);
 	}
 
 	private void saveBooking() {
 		// TODO: implement the save process
-		// bookingDate = ((DatePickerFragment) dateFragment).getDate();
-		// Booking newBooking = new Booking();
-		//
-		// newBooking.setType(BookingType.SPENDING);
-		// newBooking.setAmount(45);
-		// newBooking.setCreateUser(getCurrentBudgetBook().getAssignedUser()
-		// .get(0));
-		// newBooking.setCategory(getAllCategorysForCurrentBudgetBook().get(0));
-		// newBooking.setBookingTime(new Date());
+		 //model.setBookingTime(instance.getBookingDate().getDate());
+		 ServiceRepository.getBookingService().saveAndLoad(model);
 	}
+	
 
 	// -------------------------------------------------------------------------
 	// Inner Classes
@@ -169,5 +177,4 @@ public class CreateBookingActivity extends FragmentActivity {
 			switchToBudgetBookDetailActivity();
 		}
 	}
-
 }

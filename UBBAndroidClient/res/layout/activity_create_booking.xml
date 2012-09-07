@@ -47,7 +47,7 @@
         android:layout_alignLeft="@+BookingCreate/datePicker_Button"
         android:layout_alignTop="@+BookingCreate/betrag_text"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="number|text" />
 
     <TextView
         android:id="@+BookingCreate/label_booking_type"
