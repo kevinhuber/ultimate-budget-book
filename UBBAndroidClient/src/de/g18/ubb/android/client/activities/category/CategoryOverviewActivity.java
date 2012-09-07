@@ -26,6 +26,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
     private ListView lv;
 
 	private ArrayList<BudgetBookModel> transferredData;
+//	public ApplicationStateStore ass;
 
 	private OverviewAdapter adapter;
 
@@ -48,6 +49,15 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
 		Bundle bundle = getIntent().getExtras();
 		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
+		Long i  = transferredData.get(0).getId();
+
+		ApplicationStateStore ass = ApplicationStateStore.getInstance();
+		try {
+			ass.setBb(ServiceRepository.getBudgetBookService().load(i));
+		} catch (NotFoundExcpetion e) {
+			throw new IllegalStateException("Budgetbook could not load by id:" + i, e);
+		}
+		ass.setTransferredData(transferredData);
 
 		initComponents();
 		initEventHandling();
@@ -123,6 +133,8 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             selectedItem = (Category) arg0.getAdapter().getItem(arg2);
+            ApplicationStateStore ass = ApplicationStateStore.getInstance();
+            ass.setCategory(selectedItem);
 //            Toast.makeText(getApplicationContext(), selectedItem.getName(),
 //            		Toast.LENGTH_LONG).show();
             run();
@@ -132,17 +144,16 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
         protected void execute() {
             intentToStart = new Intent(getApplicationContext(), CategoryChangeActivity.class);
 
-            intentToStart.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
+//            intentToStart.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
             // erstelle das model (parcable)
 
-            CategoryModel bbm = new CategoryModel();
-            bbm.mapCategoryToModel(selectedItem);
-
+//            CategoryModel bbm = new CategoryModel();
+//            bbm.mapCategoryToModel(selectedItem);
 
             // hier ist es  möglich mehrere daten einer anderen activity zu übergeben
-            ArrayList<CategoryModel> dataList = new ArrayList<CategoryModel>();
-            dataList.add(bbm);
-            intentToStart.putParcelableArrayListExtra("CategoryModel", dataList);
+//            ArrayList<CategoryModel> dataList = new ArrayList<CategoryModel>();
+//            dataList.add(bbm);
+//            intentToStart.putParcelableArrayListExtra("CategoryModel", dataList);
 
         }
 
