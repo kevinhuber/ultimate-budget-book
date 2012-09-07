@@ -26,7 +26,7 @@
     <!-- BuudgetBook Übersicht und Detail Activity -->
     <string name="b_newBudgetBook">Neues Haushaltsbuch</string>
     <string name="title_dayView">Tagesansicht</string>
-    <string name="title_weekView">Jahresansicht</string>
+    <string name="title_weekView">Wochenansicht</string>
     <string name="title_monthView">Monatsansicht</string>
     <string name="title_yearView">Jahresansicht</string>
     <string name="title_activity_budget_book_create_new">Neues Haushaltsbuch</string>

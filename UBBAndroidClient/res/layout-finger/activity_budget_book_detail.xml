@@ -70,8 +70,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/b_delete"
-                android:textSize="12dp" >
-            </Button>
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+BudgetBookDetails/addEntry"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/b_add"
+                android:textSize="12dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,8 +102,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/b_delete"
-                android:textSize="12dp" >
-            </Button>
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+BudgetBookDetails/addEntry"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/b_add"
+                android:textSize="12dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -117,13 +129,19 @@
                 android:text="@string/title_yearView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <Button
+             <Button
                 android:id="@+BudgetBookDetails/deleteEntry"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/b_delete"
-                android:textSize="12dp" >
-            </Button>
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+BudgetBookDetails/addEntry"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/b_add"
+                android:textSize="12dp" />
         </LinearLayout>
     </ViewFlipper>
 
