@@ -9,7 +9,7 @@
     <string name="e_loginpassword">Passwort</string>
     <string name="b_login">Anmelden</string>
     <string name="b_loginregister">Registrieren</string>
-    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_register">Registrieren</string>
 
     <!-- Register Activity -->
     <string name="t_ueberschrift">Registrierung</string>
