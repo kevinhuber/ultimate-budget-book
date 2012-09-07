@@ -28,7 +28,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 	private ArrayList<BudgetBookModel> transferredData;
 //	public ApplicationStateStore ass;
 
-	private OverviewAdapter adapter;
+	private CategoryAdapter adapter;
 
 
     @Override
@@ -45,7 +45,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		adapter = new OverviewAdapter(this);
+		adapter = new CategoryAdapter(this);
 
 		Bundle bundle = getIntent().getExtras();
 		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");

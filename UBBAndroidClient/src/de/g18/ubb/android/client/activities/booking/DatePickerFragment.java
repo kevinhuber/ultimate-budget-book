@@ -3,10 +3,13 @@ package de.g18.ubb.android.client.activities.booking;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.g18.ubb.android.client.R;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -14,6 +17,8 @@ public class DatePickerFragment extends DialogFragment implements
 		DatePickerDialog.OnDateSetListener {
 	
 	public int myYear, myDay, myMonth;
+	public Button datePickerButton;
+	public BookingStateBucket instance;
 
 	public int getMyYear() {
 		return myYear;
@@ -64,6 +69,9 @@ public class DatePickerFragment extends DialogFragment implements
 	
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		setDate(day, month, year);
-		Toast.makeText(getActivity().getApplicationContext(), "Es wurde folgendes Datum ausgewählt:" + day + "." + month + "." + year , Toast.LENGTH_SHORT).show();
+		datePickerButton = (Button)this.getActivity().findViewById(R.BookingCreate.datePicker_Button);
+		datePickerButton.setText(this.getDate().toString());
+		instance = BookingStateBucket.getInstance();
+		instance.setBookingDate(this.getDate());
 	}
 }
