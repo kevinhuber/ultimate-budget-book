@@ -2,22 +2,13 @@ package de.g18.ubb.android.client.activities.booking;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
-import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
-import de.g18.ubb.android.client.activities.category.CategoryAdapter;
-import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
-import de.g18.ubb.android.client.binding.BindingUtils;
-import de.g18.ubb.common.domain.Booking;
-import de.g18.ubb.common.domain.BudgetBook;
-import de.g18.ubb.common.domain.Category;
-import de.g18.ubb.common.domain.enumType.BookingType;
-import de.g18.ubb.common.service.repository.ServiceRepository;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,9 +17,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
+import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
+import de.g18.ubb.android.client.activities.category.CategoryAdapter;
+import de.g18.ubb.android.client.binding.BindingUtils;
+import de.g18.ubb.common.domain.Booking;
+import de.g18.ubb.common.domain.BudgetBook;
+import de.g18.ubb.common.domain.Category;
+import de.g18.ubb.common.domain.enumType.BookingType;
+import de.g18.ubb.common.service.exception.NotFoundExcpetion;
+import de.g18.ubb.common.service.repository.ServiceRepository;
 
 public class CreateBookingActivity extends FragmentActivity {
 
@@ -99,8 +98,13 @@ public class CreateBookingActivity extends FragmentActivity {
 	}
 
 	private BudgetBook getCurrentBudgetBook() {
-		BudgetBook budgetBook = ServiceRepository.getBudgetBookService()
-				.loadSinglebudgetBookById(transferredData.get(0).getId());
+		BudgetBook budgetBook;
+        try {
+            budgetBook = ServiceRepository.getBudgetBookService()
+            		.load(transferredData.get(0).getId());
+        } catch (NotFoundExcpetion e) {
+            throw new IllegalStateException("BudgetBook with id '" + transferredData.get(0).getId() + "' has not been found!", e);
+        }
 		return budgetBook;
 	}
 

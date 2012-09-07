@@ -11,28 +11,52 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import de.g18.ubb.common.domain.BudgetBook;
+import de.g18.ubb.common.domain.User;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.exception.UserWithEMailNotFound;
 
 /**
+ * Service-Interface, welches Methoden zum arbeiten mit einem {@link BudgetBook} ermölicht.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface BudgetBookService {
 
+    /**
+     * Name unter dem der Service erreichbar ist.
+     */
     public static final String RESTFUL_SERVICE_NAME = "BudgetBookService";
 
-    @POST
-    @Path("createNew")
-    BudgetBook createNew(@HeaderParam("bookname") String aName,
-                         @HeaderParam("username") List<String> aUserNameList) throws UserWithEMailNotFound,
-                                                                                     NotFoundExcpetion;
+    public static final String METHOD_CREATE_NEW = "createNew";
+    public static final String METHOD_GET_ALL_FOR_CURRENT_USER = "getAllForCurrentUser";
+    public static final String METHOD_LOAD = "load";
 
-    @GET
-    List<BudgetBook> getAllForCurrentUser();
-    
+    /**
+     * Erstellt ein neues {@link BudgetBook} anhand der übergebenen Parameter und gibt dieses zurück.
+     *
+     * @throws UserWithEMailNotFound, falls aUserNameList eine EMail-Adresse enthält, zu der es keinen {@link User} gibt.
+     * @throws NotFoundExcpetion,
+     */
     @POST
-    @Path("loadSinglebudgetBookById")
-    BudgetBook loadSinglebudgetBookById(Long id);
+    @Path(METHOD_CREATE_NEW)
+    BudgetBook createNew(@HeaderParam("bookname") String aName,
+                         @HeaderParam("username") List<String> aUserEMails) throws UserWithEMailNotFound;
+
+    /**
+     * Gibt eine Liste mit {@link BudgetBook}s zurück, die dem aufrufenden Benutzer zugeordnet sind.
+     */
+    @GET
+    @Path(METHOD_GET_ALL_FOR_CURRENT_USER)
+    List<BudgetBook> getAllForCurrentUser();
+
+    /**
+     * Lädt ein {@link BudgetBook} anhand der übergebenen Id aus der Datenbank und gibt es zurück.
+     *
+     * TODO (huber): Bedenklich!
+     */
+    @POST
+    @Path(METHOD_LOAD)
+    BudgetBook load(Long aId) throws NotFoundExcpetion;
 }
