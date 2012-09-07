@@ -132,6 +132,7 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
      * Entfernd die übergebene Entität aus der Datenbank.
      */
     public final void remove(_Entity aEntity) {
+        aEntity = entityManager.merge(aEntity);
         entityManager.remove(aEntity);
         aEntity.setId(null);
     }

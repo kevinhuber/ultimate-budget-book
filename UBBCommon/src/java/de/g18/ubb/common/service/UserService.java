@@ -25,7 +25,7 @@ public interface UserService {
     public static final String RESTFUL_SERVICE_NAME = "UserService";
 
     public static final String METHOD_IS_AUTHENTICATED = "isAuthenticated";
-    public static final String METHOD_EXISTS = "exists";
+    public static final String METHOD_IS_EMAIL_IN_USE = "isEMailInUse";
     public static final String METHOD_REGISTER = "register";
 
     public static final String AUTHENTIFICATION_TEST_PATH = RESTFUL_SERVICE_NAME + "/" + METHOD_IS_AUTHENTICATED;
@@ -46,8 +46,8 @@ public interface UserService {
      * @return True, falls es bereits einen Benutzer mit der übergebenen EMail-Adresse gibt.
      */
     @POST
-    @Path(METHOD_EXISTS)
-    boolean exists(String aEMail);
+    @Path(METHOD_IS_EMAIL_IN_USE)
+    boolean isEMailInUse(String aEMail);
 
     /**
      * Registriert einen neuen Benutzer mit den übergebenen Parametern.

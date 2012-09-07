@@ -1,7 +1,6 @@
 package de.g18.ubb.common.service;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -44,7 +43,7 @@ public interface BookingService {
      *
      * TODO (huber): Bedenklich!
      */
-    @DELETE
+    @POST
     @Path(METHOD_REMOVE)
     void remove(Booking aBooking);
 
@@ -53,7 +52,7 @@ public interface BookingService {
      *
      * TODO (huber): Bedenklich!
      */
-    @DELETE
+    @POST
     @Path(METHOD_REMOVE_BY_ID)
     void removeById(Long aId) throws NotFoundExcpetion;
 

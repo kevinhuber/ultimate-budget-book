@@ -23,7 +23,7 @@ public abstract class AbstractServiceTest<_Service> {
     }
 
     protected final void loginAsTestUser() {
-        if (!ServiceRepository.getUserService().exists(TEST_USER_EMAIL)) {
+        if (!ServiceRepository.getUserService().isEMailInUse(TEST_USER_EMAIL)) {
             ServiceRepository.getUserService().register(TEST_USER_EMAIL, TEST_USER_EMAIL, TEST_USER_PASSWORD);
         }
         WebServiceProvider.authentificate(TEST_USER_EMAIL, TEST_USER_PASSWORD);

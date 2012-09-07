@@ -49,7 +49,7 @@ public final class BudgetBook extends AbstractEntity {
         fireChange(PROPERTY_BOOKINGS, oldValue, getBookings());
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     public List<Booking> getBookings() {
         if (bookings == null) {
             bookings = new ArrayList<Booking>();

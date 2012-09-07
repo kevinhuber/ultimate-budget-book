@@ -35,14 +35,14 @@ public class UserServiceTest extends AbstractServiceTest<UserService> {
 
     @Test
     public void testExistsUserWithEMail() {
-        Assert.assertFalse(getService().exists("invalidEMailAddress.!"));
-        Assert.assertTrue(getService().exists(TEST_USER_EMAIL));
+        Assert.assertFalse(getService().isEMailInUse("invalidEMailAddress.!"));
+        Assert.assertTrue(getService().isEMailInUse(TEST_USER_EMAIL));
     }
 
     @Test
     public void testRegister() {
         String userEMail = generateRandomUserEMail();
-        while (getService().exists(userEMail)) {
+        while (getService().isEMailInUse(userEMail)) {
             userEMail = generateRandomUserEMail();
         }
         String randomPassword = generateRandomPassword();
