@@ -9,6 +9,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import de.g18.ubb.common.domain.enumType.BookingType;
 
 /**
@@ -63,6 +66,7 @@ public final class Booking extends AbstractAuditEntity {
         fireChange(PROPERTY_CATEGORY, oldValue, getCategory());
     }
 
+    @Cascade({CascadeType.REMOVE})
     public Category getCategory() {
         return category;
     }
