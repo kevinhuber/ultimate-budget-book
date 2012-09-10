@@ -2,17 +2,15 @@ package de.g18.ubb.android.client.shared.adapter;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.shared.adapter.BookingsAdapter.BookingTag;
+import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.domain.Booking;
 
-public final class BookingsAdapter extends ArrayAdapter<Booking> {
+public final class BookingsAdapter extends AbstractAdapter<Booking, BookingTag> {
 
     public BookingsAdapter(Context aContext) {
         super(aContext, R.layout.budgetbookbooking_row);
@@ -23,30 +21,25 @@ public final class BookingsAdapter extends ArrayAdapter<Booking> {
     }
 
     @Override
-    public View getView(int aPosition, View aConvertView, ViewGroup aParent) {
-    	BudgetBookBookingHolder holder = null;
-
-        if (aConvertView == null) {
-            LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
-            aConvertView = inflater.inflate(R.layout.budgetbookbooking_row, aParent, false);
-
-            holder = new BudgetBookBookingHolder();
-            holder.name = (TextView) aConvertView.findViewById(R.BudgetBookBookingRowLayout.name);
-            holder.amount = (TextView) aConvertView.findViewById(R.BudgetBookBookingRowLayout.amount);
-
-            aConvertView.setTag(holder);
-        } else {
-            holder = (BudgetBookBookingHolder) aConvertView.getTag();
-        }
-
-        Booking booking = getItem(aPosition);
-        holder.name.setText(booking.getCreateUser().getName());
-        holder.amount.setText(Float.toString(booking.getAmount()));
-
-        return aConvertView;
+    protected BookingTag createTag(View aConvertView) {
+        BookingTag tag = new BookingTag();
+        tag.name = (TextView) aConvertView.findViewById(R.BudgetBookBookingRowLayout.name);
+        tag.amount = (TextView) aConvertView.findViewById(R.BudgetBookBookingRowLayout.amount);
+        return tag;
     }
 
-    private static final class BudgetBookBookingHolder {
+    @Override
+    protected void updateTag(BookingTag aTag, Booking aEntry) {
+        aTag.name.setText(aEntry.getCreateUser().getName());
+        aTag.amount.setText(Float.toString(aEntry.getAmount()) + " " + UBBConstants.CURRENCY_EURO_SIGN);
+    }
+
+
+    // -------------------------------------------------------------------------
+    // Inner Classes
+    // -------------------------------------------------------------------------
+
+    static final class BookingTag {
         TextView name;
         TextView amount;
     }
