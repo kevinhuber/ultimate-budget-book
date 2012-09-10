@@ -56,7 +56,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	private GestureDetector gestureDetector;
 
-	protected BudgetBookBookingsAdapter adapter;
+	protected BookingsAdapter adapter;
 
 	@Override
 	protected BudgetBook createModel() {
@@ -107,7 +107,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		super.onCreate(savedInstanceState);
 		budgetBookBookings = new TextView(this);
 		loadExtraContent("BudgetBookModel");
-		adapter = new BudgetBookBookingsAdapter(this);
+		adapter = new BookingsAdapter(this);
 		setDynamicLinearLayoutID(DynamicLayoutId.DAY);
 
 		initComponents();

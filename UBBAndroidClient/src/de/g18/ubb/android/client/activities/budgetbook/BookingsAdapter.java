@@ -12,13 +12,13 @@ import android.widget.TextView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.common.domain.Booking;
 
-public final class BudgetBookBookingsAdapter extends ArrayAdapter<Booking> {
+public final class BookingsAdapter extends ArrayAdapter<Booking> {
 
-    public BudgetBookBookingsAdapter(Context aContext) {
+    public BookingsAdapter(Context aContext) {
         super(aContext, R.layout.budgetbookbooking_row);
     }
 
-    public BudgetBookBookingsAdapter(Context aContext, List<Booking> aBooking) {
+    public BookingsAdapter(Context aContext, List<Booking> aBooking) {
         super(aContext, R.layout.budgetbookbooking_row, aBooking);
     }
 
