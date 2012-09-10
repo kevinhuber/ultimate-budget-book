@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.GestureDetector;
@@ -258,6 +259,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 					// TODO: logik implementieren und weiterreichen an die
 					// budgetbookbooking
 					// switchToBudgetBookDetailActivity(arg0.getAdapter().getItem(arg2));
+					arg0.setBackgroundColor(Color.YELLOW);
 					Toast.makeText(getApplicationContext(), "Item angewählt",
 							Toast.LENGTH_SHORT).show();
 				}
