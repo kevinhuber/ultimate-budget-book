@@ -27,18 +27,18 @@ public final class CategoryAdapter extends ArrayAdapter<Category> {
 
     @Override
     public View getView(int aPosition, View aConvertView, ViewGroup aParent) {
-        CategorykHolder holder = null;
+        CategoryHolder holder = null;
 
         if (aConvertView == null) {
             LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
             aConvertView = inflater.inflate(R.layout.category_row, aParent, false);
 
-            holder = new CategorykHolder();
+            holder = new CategoryHolder();
             holder.name = (TextView) aConvertView.findViewById(R.CategoryRowLayout.name);
 
             aConvertView.setTag(holder);
         } else {
-            holder = (CategorykHolder) aConvertView.getTag();
+            holder = (CategoryHolder) aConvertView.getTag();
         }
 
         Category category = getItem(aPosition);
@@ -47,7 +47,7 @@ public final class CategoryAdapter extends ArrayAdapter<Category> {
         return aConvertView;
     }
 
-    private static final class CategorykHolder {
+    private static final class CategoryHolder {
         TextView name;
     }
 }
