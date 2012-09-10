@@ -21,8 +21,8 @@ import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
 import de.g18.ubb.android.client.binding.BindingUtils;
-import de.g18.ubb.android.client.shared.adapter.BookingTypeAdapter;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
+import de.g18.ubb.android.client.shared.adapter.EnumAdapter;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
@@ -43,7 +43,7 @@ public class CreateBookingActivity extends FragmentActivity {
 	private DialogFragment dateFragment;
 
 	private BookingStateBucket instance;
-	private ArrayAdapter<BookingType> dataBookingTypeAdapter;
+	private EnumAdapter dataBookingTypeAdapter;
 	private ArrayAdapter<Category> dataBookingCategoryAdapter;
 
 	private Booking model;
@@ -126,7 +126,7 @@ public class CreateBookingActivity extends FragmentActivity {
 		booking_type_spinner = (Spinner) findViewById(R.BookingCreate.booking_type_spinner);
 		List<BookingType> enumList = Arrays.asList(BookingType.values());
 
-		dataBookingTypeAdapter = new BookingTypeAdapter(this, enumList);
+		dataBookingTypeAdapter = new EnumAdapter(this, enumList);
 		dataBookingTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		booking_type_spinner.setAdapter(dataBookingTypeAdapter);
 	}

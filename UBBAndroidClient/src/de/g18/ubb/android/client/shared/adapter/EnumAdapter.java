@@ -10,44 +10,46 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import de.g18.ubb.android.client.R;
-import de.g18.ubb.common.domain.enumType.BookingType;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public final class BookingTypeAdapter extends ArrayAdapter<BookingType> {
+public final class EnumAdapter<E extends Enum<E>> extends ArrayAdapter<E> {
 
-    public BookingTypeAdapter(Context aContext) {
-        super(aContext, R.layout.booking_type_row);
+    private static final int LAYOUT_ID = R.layout.booking_type_row;
+
+
+    public EnumAdapter(Context aContext) {
+        super(aContext, LAYOUT_ID);
     }
 
-    public BookingTypeAdapter(Context aContext, List<BookingType> aCategories) {
-        super(aContext, R.layout.booking_type_row, aCategories);
+    public EnumAdapter(Context aContext, List<E> aEnums) {
+        super(aContext, LAYOUT_ID, aEnums);
     }
 
     @Override
     public View getView(int aPosition, View aConvertView, ViewGroup aParent) {
-        BookingTypeHolder holder = null;
+        EnumHolder holder = null;
 
         if (aConvertView == null) {
             LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
-            aConvertView = inflater.inflate(R.layout.booking_type_row, aParent, false);
+            aConvertView = inflater.inflate(LAYOUT_ID, aParent, false);
 
-            holder = new BookingTypeHolder();
+            holder = new EnumHolder();
             holder.name = (TextView) aConvertView.findViewById(R.BookingTypeRowLayout.name);
 
             aConvertView.setTag(holder);
         } else {
-            holder = (BookingTypeHolder) aConvertView.getTag();
+            holder = (EnumHolder) aConvertView.getTag();
         }
 
-        BookingType bookingType = getItem(aPosition);
-        holder.name.setText(bookingType.name());
+        Enum<?> e = getItem(aPosition);
+        holder.name.setText(e.name());
 
         return aConvertView;
     }
 
-    private static final class BookingTypeHolder {
+    private static final class EnumHolder {
         TextView name;
     }
 }
