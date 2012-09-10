@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:ignore="UselessParent" >
-
+
     <ViewFlipper
         android:id="@+BudgetBook/details"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
-
+
         <LinearLayout
             android:id="@+BudgetBook/daylinearLayout"
             android:layout_width="fill_parent"
@@ -23,29 +23,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="15pt"
-                android:layout_marginTop="10pt"
+                android:layout_marginBottom="@dimen/title_bottom_border"
+                android:layout_marginTop="@dimen/default_top_border"
                 android:text="@string/title_dayView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <ListView
-                android:id="@+BudgetBook/bookings"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+BudgetBookDetails/deleteEntry"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/b_delete"
-                android:textSize="12dp" />
-
+
             <Button
                 android:id="@+BudgetBookDetails/addEntry"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_border"
+                android:layout_marginRight="@dimen/default_border"
                 android:text="@string/b_add"
                 android:textSize="12dp" />
+
+            <ListView
+                android:id="@+BudgetBook/bookings"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_border"
+                android:layout_marginRight="@dimen/default_border" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -54,30 +52,26 @@
             android:layout_height="fill_parent"
             android:background="#ffffff"
             android:orientation="vertical" >
-
+
             <TextView
                 android:id="@+BudgetBook/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="15pt"
-                android:layout_marginTop="10pt"
+                android:layout_marginBottom="@dimen/title_bottom_border"
+                android:layout_marginTop="@dimen/default_top_border"
                 android:text="@string/title_weekView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:id="@+BudgetBookDetails/deleteEntry"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/b_delete"
-                android:textSize="12dp" />
-
+
             <Button
                 android:id="@+BudgetBookDetails/addEntry"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_border"
+                android:layout_marginRight="@dimen/default_border"
                 android:text="@string/b_add"
                 android:textSize="12dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -86,30 +80,26 @@
             android:layout_height="fill_parent"
             android:background="#ffffff"
             android:orientation="vertical" >
-
+
             <TextView
                 android:id="@+BudgetBook/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="15pt"
-                android:layout_marginTop="10pt"
+                android:layout_marginBottom="@dimen/title_bottom_border"
+                android:layout_marginTop="@dimen/default_top_border"
                 android:text="@string/title_monthView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:id="@+BudgetBookDetails/deleteEntry"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/b_delete"
-                android:textSize="12dp" />
-
+
             <Button
                 android:id="@+BudgetBookDetails/addEntry"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_border"
+                android:layout_marginRight="@dimen/default_border"
                 android:text="@string/b_add"
                 android:textSize="12dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -118,30 +108,26 @@
             android:layout_height="fill_parent"
             android:background="#ffffff"
             android:orientation="vertical" >
-
+
             <TextView
                 android:id="@+BudgetBook/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="15pt"
-                android:layout_marginTop="10pt"
+                android:layout_marginBottom="@dimen/title_bottom_border"
+                android:layout_marginTop="@dimen/default_top_border"
                 android:text="@string/title_yearView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-             <Button
-                android:id="@+BudgetBookDetails/deleteEntry"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/b_delete"
-                android:textSize="12dp" />
-
+
             <Button
                 android:id="@+BudgetBookDetails/addEntry"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_border"
+                android:layout_marginRight="@dimen/default_border"
                 android:text="@string/b_add"
                 android:textSize="12dp" />
+
         </LinearLayout>
     </ViewFlipper>
 

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="default_border">5pt</dimen>
     <dimen name="default_top_border">10pt</dimen>
+    <dimen name="title_bottom_border">15pt</dimen>
 </resources>

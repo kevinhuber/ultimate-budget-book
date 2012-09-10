@@ -5,14 +5,12 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.SparseBooleanArray;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -265,7 +263,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			// vorherigen Eintrag "Keine Beiträge vorhanden" wieder aus der View
 			// entfernen
 			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
-			lView.removeViewAt(2);
+//			lView.removeViewAt(2);
 		} else {
 			budgetBookBookings.setText("Keine Beiträge vorhanden");
 		}
@@ -305,36 +303,18 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void initComponents() {
-		delete = (Button) findViewById(R.BudgetBookDetails.deleteEntry);
 		add = (Button) findViewById(R.BudgetBookDetails.addEntry);
 	}
 
 	private void initEventHandling() {
-		delete.setOnClickListener(new DeleteBudgetBookButtonListener());
 		add.setOnClickListener(new AddBudgetBookBookingButtonListener());
 
 	}
 
+
 	// -------------------------------------------------------------------------
 	// Inner Classes
 	// -------------------------------------------------------------------------
-
-	private final class DeleteBudgetBookButtonListener implements
-			OnClickListener {
-
-		public void onClick(View aView) {
-			SparseBooleanArray checkedItemPositions = getMyListView()
-					.getCheckedItemPositions();
-			int itemCount = getMyListView().getCount();
-
-			for (int i = itemCount - 1; i >= 0; i--) {
-				if (checkedItemPositions.get(i)) {
-					adapter.remove(getAllBookingsForCurrentBudgetBook().get(i));
-				}
-			}
-			adapter.notifyDataSetChanged();
-		}
-	}
 
 	private final class AddBudgetBookBookingButtonListener extends
 			AbstractWaitAction {

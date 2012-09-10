@@ -1,67 +1,70 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+CategoryChangeLayout/contentContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TableRow
-        android:id="@+CategoryChangeLayout/titleContainer"
-        android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+CategoryChangeLayout/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
-
-        <TextView
-            android:id="@+CategoryChangeLayout/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15pt"
-            android:layout_marginTop="10pt"
-            android:text="@string/tv_overchange"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+CategoryChangeLayout/nameContainer"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/title_bottom_border"
+        android:layout_marginTop="@dimen/default_top_border"
+        android:text="@string/tv_overchange"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TableLayout
+        android:id="@+CategoryChangeLayout/formContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border" >
+
+        <TableRow
+            android:id="@+CategoryChangeLayout/nameContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+CategoryChangeLayout/nameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="@dimen/default_border"
+                android:text="@string/t_anzeigename"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+CategoryChangeLayout/nameLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/t_anzeigename"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <EditText
+                android:id="@+CategoryChangeLayout/nameEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text" >
 
-        <EditText
-            android:id="@+CategoryChangeLayout/nameEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text" >
+                <requestFocus />
+            </EditText>
+        </TableRow>
 
-            <requestFocus />
-        </EditText>
-
-    </TableRow>
-
+    </TableLayout>
+
     <Button
         android:id="@+CategoryChangeLayout/changeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border"
-        android:layout_marginTop="10pt"
-        android:text="@string/b_over_change" />
-
+        android:layout_marginTop="@dimen/default_top_border"
+        android:text="@string/save" />
+
     <Button
         android:id="@+CategoryChangeLayout/deleteButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border"
-        android:text="@string/b_overchange_delete" />
+        android:text="@string/delete" />
 
-</TableLayout>
+</LinearLayout>

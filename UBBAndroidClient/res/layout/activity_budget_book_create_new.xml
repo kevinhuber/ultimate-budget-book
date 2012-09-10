@@ -2,90 +2,91 @@
     android:id="@+BudgetBookCreateLayout/scrollContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-    <TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <LinearLayout
         android:id="@+BudgetBookCreateLayout/contentContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-        <TableRow
-            android:id="@+BudgetBookCreateLayout/titleContainer"
+        <TextView
+            android:id="@+BudgetBookCreateLayout/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15pt"
-            android:layout_marginTop="10pt"
-            android:gravity="center_horizontal" >
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/title_bottom_border"
+            android:layout_marginTop="@dimen/default_top_border"
+            android:text="@string/title_activity_budget_book_create_new"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <TextView
-                android:id="@+BudgetBookCreateLayout/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_activity_budget_book_create_new"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+BudgetBookCreateLayout/nameContainer"
-            android:layout_width="wrap_content"
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+BudgetBookCreateLayout/formContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_border"
             android:layout_marginRight="@dimen/default_border" >
 
-            <TextView
-                android:id="@+BudgetBookCreateLayout/nameLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/new_name_for_budget_book"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TableRow
+                android:id="@+BudgetBookCreateLayout/nameContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
-            <EditText
-                android:id="@+BudgetBookCreateLayout/name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" >
-
-                <requestFocus />
-            </EditText>
-        </TableRow>
-
-        <TableRow
-            android:id="@+BudgetBookCreateLayout/userContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_border"
-            android:layout_marginRight="@dimen/default_border"
-            android:layout_marginTop="@dimen/default_border" >
-
-            <TextView
-                android:id="@+BudgetBookCreateLayout/userLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_border"
-                android:layout_weight="1"
-                android:text="@string/owner_budget_book"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <LinearLayout
-                android:id="@+BudgetBookCreateLayout/userFieldsContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <EditText
-                    android:id="@+BudgetBookCreateLayout/user"
+                <TextView
+                    android:id="@+BudgetBookCreateLayout/nameLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textEmailAddress" />
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/default_border"
+                    android:text="@string/new_name_for_budget_book"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            </LinearLayout>
-        </TableRow>
-
+                <EditText
+                    android:id="@+BudgetBookCreateLayout/name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" >
+
+                    <requestFocus />
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+BudgetBookCreateLayout/userContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+BudgetBookCreateLayout/userLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|top"
+                    android:layout_marginRight="@dimen/default_border"
+                    android:text="@string/owner_budget_book"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <LinearLayout
+                    android:id="@+BudgetBookCreateLayout/userFieldsContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+BudgetBookCreateLayout/user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textEmailAddress" />
+
+                </LinearLayout>
+            </TableRow>
+
+        </TableLayout>
+
         <Button
             android:id="@+BudgetBookCreateLayout/addUserButton"
             style="android:buttonStyle"
@@ -95,7 +96,7 @@
             android:layout_marginRight="@dimen/default_border"
             android:layout_marginTop="@dimen/default_top_border"
             android:text="@string/add_budget_book_user" />
-
+
         <Button
             android:id="@+BudgetBookCreateLayout/createButton"
             android:layout_width="match_parent"
@@ -103,7 +104,6 @@
             android:layout_marginLeft="@dimen/default_border"
             android:layout_marginRight="@dimen/default_border"
             android:text="@string/save_new_budget_book" />
-
-    </TableLayout>
+    </LinearLayout>
 
 </ScrollView>

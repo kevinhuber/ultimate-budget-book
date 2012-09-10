@@ -8,14 +8,14 @@
     android:paddingRight="@dimen/default_border"
     android:paddingTop="@dimen/default_border"
     tools:context=".MainActivity" >
-
+
     <TextView
         android:id="@+MainLayout/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="15pt"
-        android:layout_marginTop="10pt"
+        android:layout_marginBottom="@dimen/title_bottom_border"
+        android:layout_marginTop="@dimen/default_top_border"
         android:text="@string/b_login"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -35,12 +35,11 @@
             
             <requestFocus />
         </EditText>
-
+
         <EditText
             android:id="@+MainLayout/password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2pt"
             android:ems="10"
             android:inputType="textPassword"
             android:text="@string/e_loginpassword" />
