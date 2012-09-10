@@ -10,6 +10,8 @@ public final class UBBConstants {
 
     public static final String PREFERENCES_FILENAME = "ubbPreferences";
 
+    public static final String CURRENCY_EURO_SIGN = "€";
+
 
     private UBBConstants() {
         // prevent instantiation

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 
@@ -18,12 +19,15 @@ import de.g18.ubb.common.domain.BudgetBook;
  */
 public final class BudgetBookAdapter extends ArrayAdapter<BudgetBook> {
 
-	public BudgetBookAdapter(Context aContext) {
-		super(aContext, R.layout.budgetbook_row);
+    private static final int LAYOUT_ID = R.layout.budgetbook_row;
+
+
+    public BudgetBookAdapter(Context aContext) {
+		super(aContext, LAYOUT_ID);
 	}
 
 	public BudgetBookAdapter(Context aContext, List<BudgetBook> aBooks) {
-		super(aContext, R.layout.budgetbook_row, aBooks);
+		super(aContext, LAYOUT_ID, aBooks);
 	}
 
 	@Override
@@ -31,16 +35,12 @@ public final class BudgetBookAdapter extends ArrayAdapter<BudgetBook> {
 		BudgetBookHolder holder = null;
 
 		if (aConvertView == null) {
-			LayoutInflater inflater = ((Activity) getContext())
-					.getLayoutInflater();
-			aConvertView = inflater.inflate(R.layout.budgetbook_row, aParent,
-					false);
+			LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
+			aConvertView = inflater.inflate(LAYOUT_ID, aParent, false);
 
 			holder = new BudgetBookHolder();
-			holder.name = (TextView) aConvertView
-					.findViewById(R.BudgetBookRowLayout.name);
-			holder.amount = (TextView) aConvertView
-					.findViewById(R.BudgetBookRowLayout.amount);
+			holder.name = (TextView) aConvertView.findViewById(R.BudgetBookRowLayout.name);
+			holder.amount = (TextView) aConvertView.findViewById(R.BudgetBookRowLayout.amount);
 
 			aConvertView.setTag(holder);
 		} else {
@@ -49,24 +49,28 @@ public final class BudgetBookAdapter extends ArrayAdapter<BudgetBook> {
 
 		BudgetBook book = getItem(aPosition);
 		holder.name.setText(book.getName());
-		holder.amount.setText(calculateAmmount(book.getBookings()));
+
+		float ammount = calculateAmmount(book.getBookings());
+		holder.amount.setText(ammount + UBBConstants.CURRENCY_EURO_SIGN);
 
 		return aConvertView;
 	}
 
+    private float calculateAmmount(List<Booking> aBookingList) {
+        float currentAmmount = 0;
+        for (Booking booking : aBookingList) {
+            currentAmmount += booking.getAmount();
+        }
+        return currentAmmount;
+    }
+
+
+    // -------------------------------------------------------------------------
+    // Inner Classes
+    // -------------------------------------------------------------------------
+
 	private static final class BudgetBookHolder {
 		TextView name;
 		TextView amount;
-	}
-
-	private String calculateAmmount(List<Booking> aBookingList) {
-		float currentAmmount = 0;
-		if (!aBookingList.isEmpty()) {
-			for (Booking booking : aBookingList) {
-				currentAmmount += booking.getAmount();
-			}
-		}
-		return String.valueOf(currentAmmount).toString();
-
 	}
 }
