@@ -3,6 +3,7 @@ package de.g18.ubb.android.client.activities.budgetbook;
 import java.util.Collection;
 
 import android.widget.ListView;
+import de.g18.ubb.android.client.shared.adapter.BudgetBookAdapter;
 import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.domain.BudgetBook;
 

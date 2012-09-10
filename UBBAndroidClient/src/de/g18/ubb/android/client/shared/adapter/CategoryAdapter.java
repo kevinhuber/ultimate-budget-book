@@ -1,4 +1,4 @@
-package de.g18.ubb.android.client.activities.category;
+package de.g18.ubb.android.client.shared.adapter;
 
 import java.util.List;
 

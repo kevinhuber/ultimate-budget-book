@@ -29,6 +29,7 @@ import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.booking.CreateBookingActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
+import de.g18.ubb.android.client.shared.adapter.BookingsAdapter;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
