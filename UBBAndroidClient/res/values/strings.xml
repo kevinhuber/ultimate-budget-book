@@ -40,8 +40,8 @@
     <string name="b_datePicker">Datum auswählen</string>
     <string name="title_activity_create_booking">Neue Buchung anlegen</string>
     <string name="title_activity_edit_booking">Buchung bearbeiten</string>
-    <string name="label_category_select">Kategorie auswählen</string>
-    <string name="label_type_select">Buchungstyp auswählen</string>
+    <string name="label_category_select">Kategorie</string>
+    <string name="label_type_select">Buchungstyp</string>
      <string name="b_save_booking">Buchung speichern</string>
     
     <!-- category overview -->
@@ -63,8 +63,9 @@
     <string name="b_add">Buchung hinzufügen</string>
     <string name="createCategoryTitle">Neue Kategorie</string>
     <string name="b_overchange_delete">Kategorie löschen</string>
-    <string name="tv_overchange">kategorie</string>
+    <string name="tv_overchange">Kategorie ändern</string>
     <string name="e_overchange"></string>
     <string name="b_over_change">Kategorie ändern</string>
+    <string name="title_createBooking">Buchung erstellen</string>
     
 </resources>

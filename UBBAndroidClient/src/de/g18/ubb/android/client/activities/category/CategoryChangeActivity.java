@@ -35,8 +35,8 @@ public class CategoryChangeActivity extends Activity{
 
     private void initComponents() {
     	setCateName();
-    	b_change = (Button) findViewById(R.id.b_over_change);
-    	b_delete = (Button) findViewById(R.id.b_overchange_delete);
+    	b_change = (Button) findViewById(R.CategoryChangeLayout.changeButton);
+    	b_delete = (Button) findViewById(R.CategoryChangeLayout.deleteButton);
     }
 
     private void initEventHandling() {
@@ -54,7 +54,7 @@ public class CategoryChangeActivity extends Activity{
 		public void onClick(View v) {
 			ApplicationStateStore ass = ApplicationStateStore.getInstance();
 
-			et = (EditText) findViewById(R.id.e_overchange);
+			et = (EditText) findViewById(R.CategoryChangeLayout.nameEditText);
 			String s = et.getText().toString();
 			if (s.length() != 0) {
 				ass.getCategory().setName(s);
@@ -88,7 +88,7 @@ public class CategoryChangeActivity extends Activity{
 	}
 
     public void setCateName(){
-    	tv = (TextView) findViewById(R.id.tv_overchange);
+    	tv = (TextView) findViewById(R.CategoryChangeLayout.nameEditText);
     	ApplicationStateStore ass = ApplicationStateStore.getInstance();
     	categorID = ass.getCategory().getId();
     	if (ass.getCategory() != null) {

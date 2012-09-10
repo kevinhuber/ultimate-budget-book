@@ -20,7 +20,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </TableRow>
-
+
     <TableRow
         android:id="@+CategoryCreateLayout/nameContainer"
         android:layout_width="wrap_content"

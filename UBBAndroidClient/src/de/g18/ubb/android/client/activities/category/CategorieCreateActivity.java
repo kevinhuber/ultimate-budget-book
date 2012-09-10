@@ -37,7 +37,7 @@ public class CategorieCreateActivity extends AbstractValidationFormularActivity<
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_categorie_create;
+        return R.layout.activity_category_create;
     }
 
 	@Override
