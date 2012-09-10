@@ -1,7 +1,5 @@
 package de.g18.ubb.common.service;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -9,7 +7,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 
@@ -58,13 +55,4 @@ public interface CategoryService {
     @PUT
     @Path(METHOD_SAVE_AND_LOAD)
     Category saveAndLoad(Category aEntity);
-
-    /**
-     * Gibt eine Liste mit allen {@link Category}s zurück, die dem übergebenen Haushalsbuch zugeordnet sind.
-     *
-     * TODO (huber): Bedenklich!
-     */
-    @POST
-    @Path(METHOD_GET_ALL)
-    List<Category> getAll(BudgetBook book);
 }

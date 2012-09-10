@@ -22,10 +22,12 @@ public final class BudgetBook extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     public static final String PROPERTY_NAME = "name";
+    public static final String PROPERTY_CATEGORIES = "categories";
     public static final String PROPERTY_BOOKINGS = "bookings";
     public static final String PROPERTY_ASSIGNED_USER = "assignedUser";
 
     private String name;
+    private List<Category> categories;
     private List<Booking> bookings;
     private List<UserExtract> assignedUser;
 
@@ -41,6 +43,21 @@ public final class BudgetBook extends AbstractEntity {
 
     public String getName() {
         return name;
+    }
+
+    public void setCategories(List<Category> aNewValue) {
+        List<Category> oldValue = getCategories();
+        categories = aNewValue;
+        fireChange(PROPERTY_CATEGORIES, oldValue, getCategories());
+    }
+
+    @OneToMany(cascade = CascadeType.REFRESH,
+                 fetch = FetchType.LAZY)
+    public List<Category> getCategories() {
+        if (categories == null) {
+            categories = new ArrayList<Category>();
+        }
+        return categories;
     }
 
     public void setBookings(List<Booking> aNewValue) {

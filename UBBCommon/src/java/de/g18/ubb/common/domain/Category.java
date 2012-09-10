@@ -1,10 +1,7 @@
 package de.g18.ubb.common.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 
 /**
  * Entität für Kategorien.
@@ -17,10 +14,8 @@ public final class Category extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     public static final String PROPERTY_NAME = "name";
-    public static final String PROPERTY_BUDGET_BOOK = "budgetBook";
 
     private String name;
-    private BudgetBook budgetBook;
 
 
     public Category() {
@@ -37,19 +32,6 @@ public final class Category extends AbstractEntity {
         return name;
     }
 
-    public void setBudgetBook(BudgetBook aNewValue) {
-        BudgetBook oldValue = getBudgetBook();
-        budgetBook = aNewValue;
-        fireChange(PROPERTY_BUDGET_BOOK, oldValue, getBudgetBook());
-    }
-
-    @ManyToOne(cascade = CascadeType.REFRESH,
-                 fetch = FetchType.EAGER,
-              optional = false)
-    public BudgetBook getBudgetBook() {
-        return budgetBook;
-    }
-
     // -------------------------------------------------------------------------
     // Heler
     // -------------------------------------------------------------------------
@@ -57,7 +39,6 @@ public final class Category extends AbstractEntity {
     @Override
     public String toString() {
         return getClass().getName() + "[id=" + getId()
-                                    + ", name=" + getName()
-                                    + ", budgetBook=" + getBudgetBook() + "]";
+                                    + ", name=" + getName() + "]";
     }
 }

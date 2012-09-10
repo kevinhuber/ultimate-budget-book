@@ -45,6 +45,6 @@ final class EditTextConnector extends AbstractPropertyConnector<Object, EditText
 
     @Override
     void updateComponent(Object aNewValue) {
-        getComponent().setText(StringUtil.toString(aNewValue));
+        getComponent().setText(aNewValue == null ? null : StringUtil.toString(aNewValue));
     }
 }

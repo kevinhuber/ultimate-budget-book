@@ -44,23 +44,24 @@ public class CreateBookingActivity extends FragmentActivity {
 	private BookingStateBucket instance;
 	private ArrayAdapter<BookingType> dataBookingTypeAdapter;
 	private ArrayAdapter<Category> dataBookingCategoryAdapter;
-	
+
 	private Booking model;
-	
+
 	private EditText amountEditText;
-	
+
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_booking);
 		loadExtraContent("SingleBudgetBook");
-		
+
 		model = new Booking();
-		
+
 		initBindings();
 		initComponents();
 		initEventHandling();
-		
+
 		addItemsOnBookingTypeSpinner();
 		addItemsOnCategorySpinner();
 	}
@@ -68,10 +69,10 @@ public class CreateBookingActivity extends FragmentActivity {
 	private void initBindings() {
 		amountEditText = (EditText) findViewById(R.BookingCreate.betrag_input);
 		BindingUtils.bind(amountEditText, model, Booking.PROPERTY_AMOUNT);
-		
+
 		category_spinner = (Spinner) findViewById(R.BookingCreate.category_spinner);
 		BindingUtils.bind(category_spinner, model, Booking.PROPERTY_CATEGORY);
-		
+
 		booking_type_spinner = (Spinner) findViewById(R.BookingCreate.booking_type_spinner);
 		BindingUtils.bind(booking_type_spinner, model, Booking.PROPERTY_TYPE);
 	}
@@ -100,8 +101,7 @@ public class CreateBookingActivity extends FragmentActivity {
 	private BudgetBook getCurrentBudgetBook() {
 		BudgetBook budgetBook;
         try {
-            budgetBook = ServiceRepository.getBudgetBookService()
-            		.load(transferredData.get(0).getId());
+            budgetBook = ServiceRepository.getBudgetBookService().load(transferredData.get(0).getId());
         } catch (NotFoundExcpetion e) {
             throw new IllegalStateException("BudgetBook with id '" + transferredData.get(0).getId() + "' has not been found!", e);
         }
@@ -109,8 +109,7 @@ public class CreateBookingActivity extends FragmentActivity {
 	}
 
 	private List<Category> getAllCategorysForCurrentBudgetBook() {
-		return ServiceRepository.getCategoryService().getAll(
-				getCurrentBudgetBook());
+		return getCurrentBudgetBook().getCategories();
 	}
 
 	public void addItemsOnCategorySpinner() {
@@ -156,15 +155,14 @@ public class CreateBookingActivity extends FragmentActivity {
 		startActivity(i);
 	}
 
-	private void saveBooking() {
-		 model.setBookingTime(BookingStateBucket.getInstance().getBookingDate());
-		 Booking myBooking = ServiceRepository.getBookingService().saveAndLoad(model);
-		 BudgetBook myBook = getCurrentBudgetBook();
-		 myBook.getBookings().add(myBooking);
-		 ServiceRepository.getBudgetBookService().saveAndLoad(myBook);
-		}
-		
-	
+    private void saveBooking() {
+        model.setBookingTime(BookingStateBucket.getInstance().getBookingDate());
+        Booking myBooking = ServiceRepository.getBookingService().saveAndLoad(model);
+        BudgetBook myBook = getCurrentBudgetBook();
+        myBook.getBookings().add(myBooking);
+        ServiceRepository.getBudgetBookService().saveAndLoad(myBook);
+    }
+
 
 	// -------------------------------------------------------------------------
 	// Inner Classes

@@ -1,6 +1,7 @@
 package de.g18.ubb.android.client.activities.category;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,7 +52,6 @@ public class CategorieCreateActivity extends AbstractValidationFormularActivity<
         } catch (NotFoundExcpetion e) {
             throw new IllegalStateException("BudgetBook with id '" + i + "' has not been found!", e);
         }
-		getModel().setBudgetBook(bb);
 
 		initBindings();
     }
@@ -67,7 +67,11 @@ public class CategorieCreateActivity extends AbstractValidationFormularActivity<
 
     @Override
     protected String submit() {
-        ServiceRepository.getCategoryService().saveAndLoad(getModel());
+        Category c = ServiceRepository.getCategoryService().saveAndLoad(getModel());
+        List<Category> categories = bb.getCategories();
+        categories.add(c);
+        bb.setCategories(categories);
+        bb = ServiceRepository.getBudgetBookService().saveAndLoad(bb);
         return StringUtil.EMPTY;
     }
 

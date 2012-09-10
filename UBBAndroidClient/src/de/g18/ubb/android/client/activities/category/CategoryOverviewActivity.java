@@ -109,7 +109,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
             } catch (NotFoundExcpetion e) {
                 throw new IllegalStateException("BudgetBook with id '" + i + "' has not been found!", e);
             }
-            categories = ServiceRepository.getCategoryService().getAll(bb);
+            categories = bb.getCategories();
         }
 
         @Override
