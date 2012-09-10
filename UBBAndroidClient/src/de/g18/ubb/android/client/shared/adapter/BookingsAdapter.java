@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.shared.adapter.BookingsAdapter.BookingTag;
@@ -13,7 +14,9 @@ import de.g18.ubb.common.domain.Booking;
 
 public final class BookingsAdapter extends AbstractAdapter<Booking, BookingTag> {
 
-    public BookingsAdapter(Context aContext) {
+    private int mItemIndex = -1;
+
+	public BookingsAdapter(Context aContext) {
         super(aContext, R.layout.budgetbookbooking_row);
     }
 
@@ -40,6 +43,27 @@ public final class BookingsAdapter extends AbstractAdapter<Booking, BookingTag> 
  
         aTag.name.setText(aEntry.getCreateUser().getName());
         aTag.amount.setText(Float.toString(aEntry.getAmount()) + " " + UBBConstants.CURRENCY_EURO_SIGN);
+    }
+    
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // TODO Auto-generated method stub
+        View view = super.getView(position, convertView, parent);
+        if (position == mItemIndex) {
+            view.setSelected(true);
+            view.setPressed(true);
+            view.setBackgroundColor(Color.parseColor("#FF9912"));
+        }
+
+        return view;
+    }
+
+    public void setSelectItem(int index) {
+        mItemIndex = index;
+    }
+
+    public int getSelectItem() {
+        return mItemIndex;
     }
 
     // -------------------------------------------------------------------------

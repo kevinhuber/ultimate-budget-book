@@ -29,7 +29,7 @@ public abstract class AbstractAdapter<_EntryType, _TagType> extends ArrayAdapter
 
     @SuppressWarnings("unchecked")
     @Override
-    public final View getView(int aPosition, View aConvertView, ViewGroup aParent) {
+    public View getView(int aPosition, View aConvertView, ViewGroup aParent) {
         if (aConvertView == null) {
             aConvertView = createConvertView(aParent);
             _TagType tag = createTag(aConvertView);

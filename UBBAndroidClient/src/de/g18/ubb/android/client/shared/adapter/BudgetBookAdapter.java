@@ -16,7 +16,7 @@ import de.g18.ubb.common.domain.BudgetBook;
  */
 public final class BudgetBookAdapter extends AbstractAdapter<BudgetBook, BudgetBookTag> {
 
-    public BudgetBookAdapter(Context aContext) {
+	public BudgetBookAdapter(Context aContext) {
 		super(aContext, R.layout.budgetbook_row);
 	}
 
@@ -45,8 +45,7 @@ public final class BudgetBookAdapter extends AbstractAdapter<BudgetBook, BudgetB
         }
         return currentAmmount;
     }
-
-
+    
     // -------------------------------------------------------------------------
     // Inner Classes
     // -------------------------------------------------------------------------

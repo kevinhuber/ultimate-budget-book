@@ -56,6 +56,9 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	private boolean viewWeekSet;
 	private boolean viewDaySet;
 
+	private boolean passedFirstSection;
+	private boolean choicesMade;
+
 	private GestureDetector gestureDetector;
 
 	protected BookingsAdapter adapter;
@@ -117,7 +120,6 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		initGestureComponent();
 
 		new BookingsLoadTask().run();
-		showDayDetailsOnView();
 	}
 
 	private void initGestureComponent() {
@@ -143,24 +145,25 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	private List<Booking> getAllBookingsForCurrentBudgetBook() {
 		BudgetBook budgetBook;
-        try {
-            budgetBook = ServiceRepository.getBudgetBookService()
-            		.load(transferredData.get(0).getId());
-        } catch (NotFoundExcpetion e) {
-            throw new IllegalStateException("BudgetBook with id '" + transferredData.get(0).getId() + "' has not been found!", e);
-        }
+		try {
+			budgetBook = ServiceRepository.getBudgetBookService().load(
+					transferredData.get(0).getId());
+		} catch (NotFoundExcpetion e) {
+			throw new IllegalStateException("BudgetBook with id '"
+					+ transferredData.get(0).getId() + "' has not been found!",
+					e);
+		}
 		return budgetBook.getBookings();
 	}
 
 	private void showDayDetailsOnView() {
 		LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
-		boolean passedFirstSection = false;
 		if (!viewDaySet) {
 			budgetBookDetails = new TextView(this);
 			budgetBookDetails.setText(transferredData.get(0).getName());
 			passedFirstSection = true;
 		}
-		// budgetBookBookings = new TextView(this);
+
 		updateDayDetailsView();
 
 		if (!viewDaySet) {
@@ -198,9 +201,9 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		// befinden
 		switch (getDynamicLinearLayoutID()) {
 		case DAY:
-			if (viewDaySet) {
-				updateDayDetailsView();
-			}
+			 if (viewDaySet) {
+				 updateDayDetailsView();
+			 }
 			showDayDetailsOnView(); // per default immer initialisiert
 			break;
 
@@ -232,26 +235,30 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateYearDetailsView() {
-		// TODO Auto-generated method stub
 
 	}
 
 	private void updateMonthDetailsView() {
-		// TODO Auto-generated method stub
 
 	}
 
 	private void updateWeekDetailsView() {
-		// TODO Auto-generated method stub
 
 	}
 
 	private void updateDayDetailsView() {
+		
 		if (!adapter.isEmpty()) {
+			
 			ListView listView = (ListView) findViewById(R.BudgetBook.bookings);
-			listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
-			listView.setAdapter(adapter);
-
+			
+			if (!choicesMade) {
+				listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
+				//löscht alle vorher getroffenen auswahlen
+				listView.clearChoices();
+			}
+			
+			listView.setAdapter(this.adapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -259,15 +266,20 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 					// TODO: logik implementieren und weiterreichen an die
 					// budgetbookbooking
 					// switchToBudgetBookDetailActivity(arg0.getAdapter().getItem(arg2));
-					arg0.setBackgroundColor(Color.YELLOW);
+					//arg0.setBackgroundColor(Color.YELLOW);
+					((BookingsAdapter)arg0.getAdapter()).setSelectItem(arg2);
+					choicesMade = true;
 					Toast.makeText(getApplicationContext(), "Item angewählt",
 							Toast.LENGTH_SHORT).show();
 				}
 			});
 			// vorherigen Eintrag "Keine Beiträge vorhanden" wieder aus der View
-			// entfernen
-			LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
-			lView.removeViewAt(2);
+			// entfernen. Das ganze allerdings nur einmal, bei zweiten Aufruf dieser Methode ist dieses Element schon nicht mehr vorhanden 
+			//und würde zu einer NullPointerException führen
+			if(passedFirstSection){
+				LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());
+				lView.removeViewAt(2);
+			}
 		} else {
 			budgetBookBookings.setText("Keine Beiträge vorhanden");
 		}
