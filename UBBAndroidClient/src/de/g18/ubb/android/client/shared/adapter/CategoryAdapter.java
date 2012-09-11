@@ -21,7 +21,7 @@ public final class CategoryAdapter extends AbstractAdapter<Category, CategoryTag
 
     public CategoryAdapter(Context aContext, List<Category> aCategories) {
         super(aContext, R.layout.category_row, aCategories);
-        setDropDownViewResource(R.layout.category_row);
+        setDropDownViewResource(R.layout.category_dropdown_row);
     }
 
     @Override

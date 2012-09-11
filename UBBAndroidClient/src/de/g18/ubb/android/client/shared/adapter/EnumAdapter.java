@@ -21,7 +21,7 @@ public final class EnumAdapter<_E extends Enum<_E>> extends AbstractAdapter<_E, 
 
     public EnumAdapter(Context aContext, List<_E> aEnums) {
         super(aContext, R.layout.enum_row, aEnums);
-        setDropDownViewResource(R.layout.enum_row);
+        setDropDownViewResource(R.layout.enum_dropdown_row);
     }
 
     @Override
