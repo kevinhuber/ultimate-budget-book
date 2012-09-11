@@ -1,34 +1,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+BookingCreateLayout/contentContainer"
+    android:id="@+BookingDetailLayout/contentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+BookingCreateLayout/title"
+        android:id="@+BookingDetailLayout/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/title_bottom_border"
         android:layout_marginTop="@dimen/default_top_border"
-        android:text="@string/title_createBooking"
+        android:text="@string/title_detailBooking"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TableLayout
-        android:id="@+BookingCreateLayout/formContainer"
+        android:id="@+BookingDetailLayout/formContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border" >
 
         <TableRow
-            android:id="@+BookingCreateLayout/nameContainer"
+            android:id="@+BookingDetailLayout/nameContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+BookingCreate/name_text"
+                android:id="@+BookingDetail/name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
@@ -37,7 +37,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <EditText
-                android:id="@+BookingCreate/name_input"
+                android:id="@+BookingDetail/name_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -49,12 +49,12 @@
         </TableRow>
 
         <TableRow
-            android:id="@+BookingCreateLayout/ammountContainer"
+            android:id="@+BookingDetailLayout/ammountContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+BookingCreate/betrag_text"
+                android:id="@+BookingDetail/betrag_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
@@ -63,7 +63,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <EditText
-                android:id="@+BookingCreate/betrag_input"
+                android:id="@+BookingDetail/betrag_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -75,12 +75,12 @@
         </TableRow>
 
         <TableRow
-            android:id="@+BookingCreateLayout/dateContainer"
+            android:id="@+BookingDetailLayout/dateContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+BookingCreate/Datum"
+                android:id="@+BookingDetail/Datum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
@@ -89,7 +89,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <Button
-                android:id="@+BookingCreate/datePicker_Button"
+                android:id="@+BookingDetail/datePicker_Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -97,12 +97,12 @@
         </TableRow>
 
         <TableRow
-            android:id="@+BookingCreateLayout/typeContainer"
+            android:id="@+BookingDetailLayout/typeContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+BookingCreate/label_booking_type"
+                android:id="@+BookingDetail/label_booking_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
@@ -111,19 +111,19 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <Spinner
-                android:id="@+BookingCreate/booking_type_spinner"
+                android:id="@+BookingDetail/booking_type_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </TableRow>
 
         <TableRow
-            android:id="@+BookingCreateLayout/categoryContainer"
+            android:id="@+BookingDetailLayout/categoryContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+BookingCreate/label_booking_category"
+                android:id="@+BookingDetail/label_booking_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
@@ -132,7 +132,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <Spinner
-                android:id="@+BookingCreate/category_spinner"
+                android:id="@+BookingDetail/category_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -140,12 +140,12 @@
     </TableLayout>
 
     <Button
-        android:id="@+BookingCreate/save_booking"
+        android:id="@+BookingDetail/save_booking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border"
         android:layout_marginTop="@dimen/default_top_border"
-        android:text="@string/b_save_booking" />
+        android:text="@string/b_update_booking" />
 
 </LinearLayout>

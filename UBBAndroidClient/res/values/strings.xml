@@ -34,6 +34,7 @@
     <string name="b_delete">Löschen</string>
     <string name="title_activity_budget_book_detail">Haushaltsbuch Detailansicht</string>
     
+    
     <!-- Booking Views -->
     <string name="text_name">Bezeichnung</string>
     <string name="text_betrag">Betrag</string>
@@ -43,7 +44,11 @@
     <string name="title_activity_edit_booking">Buchung bearbeiten</string>
     <string name="label_category_select">Kategorie</string>
     <string name="label_type_select">Buchungstyp</string>
-     <string name="b_save_booking">Buchung speichern</string>
+    <string name="b_save_booking">Buchung speichern</string>
+    <string name="title_detailBooking">Buchung Bearbeiten</string>
+    <string name="title_createBooking">Buchung erstellen</string>
+    <string name="noBookingsPresent">Keine Einträge vorhanden</string>
+    <string name="b_update_booking">Buchung Aktuallisieren</string>
     
     <!-- category overview -->
     <string name="b_category_create">Kategorie anlegen</string>
@@ -67,10 +72,8 @@
     <string name="tv_overchange">Kategorie ändern</string>
     <string name="e_overchange"></string>
     <string name="b_over_change">Kategorie ändern</string>
-    <string name="title_createBooking">Buchung erstellen</string>
     <string name="save">Speichern</string>
     <string name="delete">Löschen</string>
-    <string name="noBookingsPresent">Keine Einträge vorhanden</string>
     
     
 </resources>
