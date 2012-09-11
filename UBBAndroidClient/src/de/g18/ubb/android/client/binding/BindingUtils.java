@@ -1,6 +1,7 @@
 package de.g18.ubb.android.client.binding;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -25,7 +26,7 @@ public final class BindingUtils {
             bind((CheckBox) aComponent, aModel, aPropertyname);
             return;
         }
-        if (aComponent instanceof Spinner) {
+        if (aComponent instanceof AdapterView<?>) {
             bind((Spinner) aComponent, aModel, aPropertyname);
             return;
         }
@@ -45,7 +46,7 @@ public final class BindingUtils {
     }
 
     public static void bind(Spinner aComponent, AbstractModel aModel, String aPropertyname) {
-        new SpinnerConnector(aComponent, aModel, aPropertyname);
+        new AdapterViewConnector(aComponent, aModel, aPropertyname);
     }
 
     public static void bind(TextView aComponent, AbstractModel aModel, String aPropertyname) {
