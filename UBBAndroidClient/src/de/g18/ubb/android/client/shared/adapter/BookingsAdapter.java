@@ -35,16 +35,16 @@ public final class BookingsAdapter extends AbstractAdapter<Booking, BookingTag> 
     @Override
     protected void updateTag(BookingTag aTag, Booking aEntry) {
     	// Wenn der Wert der Buchung negativ ist, wird dies entsprechend farbig hervorgehoben
-    	if(aEntry.getAmount() < 1){
-			aTag.amount.setBackgroundColor(Color.RED);
-		}else{
-			aTag.amount.setBackgroundColor(Color.GREEN);
+    	if (aEntry.getAmount() < 1) {
+			aTag.amount.setTextColor(Color.RED);
+		} else {
+			aTag.amount.setTextColor(Color.BLACK);
 		}
- 
+
         aTag.name.setText(aEntry.getCreateUser().getName());
         aTag.amount.setText(Float.toString(aEntry.getAmount()) + " " + UBBConstants.CURRENCY_EURO_SIGN);
     }
-    
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
