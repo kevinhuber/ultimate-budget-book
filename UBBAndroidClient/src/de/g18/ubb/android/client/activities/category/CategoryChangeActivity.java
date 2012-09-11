@@ -10,10 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
-public class CategoryChangeActivity extends Activity{
+public class CategoryChangeActivity extends Activity {
 
 	public Category bb;
 	public Long categorID;
@@ -45,6 +46,18 @@ public class CategoryChangeActivity extends Activity{
 
 	}
 
+    public void setCateName() {
+        tv = (TextView) findViewById(R.CategoryChangeLayout.nameEditText);
+        ApplicationStateStore ass = ApplicationStateStore.getInstance();
+        categorID = ass.getCategory().getId();
+        if (ass.getCategory() != null) {
+            tv.setText(ass.getCategory().getName());
+        } else {
+            tv.setText("Leider Falsch");
+        }
+    }
+
+
 	// -------------------------------------------------------------------------
     // Inner Classes
     // -------------------------------------------------------------------------
@@ -53,7 +66,6 @@ public class CategoryChangeActivity extends Activity{
 
 		public void onClick(View v) {
 			ApplicationStateStore ass = ApplicationStateStore.getInstance();
-
 			et = (EditText) findViewById(R.CategoryChangeLayout.nameEditText);
 			String s = et.getText().toString();
 			if (s.length() != 0) {
@@ -61,18 +73,12 @@ public class CategoryChangeActivity extends Activity{
 				ServiceRepository.getCategoryService().saveAndLoad(ass.getCategory());
 
 				Intent intent = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
-				intent.putParcelableArrayListExtra("SingleBudgetBook", ass.getTransferredData());
 				startActivity(intent);
 			} else {
 				Toast.makeText(getApplicationContext(), "Keine Eingabe!!!", Toast.LENGTH_LONG).show();
 			}
-
 		}
 	}
-
-	// -------------------------------------------------------------------------
-    // Inner Classes
-    // -------------------------------------------------------------------------
 
 	private final class DeleteButtonListener implements OnClickListener{
 
@@ -82,19 +88,7 @@ public class CategoryChangeActivity extends Activity{
 			ServiceRepository.getCategoryService().remove(ass.getCategory());
 
 			Intent intent = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
-		    intent.putParcelableArrayListExtra("SingleBudgetBook", ass.getTransferredData());
 			startActivity(intent);
 		}
 	}
-
-    public void setCateName(){
-    	tv = (TextView) findViewById(R.CategoryChangeLayout.nameEditText);
-    	ApplicationStateStore ass = ApplicationStateStore.getInstance();
-    	categorID = ass.getCategory().getId();
-    	if (ass.getCategory() != null) {
-			tv.setText(ass.getCategory().getName());
-		} else {
-			tv.setText("Leider Falsch");
-		}
-    }
 }

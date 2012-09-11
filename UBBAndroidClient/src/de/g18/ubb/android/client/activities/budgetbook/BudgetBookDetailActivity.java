@@ -1,9 +1,7 @@
 package de.g18.ubb.android.client.activities.budgetbook;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -24,15 +22,12 @@ import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.booking.CreateBookingActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
+import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.android.client.shared.adapter.BookingsAdapter;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
-import de.g18.ubb.common.service.exception.NotFoundExcpetion;
-import de.g18.ubb.common.service.repository.ServiceRepository;
 
 public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
-
-	private ArrayList<BudgetBookCreateNewModel> transferredData;
 
 	private DynamicLayoutId dynamicViewLayoutID;
 
@@ -54,7 +49,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	@Override
 	protected BudgetBook createModel() {
-		return new BudgetBook();
+		return ApplicationStateStore.getInstance().getBudgetBook();
 	}
 
 	@Override
@@ -103,10 +98,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		loadExtraContent("BudgetBookModel");
 		adapter = new BookingsAdapter(this);
 		setDynamicLinearLayoutID(DynamicLayoutId.DAY);
-		getModel().setName(transferredData.get(0).getName());
 
 		initBindings();
 		initGestureComponent();
@@ -119,34 +112,13 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void initGestureComponent() {
-		gestureDetector = new GestureDetector(this,
-				new BudgetBookDetailGestureDetector());
+		gestureDetector = new GestureDetector(this, new BudgetBookDetailGestureDetector());
 		ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBookDetailsLayout.detailsViewFlipper);
 		vf.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				return gestureDetector.onTouchEvent(event);
 			}
 		});
-	}
-
-	private void loadExtraContent(String key) {
-		Bundle b = getIntent().getExtras();
-		if (b != null) {
-			transferredData = b.getParcelableArrayList(key);
-		}
-	}
-
-	private List<Booking> getAllBookingsForCurrentBudgetBook() {
-		BudgetBook budgetBook;
-		try {
-			budgetBook = ServiceRepository.getBudgetBookService().load(
-					transferredData.get(0).getId());
-		} catch (NotFoundExcpetion e) {
-			throw new IllegalStateException("BudgetBook with id '"
-					+ transferredData.get(0).getId() + "' has not been found!",
-					e);
-		}
-		return budgetBook.getBookings();
 	}
 
 	private void showDayDetailsOnView() {
@@ -252,30 +224,17 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.menu.menu_addBooking:
-            switchToCreateBookingActivity();
+                switchActivity(CreateBookingActivity.class);
 			break;
 
 		case R.menu.menu_categoryBooking:
-			switchToCategoryOverview();
+                switchActivity(CategoryOverviewActivity.class);
 			break;
 
 		default:
 			break;
 		}
 		return true;
-	}
-
-	private void switchToCategoryOverview() {
-		Intent i = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
-		i.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
-		startActivity(i);
-	}
-
-	private void switchToCreateBookingActivity() {
-		Intent i = new Intent(getApplicationContext(), CreateBookingActivity.class);
-		i.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
-		startActivity(i);
-
 	}
 
 
@@ -332,7 +291,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 		@Override
 		protected void execute() {
-			bookings = getAllBookingsForCurrentBudgetBook();
+			bookings = getModel().getBookings();
 		}
 
 		@Override

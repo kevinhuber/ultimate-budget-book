@@ -1,24 +1,17 @@
 package de.g18.ubb.android.client.activities.category;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookCreateNewModel;
+import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
-import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
 public class CategorieCreateActivity extends AbstractValidationFormularActivity<Category, CategoryCreateValidator> {
-
-	private ArrayList<BudgetBookCreateNewModel> transferredData;
-	public BudgetBook bb;
-
 
     @Override
     protected int getSubmitButtonId() {
@@ -44,15 +37,6 @@ public class CategorieCreateActivity extends AbstractValidationFormularActivity<
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getIntent().getExtras();
-		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
-		Long i  = transferredData.get(0).getId();
-		try {
-            bb = ServiceRepository.getBudgetBookService().load(i);
-        } catch (NotFoundExcpetion e) {
-            throw new IllegalStateException("BudgetBook with id '" + i + "' has not been found!", e);
-        }
-
 		initBindings();
     }
 
@@ -67,11 +51,15 @@ public class CategorieCreateActivity extends AbstractValidationFormularActivity<
 
     @Override
     protected String submit() {
-        Category c = ServiceRepository.getCategoryService().saveAndLoad(getModel());
-        List<Category> categories = bb.getCategories();
-        categories.add(c);
-        bb.setCategories(categories);
-        bb = ServiceRepository.getBudgetBookService().saveAndLoad(bb);
+        Category category = ServiceRepository.getCategoryService().saveAndLoad(getModel());
+
+        BudgetBook budgetBook = ApplicationStateStore.getInstance().getBudgetBook();
+        List<Category> categories = budgetBook.getCategories();
+        categories.add(category);
+        budgetBook.setCategories(categories);
+
+        budgetBook = ServiceRepository.getBudgetBookService().saveAndLoad(budgetBook);
+        ApplicationStateStore.getInstance().setBudgetBook(budgetBook);
         return StringUtil.EMPTY;
     }
 
@@ -82,8 +70,6 @@ public class CategorieCreateActivity extends AbstractValidationFormularActivity<
         if (!isSubmitSuccessfull()) {
             return;
         }
-        Intent intent = new Intent(getApplicationContext(), CategoryOverviewActivity.class);
-        intent.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
-        startActivity(intent);
+        switchActivity(CategoryOverviewActivity.class);
     }
 }

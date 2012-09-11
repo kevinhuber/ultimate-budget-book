@@ -1,6 +1,5 @@
 package de.g18.ubb.android.client.activities.category;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -14,20 +13,14 @@ import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookCreateNewModel;
+import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
-import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
-import de.g18.ubb.common.service.exception.NotFoundExcpetion;
-import de.g18.ubb.common.service.repository.ServiceRepository;
 
 public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewModel> {
 
     private Button createNewCategoryButton;
     private ListView lv;
-
-	private ArrayList<BudgetBookCreateNewModel> transferredData;
-//	public ApplicationStateStore ass;
 
 	private CategoryAdapter adapter;
 
@@ -45,20 +38,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		adapter = new CategoryAdapter(this);
-
-		Bundle bundle = getIntent().getExtras();
-		transferredData = bundle.getParcelableArrayList("SingleBudgetBook");
-		Long i  = transferredData.get(0).getId();
-
-		ApplicationStateStore ass = ApplicationStateStore.getInstance();
-		try {
-			ass.setBb(ServiceRepository.getBudgetBookService().load(i));
-		} catch (NotFoundExcpetion e) {
-			throw new IllegalStateException("Budgetbook could not load by id:" + i, e);
-		}
-		ass.setTransferredData(transferredData);
 
 		initComponents();
 		initEventHandling();
@@ -87,9 +67,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 	private final class CreateButtonListener implements OnClickListener{
 
 		public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), CategorieCreateActivity.class);
-            intent.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
-            startActivity(intent);
+		    switchActivity(CategorieCreateActivity.class);
 		}
 	}
 
@@ -103,14 +81,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
         @Override
         protected void execute() {
-            Long i  = transferredData.get(0).getId();
-            BudgetBook bb;
-            try {
-                bb = ServiceRepository.getBudgetBookService().load(i);
-            } catch (NotFoundExcpetion e) {
-                throw new IllegalStateException("BudgetBook with id '" + i + "' has not been found!", e);
-            }
-            categories = bb.getCategories();
+            categories = ApplicationStateStore.getInstance().getBudgetBook().getCategories();
         }
 
         @Override
@@ -119,7 +90,6 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
                 adapter.add(b);
             }
         }
-
     }
 
     private final class CategorySelectionHandler extends AbstractWaitTask implements OnItemClickListener {
@@ -127,35 +97,18 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 		private Category selectedItem;
         private Intent intentToStart;
 
-
         public CategorySelectionHandler() {
             super(CategoryOverviewActivity.this, "Detailansicht wird geladen...");
         }
 
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             selectedItem = (Category) arg0.getAdapter().getItem(arg2);
-            ApplicationStateStore ass = ApplicationStateStore.getInstance();
-            ass.setCategory(selectedItem);
-//            Toast.makeText(getApplicationContext(), selectedItem.getName(),
-//            		Toast.LENGTH_LONG).show();
             run();
         }
 
         @Override
         protected void execute() {
-            intentToStart = new Intent(getApplicationContext(), CategoryChangeActivity.class);
-
-//            intentToStart.putParcelableArrayListExtra("SingleBudgetBook", transferredData);
-            // erstelle das model (parcable)
-
-//            CategoryModel bbm = new CategoryModel();
-//            bbm.mapCategoryToModel(selectedItem);
-
-            // hier ist es  möglich mehrere daten einer anderen activity zu übergeben
-//            ArrayList<CategoryModel> dataList = new ArrayList<CategoryModel>();
-//            dataList.add(bbm);
-//            intentToStart.putParcelableArrayListExtra("CategoryModel", dataList);
-
+            ApplicationStateStore.getInstance().setCategory(selectedItem);
         }
 
         @Override

@@ -91,17 +91,20 @@ public class BudgetBookCreateNewActivity extends AbstractValidationFormularActiv
                 getModel().getAssignedUsers().add(budgetBookOwnerEntry.getText().toString());
             }
             service.createNew(getModel().getName(), getModel().getAssignedUsers());
-
-            switchToBudgetBookOverview();
         } catch (UserWithEMailNotFound e) {
             return "Es wurde kein Benutzer mit der E-Mail '" + e.getEMail() + "' gefunden!";
         }
         return StringUtil.EMPTY;
     }
 
-	private void switchToBudgetBookOverview() {
-		switchActivity(BudgetBookOverviewActivity.class);
-	}
+    @Override
+    protected void postSubmit() {
+        super.postSubmit();
+
+        if (isSubmitSuccessfull()) {
+            switchActivity(BudgetBookOverviewActivity.class);
+        }
+    }
 
 
 	// -------------------------------------------------------------------------

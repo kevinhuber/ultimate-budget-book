@@ -1,9 +1,7 @@
 package de.g18.ubb.android.client.activities.budgetbook;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +12,7 @@ import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
+import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
@@ -97,7 +96,6 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
     private final class BudgetBookSelectionHandler extends AbstractWaitTask implements OnItemClickListener {
 
         private BudgetBook selectedItem;
-        private Intent intentToStart;
 
 
         public BudgetBookSelectionHandler() {
@@ -111,20 +109,12 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         @Override
         protected void execute() {
-            intentToStart = new Intent(getApplicationContext(), BudgetBookDetailActivity.class);
-            // erstelle das model (parcable)
-            BudgetBookCreateNewModel bbm = new BudgetBookCreateNewModel();
-            bbm.mapBudgetBookToModel(selectedItem);
-
-            // hier ist es  möglich mehrere daten einer anderen activity zu übergeben
-            ArrayList<BudgetBookCreateNewModel> dataList = new ArrayList<BudgetBookCreateNewModel>();
-            dataList.add(bbm);
-            intentToStart.putParcelableArrayListExtra("BudgetBookModel", dataList);
+            ApplicationStateStore.getInstance().setBudgetBook(selectedItem);
         }
 
         @Override
         protected void postExecute() {
-            startActivity(intentToStart);
+            switchActivity(BudgetBookDetailActivity.class);
         }
     }
 }

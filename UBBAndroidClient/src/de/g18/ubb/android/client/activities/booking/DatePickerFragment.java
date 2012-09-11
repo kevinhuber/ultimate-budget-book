@@ -4,22 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import de.g18.ubb.android.client.R;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.Toast;
+import de.g18.ubb.android.client.R;
 
-public class DatePickerFragment extends DialogFragment implements
-		DatePickerDialog.OnDateSetListener {
-	
+public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
 	public int myYear, myDay, myMonth;
 	public Button datePickerButton;
-	public BookingStateBucket instance;
 
 	public int getMyYear() {
 		return myYear;
@@ -49,7 +45,7 @@ public class DatePickerFragment extends DialogFragment implements
 		setMyMonth(month);
 		setMyYear(year);
 	}
-	
+
 	//TODO: use long date
 	@SuppressWarnings("deprecation")
 	public Date getDate(){
@@ -67,15 +63,13 @@ public class DatePickerFragment extends DialogFragment implements
 		// Create a new instance of DatePickerDialog and return it
 		return new DatePickerDialog(getActivity(), this, year, month, day);
 	}
-	
+
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		setDate(day, month, year);
 		String DATE_FORMAT =  "dd.MM.yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-		
+
 		datePickerButton = (Button)this.getActivity().findViewById(R.BookingCreate.datePicker_Button);
 		datePickerButton.setText( sdf.format(this.getDate()));
-		instance = BookingStateBucket.getInstance();
-		instance.setBookingDate(this.getDate());
 	}
 }
