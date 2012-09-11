@@ -42,7 +42,7 @@ public final class BookingsAdapter extends AbstractAdapter<Booking, BookingTag> 
 			aTag.amount.setTextColor(Color.BLACK);
 		}
 
-        aTag.name.setText(aEntry.getCreateUser().getName());
+        aTag.name.setText(aEntry.getBookingName());
         aTag.amount.setText(Float.toString(aEntry.getAmount()) + " " + UBBConstants.CURRENCY_EURO_SIGN);
     }
 

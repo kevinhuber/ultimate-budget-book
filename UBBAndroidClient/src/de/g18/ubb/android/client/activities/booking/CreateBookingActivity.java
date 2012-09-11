@@ -75,6 +75,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	    bind(Booking.PROPERTY_AMOUNT, R.BookingCreate.betrag_input);
         bind(Booking.PROPERTY_CATEGORY, R.BookingCreate.category_spinner);
         bind(Booking.PROPERTY_TYPE, R.BookingCreate.booking_type_spinner);
+        bind(Booking.PROPERTY_BOOKING_NAME, R.BookingCreate.name_input);
 	}
 
 	@Override

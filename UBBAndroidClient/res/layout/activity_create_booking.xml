@@ -21,7 +21,34 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border" >
-
+        
+          <TableRow
+            android:id="@+BookingCreateLayout/nameContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+
+
+            <TextView
+                android:id="@+BookingCreate/name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="@dimen/default_border"
+                android:text="@string/text_name"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <EditText
+                android:id="@+BookingCreate/name_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
         <TableRow
             android:id="@+BookingCreateLayout/ammountContainer"
             android:layout_width="match_parent"

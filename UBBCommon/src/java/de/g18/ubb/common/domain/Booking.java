@@ -28,11 +28,13 @@ public final class Booking extends AbstractAuditEntity {
     public static final String PROPERTY_AMOUNT = "amount";
     public static final String PROPERTY_CATEGORY = "category";
     public static final String PROPERTY_BOOKING_TIME = "bookingTime";
+    public static final String PROPERTY_BOOKING_NAME = "bookingName";
 
     private BookingType type;
     private float amount;
     private Category category;
     private Date bookingTime;
+    private String bookingName;
 
 
     public Booking() {
@@ -82,9 +84,19 @@ public final class Booking extends AbstractAuditEntity {
     public Date getBookingTime() {
         return bookingTime;
     }
+    
+    public void setBookingName(String aNewValue) {
+        String oldValue = getBookingName();
+        bookingName = aNewValue;
+        fireChange(PROPERTY_BOOKING_NAME, oldValue, getBookingName());
+    }
+
+    public String getBookingName() {
+        return bookingName;
+    }
 
     // -------------------------------------------------------------------------
-    // Heler
+    // Helper
     // -------------------------------------------------------------------------
 
     @Override
