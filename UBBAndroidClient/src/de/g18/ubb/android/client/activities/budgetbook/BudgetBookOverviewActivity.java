@@ -89,7 +89,7 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         @Override
         protected void postExecute() {
-        	BudgetBookDayBalanceFilter.filterBudgetBooksDayBalance(books);
+        	books = BudgetBookDayBalanceFilter.filterBudgetBooksDayBalance(books);
             getModel().setBudgetBooks(books);
         }
     }
