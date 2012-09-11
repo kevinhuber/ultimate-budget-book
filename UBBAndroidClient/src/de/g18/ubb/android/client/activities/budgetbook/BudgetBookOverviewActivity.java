@@ -113,11 +113,11 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
         protected void execute() {
             intentToStart = new Intent(getApplicationContext(), BudgetBookDetailActivity.class);
             // erstelle das model (parcable)
-            BudgetBookModel bbm = new BudgetBookModel();
+            BudgetBookCreateNewModel bbm = new BudgetBookCreateNewModel();
             bbm.mapBudgetBookToModel(selectedItem);
 
             // hier ist es  möglich mehrere daten einer anderen activity zu übergeben
-            ArrayList<BudgetBookModel> dataList = new ArrayList<BudgetBookModel>();
+            ArrayList<BudgetBookCreateNewModel> dataList = new ArrayList<BudgetBookCreateNewModel>();
             dataList.add(bbm);
             intentToStart.putParcelableArrayListExtra("BudgetBookModel", dataList);
         }

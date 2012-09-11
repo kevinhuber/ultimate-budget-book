@@ -1,5 +1,8 @@
 package de.g18.ubb.android.client.activities.budgetbook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -9,28 +12,30 @@ import de.g18.ubb.common.domain.BudgetBook;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class BudgetBookModel extends AbstractModel implements Parcelable {
+public class BudgetBookCreateNewModel extends AbstractModel implements Parcelable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String PROPERTY_NAME = "name";
-
-	private static final String PROPERTY_ID = "id";
+	public static final String PROPERTY_NAME = "name";
+	public static final String PROPERTY_ID = "id";
+	public static final String PROPERTY_ASSIGNED_USERS = "assignedUsers";
 
 	private static final String TAG = "BudgetBookModel";
-	
+
 	// braucht der compiler, sonst gibts was ...
 	public static BudgetBookParcableCreator CREATOR = new BudgetBookParcableCreator();
 
 	private String name;
-
 	private Long id;
-	
-	public BudgetBookModel(){
+
+	private List<String> assignedUsers;
+
+
+	public BudgetBookCreateNewModel(){
 		this(null);
 	}
 
-	public BudgetBookModel(Parcel source) {
+	public BudgetBookCreateNewModel(Parcel source) {
 		/*
          * Reconstruct from the Parcel - FIFO
          */
@@ -59,6 +64,19 @@ public class BudgetBookModel extends AbstractModel implements Parcelable {
 		return id;
 	}
 
+    public void setAssignedUsers(List<String> aNewValue) {
+        List<String> oldValue = getAssignedUsers();
+        assignedUsers = aNewValue;
+        fireChange(PROPERTY_ASSIGNED_USERS, oldValue, getAssignedUsers());
+    }
+
+    public List<String> getAssignedUsers() {
+        if (assignedUsers == null) {
+            assignedUsers = new ArrayList<String>();
+        }
+        return assignedUsers;
+    }
+
 	public int describeContents() {
 		return 0;
 	}
@@ -68,7 +86,7 @@ public class BudgetBookModel extends AbstractModel implements Parcelable {
 		dest.writeLong(id);
 		dest.writeString(name);
 	}
-	
+
 	public void mapBudgetBookToModel(BudgetBook aBudgetBook){
 		setId(aBudgetBook.getId());
 		setName(aBudgetBook.getName());

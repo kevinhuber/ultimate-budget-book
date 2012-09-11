@@ -3,14 +3,14 @@ package de.g18.ubb.android.client.activities.budgetbook;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class BudgetBookParcableCreator implements Parcelable.Creator<BudgetBookModel>{
+public class BudgetBookParcableCreator implements Parcelable.Creator<BudgetBookCreateNewModel>{
 
-	public BudgetBookModel createFromParcel(Parcel source) {
-		return new BudgetBookModel(source);
+	public BudgetBookCreateNewModel createFromParcel(Parcel source) {
+		return new BudgetBookCreateNewModel(source);
 	}
 
-	public BudgetBookModel[] newArray(int size) {
-		return new BudgetBookModel[size];
+	public BudgetBookCreateNewModel[] newArray(int size) {
+		return new BudgetBookCreateNewModel[size];
 	}
 
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -36,10 +35,9 @@ import de.g18.ubb.common.service.repository.ServiceRepository;
 
 public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
-	private Button delete;
 	private Button add;
 
-	private ArrayList<BudgetBookModel> transferredData;
+	private ArrayList<BudgetBookCreateNewModel> transferredData;
 	private TextView budgetBookDetails;
 	private TextView budgetBookBookings;
 
@@ -60,6 +58,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	private GestureDetector gestureDetector;
 
 	protected BookingsAdapter adapter;
+
 
 	@Override
 	protected BudgetBook createModel() {
@@ -84,12 +83,16 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		switch (getDynamicLinearLayoutID()) {
 		case DAY:
 			return R.BudgetBook.daylinearLayout;
+
 		case WEEK:
 			return R.BudgetBook.weeklinearLayout;
+
 		case MONTH:
 			return R.BudgetBook.monthlinearLayout;
+
 		case YEAR:
 			return R.BudgetBook.yearlinearLayout;
+
 		default:
 			return R.BudgetBook.daylinearLayout;
 		}
@@ -126,10 +129,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBook.details);
 		vf.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
-				if (gestureDetector.onTouchEvent(event)) {
-					return true;
-				}
-				return false;
+				return gestureDetector.onTouchEvent(event);
 			}
 		});
 	}
@@ -245,17 +245,17 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateDayDetailsView() {
-		
+
 		if (!adapter.isEmpty()) {
-			
+
 			ListView listView = (ListView) findViewById(R.BudgetBook.bookings);
-			
+
 			if (!choicesMade) {
 				listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
 				//löscht alle vorher getroffenen auswahlen
 				listView.clearChoices();
 			}
-			
+
 			listView.setAdapter(this.adapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -272,7 +272,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 				}
 			});
 			// vorherigen Eintrag "Keine Beiträge vorhanden" wieder aus der View
-			// entfernen. Das ganze allerdings nur einmal, bei zweiten Aufruf dieser Methode ist dieses Element schon nicht mehr vorhanden 
+			// entfernen. Das ganze allerdings nur einmal, bei zweiten Aufruf dieser Methode ist dieses Element schon nicht mehr vorhanden
 			//und würde zu einer NullPointerException führen
 			if(passedFirstSection){
 				LinearLayout lView = (LinearLayout) findViewById(getLinearLayoutID());

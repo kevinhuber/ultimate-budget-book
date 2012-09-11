@@ -2,7 +2,7 @@ package de.g18.ubb.android.client.activities.category;
 
 import java.util.ArrayList;
 
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookCreateNewModel;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 
@@ -13,7 +13,7 @@ public class ApplicationStateStore {
 	private Category category;
 
 	private static ApplicationStateStore instance;
-	private ArrayList<BudgetBookModel> transferredData;
+	private ArrayList<BudgetBookCreateNewModel> transferredData;
 
 	private ApplicationStateStore(){
 
@@ -49,11 +49,11 @@ public class ApplicationStateStore {
 		this.category = category;
 	}
 
-	public ArrayList<BudgetBookModel> getTransferredData() {
+	public ArrayList<BudgetBookCreateNewModel> getTransferredData() {
 		return transferredData;
 	}
 
-	public void setTransferredData(ArrayList<BudgetBookModel> transferredData) {
+	public void setTransferredData(ArrayList<BudgetBookCreateNewModel> transferredData) {
 		this.transferredData = transferredData;
 	}
 

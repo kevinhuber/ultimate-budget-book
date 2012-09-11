@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookCreateNewModel;
 import de.g18.ubb.android.client.binding.BindingUtils;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.android.client.shared.adapter.EnumAdapter;
@@ -32,7 +32,7 @@ import de.g18.ubb.common.service.repository.ServiceRepository;
 
 public class CreateBookingActivity extends FragmentActivity {
 
-	private ArrayList<BudgetBookModel> transferredData;
+	private ArrayList<BudgetBookCreateNewModel> transferredData;
 
 	private Spinner category_spinner;
 	private Spinner booking_type_spinner;

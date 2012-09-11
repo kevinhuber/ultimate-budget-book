@@ -14,7 +14,7 @@ import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookCreateNewModel;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
@@ -26,7 +26,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
     private Button createNewCategoryButton;
     private ListView lv;
 
-	private ArrayList<BudgetBookModel> transferredData;
+	private ArrayList<BudgetBookCreateNewModel> transferredData;
 //	public ApplicationStateStore ass;
 
 	private CategoryAdapter adapter;

@@ -12,27 +12,30 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.activities.AbstractActivity;
+import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.exception.UserWithEMailNotFound;
 import de.g18.ubb.common.service.repository.ServiceRepository;
+import de.g18.ubb.common.util.StringUtil;
 
-public class BudgetBookCreateNewActivity extends AbstractActivity<BudgetBookModel> {
+public class BudgetBookCreateNewActivity extends AbstractValidationFormularActivity<BudgetBookCreateNewModel,
+                                                                                    BudgetBookCreateNewValidator> {
 
-	private EditText budgetBookName;
 	private List<EditText> budgetBookOwner;
-	private List<String> userNameList;
 
 	private Button addUser;
-	private Button save;
 
 
     @Override
-    protected BudgetBookModel createModel() {
-        return new BudgetBookModel();
+    protected BudgetBookCreateNewModel createModel() {
+        return new BudgetBookCreateNewModel();
+    }
+
+    @Override
+    protected BudgetBookCreateNewValidator createValidator() {
+        return new BudgetBookCreateNewValidator(getModel());
     }
 
     @Override
@@ -45,29 +48,56 @@ public class BudgetBookCreateNewActivity extends AbstractActivity<BudgetBookMode
 		super.onCreate(savedInstanceState);
 
 		initComponents();
+		initBindings();
 		initEventHandling();
 	}
 
-	private void initComponents() {
-		budgetBookName = (EditText) findViewById(R.BudgetBookCreateLayout.name);
-		// budgetBookOwner = (EditText) findViewById(R.id.budgetBookOwnerName);
+    private void initBindings() {
+        bind(BudgetBookCreateNewModel.PROPERTY_NAME, R.BudgetBookCreateLayout.name);
+    }
+
+    private void initComponents() {
 		budgetBookOwner = new ArrayList<EditText>();
 		budgetBookOwner.add((EditText) this
 				.findViewById(R.BudgetBookCreateLayout.user));
-		budgetBookOwner.get(0).setText(WebServiceProvider.getUsername(),
-				TextView.BufferType.EDITABLE);
+		budgetBookOwner.get(0).setText(WebServiceProvider.getUsername(), TextView.BufferType.EDITABLE);
 		budgetBookOwner.get(0).setEnabled(false);
 
-		userNameList = new ArrayList<String>();
-
 		addUser = (Button) findViewById(R.BudgetBookCreateLayout.addUserButton);
-		save = (Button) findViewById(R.BudgetBookCreateLayout.createButton);
 	}
 
 	private void initEventHandling() {
 		addUser.setOnClickListener(new AddExtraUserFieldButtonListener());
-		save.setOnClickListener(new SaveBudgetBookButtonListener());
 	}
+
+    @Override
+    protected int getSubmitButtonId() {
+        return R.BudgetBookCreateLayout.createButton;
+    }
+
+    @Override
+    protected String getSubmitWaitMessage() {
+        return "Haushaltsbuch wird erstellt...";
+    }
+
+    @Override
+    protected String submit() {
+        try {
+            BudgetBookService service = ServiceRepository.getBudgetBookService();
+
+            // fügt den ersten benutzer hinzu, im normal fall ist dies der
+            // angemeldete benutzer
+            for (EditText budgetBookOwnerEntry : budgetBookOwner) {
+                getModel().getAssignedUsers().add(budgetBookOwnerEntry.getText().toString());
+            }
+            service.createNew(getModel().getName(), getModel().getAssignedUsers());
+
+            switchToBudgetBookOverview();
+        } catch (UserWithEMailNotFound e) {
+            return "Es wurde kein Benutzer mit der E-Mail '" + e.getEMail() + "' gefunden!";
+        }
+        return StringUtil.EMPTY;
+    }
 
 	private void switchToBudgetBookOverview() {
 		switchActivity(BudgetBookOverviewActivity.class);
@@ -78,10 +108,7 @@ public class BudgetBookCreateNewActivity extends AbstractActivity<BudgetBookMode
 	// Inner Classes
 	// -------------------------------------------------------------------------
 
-	private final class AddExtraUserFieldButtonListener implements
-			OnClickListener {
-
-		private static final String TAG = "BudgetBookCreateNewActivity";
+	private final class AddExtraUserFieldButtonListener implements OnClickListener {
 
 		public void onClick(View aView) {
 			try {
@@ -94,29 +121,7 @@ public class BudgetBookCreateNewActivity extends AbstractActivity<BudgetBookMode
 
 				layout.addView(temp);
 			} catch (Exception e) {
-				Log.d(TAG, "Failed to create new EditText" + e);
-			}
-		}
-	}
-
-	private final class SaveBudgetBookButtonListener implements OnClickListener {
-
-		public void onClick(View aView) {
-			try {
-				BudgetBookService service = ServiceRepository.getBudgetBookService();
-
-				// fügt den ersten benutzer hinzu, im normal fall ist dies der
-				// angemeldete benutzer
-				for (EditText budgetBookOwnerEntry : budgetBookOwner) {
-					userNameList.add(budgetBookOwnerEntry.getText().toString());
-				}
-				service.createNew(budgetBookName.getText().toString(), userNameList);
-
-				switchToBudgetBookOverview();
-			} catch (UserWithEMailNotFound e) {
-				Toast.makeText(getApplicationContext(),
-						"Es wurde kein Benutzer mit der E-Mail '" + e.getEMail() + "' gefunden!",
-						Toast.LENGTH_LONG).show();
+				Log.d(BudgetBookCreateNewActivity.class.getSimpleName(), "Failed to create new EditText" + e);
 			}
 		}
 	}

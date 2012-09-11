@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookModel;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookCreateNewModel;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
@@ -16,7 +16,7 @@ import de.g18.ubb.common.util.StringUtil;
 
 public class CategorieCreateActivity extends AbstractValidationFormularActivity<Category, CategoryCreateValidator> {
 
-	private ArrayList<BudgetBookModel> transferredData;
+	private ArrayList<BudgetBookCreateNewModel> transferredData;
 	public BudgetBook bb;
 
 
