@@ -69,5 +69,6 @@
     <string name="title_createBooking">Buchung erstellen</string>
     <string name="save">Speichern</string>
     <string name="delete">Löschen</string>
+    <string name="noBookingsPresent">Keine Einträge vorhanden</string>
     
 </resources>

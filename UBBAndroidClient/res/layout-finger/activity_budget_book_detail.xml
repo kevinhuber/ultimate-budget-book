@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+BudgetBookDetailsLayout/contentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:ignore="UselessParent" >
-
+
     <ViewFlipper
-        android:id="@+BudgetBook/details"
+        android:id="@+BudgetBookDetailsLayout/detailsViewFlipper"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/default_border"
+        android:layout_marginRight="@dimen/default_border" >
+
         <LinearLayout
-            android:id="@+BudgetBook/daylinearLayout"
+            android:id="@+BudgetBookDetailsLayout/dayContainer"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#ffffff"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+BudgetBook/title"
+                android:id="@+BudgetBookDetailsLayout/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -27,34 +29,39 @@
                 android:layout_marginTop="@dimen/default_top_border"
                 android:text="@string/title_dayView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:id="@+BudgetBookDetails/addEntry"
-                android:layout_width="fill_parent"
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/nameLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_border"
-                android:layout_marginRight="@dimen/default_border"
-                android:text="@string/b_add"
-                android:textSize="12dp" />
-
+                android:layout_gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/noBookingsPresent"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
             <ListView
-                android:id="@+BudgetBook/bookings"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_border"
-                android:layout_marginRight="@dimen/default_border" />
+                android:id="@+BudgetBookDetailsLayout/bookingsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+            </ListView>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+BudgetBook/weeklinearLayout"
+            android:id="@+BudgetBookDetailsLayout/weekContainer"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#ffffff"
             android:orientation="vertical" >
-
+
             <TextView
-                android:id="@+BudgetBook/title"
+                android:id="@+BudgetBookDetailsLayout/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -62,27 +69,45 @@
                 android:layout_marginTop="@dimen/default_top_border"
                 android:text="@string/title_weekView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:id="@+BudgetBookDetails/addEntry"
-                android:layout_width="fill_parent"
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/nameLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_border"
-                android:layout_marginRight="@dimen/default_border"
-                android:text="@string/b_add"
-                android:textSize="12dp" />
+                android:layout_gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/noBookingsPresent"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+
+            <ListView
+                android:id="@+BudgetBookDetailsLayout/bookingsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+            </ListView>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+BudgetBook/monthlinearLayout"
+            android:id="@+BudgetBookDetailsLayout/monthContainer"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#ffffff"
             android:orientation="vertical" >
-
+
             <TextView
-                android:id="@+BudgetBook/title"
+                android:id="@+BudgetBookDetailsLayout/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -90,27 +115,45 @@
                 android:layout_marginTop="@dimen/default_top_border"
                 android:text="@string/title_monthView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:id="@+BudgetBookDetails/addEntry"
-                android:layout_width="fill_parent"
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/nameLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_border"
-                android:layout_marginRight="@dimen/default_border"
-                android:text="@string/b_add"
-                android:textSize="12dp" />
+                android:layout_gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/noBookingsPresent"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+
+            <ListView
+                android:id="@+BudgetBookDetailsLayout/bookingsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+            </ListView>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+BudgetBook/yearlinearLayout"
+            android:id="@+BudgetBookDetailsLayout/yearContainer"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#ffffff"
             android:orientation="vertical" >
-
+
             <TextView
-                android:id="@+BudgetBook/title"
+                android:id="@+BudgetBookDetailsLayout/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -118,15 +161,34 @@
                 android:layout_marginTop="@dimen/default_top_border"
                 android:text="@string/title_yearView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:id="@+BudgetBookDetails/addEntry"
-                android:layout_width="fill_parent"
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/nameLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_border"
-                android:layout_marginRight="@dimen/default_border"
-                android:text="@string/b_add"
-                android:textSize="12dp" />
+                android:layout_gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/noBookingsPresent"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+
+            <ListView
+                android:id="@+BudgetBookDetailsLayout/bookingsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+            </ListView>
 
         </LinearLayout>
     </ViewFlipper>
