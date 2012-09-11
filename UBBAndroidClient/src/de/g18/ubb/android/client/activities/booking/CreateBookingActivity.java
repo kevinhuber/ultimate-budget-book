@@ -19,6 +19,7 @@ import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.android.client.shared.adapter.EnumAdapter;
+import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
@@ -31,7 +32,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	private Button datePickerButton;
 
 	private DatePickerFragment dateFragment;
-	private final String DATE_FORMAT =  "dd.MM.yyyy";
+	
 	private SimpleDateFormat sdf;
 
 	private EnumAdapter<BookingType> bookingTypeAdapter;
@@ -62,7 +63,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 		super.onCreate(savedInstanceState);
 		dateFragment = new DatePickerFragment();
 		
-		sdf = new SimpleDateFormat(DATE_FORMAT);
+		sdf = new SimpleDateFormat(UBBConstants.DATE_FORMAT);
 		
         categoryAdapter = new CategoryAdapter(this, getAllCategorysForCurrentBudgetBook());
 //        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

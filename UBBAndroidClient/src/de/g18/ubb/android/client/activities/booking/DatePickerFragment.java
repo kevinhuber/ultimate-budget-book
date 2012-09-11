@@ -11,6 +11,7 @@ import android.support.v4.app.DialogFragment;
 import android.widget.Button;
 import android.widget.DatePicker;
 import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.utils.UBBConstants;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -54,21 +55,18 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		// Use the current date as the default date in the picker
 		final Calendar c = Calendar.getInstance();
 
 		int endYear = c.get(Calendar.YEAR);
 	    int endMonth = c.get(Calendar.MONTH);
 	    int endDay = c.get(Calendar.DAY_OF_MONTH);
 	    
-		// Create a new instance of DatePickerDialog and return it
-		return new DatePickerDialog(getActivity(), this, endYear, endMonth, endDay);
+	    return new BookingDatePickerDialog(getActivity(), this, endYear, endMonth, endDay);
 	}
 
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		setDate(day, month, year);
-		String DATE_FORMAT =  "dd.MM.yyyy";
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+		SimpleDateFormat sdf = new SimpleDateFormat(UBBConstants.DATE_FORMAT);
 
 		datePickerButton = (Button)this.getActivity().findViewById(R.BookingCreate.datePicker_Button);
 		
