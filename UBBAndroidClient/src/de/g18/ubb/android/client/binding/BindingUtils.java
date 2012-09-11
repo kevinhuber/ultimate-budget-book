@@ -45,7 +45,7 @@ public final class BindingUtils {
         new CheckBoxConnector(aComponent, aModel, aPropertyname);
     }
 
-    public static void bind(Spinner aComponent, AbstractModel aModel, String aPropertyname) {
+    public static void bind(AdapterView<?> aComponent, AbstractModel aModel, String aPropertyname) {
         new AdapterViewConnector(aComponent, aModel, aPropertyname);
     }
 
