@@ -1,5 +1,6 @@
 package de.g18.ubb.android.client.shared.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -15,11 +16,12 @@ import de.g18.ubb.common.domain.Category;
 public final class CategoryAdapter extends AbstractAdapter<Category, CategoryTag> {
 
     public CategoryAdapter(Context aContext) {
-        super(aContext, R.layout.category_row);
+        this(aContext, new ArrayList<Category>());
     }
 
     public CategoryAdapter(Context aContext, List<Category> aCategories) {
         super(aContext, R.layout.category_row, aCategories);
+        setDropDownViewResource(R.layout.category_row);
     }
 
     @Override

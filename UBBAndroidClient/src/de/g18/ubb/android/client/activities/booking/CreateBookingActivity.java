@@ -60,11 +60,11 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 		dateFragment = new DatePickerFragment();
 
         categoryAdapter = new CategoryAdapter(this, getAllCategorysForCurrentBudgetBook());
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         List<BookingType> enumList = Arrays.asList(BookingType.values());
         bookingTypeAdapter = new EnumAdapter<BookingType>(this, enumList);
-        bookingTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        bookingTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		initBindings();
 		initComponents();

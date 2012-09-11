@@ -1,5 +1,6 @@
 package de.g18.ubb.android.client.shared.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -17,7 +18,7 @@ public final class BookingsAdapter extends AbstractAdapter<Booking, BookingTag> 
     private int mItemIndex = -1;
 
 	public BookingsAdapter(Context aContext) {
-        super(aContext, R.layout.budgetbookbooking_row);
+        this(aContext, new ArrayList<Booking>());
     }
 
     public BookingsAdapter(Context aContext, List<Booking> aBooking) {
