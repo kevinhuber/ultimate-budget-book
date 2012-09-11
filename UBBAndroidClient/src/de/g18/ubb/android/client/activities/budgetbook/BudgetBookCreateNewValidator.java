@@ -1,6 +1,5 @@
 package de.g18.ubb.android.client.activities.budgetbook;
 
-import de.g18.ubb.android.client.activities.booking.BookingResource;
 import de.g18.ubb.android.client.validation.AbstractValidator;
 import de.g18.ubb.android.client.validation.ValidationUtil;
 import de.g18.ubb.common.util.StringUtil;
