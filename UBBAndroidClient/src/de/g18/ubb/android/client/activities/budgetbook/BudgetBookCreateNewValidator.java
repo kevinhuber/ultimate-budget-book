@@ -1,11 +1,10 @@
 package de.g18.ubb.android.client.activities.budgetbook;
 
+import de.g18.ubb.android.client.activities.booking.BookingResource;
 import de.g18.ubb.android.client.validation.AbstractValidator;
+import de.g18.ubb.android.client.validation.ValidationUtil;
 import de.g18.ubb.common.util.StringUtil;
 
-/**
- * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
- */
 public class BudgetBookCreateNewValidator extends AbstractValidator<BudgetBookCreateNewModel> {
 
     public BudgetBookCreateNewValidator(BudgetBookCreateNewModel aModel) {
@@ -14,6 +13,10 @@ public class BudgetBookCreateNewValidator extends AbstractValidator<BudgetBookCr
 
     @Override
     protected String computeValidationResult() {
-        return StringUtil.EMPTY;
+    	if (StringUtil.isEmpty(getModel().getName())) {
+			return ValidationUtil
+					.createMustNotBeEmptyMessage(BudgetBookResource.PROPERTY_NAME);
+		}
+    	return ValidationUtil.createEmptyMessage();
     }
 }
