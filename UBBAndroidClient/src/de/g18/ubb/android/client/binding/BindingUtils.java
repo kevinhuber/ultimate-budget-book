@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import de.g18.ubb.common.domain.AbstractModel;
 
 /**
@@ -24,6 +25,14 @@ public final class BindingUtils {
             bind((CheckBox) aComponent, aModel, aPropertyname);
             return;
         }
+        if (aComponent instanceof Spinner) {
+            bind((Spinner) aComponent, aModel, aPropertyname);
+            return;
+        }
+        if (aComponent instanceof TextView) {
+            bind((TextView) aComponent, aModel, aPropertyname);
+            return;
+        }
         throw new IllegalStateException("Can not bind instances of " + aComponent.getClass().getName());
     }
 
@@ -34,9 +43,12 @@ public final class BindingUtils {
     public static void bind(CheckBox aComponent, AbstractModel aModel, String aPropertyname) {
         new CheckBoxConnector(aComponent, aModel, aPropertyname);
     }
-    
+
     public static void bind(Spinner aComponent, AbstractModel aModel, String aPropertyname) {
         new SpinnerConnector(aComponent, aModel, aPropertyname);
     }
 
+    public static void bind(TextView aComponent, AbstractModel aModel, String aPropertyname) {
+        new TextViewConnector(aComponent, aModel, aPropertyname);
+    }
 }
