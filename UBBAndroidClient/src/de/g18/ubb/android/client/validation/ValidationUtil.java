@@ -3,7 +3,7 @@ package de.g18.ubb.android.client.validation;
 import java.util.regex.Pattern;
 
 import de.g18.ubb.android.client.resource.CommonValidationResource;
-import de.g18.ubb.android.client.resource.Resource;
+import de.g18.ubb.common.resource.Resource;
 import de.g18.ubb.common.util.StringUtil;
 
 /**

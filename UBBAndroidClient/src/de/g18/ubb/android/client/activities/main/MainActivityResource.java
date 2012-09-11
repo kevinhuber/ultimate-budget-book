@@ -2,7 +2,7 @@ package de.g18.ubb.android.client.activities.main;
 
 import java.text.MessageFormat;
 
-import de.g18.ubb.android.client.resource.Resource;
+import de.g18.ubb.common.resource.Resource;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>

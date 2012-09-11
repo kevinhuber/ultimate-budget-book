@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.shared.adapter.EnumAdapter.EnumTag;
+import de.g18.ubb.common.resource.Resource;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
@@ -32,7 +33,13 @@ public final class EnumAdapter<_E extends Enum<_E>> extends AbstractAdapter<_E, 
 
     @Override
     protected void updateTag(EnumTag aTag, _E aEntry) {
-        aTag.name.setText(aEntry.name());
+        String text;
+        if (aEntry instanceof Resource) {
+            text = ((Resource) aEntry).formatted();
+        } else {
+            text = aEntry.name();
+        }
+        aTag.name.setText(text);
     }
 
 

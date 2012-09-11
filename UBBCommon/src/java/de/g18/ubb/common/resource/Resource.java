@@ -1,4 +1,4 @@
-package de.g18.ubb.android.client.resource;
+package de.g18.ubb.common.resource;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>

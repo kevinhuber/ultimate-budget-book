@@ -2,8 +2,8 @@ package de.g18.ubb.android.client.validation;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import de.g18.ubb.android.client.resource.Resource;
 import de.g18.ubb.common.domain.AbstractModel;
+import de.g18.ubb.common.resource.Resource;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
