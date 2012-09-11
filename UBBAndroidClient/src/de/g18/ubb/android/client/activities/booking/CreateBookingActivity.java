@@ -1,6 +1,8 @@
 package de.g18.ubb.android.client.activities.booking;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import android.os.Bundle;
@@ -29,10 +31,11 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	private Button datePickerButton;
 
 	private DatePickerFragment dateFragment;
+	private final String DATE_FORMAT =  "dd.MM.yyyy";
+	private SimpleDateFormat sdf;
 
 	private EnumAdapter<BookingType> bookingTypeAdapter;
 	private ArrayAdapter<Category> categoryAdapter;
-
 
     @Override
     protected Booking createModel() {
@@ -58,7 +61,9 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		dateFragment = new DatePickerFragment();
-
+		
+		sdf = new SimpleDateFormat(DATE_FORMAT);
+		
         categoryAdapter = new CategoryAdapter(this, getAllCategorysForCurrentBudgetBook());
 //        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -100,6 +105,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 
 	private void initComponents() {
 		datePickerButton = (Button) findViewById(R.BookingCreate.datePicker_Button);
+		datePickerButton.setText(sdf.format(new Date()));
 
         Spinner categorySpinner = (Spinner) findViewById(R.BookingCreate.category_spinner);
         categorySpinner.setAdapter(categoryAdapter);
@@ -145,7 +151,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
         }
         switchActivity(BudgetBookDetailActivity.class);
     }
-
+    
 
 	// -------------------------------------------------------------------------
 	// Inner Classes
