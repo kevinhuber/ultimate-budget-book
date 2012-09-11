@@ -52,10 +52,6 @@ public class BudgetBookCreateNewActivity extends AbstractValidationFormularActiv
 		initEventHandling();
 	}
 
-    private void initBindings() {
-        bind(BudgetBookCreateNewModel.PROPERTY_NAME, R.BudgetBookCreateLayout.name);
-    }
-
     private void initComponents() {
 		budgetBookOwner = new ArrayList<EditText>();
 		budgetBookOwner.add((EditText) this
@@ -65,6 +61,10 @@ public class BudgetBookCreateNewActivity extends AbstractValidationFormularActiv
 
 		addUser = (Button) findViewById(R.BudgetBookCreateLayout.addUserButton);
 	}
+
+    private void initBindings() {
+        bind(BudgetBookCreateNewModel.PROPERTY_NAME, R.BudgetBookCreateLayout.name);
+    }
 
 	private void initEventHandling() {
 		addUser.setOnClickListener(new AddExtraUserFieldButtonListener());

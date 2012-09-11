@@ -1,13 +1,11 @@
 package de.g18.ubb.android.client.activities.booking;
 
-import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.R.layout;
-import de.g18.ubb.android.client.R.menu;
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import de.g18.ubb.android.client.R;
 
 public class EditBookingActivity extends Activity {
 
@@ -24,7 +22,6 @@ public class EditBookingActivity extends Activity {
         return true;
     }
 
-    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -34,5 +31,4 @@ public class EditBookingActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
