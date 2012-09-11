@@ -54,7 +54,6 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 	private void initEventHandling() {
         createNewCategoryButton.setOnClickListener(new CreateButtonListener());
         lv.setOnItemClickListener(new CategorySelectionHandler());
-
 	}
 
 
@@ -90,26 +89,11 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
         }
     }
 
-    private final class CategorySelectionHandler extends AbstractWaitTask implements OnItemClickListener {
-
-		private Category selectedItem;
-
-        public CategorySelectionHandler() {
-            super(CategoryOverviewActivity.this, "Detailansicht wird geladen...");
-        }
+    private final class CategorySelectionHandler implements OnItemClickListener {
 
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-            selectedItem = (Category) arg0.getAdapter().getItem(arg2);
-            run();
-        }
-
-        @Override
-        protected void execute() {
+            Category selectedItem = (Category) arg0.getAdapter().getItem(arg2);
             getApplicationStateStore().setCategory(selectedItem);
-        }
-
-        @Override
-        protected void postExecute() {
             switchActivity(CategoryChangeActivity.class);
         }
     }

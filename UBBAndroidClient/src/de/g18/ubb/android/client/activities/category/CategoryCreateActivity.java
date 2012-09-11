@@ -10,7 +10,7 @@ import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
-public class CategoryCreateActivity extends AbstractValidationFormularActivity<Category, CategoryCreateValidator> {
+public class CategoryCreateActivity extends AbstractValidationFormularActivity<Category, CategoryValidator> {
 
     @Override
     protected int getSubmitButtonId() {
@@ -18,8 +18,8 @@ public class CategoryCreateActivity extends AbstractValidationFormularActivity<C
     }
 
     @Override
-    protected CategoryCreateValidator createValidator() {
-        return new CategoryCreateValidator(getModel());
+    protected CategoryValidator createValidator() {
+        return new CategoryValidator(getModel());
     }
 
     @Override

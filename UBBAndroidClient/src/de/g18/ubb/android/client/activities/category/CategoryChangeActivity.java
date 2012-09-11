@@ -4,16 +4,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
-public class CategoryChangeActivity extends AbstractValidationFormularActivity<Category, CategoryChangeValidator> {
+public class CategoryChangeActivity extends AbstractValidationFormularActivity<Category, CategoryValidator> {
 
-	private TextView tv;
 	private Button b_delete;
 
 
@@ -23,8 +21,8 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
     }
 
     @Override
-    protected CategoryChangeValidator createValidator() {
-        return new CategoryChangeValidator(getModel());
+    protected CategoryValidator createValidator() {
+        return new CategoryValidator(getModel());
     }
 
     @Override
