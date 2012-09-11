@@ -12,6 +12,7 @@ public enum BudgetBookResource implements Resource {
     PROPERTY_ASSIGNED_USER("assignedUser"),
     
     MESSAGE_ADD_BUDGET_BOOK_USER("Der angegebene Benutzer ist diesem Haushaltsbuch bereits zugewiesen!"),
+    MESSAGE_ADD_NOT_EXISTING_USER("Der angegebene Benutzer existiert nicht!"),
     ;
 
     private final String unformattedValue;
