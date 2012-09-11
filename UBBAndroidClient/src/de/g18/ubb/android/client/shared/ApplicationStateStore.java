@@ -11,7 +11,7 @@ public class ApplicationStateStore {
 	private static ApplicationStateStore instance;
 
 
-	private ApplicationStateStore(){
+	private ApplicationStateStore() {
 	    // prevent instantiation
 	}
 
@@ -33,15 +33,15 @@ public class ApplicationStateStore {
 		return budgetBook;
 	}
 
-	public void setBudgetBook(BudgetBook aNewValue) {
-		budgetBook = aNewValue;
-	}
+    public void setBudgetBook(BudgetBook aNewValue) {
+        budgetBook = aNewValue;
+    }
 
 	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category aNewValue) {
-		category = aNewValue;
-	}
+    public void setCategory(Category aNewValue) {
+        category = aNewValue;
+    }
 }

@@ -1,6 +1,7 @@
 package de.g18.ubb.android.client.shared.adapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
@@ -17,6 +18,14 @@ public final class EnumAdapter<_E extends Enum<_E>> extends AbstractAdapter<_E, 
 
     public EnumAdapter(Context aContext) {
         this(aContext, new ArrayList<_E>());
+    }
+
+    public EnumAdapter(Context aContext, Class<_E> aEnumClass) {
+        this(aContext, aEnumClass.getEnumConstants());
+    }
+
+    public EnumAdapter(Context aContext, _E... aEnums) {
+        this(aContext, Arrays.asList(aEnums));
     }
 
     public EnumAdapter(Context aContext, List<_E> aEnums) {

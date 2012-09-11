@@ -71,11 +71,11 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
     @Override
     protected void postSubmit() {
         super.postSubmit();
-
-        if (!isSubmitSuccessfull()) {
-            return;
-        }
-        switchActivity(CategoryOverviewActivity.class);
+//
+//        if (!isSubmitSuccessfull()) {
+//            return;
+//        }
+//        switchActivity(CategoryOverviewActivity.class);
     }
 
 

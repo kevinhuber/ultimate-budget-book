@@ -1,6 +1,5 @@
 package de.g18.ubb.android.client.activities.booking;
 
-import java.util.Arrays;
 import java.util.List;
 
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.android.client.shared.adapter.EnumAdapter;
 import de.g18.ubb.common.domain.Booking;
@@ -58,13 +56,8 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		dateFragment = new DatePickerFragment();
-
         categoryAdapter = new CategoryAdapter(this, getAllCategorysForCurrentBudgetBook());
-//        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        List<BookingType> enumList = Arrays.asList(BookingType.values());
-        bookingTypeAdapter = new EnumAdapter<BookingType>(this, enumList);
-//        bookingTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bookingTypeAdapter = new EnumAdapter<BookingType>(this, BookingType.class);
 
 		initBindings();
 		initComponents();
@@ -138,11 +131,11 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
     @Override
     protected void postSubmit() {
         super.postSubmit();
-
-        if (!isSubmitSuccessfull()) {
-            return;
-        }
-        switchActivity(BudgetBookDetailActivity.class);
+//
+//        if (!isSubmitSuccessfull()) {
+//            return;
+//        }
+//        switchActivity(BudgetBookDetailActivity.class);
     }
 
 
