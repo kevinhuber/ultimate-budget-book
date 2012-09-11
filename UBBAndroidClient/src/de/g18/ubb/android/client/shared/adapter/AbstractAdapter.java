@@ -27,6 +27,11 @@ public abstract class AbstractAdapter<_EntryType, _TagType> extends ArrayAdapter
         layoutId = aLayoutId;
     }
 
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return getView(position, convertView, parent);
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public View getView(int aPosition, View aConvertView, ViewGroup aParent) {
