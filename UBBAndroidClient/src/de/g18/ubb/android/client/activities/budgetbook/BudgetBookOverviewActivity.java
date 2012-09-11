@@ -12,7 +12,6 @@ import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
@@ -109,7 +108,7 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         @Override
         protected void execute() {
-            ApplicationStateStore.getInstance().setBudgetBook(selectedItem);
+            getApplicationStateStore().setBudgetBook(selectedItem);
         }
 
         @Override

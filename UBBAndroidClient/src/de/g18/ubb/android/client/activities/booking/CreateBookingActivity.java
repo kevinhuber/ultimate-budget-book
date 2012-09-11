@@ -15,7 +15,6 @@ import android.widget.Spinner;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
-import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.android.client.shared.adapter.EnumAdapter;
 import de.g18.ubb.common.domain.Booking;
@@ -97,7 +96,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	}
 
 	private List<Category> getAllCategorysForCurrentBudgetBook() {
-		return ApplicationStateStore.getInstance().getBudgetBook().getCategories();
+		return getApplicationStateStore().getBudgetBook().getCategories();
 	}
 
 	public void addItemsOnCategorySpinner() {
@@ -136,7 +135,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
     protected String submit() {
         getModel().setBookingTime(dateFragment.getDate());
         Booking myBooking = ServiceRepository.getBookingService().saveAndLoad(getModel());
-        BudgetBook myBook = ApplicationStateStore.getInstance().getBudgetBook();
+        BudgetBook myBook = getApplicationStateStore().getBudgetBook();
         myBook.getBookings().add(myBooking);
         ServiceRepository.getBudgetBookService().saveAndLoad(myBook);
         return StringUtil.EMPTY;

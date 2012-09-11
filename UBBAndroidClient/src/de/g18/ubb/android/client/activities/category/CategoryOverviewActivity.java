@@ -2,7 +2,6 @@ package de.g18.ubb.android.client.activities.category;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,7 +12,6 @@ import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.common.domain.Category;
 
@@ -81,7 +79,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
         @Override
         protected void execute() {
-            categories = ApplicationStateStore.getInstance().getBudgetBook().getCategories();
+            categories = getApplicationStateStore().getBudgetBook().getCategories();
         }
 
         @Override
@@ -95,7 +93,6 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
     private final class CategorySelectionHandler extends AbstractWaitTask implements OnItemClickListener {
 
 		private Category selectedItem;
-        private Intent intentToStart;
 
         public CategorySelectionHandler() {
             super(CategoryOverviewActivity.this, "Detailansicht wird geladen...");
@@ -108,12 +105,12 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
         @Override
         protected void execute() {
-            ApplicationStateStore.getInstance().setCategory(selectedItem);
+            getApplicationStateStore().setCategory(selectedItem);
         }
 
         @Override
         protected void postExecute() {
-            startActivity(intentToStart);
+            switchActivity(CategoryChangeActivity.class);
         }
     }
 }

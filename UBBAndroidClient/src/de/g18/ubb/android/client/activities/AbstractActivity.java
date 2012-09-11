@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import de.g18.ubb.android.client.binding.BindingUtils;
 import de.g18.ubb.android.client.preferences.Preferences;
+import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.common.domain.AbstractModel;
 
 /**
@@ -90,6 +91,10 @@ public abstract class AbstractActivity<_Model extends AbstractModel> extends Fra
         _ComponentType component = (_ComponentType) findViewById(aComponentId);
         BindingUtils.bind(component, getModel(), aPropertyname);
         return component;
+    }
+
+    protected final ApplicationStateStore getApplicationStateStore() {
+        return ApplicationStateStore.getInstance();
     }
 
     // -------------------------------------------------------------------------

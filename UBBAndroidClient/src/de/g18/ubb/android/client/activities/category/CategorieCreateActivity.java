@@ -5,7 +5,6 @@ import java.util.List;
 import android.os.Bundle;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
-import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
@@ -53,13 +52,13 @@ public class CategorieCreateActivity extends AbstractValidationFormularActivity<
     protected String submit() {
         Category category = ServiceRepository.getCategoryService().saveAndLoad(getModel());
 
-        BudgetBook budgetBook = ApplicationStateStore.getInstance().getBudgetBook();
+        BudgetBook budgetBook = getApplicationStateStore().getBudgetBook();
         List<Category> categories = budgetBook.getCategories();
         categories.add(category);
         budgetBook.setCategories(categories);
 
         budgetBook = ServiceRepository.getBudgetBookService().saveAndLoad(budgetBook);
-        ApplicationStateStore.getInstance().setBudgetBook(budgetBook);
+        getApplicationStateStore().setBudgetBook(budgetBook);
         return StringUtil.EMPTY;
     }
 
