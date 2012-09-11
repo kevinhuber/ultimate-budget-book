@@ -65,7 +65,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 	private final class CreateButtonListener implements OnClickListener{
 
 		public void onClick(View v) {
-		    switchActivity(CategorieCreateActivity.class);
+		    switchActivity(CategoryCreateActivity.class);
 		}
 	}
 

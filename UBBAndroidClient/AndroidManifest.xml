@@ -58,7 +58,7 @@
                 android:value="de.g18.ubb.android.client.BudgetBookDetailActivity" />
         </activity>
         <activity
-            android:name=".activities.category.CategorieCreateActivity"
+            android:name=".activities.category.CategoryCreateActivity"
             android:label="@string/title_activity_categorie_create" android:parentActivityName="@string/title_activity_categorie_overview">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
