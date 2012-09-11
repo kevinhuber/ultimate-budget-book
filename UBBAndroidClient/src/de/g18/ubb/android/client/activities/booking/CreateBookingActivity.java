@@ -57,6 +57,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		dateFragment = new DatePickerFragment();
 
         categoryAdapter = new CategoryAdapter(this, getAllCategorysForCurrentBudgetBook());
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -68,9 +69,6 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 		initBindings();
 		initComponents();
 		initEventHandling();
-
-		addItemsOnBookingTypeSpinner();
-		addItemsOnCategorySpinner();
 	}
 
 	private void initBindings() {
@@ -99,18 +97,14 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 		return getApplicationStateStore().getBudgetBook().getCategories();
 	}
 
-	public void addItemsOnCategorySpinner() {
-	    Spinner category_spinner = (Spinner) findViewById(R.BookingCreate.category_spinner);
-		category_spinner.setAdapter(categoryAdapter);
-	}
-
-	public void addItemsOnBookingTypeSpinner() {
-		Spinner booking_type_spinner = (Spinner) findViewById(R.BookingCreate.booking_type_spinner);
-		booking_type_spinner.setAdapter(bookingTypeAdapter);
-	}
-
 	private void initComponents() {
 		datePickerButton = (Button) findViewById(R.BookingCreate.datePicker_Button);
+
+        Spinner categorySpinner = (Spinner) findViewById(R.BookingCreate.category_spinner);
+        categorySpinner.setAdapter(categoryAdapter);
+
+        Spinner bookingTypeSpinner = (Spinner) findViewById(R.BookingCreate.booking_type_spinner);
+        bookingTypeSpinner.setAdapter(bookingTypeAdapter);
 	}
 
 	private void initEventHandling() {
@@ -122,7 +116,6 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	}
 
 	public void showDatePickerDialog(View v) {
-		dateFragment = new DatePickerFragment();
 		dateFragment.show(getSupportFragmentManager(), "datePicker");
 	}
 
@@ -137,7 +130,8 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
         Booking myBooking = ServiceRepository.getBookingService().saveAndLoad(getModel());
         BudgetBook myBook = getApplicationStateStore().getBudgetBook();
         myBook.getBookings().add(myBooking);
-        ServiceRepository.getBudgetBookService().saveAndLoad(myBook);
+        myBook = ServiceRepository.getBudgetBookService().saveAndLoad(myBook);
+        getApplicationStateStore().setBudgetBook(myBook);
         return StringUtil.EMPTY;
     }
 
@@ -145,9 +139,10 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
     protected void postSubmit() {
         super.postSubmit();
 
-        if (isSubmitSuccessfull()) {
-            switchActivity(BudgetBookDetailActivity.class);
+        if (!isSubmitSuccessfull()) {
+            return;
         }
+        switchActivity(BudgetBookDetailActivity.class);
     }
 
 
