@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.booking.CreateBookingActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
@@ -105,8 +104,18 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook, Prese
 
 		initBindings();
 		initGestureComponent();
+	}
 
-		new BookingsLoadTask().run();
+	@Override
+	protected void onResume() {
+	    super.onResume();
+
+	    adapter.clear();
+        List<Booking> bookings = getModel().getBean().getBookings();
+        for (Booking b : bookings) {
+            adapter.add(b);
+        }
+        showDayDetailsOnView();
 	}
 
 	private void initBindings() {
@@ -281,28 +290,6 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook, Prese
 		@Override
 		public boolean onDown(MotionEvent e) {
 			return true;
-		}
-	}
-
-	private final class BookingsLoadTask extends AbstractWaitTask {
-
-		private List<Booking> bookings;
-
-		public BookingsLoadTask() {
-			super(BudgetBookDetailActivity.this, "Buchungen werden geladen...");
-		}
-
-		@Override
-		protected void execute() {
-			bookings = getModel().getBean().getBookings();
-		}
-
-		@Override
-		protected void postExecute() {
-			for (Booking b : bookings) {
-				adapter.add(b);
-			}
-			showDayDetailsOnView();
 		}
 	}
 

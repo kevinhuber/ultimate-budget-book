@@ -41,7 +41,13 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
 		initComponents();
 		initEventHandling();
+	}
 
+	@Override
+	protected void onResume() {
+	    super.onResume();
+
+        adapter.clear();
         List<Category> categories = getApplicationStateStore().getBudgetBookModel().getBean().getCategories();
         for (Category b : categories) {
             adapter.add(b);

@@ -38,7 +38,7 @@ public final class WebServiceDispatcher implements InvocationHandler {
                                                 + "Exception: " + e.getCause().getLocalizedMessage(), e);
                 throw (RuntimeException) e.getCause();
             }
-            Log.e(getClass().getSimpleName(), "Async Service Call failed!"
+            Log.e(getClass().getSimpleName(), "Async Service Call failed! "
                                             + "Exception: " + e.getLocalizedMessage(), e);
             throw new IllegalStateException("Async Service Call failed!", e);
         }

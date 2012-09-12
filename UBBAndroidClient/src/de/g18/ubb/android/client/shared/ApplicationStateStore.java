@@ -37,6 +37,9 @@ public class ApplicationStateStore {
 	}
 
     public PresentationModel<Category> getCategoryModel() {
-		return categoryModel;
+        if (categoryModel == null) {
+            categoryModel = new PresentationModel<Category>();
+        }
+        return categoryModel;
 	}
 }
