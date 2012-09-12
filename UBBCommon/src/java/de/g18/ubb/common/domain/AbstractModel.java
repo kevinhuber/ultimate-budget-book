@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 import javax.persistence.Transient;
 
+import de.g18.ubb.common.util.ObjectUtil;
+
 /**
  * Abstrakte Klasse für Models, die zwischen Client und Server ausgetauscht werden können und bei Änderungen
  * einer Property-Value {@link PropertyChangeEvent}s feuert.
@@ -29,7 +31,7 @@ public abstract class AbstractModel implements Serializable {
      * Feuert ein {@link PropertyChangeEvent} für die übergebene Property.
      */
     protected final void fireChange(String aPropertyName, Object aOldValue, Object aNewValue) {
-        if (aOldValue == aNewValue) {
+        if (ObjectUtil.equals(aOldValue, aNewValue)) {
             return;
         }
         changeSupport.firePropertyChange(aPropertyName, aOldValue, aNewValue);
