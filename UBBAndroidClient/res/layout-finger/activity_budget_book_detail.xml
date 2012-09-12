@@ -38,7 +38,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
+                android:id="@+BudgetBookDetailsLayout/noDayBookingsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -161,6 +161,44 @@
 
             <ListView
                 android:id="@+BudgetBookDetailsLayout/bookingsYearListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+BudgetBookDetailsLayout/allBookingsContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/title_bottom_border"
+                android:layout_marginTop="@dimen/default_top_border"
+                android:text="@string/title_allBookingsView"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/nameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/noBookingsPresent"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ListView
+                android:id="@+BudgetBookDetailsLayout/bookingsAllBookingsListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
             </ListView>

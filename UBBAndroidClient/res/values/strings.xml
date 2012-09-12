@@ -49,6 +49,7 @@
     <string name="title_createBooking">Buchung erstellen</string>
     <string name="noBookingsPresent">Keine Einträge vorhanden</string>
     <string name="b_update_booking">Buchung Aktuallisieren</string>
+    <string name="title_allBookingsView">Gesamter Zeitraum</string>
     
     <!-- category overview -->
     <string name="b_category_create">Kategorie anlegen</string>
@@ -74,6 +75,5 @@
     <string name="b_over_change">Kategorie ändern</string>
     <string name="save">Speichern</string>
     <string name="delete">Löschen</string>
-    
     
 </resources>

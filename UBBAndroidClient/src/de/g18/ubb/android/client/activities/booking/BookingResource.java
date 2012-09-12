@@ -6,11 +6,11 @@ import de.g18.ubb.common.resource.Resource;
 
 public enum BookingResource implements Resource {
 
-	PROPERTY_TYPE("type"),
-	PROPERTY_AMOUNT("amount"),
-	PROPERTY_CATEGORY("category"),
-	PROPERTY_BOOKING_TIME("bookingTime"),
-	PROPERTY_BOOKING_NAME("bookingName"),
+	FIELD_TYP("Buchungstyp"),
+	FIELD_BETRAG("Betrag"),
+	FIELD_KATEGORIE("Kategorie"),
+	FIELD_DATUM("Datum"),
+	FIELD_NAME("Bezeichnung"),
 
     MESSAGE_CREATE_BOOKING_FAILED("Buchungs Erstellung fehlgeschlagen!"),
     MESSAGE_CREATE_AMOUNT_REVENUE_NEGATIVE("Der Betrag darf bei einer Einzahlung nicht negativ sein!"),

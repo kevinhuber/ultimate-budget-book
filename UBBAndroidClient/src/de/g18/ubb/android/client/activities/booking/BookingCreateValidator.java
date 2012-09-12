@@ -22,11 +22,11 @@ public class BookingCreateValidator extends AbstractValidator<Booking> {
 	protected String computeValidationResult() {
 		if (StringUtil.isEmpty(getModel().getBookingName())) {
 			return ValidationUtil
-					.createMustNotBeEmptyMessage(BookingResource.PROPERTY_BOOKING_NAME);
+					.createMustNotBeEmptyMessage(BookingResource.FIELD_NAME);
 		}
 		if (getModel().getAmount() == 0.0F) {
 			return ValidationUtil
-					.createMustNotBeEmptyMessage(BookingResource.PROPERTY_AMOUNT);
+					.createMustNotBeEmptyMessage(BookingResource.FIELD_BETRAG);
 		}
 		if (getModel().getType().name() == "REVENUE") {
 			if (getModel().getAmount() < 0.0F) {

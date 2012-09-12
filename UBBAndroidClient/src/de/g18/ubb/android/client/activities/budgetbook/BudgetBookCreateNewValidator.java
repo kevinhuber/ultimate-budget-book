@@ -26,7 +26,7 @@ public class BudgetBookCreateNewValidator extends
 	protected String computeValidationResult() {
 		if (StringUtil.isEmpty(getModel().getName())) {
 			return ValidationUtil
-					.createMustNotBeEmptyMessage(BudgetBookResource.PROPERTY_NAME);
+					.createMustNotBeEmptyMessage(BudgetBookResource.FIELD_NAME);
 		}
 		if (!checkIfEmailIsValid()) {
 		    return ValidationUtil.createInvalidEMailFormatMessage(getCurrentUser());
