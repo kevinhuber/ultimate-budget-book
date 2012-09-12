@@ -22,10 +22,10 @@ import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.booking.CreateBookingActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
-import de.g18.ubb.android.client.binding.BindingHelper;
 import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.android.client.shared.adapter.BookingsAdapter;
+import de.g18.ubb.android.client.shared.binding.BindingHelper;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 

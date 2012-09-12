@@ -8,9 +8,9 @@ import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.activities.register.RegisterActivity;
-import de.g18.ubb.android.client.binding.BindingHelper;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.android.client.shared.PresentationModel;
+import de.g18.ubb.android.client.shared.binding.BindingHelper;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
