@@ -28,16 +28,16 @@ final class EditTextConnector extends AbstractPropertyConnector<Object, EditText
     	Class<?> propertyType = getPropertyAccessor().getGetter().getReturnType();
 		if (Float.class.isAssignableFrom(propertyType)
 		     || float.class.isAssignableFrom(propertyType)) {
-			updateModel(Float.parseFloat(aEditable.toString()));
+			updateModel(StringUtil.isEmpty(aEditable.toString()) ? 0.0F : Float.parseFloat(aEditable.toString()));
 		} else if (long.class.isAssignableFrom(propertyType)
 			        || Long.class.isAssignableFrom(propertyType)) {
-			updateModel(Long.parseLong(aEditable.toString()));
+			updateModel(StringUtil.isEmpty(aEditable.toString()) ? 0L : Long.parseLong(aEditable.toString()));
 		} else if (int.class.isAssignableFrom(propertyType)
 				    || Integer.class.isAssignableFrom(propertyType)) {
-			updateModel(Integer.parseInt(aEditable.toString()));
+			updateModel(StringUtil.isEmpty(aEditable.toString()) ? 0 : Integer.parseInt(aEditable.toString()));
 		} else if (double.class.isAssignableFrom(propertyType)
 				    || Double.class.isAssignableFrom(propertyType)) {
-			updateModel(Double.parseDouble(aEditable.toString()));
+			updateModel(StringUtil.isEmpty(aEditable.toString()) ? 0.0D : Double.parseDouble(aEditable.toString()));
 		} else {
 			updateModel(aEditable.toString());
 		}
