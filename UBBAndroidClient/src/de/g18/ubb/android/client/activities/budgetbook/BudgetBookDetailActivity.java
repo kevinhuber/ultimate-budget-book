@@ -22,11 +22,14 @@ import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.activities.booking.CreateBookingActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
+import de.g18.ubb.android.client.binding.BindingHelper;
+import de.g18.ubb.android.client.shared.ApplicationStateStore;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.android.client.shared.adapter.BookingsAdapter;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 
-public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
+public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook, PresentationModel<BudgetBook>> {
 
 	private DynamicLayoutId dynamicViewLayoutID;
 
@@ -47,8 +50,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 
 	@Override
-	protected BudgetBook createModel() {
-		return getApplicationStateStore().getBudgetBook();
+	protected PresentationModel<BudgetBook> createModel() {
+		return new PresentationModel<BudgetBook>(ApplicationStateStore.getInstance().getBudgetBook());
 	}
 
 	@Override
@@ -107,7 +110,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void initBindings() {
-	    bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.nameLabel);
+        BindingHelper helper = new BindingHelper(this);
+        helper.bindTextView(getModel().getModel(BudgetBook.PROPERTY_NAME), R.BudgetBookDetailsLayout.nameLabel);
 	}
 
 	private void initGestureComponent() {
@@ -290,7 +294,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 		@Override
 		protected void execute() {
-			bookings = getModel().getBookings();
+			bookings = getModel().getBean().getBookings();
 		}
 
 		@Override

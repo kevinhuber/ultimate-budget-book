@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.common.domain.Category;
 
-public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewModel> {
+public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewModel,
+                                                               PresentationModel<CategoryOverviewModel>> {
 
     private Button createNewCategoryButton;
     private ListView lv;
@@ -23,8 +25,8 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
 
     @Override
-    protected CategoryOverviewModel createModel() {
-        return new CategoryOverviewModel();
+    protected PresentationModel<CategoryOverviewModel> createModel() {
+        return new PresentationModel<CategoryOverviewModel>(new CategoryOverviewModel());
     }
 
     @Override

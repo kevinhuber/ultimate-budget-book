@@ -4,15 +4,18 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 import de.g18.ubb.android.client.action.AbstractWaitAction;
-import de.g18.ubb.android.client.validation.AbstractValidator;
+import de.g18.ubb.android.client.shared.PresentationModel;
+import de.g18.ubb.android.client.validation.Validator;
 import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public abstract class AbstractValidationFormularActivity<_Model extends AbstractModel, _Validator extends AbstractValidator<_Model>>
-                          extends AbstractValidationActivity<_Model, _Validator> {
+public abstract class AbstractValidationFormularActivity<_Bean extends AbstractModel,
+                                                         _Model extends PresentationModel<_Bean>,
+                                                         _Validator extends Validator<_Bean, _Model>>
+                          extends AbstractValidationActivity<_Bean, _Model, _Validator> {
 
     private Button submitButton;
     private String submitErrorMessage;

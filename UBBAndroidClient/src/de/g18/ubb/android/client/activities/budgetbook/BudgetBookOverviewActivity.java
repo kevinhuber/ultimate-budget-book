@@ -12,21 +12,23 @@ import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverviewModel> {
+public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverviewModel,
+                                                                 PresentationModel<BudgetBookOverviewModel>> {
 
     private Button createButton;
     private ListView budgetBooksListView;
 
 
     @Override
-    protected BudgetBookOverviewModel createModel() {
-        return new BudgetBookOverviewModel(this);
+    protected PresentationModel<BudgetBookOverviewModel> createModel() {
+        return new PresentationModel<BudgetBookOverviewModel>(new BudgetBookOverviewModel(this));
     }
 
     @Override
@@ -48,7 +50,7 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
         createButton = (Button) findViewById(R.BudgetBookOverviewLayout.createButton);
 
         budgetBooksListView = (ListView) findViewById(R.BudgetBookOverviewLayout.budgetBooksListView);
-        getModel().bindBooksAdapter(budgetBooksListView);
+        getModel().getBean().bindBooksAdapter(budgetBooksListView);
     }
 
     private void initEventHandling() {
@@ -88,7 +90,7 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         @Override
         protected void postExecute() {
-            getModel().setBudgetBooks(books);
+            getModel().getBean().setBudgetBooks(books);
         }
     }
 

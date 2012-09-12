@@ -1,7 +1,7 @@
 package de.g18.ubb.android.client.binding;
 
 import android.widget.TextView;
-import de.g18.ubb.common.domain.AbstractModel;
+import de.g18.ubb.android.client.shared.ValueModel;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
@@ -9,8 +9,8 @@ import de.g18.ubb.common.util.StringUtil;
  */
 final class TextViewConnector extends AbstractPropertyConnector<Object, TextView> {
 
-    public TextViewConnector(TextView aComponent, AbstractModel aModel, String aPropertyname) {
-        super(aComponent, aModel, aPropertyname);
+    public TextViewConnector(TextView aComponent, ValueModel aModel) {
+        super(aComponent, aModel);
     }
 
     @Override

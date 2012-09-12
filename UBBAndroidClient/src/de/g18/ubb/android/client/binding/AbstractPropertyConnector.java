@@ -4,8 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import android.view.View;
-import de.g18.ubb.common.domain.AbstractModel;
-import de.g18.ubb.common.util.PropertyAccessor;
+import de.g18.ubb.android.client.shared.ValueModel;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
@@ -13,15 +12,15 @@ import de.g18.ubb.common.util.PropertyAccessor;
 abstract class AbstractPropertyConnector<_PropertyType, _ComponentType extends View> implements PropertyChangeListener {
 
     private final _ComponentType component;
-    private final PropertyAccessor<_PropertyType> propertyAccessor;
+    private final ValueModel model;
 
     private boolean running;
 
 
-    public AbstractPropertyConnector(_ComponentType aComponent, AbstractModel aModel, String aPropertyname) {
+    public AbstractPropertyConnector(_ComponentType aComponent, ValueModel aModel) {
         component = aComponent;
-        propertyAccessor = new PropertyAccessor<_PropertyType>(aModel, aPropertyname);
-        aModel.addPropertyChangeListener(aPropertyname, this);
+        model = aModel;
+        model.addValueChangeListener(this);
 
         updateComponent();
     }
@@ -43,8 +42,9 @@ abstract class AbstractPropertyConnector<_PropertyType, _ComponentType extends V
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected final void updateComponent() {
-        _PropertyType value = getPropertyAccessor().invokeGetter();
+        _PropertyType value = (_PropertyType) model.getValue();
         updateComponent(value);
     }
 
@@ -55,14 +55,10 @@ abstract class AbstractPropertyConnector<_PropertyType, _ComponentType extends V
         running = true;
 
         try {
-        	getPropertyAccessor().invokeSetter(aNewValue);
+        	model.setValue(aNewValue);
         } finally {
             running = false;
         }
-    }
-    
-    protected final PropertyAccessor<_PropertyType> getPropertyAccessor() {
-    	return propertyAccessor;
     }
 
     abstract void updateComponent(_PropertyType aNewValue);

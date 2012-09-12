@@ -3,6 +3,7 @@ package de.g18.ubb.android.client.activities.category;
 import java.util.Arrays;
 
 import de.g18.ubb.android.client.shared.ApplicationStateStore;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.android.client.validation.AbstractValidatorTestCase;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
@@ -11,7 +12,9 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class CategoryValidatorTest extends AbstractValidatorTestCase<Category, CategoryValidator> {
+public class CategoryValidatorTest extends AbstractValidatorTestCase<Category,
+                                                                     PresentationModel<Category>,
+                                                                     CategoryValidator> {
 
     private static final String ALREAD_USED_NAME = "alreadyUsed";
 
@@ -27,10 +30,10 @@ public class CategoryValidatorTest extends AbstractValidatorTestCase<Category, C
     }
 
     @Override
-    protected Category createValidModel() {
+    protected PresentationModel<Category> createValidModel() {
         Category c = new Category();
         c.setName("name");
-        return c;
+        return new PresentationModel<Category>(c);
     }
 
     @Override
@@ -39,12 +42,12 @@ public class CategoryValidatorTest extends AbstractValidatorTestCase<Category, C
     }
 
     public void testNameNotEmpty() {
-        getModel().setName(StringUtil.EMPTY);
+        getModel().setValue(Category.PROPERTY_NAME, StringUtil.EMPTY);
         assertValidationMustNotBeEmpty(CategoryResource.FIELD_NAME);
     }
 
     public void testNameAlreadyUsed() {
-        getModel().setName(ALREAD_USED_NAME);
+        getModel().setValue(Category.PROPERTY_NAME, ALREAD_USED_NAME);
         assertValidationResult(CategoryResource.VALIDATION_NAME_ALREADY_USED);
     }
 }

@@ -8,13 +8,17 @@ import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
 import de.g18.ubb.android.client.activities.register.RegisterActivity;
+import de.g18.ubb.android.client.binding.BindingHelper;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public final class MainActivity extends AbstractValidationFormularActivity<MainActivityModel, MainActivityValidator> {
+public final class MainActivity extends AbstractValidationFormularActivity<MainActivityModel,
+                                                                           PresentationModel<MainActivityModel>,
+                                                                           MainActivityValidator> {
 
     static {
         WebServiceProvider.register();
@@ -30,8 +34,8 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
     }
 
     @Override
-    protected MainActivityModel createModel() {
-        return new MainActivityModel();
+    protected PresentationModel<MainActivityModel> createModel() {
+        return new PresentationModel<MainActivityModel>(new MainActivityModel());
     }
 
     @Override
@@ -43,11 +47,11 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getModel().setEMail(getPreferences().getUsername());
-        getModel().setPassword(getPreferences().getPassword());
-        getModel().setStayLoggedInChecked(true);
-        getModel().setServerAddress(getPreferences().getServerAddress());
-        WebServiceProvider.setServerAddress(getModel().getServerAddress());
+        getModel().setValue(MainActivityModel.PROPERTY_EMAIL, getPreferences().getUsername());
+        getModel().setValue(MainActivityModel.PROPERTY_PASSWORD, getPreferences().getPassword());
+        getModel().setValue(MainActivityModel.PROPERTY_STAY_LOGGED_IN, true);
+        getModel().setValue(MainActivityModel.PROPERTY_SERVER_ADDRESS, getPreferences().getServerAddress());
+        WebServiceProvider.setServerAddress((String) getModel().getValue(MainActivityModel.PROPERTY_SERVER_ADDRESS));
 
         initComponents();
         bindComponents();
@@ -59,10 +63,11 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
     }
 
     private void bindComponents() {
-        bind(MainActivityModel.PROPERTY_PASSWORD, R.MainLayout.password);
-        bind(MainActivityModel.PROPERTY_EMAIL, R.MainLayout.email);
-        bind(MainActivityModel.PROPERTY_STAY_LOGGED_IN, R.MainLayout.stayLoggedIn);
-        bind(MainActivityModel.PROPERTY_SERVER_ADDRESS, R.MainLayout.serverAddress);
+        BindingHelper helper = new BindingHelper(this);
+        helper.bindEditText(getModel().getModel(MainActivityModel.PROPERTY_PASSWORD), R.MainLayout.password);
+        helper.bindEditText(getModel().getModel(MainActivityModel.PROPERTY_EMAIL), R.MainLayout.email);
+        helper.bindCheckBox(getModel().getModel(MainActivityModel.PROPERTY_STAY_LOGGED_IN), R.MainLayout.stayLoggedIn);
+        helper.bindEditText(getModel().getModel(MainActivityModel.PROPERTY_SERVER_ADDRESS), R.MainLayout.serverAddress);
     }
 
     private void initEventHandling() {
@@ -76,15 +81,15 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
 
     @Override
     protected void preSubmit() {
-        String serverAddress = getModel().getServerAddress();
+        String serverAddress = (String) getModel().getValue(MainActivityModel.PROPERTY_SERVER_ADDRESS);
         getPreferences().saveServerAddress(serverAddress);
         WebServiceProvider.setServerAddress(serverAddress);
     }
 
     @Override
     protected String submit() {
-        boolean loginSuccessfull = WebServiceProvider.authentificate(getModel().getEMail(),
-                                                                     getModel().getPassword());
+        boolean loginSuccessfull = WebServiceProvider.authentificate((String) getModel().getValue(MainActivityModel.PROPERTY_EMAIL),
+                                                                     (String) getModel().getValue(MainActivityModel.PROPERTY_PASSWORD));
         if (!loginSuccessfull) {
             return MainActivityResource.MESSAGE_LOGIN_FAILED.formatted();
         }
@@ -98,9 +103,9 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
             return;
         }
 
-        if (getModel().isStayLoggedInChecked()) {
-            getPreferences().saveLoginData(getModel().getEMail(),
-                                           getModel().getPassword());
+        if ((Boolean) getModel().getValue(MainActivityModel.PROPERTY_STAY_LOGGED_IN)) {
+            getPreferences().saveLoginData((String) getModel().getValue(MainActivityModel.PROPERTY_EMAIL),
+                                           (String) getModel().getValue(MainActivityModel.PROPERTY_PASSWORD));
         }
         switchActivity(BudgetBookOverviewActivity.class);
     }

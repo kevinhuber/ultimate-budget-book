@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.Spinner;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
+import de.g18.ubb.android.client.binding.BindingHelper;
+import de.g18.ubb.android.client.binding.EditTextType;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.android.client.shared.adapter.EnumAdapter;
 import de.g18.ubb.common.domain.Booking;
@@ -22,7 +25,9 @@ import de.g18.ubb.common.domain.enumType.BookingType;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
-public class CreateBookingActivity extends AbstractValidationFormularActivity<Booking, BookingCreateValidator> {
+public class CreateBookingActivity extends AbstractValidationFormularActivity<Booking,
+                                                                              PresentationModel<Booking>,
+                                                                              BookingCreateValidator> {
 
 	private Button datePickerButton;
 
@@ -33,8 +38,8 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 
 
     @Override
-    protected Booking createModel() {
-        return new Booking();
+    protected PresentationModel<Booking> createModel() {
+        return new PresentationModel<Booking>(new Booking());
     }
 
     @Override
@@ -65,9 +70,10 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	}
 
 	private void initBindings() {
-	    bind(Booking.PROPERTY_AMOUNT, R.BookingCreate.betrag_input);
-        bind(Booking.PROPERTY_CATEGORY, R.BookingCreate.category_spinner);
-        bind(Booking.PROPERTY_TYPE, R.BookingCreate.booking_type_spinner);
+	    BindingHelper helper = new BindingHelper(this);
+	    helper.bindEditText(getModel().getModel(Booking.PROPERTY_AMOUNT), R.BookingCreate.betrag_input, EditTextType.FLOAT);
+	    helper.bindAdapterView(getModel().getModel(Booking.PROPERTY_CATEGORY), R.BookingCreate.category_spinner);
+	    helper.bindAdapterView(getModel().getModel(Booking.PROPERTY_TYPE), R.BookingCreate.booking_type_spinner);
 	}
 
 	@Override
@@ -119,8 +125,8 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 
     @Override
     protected String submit() {
-        getModel().setBookingTime(dateFragment.getDate());
-        Booking myBooking = ServiceRepository.getBookingService().saveAndLoad(getModel());
+        getModel().setValue(Booking.PROPERTY_BOOKING_TIME, dateFragment.getDate());
+        Booking myBooking = ServiceRepository.getBookingService().saveAndLoad(getModel().getBean());
         BudgetBook myBook = getApplicationStateStore().getBudgetBook();
         myBook.getBookings().add(myBooking);
         myBook = ServiceRepository.getBudgetBookService().saveAndLoad(myBook);

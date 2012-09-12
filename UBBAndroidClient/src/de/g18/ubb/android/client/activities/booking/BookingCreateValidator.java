@@ -1,5 +1,6 @@
 package de.g18.ubb.android.client.activities.booking;
 
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.android.client.validation.AbstractValidator;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.util.StringUtil;
@@ -7,17 +8,13 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class BookingCreateValidator extends AbstractValidator<Booking> {
+public class BookingCreateValidator extends AbstractValidator<Booking, PresentationModel<Booking>> {
 
-    /**
-     * @param aModel
-     */
-    public BookingCreateValidator(Booking aModel) {
+    public BookingCreateValidator(PresentationModel<Booking> aModel) {
         super(aModel);
     }
 
-    @Override
-    protected String computeValidationResult() {
+    public String computeValidationResult() {
         return StringUtil.EMPTY;
     }
 }

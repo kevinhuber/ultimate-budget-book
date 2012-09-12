@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import de.g18.ubb.common.domain.AbstractModel;
+import de.g18.ubb.android.client.shared.ValueModel;
 import de.g18.ubb.common.util.ObjectUtil;
 
 /**
@@ -12,8 +12,8 @@ import de.g18.ubb.common.util.ObjectUtil;
  */
 final class AdapterViewConnector extends AbstractPropertyConnector<Object, AdapterView<?>> implements OnItemSelectedListener {
 
-    public AdapterViewConnector(AdapterView<?> aComponent, AbstractModel aModel, String aPropertyname) {
-        super(aComponent, aModel, aPropertyname);
+    public AdapterViewConnector(AdapterView<?> aComponent, ValueModel aModel) {
+        super(aComponent, aModel);
         getComponent().setOnItemSelectedListener(this);
     }
 

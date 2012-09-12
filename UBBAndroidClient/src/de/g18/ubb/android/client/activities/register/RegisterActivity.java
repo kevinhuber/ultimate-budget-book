@@ -4,11 +4,15 @@ import android.os.Bundle;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.activities.budgetbook.BudgetBookOverviewActivity;
+import de.g18.ubb.android.client.binding.BindingHelper;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
-public class RegisterActivity extends AbstractValidationFormularActivity<RegisterModel, RegisterValidator> {
+public class RegisterActivity extends AbstractValidationFormularActivity<RegisterModel,
+                                                                         PresentationModel<RegisterModel>,
+                                                                         RegisterValidator> {
 
     @Override
     protected int getLayoutId() {
@@ -16,8 +20,8 @@ public class RegisterActivity extends AbstractValidationFormularActivity<Registe
     }
 
     @Override
-    protected RegisterModel createModel() {
-        return new RegisterModel();
+    protected PresentationModel<RegisterModel> createModel() {
+        return new PresentationModel<RegisterModel>(new RegisterModel());
     }
 
     @Override
@@ -28,10 +32,11 @@ public class RegisterActivity extends AbstractValidationFormularActivity<Registe
     }
 
     private void bindComponents() {
-        bind(RegisterModel.PROPERTY_USERNAME, R.RegisterLayout.name);
-        bind(RegisterModel.PROPERTY_EMAIL, R.RegisterLayout.email);
-        bind(RegisterModel.PROPERTY_PASSWORD, R.RegisterLayout.password);
-        bind(RegisterModel.PROPERTY_PASSWORD_CHECK, R.RegisterLayout.passwordCheck);
+        BindingHelper helper = new BindingHelper(this);
+        helper.bindEditText(getModel().getModel(RegisterModel.PROPERTY_USERNAME), R.RegisterLayout.name);
+        helper.bindEditText(getModel().getModel(RegisterModel.PROPERTY_EMAIL), R.RegisterLayout.email);
+        helper.bindEditText(getModel().getModel(RegisterModel.PROPERTY_PASSWORD), R.RegisterLayout.password);
+        helper.bindEditText(getModel().getModel(RegisterModel.PROPERTY_PASSWORD_CHECK), R.RegisterLayout.passwordCheck);
     }
 
     @Override
@@ -41,9 +46,9 @@ public class RegisterActivity extends AbstractValidationFormularActivity<Registe
 
     @Override
     protected String submit() {
-        boolean registrationSuccessfull = ServiceRepository.getUserService().register(getModel().getEMail(),
-                                                                                      getModel().getUsername(),
-                                                                                      getModel().getPassword());
+        boolean registrationSuccessfull = ServiceRepository.getUserService().register((String) getModel().getValue(RegisterModel.PROPERTY_EMAIL),
+                                                                                      (String) getModel().getValue(RegisterModel.PROPERTY_USERNAME),
+                                                                                      (String) getModel().getValue(RegisterModel.PROPERTY_PASSWORD));
         if (!registrationSuccessfull) {
             return RegisterResource.MESSAGE_REGISTRATION_FAILED.formatted();
         }
@@ -56,8 +61,10 @@ public class RegisterActivity extends AbstractValidationFormularActivity<Registe
         if (!isSubmitSuccessfull()) {
             return;
         }
-        WebServiceProvider.authentificate(getModel().getEMail(), getModel().getPassword());
-        getPreferences().saveLoginData(getModel().getEMail(), getModel().getPassword());
+        WebServiceProvider.authentificate((String) getModel().getValue(RegisterModel.PROPERTY_EMAIL),
+                                          (String) getModel().getValue(RegisterModel.PROPERTY_PASSWORD));
+        getPreferences().saveLoginData((String) getModel().getValue(RegisterModel.PROPERTY_EMAIL),
+                                       (String) getModel().getValue(RegisterModel.PROPERTY_PASSWORD));
         switchActivity(BudgetBookOverviewActivity.class);
     }
 

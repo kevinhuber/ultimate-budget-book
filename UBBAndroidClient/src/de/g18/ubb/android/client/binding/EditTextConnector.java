@@ -3,7 +3,7 @@ package de.g18.ubb.android.client.binding;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import de.g18.ubb.common.domain.AbstractModel;
+import de.g18.ubb.android.client.shared.ValueModel;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
@@ -11,8 +11,13 @@ import de.g18.ubb.common.util.StringUtil;
  */
 final class EditTextConnector extends AbstractPropertyConnector<Object, EditText> implements TextWatcher {
 
-    public EditTextConnector(EditText aComponent, AbstractModel aModel, String aPropertyname) {
-        super(aComponent, aModel, aPropertyname);
+    private final EditTextType type;
+
+
+    public EditTextConnector(EditText aComponent, ValueModel aModel, EditTextType aType) {
+        super(aComponent, aModel);
+        type = aType;
+
         getComponent().addTextChangedListener(this);
     }
 
@@ -25,18 +30,13 @@ final class EditTextConnector extends AbstractPropertyConnector<Object, EditText
     }
 
     public void afterTextChanged(Editable aEditable) {
-    	Class<?> propertyType = getPropertyAccessor().getGetter().getReturnType();
-		if (Float.class.isAssignableFrom(propertyType)
-		     || float.class.isAssignableFrom(propertyType)) {
+		if (type == EditTextType.FLOAT) {
 			updateModel(Float.parseFloat(aEditable.toString()));
-		} else if (long.class.isAssignableFrom(propertyType)
-			        || Long.class.isAssignableFrom(propertyType)) {
+		} else if (type == EditTextType.LONG) {
 			updateModel(Long.parseLong(aEditable.toString()));
-		} else if (int.class.isAssignableFrom(propertyType)
-				    || Integer.class.isAssignableFrom(propertyType)) {
+        } else if (type == EditTextType.INTEGER) {
 			updateModel(Integer.parseInt(aEditable.toString()));
-		} else if (double.class.isAssignableFrom(propertyType)
-				    || Double.class.isAssignableFrom(propertyType)) {
+        } else if (type == EditTextType.DOUBLE) {
 			updateModel(Double.parseDouble(aEditable.toString()));
 		} else {
 			updateModel(aEditable.toString());

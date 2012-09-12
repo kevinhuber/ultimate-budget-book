@@ -14,13 +14,16 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
+import de.g18.ubb.android.client.binding.BindingHelper;
 import de.g18.ubb.android.client.communication.WebServiceProvider;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.common.service.BudgetBookService;
 import de.g18.ubb.common.service.exception.UserWithEMailNotFound;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
 public class BudgetBookCreateNewActivity extends AbstractValidationFormularActivity<BudgetBookCreateNewModel,
+                                                                                    PresentationModel<BudgetBookCreateNewModel>,
                                                                                     BudgetBookCreateNewValidator> {
 
 	private List<EditText> budgetBookOwner;
@@ -29,8 +32,8 @@ public class BudgetBookCreateNewActivity extends AbstractValidationFormularActiv
 
 
     @Override
-    protected BudgetBookCreateNewModel createModel() {
-        return new BudgetBookCreateNewModel();
+    protected PresentationModel<BudgetBookCreateNewModel> createModel() {
+        return new PresentationModel<BudgetBookCreateNewModel>(new BudgetBookCreateNewModel());
     }
 
     @Override
@@ -63,7 +66,8 @@ public class BudgetBookCreateNewActivity extends AbstractValidationFormularActiv
 	}
 
     private void initBindings() {
-        bind(BudgetBookCreateNewModel.PROPERTY_NAME, R.BudgetBookCreateLayout.name);
+        BindingHelper helper = new BindingHelper(this);
+        helper.bindEditText(getModel().getModel(BudgetBookCreateNewModel.PROPERTY_NAME), R.BudgetBookCreateLayout.name);
     }
 
 	private void initEventHandling() {
@@ -88,22 +92,14 @@ public class BudgetBookCreateNewActivity extends AbstractValidationFormularActiv
             // fügt den ersten benutzer hinzu, im normal fall ist dies der
             // angemeldete benutzer
             for (EditText budgetBookOwnerEntry : budgetBookOwner) {
-                getModel().getAssignedUsers().add(budgetBookOwnerEntry.getText().toString());
+                getModel().getBean().getAssignedUsers().add(budgetBookOwnerEntry.getText().toString());
             }
-            service.createNew(getModel().getName(), getModel().getAssignedUsers());
+            service.createNew((String) getModel().getValue(BudgetBookCreateNewModel.PROPERTY_NAME),
+                              getModel().getBean().getAssignedUsers());
         } catch (UserWithEMailNotFound e) {
             return "Es wurde kein Benutzer mit der E-Mail '" + e.getEMail() + "' gefunden!";
         }
         return StringUtil.EMPTY;
-    }
-
-    @Override
-    protected void postSubmit() {
-        super.postSubmit();
-//
-//        if (isSubmitSuccessfull()) {
-//            switchActivity(BudgetBookOverviewActivity.class);
-//        }
     }
 
 

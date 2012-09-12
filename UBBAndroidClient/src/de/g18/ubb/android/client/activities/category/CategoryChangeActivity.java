@@ -6,18 +6,22 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
+import de.g18.ubb.android.client.binding.BindingHelper;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
-public class CategoryChangeActivity extends AbstractValidationFormularActivity<Category, CategoryValidator> {
+public class CategoryChangeActivity extends AbstractValidationFormularActivity<Category,
+                                                                               PresentationModel<Category>,
+                                                                               CategoryValidator> {
 
 	private Button b_delete;
 
 
     @Override
-    protected Category createModel() {
-        return getApplicationStateStore().getCategory();
+    protected PresentationModel<Category> createModel() {
+        return new PresentationModel<Category>(getApplicationStateStore().getCategory());
     }
 
     @Override
@@ -45,7 +49,8 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
     }
 
     private void initBindings() {
-        bind(Category.PROPERTY_NAME, R.CategoryChangeLayout.nameEditText);
+        BindingHelper helper = new BindingHelper(this);
+        helper.bindEditText(getModel().getModel(Category.PROPERTY_NAME), R.CategoryChangeLayout.nameEditText);
     }
 
     private void initComponents() {
@@ -86,7 +91,7 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
 	private final class DeleteButtonListener implements OnClickListener{
 
 		public void onClick(View v) {
-			ServiceRepository.getCategoryService().remove(getModel());
+			ServiceRepository.getCategoryService().remove(getModel().getBean());
 			getApplicationStateStore().setCategory(null);
 			switchActivity(CategoryOverviewActivity.class);
 		}

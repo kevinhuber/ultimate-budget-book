@@ -1,5 +1,6 @@
 package de.g18.ubb.android.client.validation;
 
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.util.StringUtil;
 
@@ -7,7 +8,8 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public abstract class AbstractValidator<_Model extends AbstractModel> {
+public abstract class AbstractValidator<_Bean extends AbstractModel,
+                                        _Model extends PresentationModel<_Bean>> implements Validator<_Bean, _Model> {
 
     private _Model model;
     private String validationResult;
@@ -17,12 +19,9 @@ public abstract class AbstractValidator<_Model extends AbstractModel> {
         model = aModel;
     }
 
-    public final String validate() {
+    public final void validate() {
         validationResult = computeValidationResult();
-        return getValidationResult();
     }
-
-    protected abstract String computeValidationResult();
 
     public final boolean hasErrors() {
         return StringUtil.isNotEmpty(validationResult);

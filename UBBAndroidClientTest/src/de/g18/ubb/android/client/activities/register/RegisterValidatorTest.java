@@ -2,6 +2,7 @@ package de.g18.ubb.android.client.activities.register;
 
 import de.g18.ubb.android.client.communication.MockServiceProvider;
 import de.g18.ubb.android.client.mock.service.MockUserServiceImpl;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.android.client.validation.AbstractValidatorTestCase;
 import de.g18.ubb.android.client.validation.ValidationUtil;
 import de.g18.ubb.common.util.StringUtil;
@@ -9,9 +10,12 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class RegisterValidatorTest extends AbstractValidatorTestCase<RegisterModel, RegisterValidator> {
+public class RegisterValidatorTest extends AbstractValidatorTestCase<RegisterModel,
+                                                                     PresentationModel<RegisterModel>,
+                                                                     RegisterValidator> {
 
     private static final String VALID_PASSWORD = "validPassword";
+    private static final String INVALID_PASSWORD = VALID_PASSWORD + "invalidPart";
 
 
     @Override
@@ -20,13 +24,13 @@ public class RegisterValidatorTest extends AbstractValidatorTestCase<RegisterMod
     }
 
     @Override
-    protected RegisterModel createValidModel() {
-        RegisterModel model = new RegisterModel();
-        model.setUsername("test");
-        model.setEMail("test@mail.com");
-        model.setPassword(VALID_PASSWORD);
-        model.setPasswordCheck(VALID_PASSWORD);
-        return model;
+    protected PresentationModel<RegisterModel> createValidModel() {
+        RegisterModel bean = new RegisterModel();
+        bean.setUsername("test");
+        bean.setEMail("test@mail.com");
+        bean.setPassword(VALID_PASSWORD);
+        bean.setPasswordCheck(VALID_PASSWORD);
+        return new PresentationModel<RegisterModel>(bean);
     }
 
     @Override
@@ -35,76 +39,76 @@ public class RegisterValidatorTest extends AbstractValidatorTestCase<RegisterMod
     }
 
     public void testUsernameMandatory() {
-        getModel().setUsername(StringUtil.EMPTY);
+        getModel().setValue(RegisterModel.PROPERTY_USERNAME, StringUtil.EMPTY);
         assertValidationMustNotBeEmpty(RegisterResource.FIELD_USERNAME);
     }
 
     public void testEMailMandatory() {
-        getModel().setEMail(StringUtil.EMPTY);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, StringUtil.EMPTY);
         assertValidationMustNotBeEmpty(RegisterResource.FIELD_EMAIL);
     }
 
     public void testEMailFormat() {
         String email = "invalidemailaddressde";
-        getModel().setEMail(email);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, email);
         assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
 
         email = "invalidemailaddress.de";
-        getModel().setEMail(email);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, email);
         assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
 
         email = "invalidemailaddress.";
-        getModel().setEMail(email);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, email);
         assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
 
         email = "invalidemail@address.";
-        getModel().setEMail(email);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, email);
         assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
 
         email = "@address";
-        getModel().setEMail(email);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, email);
         assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
 
         email = "@address.";
-        getModel().setEMail(email);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, email);
         assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
 
         email = "@address.de";
-        getModel().setEMail(email);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, email);
         assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
 
         email = "@.";
-        getModel().setEMail(email);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, email);
         assertValidationResult(ValidationUtil.createInvalidEMailFormatMessage(email));
 
         email = "validemail@address.de";
-        getModel().setEMail(email);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, email);
         assertValidationSuccessfull();
     }
 
     public void testPasswordMandatory() {
-        getModel().setPassword(StringUtil.EMPTY);
+        getModel().setValue(RegisterModel.PROPERTY_PASSWORD, StringUtil.EMPTY);
         assertValidationMustNotBeEmpty(RegisterResource.FIELD_PASSWORD);
     }
 
     public void testPasswordCheckMandatory() {
-        getModel().setPasswordCheck(StringUtil.EMPTY);
+        getModel().setValue(RegisterModel.PROPERTY_PASSWORD_CHECK, StringUtil.EMPTY);
         assertValidationMustNotBeEmpty(RegisterResource.FIELD_PASSWORD_CHECK);
     }
 
     public void testPasswordsMustBeEqual() {
-        getModel().setPassword(VALID_PASSWORD + "invalidPart");
+        getModel().setValue(RegisterModel.PROPERTY_PASSWORD, INVALID_PASSWORD);
         assertValidationResult(RegisterResource.VALIDATION_PASSWORDS_MUST_BE_EQUAL);
 
-        getModel().setPassword(VALID_PASSWORD);
+        getModel().setValue(RegisterModel.PROPERTY_PASSWORD, VALID_PASSWORD);
         assertValidationSuccessfull();
 
-        getModel().setPasswordCheck(VALID_PASSWORD + "invalidPart");
+        getModel().setValue(RegisterModel.PROPERTY_PASSWORD_CHECK, INVALID_PASSWORD);
         assertValidationResult(RegisterResource.VALIDATION_PASSWORDS_MUST_BE_EQUAL);
     }
 
     public void testEMailMustBeUnique() {
-        getModel().setEMail(MockUserServiceImpl.REGISTERED_USER_EMAIL);
+        getModel().setValue(RegisterModel.PROPERTY_EMAIL, MockUserServiceImpl.REGISTERED_USER_EMAIL);
         assertValidationResult(RegisterResource.VALIDATION_EMAIL_ALREADY_USED);
     }
 }

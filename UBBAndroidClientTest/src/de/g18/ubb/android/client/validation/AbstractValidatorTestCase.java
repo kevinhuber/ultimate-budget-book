@@ -2,6 +2,7 @@ package de.g18.ubb.android.client.validation;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.resource.Resource;
 import de.g18.ubb.common.util.StringUtil;
@@ -9,8 +10,9 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public abstract class AbstractValidatorTestCase<_Model extends AbstractModel,
-                                                _Validator extends AbstractValidator<_Model>> extends TestCase {
+public abstract class AbstractValidatorTestCase<_Bean extends AbstractModel,
+                                                _Model extends PresentationModel<_Bean>,
+                                                _Validator extends Validator<_Bean, _Model>> extends TestCase {
 
     private _Model model;
     private _Validator validator;

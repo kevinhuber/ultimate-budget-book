@@ -5,12 +5,16 @@ import java.util.List;
 import android.os.Bundle;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
+import de.g18.ubb.android.client.binding.BindingHelper;
+import de.g18.ubb.android.client.shared.PresentationModel;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
-public class CategoryCreateActivity extends AbstractValidationFormularActivity<Category, CategoryValidator> {
+public class CategoryCreateActivity extends AbstractValidationFormularActivity<Category,
+                                                                               PresentationModel<Category>,
+                                                                               CategoryValidator> {
 
     @Override
     protected int getSubmitButtonId() {
@@ -23,8 +27,8 @@ public class CategoryCreateActivity extends AbstractValidationFormularActivity<C
     }
 
     @Override
-    protected Category createModel() {
-        return new Category();
+    protected PresentationModel<Category> createModel() {
+        return new PresentationModel<Category>(new Category());
     }
 
     @Override
@@ -40,7 +44,8 @@ public class CategoryCreateActivity extends AbstractValidationFormularActivity<C
     }
 
 	private void initBindings() {
-	    bind(Category.PROPERTY_NAME, R.CategoryCreateLayout.name);
+        BindingHelper helper = new BindingHelper(this);
+	    helper.bindEditText(getModel().getModel(Category.PROPERTY_NAME), R.CategoryCreateLayout.name);
 	}
 
     @Override
@@ -50,7 +55,7 @@ public class CategoryCreateActivity extends AbstractValidationFormularActivity<C
 
     @Override
     protected String submit() {
-        Category category = ServiceRepository.getCategoryService().saveAndLoad(getModel());
+        Category category = ServiceRepository.getCategoryService().saveAndLoad(getModel().getBean());
 
         BudgetBook budgetBook = getApplicationStateStore().getBudgetBook();
         List<Category> categories = budgetBook.getCategories();
@@ -60,15 +65,5 @@ public class CategoryCreateActivity extends AbstractValidationFormularActivity<C
         budgetBook = ServiceRepository.getBudgetBookService().saveAndLoad(budgetBook);
         getApplicationStateStore().setBudgetBook(budgetBook);
         return StringUtil.EMPTY;
-    }
-
-    @Override
-    protected void postSubmit() {
-        super.postSubmit();
-//
-//        if (!isSubmitSuccessfull()) {
-//            return;
-//        }
-//        switchActivity(CategoryOverviewActivity.class);
     }
 }
