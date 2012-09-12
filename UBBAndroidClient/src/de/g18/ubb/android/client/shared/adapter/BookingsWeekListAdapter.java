@@ -15,8 +15,6 @@ import de.g18.ubb.common.domain.Booking;
 
 public final class BookingsWeekListAdapter extends AbstractAdapter<Booking, BookingTag> {
 
-    private int mItemIndex = -1;
-
 	public BookingsWeekListAdapter(Context aContext) {
         this(aContext, new ArrayList<Booking>());
     }
@@ -44,27 +42,6 @@ public final class BookingsWeekListAdapter extends AbstractAdapter<Booking, Book
 
         aTag.name.setText(aEntry.getBookingName());
         aTag.amount.setText(Float.toString(aEntry.getAmount()) + " " + UBBConstants.CURRENCY_EURO_SIGN);
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-        View view = super.getView(position, convertView, parent);
-        if (position == mItemIndex) {
-            view.setSelected(true);
-            view.setPressed(true);
-            view.setBackgroundColor(Color.parseColor("#FF9912"));
-        }
-
-        return view;
-    }
-
-    public void setSelectItem(int index) {
-        mItemIndex = index;
-    }
-
-    public int getSelectItem() {
-        return mItemIndex;
     }
 
     // -------------------------------------------------------------------------

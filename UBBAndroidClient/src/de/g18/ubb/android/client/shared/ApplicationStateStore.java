@@ -1,5 +1,6 @@
 package de.g18.ubb.android.client.shared;
 
+import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 
@@ -7,6 +8,7 @@ public class ApplicationStateStore {
 
 	private BudgetBook budgetBook;
 	private Category category;
+	private Booking booking;
 
 	private static ApplicationStateStore instance;
 
@@ -43,5 +45,13 @@ public class ApplicationStateStore {
 
 	public void setCategory(Category aNewValue) {
 		category = aNewValue;
+	}
+	
+	public Booking geBooking() {
+		return booking;
+	}
+
+	public void setBooking(Booking aNewValue) {
+		booking = aNewValue;
 	}
 }

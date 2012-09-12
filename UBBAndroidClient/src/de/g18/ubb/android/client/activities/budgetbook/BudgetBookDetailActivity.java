@@ -350,7 +350,6 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 		@Override
 		protected void execute() {
-			
 			ContextDrivenBookingsLists contextDrivenModel = new ContextDrivenBookingsLists(getModel().getBookings());
 			dayBookings = contextDrivenModel.getDayBookingsList();
 			weekBookings = contextDrivenModel.getWeekyBookingsList();
