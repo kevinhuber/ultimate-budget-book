@@ -10,7 +10,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.common.domain.Category;
@@ -40,8 +39,16 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
 		initComponents();
 		initEventHandling();
+	}
 
-        new CategoryLoadTask().run();
+	@Override
+	protected void onResume() {
+	    super.onResume();
+
+        List<Category> categories = getApplicationStateStore().getBudgetBook().getCategories();
+        for (Category b : categories) {
+            adapter.add(b);
+        }
 	}
 
 	private void initComponents() {
@@ -67,27 +74,6 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 		    switchActivity(CategoryCreateActivity.class);
 		}
 	}
-
-    private final class CategoryLoadTask extends AbstractWaitTask {
-
-        private List<Category> categories;
-
-        public CategoryLoadTask() {
-            super(CategoryOverviewActivity.this, "Kategorien werden geladen...");
-        }
-
-        @Override
-        protected void execute() {
-            categories = getApplicationStateStore().getBudgetBook().getCategories();
-        }
-
-        @Override
-        protected void postExecute() {
-            for (Category b : categories) {
-                adapter.add(b);
-            }
-        }
-    }
 
     private final class CategorySelectionHandler implements OnItemClickListener {
 
