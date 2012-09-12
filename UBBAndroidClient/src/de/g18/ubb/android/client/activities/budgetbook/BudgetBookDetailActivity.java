@@ -39,8 +39,6 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	private static final int SWIPE_MAX_OFF_PATH = 250;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
-	private boolean choicesMade;
-
 	private GestureDetector gestureDetector;
 
 	protected BookingsDayListAdapter dayAdapter;
@@ -192,72 +190,84 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	private void updateDayDetailsView() {
 		if (dayAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel))
-					.setVisibility(View.VISIBLE);
+			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel))
-					.setVisibility(View.INVISIBLE);
-			// ListView listView = (ListView)
-			// findViewById(R.BudgetBookDetailsLayout.bookingsDayListView);
+			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
 			ListView listView = getMyDayListView();
-			if (!choicesMade) {
-				listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
-				// löscht alle vorher getroffenen auswahlen
-				listView.clearChoices();
-			}
-
 			listView.setAdapter(this.dayAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					switchToDetailBookingActivity(arg0.getAdapter().getItem(
-							arg2));
-					((BookingsDayListAdapter) arg0.getAdapter())
-							.setSelectItem(arg2);
-					choicesMade = true;
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					switchToDetailBookingActivity(arg0.getAdapter().getItem(arg2));
 				}
 			});
 		}
 	}
 
 	private void updateWeekDetailsView() {
+		if (weekAdapter.isEmpty()) {
+			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+		} else {
+			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			
+			ListView listView = getMyWeekListView();
+			listView.setAdapter(this.weekAdapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
 
+				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
+					switchToDetailBookingActivity(arg0.getAdapter().getItem(arg2));
+				}
+			});
+		}
 	}
 
 	private void updateMonthDetailsView() {
+		if (monthAdapter.isEmpty()) {
+			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+		} else {
+			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			
+			ListView listView = getMyMonthListView();
+			listView.setAdapter(this.monthAdapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
 
+				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
+					switchToDetailBookingActivity(arg0.getAdapter().getItem(arg2));
+				}
+			});
+		}
 	}
 
 	private void updateYearDetailsView() {
+		if (yearAdapter.isEmpty()) {
+			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+		} else {
+			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			
+			ListView listView = getMyYearListView();
+			listView.setAdapter(this.yearAdapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
 
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					switchToDetailBookingActivity(arg0.getAdapter().getItem(arg2));
+				}
+			});
+		}
 	}
 
 	private void updateAllDetailsView() {
 		if (allAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noBookingsLabel))
+			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel))
 					.setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noBookingsLabel)).setVisibility(View.INVISIBLE);
-			// ListView listView = (ListView)
-			// findViewById(R.BudgetBookDetailsLayout.bookingsDayListView);
+			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			
 			ListView listView = getMyAllBookingsListView();
-			if (!choicesMade) {
-				listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
-				// löscht alle vorher getroffenen auswahlen
-				listView.clearChoices();
-			}
-
 			listView.setAdapter(this.allAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					// ((BookingsAdapter)
-					// arg0.getAdapter()).setSelectItem(arg2);
-					// choicesMade = true;
-					switchToDetailBookingActivity(arg0.getAdapter().getItem(
-							arg2));
+				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
+					switchToDetailBookingActivity(arg0.getAdapter().getItem(arg2));
 				}
 			});
 		}

@@ -190,7 +190,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
+                android:id="@+BudgetBookDetailsLayout/noDayBookingsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
