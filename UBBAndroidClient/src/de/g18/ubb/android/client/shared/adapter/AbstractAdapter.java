@@ -1,10 +1,13 @@
 package de.g18.ubb.android.client.shared.adapter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +19,7 @@ import android.widget.ArrayAdapter;
 public abstract class AbstractAdapter<_EntryType, _TagType> extends ArrayAdapter<_EntryType> {
 
     private final int layoutId;
-
-
+    
     public AbstractAdapter(Context aContext, int aLayoutId) {
         this(aContext, aLayoutId, new ArrayList<_EntryType>());
     }
@@ -49,6 +51,21 @@ public abstract class AbstractAdapter<_EntryType, _TagType> extends ArrayAdapter
     private View createConvertView(ViewGroup aParent) {
         LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
         return inflater.inflate(layoutId, aParent, false);
+    }
+    
+    @TargetApi(11)
+    public void setData(List<_EntryType> data) {
+        clear();
+        if (data != null) {
+            //If the platform supports it, use addAll, otherwise add in loop
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                addAll(data);
+            }else{
+                for(_EntryType item: data){
+                    add(item);
+                }
+            }
+        }
     }
 
     // -------------------------------------------------------------------------

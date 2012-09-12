@@ -1,5 +1,6 @@
 package de.g18.ubb.android.client.utils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,13 @@ public final class BookingHelper {
 
     private BookingHelper() {
         // prevent instantiation
+    }
+    
+    public static List<Booking> getBookingsForCurrentDay(List<Booking> aBookingList) {
+        Date currentDate = new Date();
+        return getBookingsBetween(aBookingList,
+                                       DateUtil.getMinDate(currentDate),
+                                       DateUtil.getMaxDate(currentDate));
     }
 
     public static float calculateAmmountForCurrentDay(BudgetBook aBudgetBook) {
@@ -36,5 +44,15 @@ public final class BookingHelper {
             }
         }
         return currentAmmount;
+    }
+    
+    public static List<Booking> getBookingsBetween(List<Booking> aBookingList, Date aMinDate, Date aMaxDate) {
+    	List<Booking> tmpBookingList = new ArrayList<Booking>();
+        for (Booking booking : aBookingList) {
+            if (DateUtil.isBetween(booking.getBookingTime(), aMinDate, aMaxDate)) {
+            	tmpBookingList.add(booking);
+            }
+        }
+        return tmpBookingList;
     }
 }

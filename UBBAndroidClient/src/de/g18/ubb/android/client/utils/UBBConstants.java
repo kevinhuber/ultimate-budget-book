@@ -14,11 +14,6 @@ public final class UBBConstants {
     
     public static final String DATE_FORMAT =  "dd.MM.yyyy";
     
-    public static final int minYear = 1960;
-    public static final int minMonth = 0;
-    public static final int minDay = 1;
-
-
     private UBBConstants() {
         // prevent instantiation
     }

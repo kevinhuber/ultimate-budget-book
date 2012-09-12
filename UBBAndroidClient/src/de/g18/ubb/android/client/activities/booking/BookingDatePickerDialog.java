@@ -11,9 +11,9 @@ import android.widget.DatePicker;
 
 public class BookingDatePickerDialog extends DatePickerDialog {
 	
-	private final int minYear;
-	private final int minMonth;
-	private final int minDay;
+	private final int minYear = 1960;
+	private final int minMonth = 0;
+	private final int minDay = 1;
 
 	private int maxYear;
 	private int maxMonth;
@@ -27,11 +27,6 @@ public class BookingDatePickerDialog extends DatePickerDialog {
 		super(context, callBack, year, monthOfYear, dayOfMonth);
 
 		mCalendar = Calendar.getInstance();
-
-		// mindest Datum setzen
-		minYear = UBBConstants.minYear;
-		minMonth = UBBConstants.minMonth;
-		minDay = UBBConstants.minDay;
 
 		mCalendar.setTime(new Date());
 		// maximales Datum setzen
