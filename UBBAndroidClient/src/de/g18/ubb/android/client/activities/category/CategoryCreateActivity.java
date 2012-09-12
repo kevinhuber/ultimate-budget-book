@@ -57,13 +57,13 @@ public class CategoryCreateActivity extends AbstractValidationFormularActivity<C
     protected String submit() {
         Category category = ServiceRepository.getCategoryService().saveAndLoad(getModel().getBean());
 
-        BudgetBook budgetBook = getApplicationStateStore().getBudgetBook();
+        BudgetBook budgetBook = getApplicationStateStore().getBudgetBookModel().getBean();
         List<Category> categories = budgetBook.getCategories();
         categories.add(category);
         budgetBook.setCategories(categories);
 
         budgetBook = ServiceRepository.getBudgetBookService().saveAndLoad(budgetBook);
-        getApplicationStateStore().setBudgetBook(budgetBook);
+        getApplicationStateStore().getBudgetBookModel().setBean(budgetBook);
         return StringUtil.EMPTY;
     }
 }

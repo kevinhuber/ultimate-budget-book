@@ -110,7 +110,7 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         @Override
         protected void execute() {
-            getApplicationStateStore().setBudgetBook(selectedItem);
+            getApplicationStateStore().getBudgetBookModel().setBean(selectedItem);
         }
 
         @Override

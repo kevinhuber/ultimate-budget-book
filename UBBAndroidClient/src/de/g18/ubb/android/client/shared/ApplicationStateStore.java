@@ -5,8 +5,8 @@ import de.g18.ubb.common.domain.Category;
 
 public class ApplicationStateStore {
 
-	private BudgetBook budgetBook;
-	private Category category;
+	private PresentationModel<BudgetBook> budgetBookModel;
+	private PresentationModel<Category> categoryModel;
 
 	private static ApplicationStateStore instance;
 
@@ -29,19 +29,14 @@ public class ApplicationStateStore {
 		instance = new ApplicationStateStore();
 	}
 
-	public BudgetBook getBudgetBook() {
-		return budgetBook;
+	public PresentationModel<BudgetBook> getBudgetBookModel() {
+	    if (budgetBookModel == null) {
+	        budgetBookModel = new PresentationModel<BudgetBook>();
+	    }
+		return budgetBookModel;
 	}
 
-    public void setBudgetBook(BudgetBook aNewValue) {
-        budgetBook = aNewValue;
-    }
-
-	public Category getCategory() {
-		return category;
+    public PresentationModel<Category> getCategoryModel() {
+		return categoryModel;
 	}
-
-    public void setCategory(Category aNewValue) {
-        category = aNewValue;
-    }
 }

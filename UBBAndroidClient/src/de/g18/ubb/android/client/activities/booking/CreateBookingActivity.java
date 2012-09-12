@@ -1,7 +1,5 @@
 package de.g18.ubb.android.client.activities.booking;
 
-import java.util.List;
-
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -61,7 +59,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		dateFragment = new DatePickerFragment();
-        categoryAdapter = new CategoryAdapter(this, getAllCategorysForCurrentBudgetBook());
+        categoryAdapter = new CategoryAdapter(this, getApplicationStateStore().getBudgetBookModel().getBean().getCategories());
         bookingTypeAdapter = new EnumAdapter<BookingType>(this, BookingType.class);
 
 		initBindings();
@@ -83,18 +81,14 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	private List<Category> getAllCategorysForCurrentBudgetBook() {
-		return getApplicationStateStore().getBudgetBook().getCategories();
-	}
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 	private void initComponents() {
 		datePickerButton = (Button) findViewById(R.BookingCreate.datePicker_Button);
@@ -127,21 +121,11 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
     protected String submit() {
         getModel().setValue(Booking.PROPERTY_BOOKING_TIME, dateFragment.getDate());
         Booking myBooking = ServiceRepository.getBookingService().saveAndLoad(getModel().getBean());
-        BudgetBook myBook = getApplicationStateStore().getBudgetBook();
+        BudgetBook myBook = getApplicationStateStore().getBudgetBookModel().getBean();
         myBook.getBookings().add(myBooking);
         myBook = ServiceRepository.getBudgetBookService().saveAndLoad(myBook);
-        getApplicationStateStore().setBudgetBook(myBook);
+        getApplicationStateStore().getBudgetBookModel().setBean(myBook);
         return StringUtil.EMPTY;
-    }
-
-    @Override
-    protected void postSubmit() {
-        super.postSubmit();
-//
-//        if (!isSubmitSuccessfull()) {
-//            return;
-//        }
-//        switchActivity(BudgetBookDetailActivity.class);
     }
 
 

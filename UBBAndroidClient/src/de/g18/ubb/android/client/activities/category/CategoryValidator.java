@@ -31,7 +31,7 @@ public class CategoryValidator extends AbstractValidator<Category, PresentationM
     }
 
     private boolean isCategoryNameAlreadyUsed(String aName) {
-        List<Category> categories = ApplicationStateStore.getInstance().getBudgetBook().getCategories();
+        List<Category> categories = ApplicationStateStore.getInstance().getBudgetBookModel().getBean().getCategories();
         for (Category c : categories) {
             if (ObjectUtil.equals(aName, c.getName())) {
                 return true;

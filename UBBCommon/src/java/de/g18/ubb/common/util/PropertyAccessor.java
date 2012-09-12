@@ -12,9 +12,9 @@ import de.g18.ubb.common.domain.AbstractModel;
  */
 public final class PropertyAccessor<_PropertyType> {
 
-    private final AbstractModel model;
     private final String propertyname;
 
+    private AbstractModel model;
     private Method getter;
     private Method setter;
 
@@ -27,13 +27,21 @@ public final class PropertyAccessor<_PropertyType> {
         propertyname = aPropertyname;
     }
 
+    public void setModel(AbstractModel aModel) {
+        model = aModel;
+    }
+
+    public AbstractModel getModel() {
+        return model;
+    }
+
     /**
      * Führt den Getter der Property über reflektion aus und gibt den Rückgabewert des aufrufs als Ergebnis zurück.
      */
     @SuppressWarnings("unchecked")
     public _PropertyType invokeGetter() {
         try {
-            return (_PropertyType) getGetter().invoke(model);
+            return (_PropertyType) getGetter().invoke(getModel());
         } catch (IllegalArgumentException e) {
             throw new IllegalStateException(getFullGetterName() + " should not have any arguments!", e);
         } catch (IllegalAccessException e) {
@@ -47,7 +55,7 @@ public final class PropertyAccessor<_PropertyType> {
      * Gibt den vollen Namen des Getters im Format Klasse#Methode zurück
      */
     private String getFullGetterName() {
-        return model.getClass().getName() + "#" + getGetter().getName();
+        return getModel().getClass().getName() + "#" + getGetter().getName();
     }
 
     /**
@@ -64,16 +72,16 @@ public final class PropertyAccessor<_PropertyType> {
      * Versucht über reflektion den Getter der Property über dessen Namen aufzulösen und zurückzugeben.
      */
     private Method resolveGetter() {
-        for (Method m : model.getClass().getMethods()) {
+        for (Method m : getModel().getClass().getMethods()) {
             if (StringUtil.startsNotWith(m.getName(), "get")
                   && StringUtil.startsNotWith(m.getName(), "is")) {
                 continue;
             }
-            if (StringUtil.endsWithIgnoreCase(m.getName(), propertyname)) {
+            if (StringUtil.endsWithIgnoreCase(m.getName(), getPropertyname())) {
                 return m;
             }
         }
-        throw new IllegalStateException("Getter for property " + propertyname + " not found in class " + model.getClass().getName() + "!");
+        throw new IllegalStateException("Getter for property " + getPropertyname() + " not found in class " + getModel().getClass().getName() + "!");
     }
 
     /**
@@ -81,11 +89,10 @@ public final class PropertyAccessor<_PropertyType> {
      */
     public void invokeSetter(_PropertyType aNewValue) {
         try {
-            getSetter().invoke(model, aNewValue);
+            getSetter().invoke(getModel(), aNewValue);
         } catch (IllegalArgumentException e) {
             String argumentType = aNewValue == null ? StringUtil.NULL : aNewValue.getClass().getName();
-            throw new IllegalStateException(getFullSetterName() + " is not applicable for a argument of type "
-                                            + argumentType + "!", e);
+            throw new IllegalStateException(getFullSetterName() + " is not applicable for a argument of type " + argumentType + "!", e);
         } catch (IllegalAccessException e) {
             throw new IllegalStateException(getFullSetterName() + " is not visible!", e);
         } catch (InvocationTargetException e) {
@@ -97,7 +104,7 @@ public final class PropertyAccessor<_PropertyType> {
      * Gibt den vollen Namen des Getters im Format Klasse#Methode zurück
      */
     private String getFullSetterName() {
-        return model.getClass().getName() + "#" + getSetter().getName();
+        return getModel().getClass().getName() + "#" + getSetter().getName();
     }
 
     /**
@@ -114,14 +121,18 @@ public final class PropertyAccessor<_PropertyType> {
      * Versucht über reflektion den Setter der Property über dessen Namen aufzulösen und zurückzugeben.
      */
     private Method resolveSetter() {
-        for (Method m : model.getClass().getMethods()) {
+        for (Method m : getModel().getClass().getMethods()) {
             if (StringUtil.startsNotWith(m.getName(), "set")) {
                 continue;
             }
-            if (StringUtil.endsWithIgnoreCase(m.getName(), propertyname)) {
+            if (StringUtil.endsWithIgnoreCase(m.getName(), getPropertyname())) {
                 return m;
             }
         }
-        throw new IllegalStateException("Setter for property " + propertyname + " not found in class " + model.getClass().getName() + "!");
+        throw new IllegalStateException("Setter for property " + getPropertyname() + " not found in class " + getModel().getClass().getName() + "!");
+    }
+
+    public String getPropertyname() {
+        return propertyname;
     }
 }

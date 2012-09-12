@@ -21,7 +21,7 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
 
     @Override
     protected PresentationModel<Category> createModel() {
-        return new PresentationModel<Category>(getApplicationStateStore().getCategory());
+        return getApplicationStateStore().getCategoryModel();
     }
 
     @Override
@@ -68,19 +68,9 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
 
     @Override
     protected String submit() {
-        Category c = ServiceRepository.getCategoryService().saveAndLoad(getApplicationStateStore().getCategory());
-        getApplicationStateStore().setCategory(c);
+        Category c = ServiceRepository.getCategoryService().saveAndLoad(getApplicationStateStore().getCategoryModel().getBean());
+        getApplicationStateStore().getCategoryModel().setBean(c);
         return StringUtil.EMPTY;
-    }
-
-    @Override
-    protected void postSubmit() {
-        super.postSubmit();
-//
-//        if (!isSubmitSuccessfull()) {
-//            return;
-//        }
-//        switchActivity(CategoryOverviewActivity.class);
     }
 
 
@@ -92,7 +82,7 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
 
 		public void onClick(View v) {
 			ServiceRepository.getCategoryService().remove(getModel().getBean());
-			getApplicationStateStore().setCategory(null);
+			getApplicationStateStore().getCategoryModel().setBean(null);
 			switchActivity(CategoryOverviewActivity.class);
 		}
 	}

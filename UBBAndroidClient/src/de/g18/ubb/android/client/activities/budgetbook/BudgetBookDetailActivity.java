@@ -51,7 +51,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook, Prese
 
 	@Override
 	protected PresentationModel<BudgetBook> createModel() {
-		return new PresentationModel<BudgetBook>(ApplicationStateStore.getInstance().getBudgetBook());
+		return ApplicationStateStore.getInstance().getBudgetBookModel();
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 		initComponents();
 		initEventHandling();
 
-        List<Category> categories = getApplicationStateStore().getBudgetBook().getCategories();
+        List<Category> categories = getApplicationStateStore().getBudgetBookModel().getBean().getCategories();
         for (Category b : categories) {
             adapter.add(b);
         }
@@ -76,7 +76,7 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             Category selectedItem = (Category) arg0.getAdapter().getItem(arg2);
-            getApplicationStateStore().setCategory(selectedItem);
+            getApplicationStateStore().getCategoryModel().setBean(selectedItem);
             switchActivity(CategoryChangeActivity.class);
         }
     }

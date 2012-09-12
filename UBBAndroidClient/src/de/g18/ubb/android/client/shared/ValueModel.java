@@ -37,4 +37,8 @@ public final class ValueModel extends AbstractModel {
     public final void addValueChangeListener(PropertyChangeListener aListener) {
         addPropertyChangeListener(PROPERTY_VALUE, aListener);
     }
+
+    public final void removeValueChangeListener(PropertyChangeListener aListener) {
+        removePropertyChangeListener(PROPERTY_VALUE, aListener);
+    }
 }

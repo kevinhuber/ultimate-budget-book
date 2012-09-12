@@ -26,7 +26,7 @@ public class CategoryValidatorTest extends AbstractValidatorTestCase<Category,
 
         BudgetBook bb = new BudgetBook();
         bb.setCategories(Arrays.asList(c));
-        ApplicationStateStore.getInstance().setBudgetBook(bb);
+        ApplicationStateStore.getInstance().getBudgetBookModel().setBean(bb);
     }
 
     @Override
