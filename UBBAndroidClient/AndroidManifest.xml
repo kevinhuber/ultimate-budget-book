@@ -80,7 +80,7 @@
         </activity>
         <activity
             android:name=".activities.booking.DetailBookingActivity"
-            android:label="@string/title_activity_edit_booking" >
+            android:label="@string/title_detailBooking" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.activities.BudgetBookDetailActivity" />

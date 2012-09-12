@@ -68,8 +68,8 @@
                 android:text="@string/title_weekView"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <TextView
-                android:id="@+BudgetBookDetailsLayout/nameLabel"
+            <TextView         
+                android:id="@+BudgetBookDetailsLayout/weekNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -107,7 +107,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+BudgetBookDetailsLayout/nameLabel"
+                android:id="@+BudgetBookDetailsLayout/monthNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -145,7 +145,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+BudgetBookDetailsLayout/nameLabel"
+                android:id="@+BudgetBookDetailsLayout/yearNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -183,7 +183,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+BudgetBookDetailsLayout/nameLabel"
+                android:id="@+BudgetBookDetailsLayout/allNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

@@ -1,6 +1,5 @@
 package de.g18.ubb.android.client.activities.booking;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;

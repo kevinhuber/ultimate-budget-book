@@ -45,7 +45,7 @@
     <string name="label_category_select">Kategorie</string>
     <string name="label_type_select">Buchungstyp</string>
     <string name="b_save_booking">Buchung speichern</string>
-    <string name="title_detailBooking">Buchung Bearbeiten</string>
+    <string name="title_detailBooking">Buchungs Details</string>
     <string name="title_createBooking">Buchung erstellen</string>
     <string name="noBookingsPresent">Keine Einträge vorhanden</string>
     <string name="b_update_booking">Buchung Aktuallisieren</string>
