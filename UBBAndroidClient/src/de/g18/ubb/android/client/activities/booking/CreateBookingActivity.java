@@ -2,6 +2,7 @@ package de.g18.ubb.android.client.activities.booking;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -62,15 +63,13 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		dateFragment = new DatePickerFragment();
-		
+		dateFragment.setDate(Calendar.getInstance().getTime());
 		sdf = new SimpleDateFormat(UBBConstants.DATE_FORMAT);
 		
         categoryAdapter = new CategoryAdapter(this, getAllCategorysForCurrentBudgetBook());
-//        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         List<BookingType> enumList = Arrays.asList(BookingType.values());
         bookingTypeAdapter = new EnumAdapter<BookingType>(this, enumList);
-//        bookingTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		initBindings();
 		initComponents();
