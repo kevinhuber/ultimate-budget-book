@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.main.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,67 +25,77 @@
         </activity>
         <activity
             android:name=".activities.register.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.MainActivity" />
         </activity>
         <activity
             android:name=".activities.budgetbook.BudgetBookOverviewActivity"
-            android:label="@string/title_activity_budget_book_overview" >
+            android:label="@string/title_activity_budget_book_overview"
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.MainActivity" />
         </activity>
         <activity
             android:name=".activities.budgetbook.BudgetBookCreateNewActivity"
-            android:label="@string/title_activity_budget_book_create_new" >
+            android:label="@string/title_activity_budget_book_create_new"
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.MainActivity" />
         </activity>
         <activity
             android:name=".activities.budgetbook.BudgetBookDetailActivity"
-            android:label="@string/title_activity_budget_book_detail" >
+            android:label="@string/title_activity_budget_book_detail"
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.BudgetBookOverviewActivity" />
         </activity>
         <activity
             android:name=".activities.category.CategoryOverviewActivity"
-            android:label="@string/title_activity_categorie_overview" >
+            android:label="@string/title_activity_categorie_overview"
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.BudgetBookDetailActivity" />
         </activity>
         <activity
             android:name=".activities.category.CategoryCreateActivity"
-            android:label="@string/title_activity_categorie_create" android:parentActivityName="@string/title_activity_categorie_overview">
+            android:label="@string/title_activity_categorie_create"
+            android:parentActivityName="@string/title_activity_categorie_overview"
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.CategoryOverviewActivity" />
         </activity>
         <activity
             android:name=".activities.category.CategoryChangeActivity"
-            android:label="@string/title_activity_category_change" android:parentActivityName="@string/title_activity_categorie_overview">
+            android:label="@string/title_activity_category_change"
+            android:parentActivityName="@string/title_activity_categorie_overview"
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.CategoryOverviewActivity" />
         </activity>
         <activity
             android:name=".activities.booking.CreateBookingActivity"
-            android:label="@string/title_activity_create_booking" >
+            android:label="@string/title_activity_create_booking"
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.activities.BudgetBookDetailActivity" />
         </activity>
         <activity
             android:name=".activities.booking.DetailBookingActivity"
-            android:label="@string/title_detailBooking" >
+            android:label="@string/title_detailBooking"
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.activities.BudgetBookDetailActivity" />
         </activity>
     </application>
-
 </manifest>

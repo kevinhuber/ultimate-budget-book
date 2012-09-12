@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -41,11 +40,12 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	private GestureDetector gestureDetector;
 
-	protected BookingsDayListAdapter dayAdapter;
-	protected BookingsWeekListAdapter weekAdapter;
-	protected BookingsMonthListAdapter monthAdapter;
-	protected BookingsYearListAdapter yearAdapter;
-	protected BookingsAdapter allAdapter;
+	private BookingsDayListAdapter dayAdapter;
+	private BookingsWeekListAdapter weekAdapter;
+	private BookingsMonthListAdapter monthAdapter;
+	private BookingsYearListAdapter yearAdapter;
+	private BookingsAdapter allAdapter;
+
 
 	@Override
 	protected BudgetBook createModel() {
@@ -127,8 +127,13 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 		initBindings();
 		initGestureComponent();
+	}
 
-		new BookingsLoadTask().run();
+	@Override
+	protected void onResume() {
+	    super.onResume();
+
+        new BookingsLoadTask().run();
 	}
 
 	private void setAdaptersForFilteredViews() {
@@ -209,7 +214,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
 		} else {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
-			
+
 			ListView listView = getMyWeekListView();
 			listView.setAdapter(this.weekAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
@@ -226,7 +231,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
 		} else {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
-			
+
 			ListView listView = getMyMonthListView();
 			listView.setAdapter(this.monthAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
@@ -243,7 +248,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
 		} else {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
-			
+
 			ListView listView = getMyYearListView();
 			listView.setAdapter(this.yearAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
@@ -261,7 +266,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 					.setVisibility(View.VISIBLE);
 		} else {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
-			
+
 			ListView listView = getMyAllBookingsListView();
 			listView.setAdapter(this.allAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
@@ -298,8 +303,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	// Inner Classes
 	// -------------------------------------------------------------------------
 
-	private final class BudgetBookDetailGestureDetector extends
-			SimpleOnGestureListener {
+	private final class BudgetBookDetailGestureDetector extends SimpleOnGestureListener {
+
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {

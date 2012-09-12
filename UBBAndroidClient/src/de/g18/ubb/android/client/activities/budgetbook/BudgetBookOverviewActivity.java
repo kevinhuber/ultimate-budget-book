@@ -40,6 +40,11 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         initComponents();
         initEventHandling();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         new BudgetBookLoadTask().run();
     }
