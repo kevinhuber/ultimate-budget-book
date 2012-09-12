@@ -10,9 +10,9 @@ public enum BudgetBookResource implements Resource {
     PROPERTY_CATEGORIES("categories"),
     PROPERTY_BOOKINGS("bookings"),
     PROPERTY_ASSIGNED_USER("assignedUser"),
-    
+
     MESSAGE_ADD_BUDGET_BOOK_USER("Der angegebene Benutzer ist diesem Haushaltsbuch bereits zugewiesen!"),
-    MESSAGE_ADD_NOT_EXISTING_USER("Der angegebene Benutzer existiert nicht!"),
+    MESSAGE_ADD_NOT_EXISTING_USER("Es existiert kein nutzer mit der EMail-Adress {0}!"),
     ;
 
     private final String unformattedValue;

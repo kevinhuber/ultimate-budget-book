@@ -28,48 +28,34 @@ public class BudgetBookCreateNewValidator extends
 			return ValidationUtil
 					.createMustNotBeEmptyMessage(BudgetBookResource.PROPERTY_NAME);
 		}
-		if (!checkIfUserExists()) {
-			return BudgetBookResource.MESSAGE_ADD_NOT_EXISTING_USER.formatted();
-		}
 		if (!checkIfEmailIsValid()) {
-			return ValidationUtil
-					.createInvalidEMailFormatMessage(getCurrentUser());
+		    return ValidationUtil.createInvalidEMailFormatMessage(getCurrentUser());
+		}
+		if (!checkIfUserExists()) {
+			return BudgetBookResource.MESSAGE_ADD_NOT_EXISTING_USER.formatted(getCurrentUser());
 		}
 		return ValidationUtil.createEmptyMessage();
 	}
 
 	private boolean checkIfEmailIsValid() {
-		boolean emailIsValid = true;
-
-		while (emailIsValid) {
-			for (String user : getModel().getAssignedUsers()) {
-				emailIsValid = ValidationUtil.isValidEMail(user);
-				if (!emailIsValid) {
-					setCurrentUser(user);
-				}
+		for (String user : getModel().getAssignedUsers()) {
+			boolean emailIsValid = ValidationUtil.isValidEMail(user);
+			if (!emailIsValid) {
+				setCurrentUser(user);
+				return false;
 			}
 		}
-		if (emailIsValid) {
-			return true;
-		}
-		return false;
+        return true;
 	}
 
 	private boolean checkIfUserExists() {
-		boolean userExists = true;
-		while (userExists) {
-			for (String user : getModel().getAssignedUsers()) {
-				userExists = ServiceRepository.getUserService().isEMailInUse(
-						user);
-				if (!userExists) {
-					setCurrentUser(user);
-				}
+		for (String user : getModel().getAssignedUsers()) {
+			boolean userExists = ServiceRepository.getUserService().isEMailInUse(user);
+			if (!userExists) {
+				setCurrentUser(user);
+                return false;
 			}
 		}
-
-		if (userExists) {
-			return true;
-		}
-		return false;
+		return true;
 	}
 }
