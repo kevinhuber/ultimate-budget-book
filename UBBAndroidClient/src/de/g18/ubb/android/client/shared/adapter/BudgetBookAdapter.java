@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.shared.adapter.BudgetBookAdapter.BudgetBookTag;
+import de.g18.ubb.android.client.utils.BookingHelper;
 import de.g18.ubb.android.client.utils.UBBConstants;
-import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 
 /**
@@ -35,17 +35,12 @@ public final class BudgetBookAdapter extends AbstractAdapter<BudgetBook, BudgetB
     @Override
     protected void updateTag(BudgetBookTag aTag, BudgetBook aEntry) {
         aTag.name.setText(aEntry.getName());
-        aTag.amount.setText(calculateAmmount(aEntry.getBookings()) + " " + UBBConstants.CURRENCY_EURO_SIGN);
+
+        float ammount = BookingHelper.calculateAmmountForCurrentDay(aEntry);
+        aTag.amount.setText(ammount + " " + UBBConstants.CURRENCY_EURO_SIGN);
     }
 
-    private float calculateAmmount(List<Booking> aBookingList) {
-        float currentAmmount = 0.0f;
-        for (Booking booking : aBookingList) {
-            currentAmmount += booking.getAmount();
-        }
-        return currentAmmount;
-    }
-    
+
     // -------------------------------------------------------------------------
     // Inner Classes
     // -------------------------------------------------------------------------

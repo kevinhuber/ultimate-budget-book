@@ -12,7 +12,6 @@ import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
-import de.g18.ubb.android.client.activities.filters.BudgetBookDayBalanceFilter;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
@@ -89,7 +88,6 @@ public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverv
 
         @Override
         protected void postExecute() {
-        	books = BudgetBookDayBalanceFilter.filterBudgetBooksDayBalance(books);
             getModel().setBudgetBooks(books);
         }
     }
