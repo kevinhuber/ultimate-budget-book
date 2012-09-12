@@ -2,6 +2,7 @@ package de.g18.ubb.android.client.activities.budgetbook;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -19,9 +19,9 @@ import android.widget.ViewFlipper;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
 import de.g18.ubb.android.client.activities.AbstractActivity;
+import de.g18.ubb.android.client.activities.booking.BookingDetailsActivity;
 import de.g18.ubb.android.client.activities.booking.ContextDrivenBookingsLists;
 import de.g18.ubb.android.client.activities.booking.CreateBookingActivity;
-import de.g18.ubb.android.client.activities.booking.DetailBookingActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.shared.adapter.BookingsAdapter;
 import de.g18.ubb.android.client.shared.adapter.BookingsDayListAdapter;
@@ -198,7 +198,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-					switchToDetailBookingActivity(arg0.getAdapter().getItem(arg2));
+					switchToDetailBookingActivity();
 				}
 			});
 		}
@@ -215,7 +215,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
-					switchToDetailBookingActivity(arg0.getAdapter().getItem(arg2));
+					switchToDetailBookingActivity();
 				}
 			});
 		}
@@ -232,7 +232,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
-					switchToDetailBookingActivity(arg0.getAdapter().getItem(arg2));
+					switchToDetailBookingActivity();
 				}
 			});
 		}
@@ -249,7 +249,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-					switchToDetailBookingActivity(arg0.getAdapter().getItem(arg2));
+					switchToDetailBookingActivity();
 				}
 			});
 		}
@@ -267,7 +267,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
-					switchToDetailBookingActivity(arg0.getAdapter().getItem(arg2));
+					//arg0.getAdapter().getItem(arg2)
+					switchToDetailBookingActivity();
 				}
 			});
 		}
@@ -290,8 +291,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		return true;
 	}
 
-	private void switchToDetailBookingActivity(Object item) {
-		switchActivity(DetailBookingActivity.class);
+	private void switchToDetailBookingActivity() {
+		switchActivity(BookingDetailsActivity.class);
 	}
 
 	// -------------------------------------------------------------------------

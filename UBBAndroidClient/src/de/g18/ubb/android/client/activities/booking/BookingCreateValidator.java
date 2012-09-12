@@ -1,6 +1,5 @@
 package de.g18.ubb.android.client.activities.booking;
 
-import de.g18.ubb.android.client.activities.register.RegisterResource;
 import de.g18.ubb.android.client.validation.AbstractValidator;
 import de.g18.ubb.android.client.validation.ValidationUtil;
 import de.g18.ubb.common.domain.Booking;

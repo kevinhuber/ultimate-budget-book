@@ -59,14 +59,16 @@
         </activity>
         <activity
             android:name=".activities.category.CategoryCreateActivity"
-            android:label="@string/title_activity_categorie_create" android:parentActivityName="@string/title_activity_categorie_overview">
+            android:label="@string/title_activity_categorie_create"
+            android:parentActivityName="@string/title_activity_categorie_overview" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.CategoryOverviewActivity" />
         </activity>
         <activity
             android:name=".activities.category.CategoryChangeActivity"
-            android:label="@string/title_activity_category_change" android:parentActivityName="@string/title_activity_categorie_overview">
+            android:label="@string/title_activity_category_change"
+            android:parentActivityName="@string/title_activity_categorie_overview" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.CategoryOverviewActivity" />
@@ -84,6 +86,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.g18.ubb.android.client.activities.BudgetBookDetailActivity" />
+        </activity>
+        <activity
+            android:name=".activities.booking.BookingDetailsActivity"
+            android:label="@string/title_activity_booking_details" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity" />
         </activity>
     </application>
 
