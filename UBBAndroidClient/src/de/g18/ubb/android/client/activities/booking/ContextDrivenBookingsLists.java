@@ -20,18 +20,15 @@ public class ContextDrivenBookingsLists {
 	}
 
 	public List<Booking> getWeekyBookingsList() {
-		// TODO Auto-generated method stub
-		return null;
+		return BookingHelper.getBookingsForCurrentWeek(bookingList);
 	}
 
 	public List<Booking> getMonthBookingsList() {
-		// TODO Auto-generated method stub
-		return null;
+		return BookingHelper.getBookingsForCurrentMonth(bookingList);
 	}
 
 	public List<Booking> getYearBookingsList() {
-		// TODO Auto-generated method stub
-		return null;
+		return BookingHelper.getBookingsForCurrentYear(bookingList);
 	}
 
 }
