@@ -46,8 +46,9 @@ public final class BudgetBook extends AbstractEntity {
     }
 
     public void setCategories(List<Category> aNewValue) {
+        List<Category> oldValue = getCategories();
         categories = aNewValue;
-        fireChange(PROPERTY_CATEGORIES, null, getCategories());
+        fireChange(PROPERTY_CATEGORIES, oldValue, getCategories());
     }
 
     @OneToMany(cascade = CascadeType.REFRESH,
@@ -60,8 +61,9 @@ public final class BudgetBook extends AbstractEntity {
     }
 
     public void setBookings(List<Booking> aNewValue) {
+        List<Booking> oldValue = getBookings();
         bookings = aNewValue;
-        fireChange(PROPERTY_BOOKINGS, null, getBookings());
+        fireChange(PROPERTY_BOOKINGS, oldValue, getBookings());
     }
 
     @OneToMany(cascade = CascadeType.REFRESH,
@@ -85,8 +87,9 @@ public final class BudgetBook extends AbstractEntity {
     }
 
     public void setAssignedUser(List<UserExtract> aNewValue) {
+        List<UserExtract> oldValue = getAssignedUser();
         assignedUser = aNewValue;
-        fireChange(PROPERTY_ASSIGNED_USER, null, getAssignedUser());
+        fireChange(PROPERTY_ASSIGNED_USER, oldValue, getAssignedUser());
     }
 
     // -------------------------------------------------------------------------
