@@ -47,7 +47,7 @@ public final class Booking extends AbstractAuditEntity {
     }
 
     @Enumerated(EnumType.STRING)
-    @Column(length = BookingType.MAX_ENTRY_LENGTH)
+    @Column(length = BookingType.MAX_ENTRY_LENGTH, nullable = false)
     public BookingType getType() {
         return type;
     }
@@ -58,6 +58,7 @@ public final class Booking extends AbstractAuditEntity {
         fireChange(PROPERTY_AMOUNT, oldValue, getAmount());
     }
 
+    @Column(nullable = false)
     public float getAmount() {
         return amount;
     }
@@ -74,23 +75,25 @@ public final class Booking extends AbstractAuditEntity {
         return category;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
     public void setBookingTime(Date aNewValue) {
         Date oldValue = getBookingTime();
         bookingTime = aNewValue;
         fireChange(PROPERTY_BOOKING_TIME, oldValue, getBookingTime());
     }
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     public Date getBookingTime() {
         return bookingTime;
     }
-    
+
     public void setBookingName(String aNewValue) {
         String oldValue = getBookingName();
         bookingName = aNewValue;
         fireChange(PROPERTY_BOOKING_NAME, oldValue, getBookingName());
     }
 
+    @Column(nullable = false)
     public String getBookingName() {
         return bookingName;
     }
