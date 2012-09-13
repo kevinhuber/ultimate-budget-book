@@ -12,10 +12,8 @@ public enum BookingResource implements Resource {
 	FIELD_DATUM("Datum"),
 	FIELD_NAME("Bezeichnung"),
 
-    MESSAGE_CREATE_BOOKING_FAILED("Buchungs Erstellung fehlgeschlagen!"),
-    MESSAGE_CREATE_AMOUNT_REVENUE_NEGATIVE("Der Betrag darf bei einer Einzahlung nicht negativ sein!"),
-    MESSAGE_CREATE_AMOUNT_SPENDING_POSITIVE("Der Betrag darf bei einer Auszahlung nicht positiv sein!"),
-    
+    VALIDATION_AMMOUNT_MUST_BE_POSITIV("Der Betrag muss positiv sein!"),
+
     ;
 
     private final String unformattedValue;

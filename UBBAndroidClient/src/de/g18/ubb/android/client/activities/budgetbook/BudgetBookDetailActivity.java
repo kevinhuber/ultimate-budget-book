@@ -2,7 +2,6 @@ package de.g18.ubb.android.client.activities.budgetbook;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -14,7 +13,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.ViewFlipper;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
@@ -24,10 +22,7 @@ import de.g18.ubb.android.client.activities.booking.ContextDrivenBookingsLists;
 import de.g18.ubb.android.client.activities.booking.CreateBookingActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.shared.adapter.BookingsAdapter;
-import de.g18.ubb.android.client.shared.adapter.BookingsDayListAdapter;
-import de.g18.ubb.android.client.shared.adapter.BookingsMonthListAdapter;
-import de.g18.ubb.android.client.shared.adapter.BookingsWeekListAdapter;
-import de.g18.ubb.android.client.shared.adapter.BookingsYearListAdapter;
+import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 
@@ -41,16 +36,58 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	private GestureDetector gestureDetector;
 
-	private BookingsDayListAdapter dayAdapter;
-	private BookingsWeekListAdapter weekAdapter;
-	private BookingsMonthListAdapter monthAdapter;
-	private BookingsYearListAdapter yearAdapter;
+    private OverviewNameModel nameModel;
+
+	private BookingsAdapter dayAdapter;
+	private BookingsAdapter weekAdapter;
+	private BookingsAdapter monthAdapter;
+	private BookingsAdapter yearAdapter;
 	private BookingsAdapter allAdapter;
+
 
 	@Override
 	protected BudgetBook createModel() {
 		return getApplicationStateStore().getBudgetBook();
 	}
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        nameModel = new OverviewNameModel();
+
+        dayAdapter = new BookingsAdapter(this);
+        weekAdapter = new BookingsAdapter(this);
+        monthAdapter = new BookingsAdapter(this);
+        yearAdapter = new BookingsAdapter(this);
+        allAdapter = new BookingsAdapter(this);
+
+        setDynamicLinearLayoutID(DynamicLayoutId.DAY);
+
+        initBindings();
+        initGestureComponent();
+    }
+
+    private void initBindings() {
+        bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.nameLabel);
+        bind(nameModel, OverviewNameModel.PROPERTY_NAME, R.BudgetBookDetailsLayout.title);
+    }
+
+    private void initGestureComponent() {
+        gestureDetector = new GestureDetector(this, new BudgetBookDetailGestureDetector());
+        ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBookDetailsLayout.detailsViewFlipper);
+        vf.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        new BookingsLoadTask().run();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -118,51 +155,6 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		return list;
 	}
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setAdaptersForFilteredViews();
-
-		setDynamicLinearLayoutID(DynamicLayoutId.DAY);
-
-		initBindings();
-		initGestureComponent();
-	}
-
-	@Override
-	protected void onResume() {
-	    super.onResume();
-
-        new BookingsLoadTask().run();
-	}
-
-	private void setAdaptersForFilteredViews() {
-		dayAdapter = new BookingsDayListAdapter(this);
-		weekAdapter = new BookingsWeekListAdapter(this);
-		monthAdapter = new BookingsMonthListAdapter(this);
-		yearAdapter = new BookingsYearListAdapter(this);
-		allAdapter = new BookingsAdapter(this);
-	}
-
-	private void initBindings() {
-		bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.nameLabel);
-		bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.weekNameLabel);
-		bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.monthNameLabel);
-		bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.yearNameLabel);
-		bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.allNameLabel);
-	}
-
-	private void initGestureComponent() {
-		gestureDetector = new GestureDetector(this,
-				new BudgetBookDetailGestureDetector());
-		ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBookDetailsLayout.detailsViewFlipper);
-		vf.setOnTouchListener(new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				return gestureDetector.onTouchEvent(event);
-			}
-		});
-	}
-
 	private void showDetailsOnView() {
 		// über getDynamicLinearLayoutID() wissen wir in welcher view wir uns
 		// befinden
@@ -194,12 +186,13 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateDayDetailsView() {
+	    nameModel.setName("Tagesansicht");
 		if (dayAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+			findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel).setVisibility(View.GONE);
 			ListView listView = getMyDayListView();
-			listView.setAdapter(this.dayAdapter);
+			listView.setAdapter(dayAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -211,13 +204,14 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateWeekDetailsView() {
+        nameModel.setName("Wochenansicht");
 		if (weekAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+			findViewById(R.BudgetBookDetailsLayout.noWeekBookingsLabel).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			findViewById(R.BudgetBookDetailsLayout.noWeekBookingsLabel).setVisibility(View.GONE);
 
 			ListView listView = getMyWeekListView();
-			listView.setAdapter(this.weekAdapter);
+			listView.setAdapter(weekAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
@@ -229,13 +223,14 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateMonthDetailsView() {
+        nameModel.setName("Monatsansicht");
 		if (monthAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+			findViewById(R.BudgetBookDetailsLayout.noMonthBookingsLabel).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			findViewById(R.BudgetBookDetailsLayout.noMonthBookingsLabel).setVisibility(View.GONE);
 
 			ListView listView = getMyMonthListView();
-			listView.setAdapter(this.monthAdapter);
+			listView.setAdapter(monthAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
@@ -247,13 +242,14 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateYearDetailsView() {
+        nameModel.setName("Jahresansicht");
 		if (yearAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+			findViewById(R.BudgetBookDetailsLayout.noYearBookingsLabel).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			findViewById(R.BudgetBookDetailsLayout.noYearBookingsLabel).setVisibility(View.GONE);
 
 			ListView listView = getMyYearListView();
-			listView.setAdapter(this.yearAdapter);
+			listView.setAdapter(yearAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -265,14 +261,14 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateAllDetailsView() {
+        nameModel.setName("Gesamtansicht");
 		if (allAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel))
-					.setVisibility(View.VISIBLE);
+			findViewById(R.BudgetBookDetailsLayout.noBookingsLabel).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			findViewById(R.BudgetBookDetailsLayout.noBookingsLabel).setVisibility(View.GONE);
 
 			ListView listView = getMyAllBookingsListView();
-			listView.setAdapter(this.allAdapter);
+			listView.setAdapter(allAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
@@ -401,5 +397,28 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			}
 			return null;
 		}
+	}
+
+	private static final class OverviewNameModel extends AbstractModel {
+
+        private static final long serialVersionUID = 1L;
+
+        public static final String PROPERTY_NAME = "name";
+
+	    private String name;
+
+
+	    public OverviewNameModel() {
+	    }
+
+	    public void setName(String aNewValue) {
+	        String oldValue = getName();
+	        name = aNewValue;
+	        fireChange(PROPERTY_NAME, oldValue, getName());
+	    }
+
+	    public String getName() {
+	        return name;
+	    }
 	}
 }

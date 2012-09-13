@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:ignore="UselessParent" >
+
+    <TextView
+        android:id="@+BudgetBookDetailsLayout/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/default_top_border"
+        android:text="@string/title_dayView"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+BudgetBookDetailsLayout/nameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/title_bottom_border"
+        android:text="BudgetBookName"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <ViewFlipper
         android:id="@+BudgetBookDetailsLayout/detailsViewFlipper"
@@ -19,23 +37,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical" >
-
-            <TextView
-                android:id="@+BudgetBookDetailsLayout/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/title_bottom_border"
-                android:layout_marginTop="@dimen/default_top_border"
-                android:text="@string/title_dayView"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+BudgetBookDetailsLayout/nameLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+BudgetBookDetailsLayout/noDayBookingsLabel"
@@ -58,25 +59,9 @@
             android:layout_height="fill_parent"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+BudgetBookDetailsLayout/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/title_bottom_border"
-                android:layout_marginTop="@dimen/default_top_border"
-                android:text="@string/title_weekView"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView         
-                android:id="@+BudgetBookDetailsLayout/weekNameLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
+                android:id="@+BudgetBookDetailsLayout/noWeekBookingsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -96,25 +81,9 @@
             android:layout_height="fill_parent"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+BudgetBookDetailsLayout/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/title_bottom_border"
-                android:layout_marginTop="@dimen/default_top_border"
-                android:text="@string/title_monthView"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+BudgetBookDetailsLayout/monthNameLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
+                android:id="@+BudgetBookDetailsLayout/noMonthBookingsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -134,25 +103,9 @@
             android:layout_height="fill_parent"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+BudgetBookDetailsLayout/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/title_bottom_border"
-                android:layout_marginTop="@dimen/default_top_border"
-                android:text="@string/title_yearView"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+BudgetBookDetailsLayout/yearNameLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
+                android:id="@+BudgetBookDetailsLayout/noYearBookingsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -172,25 +125,9 @@
             android:layout_height="fill_parent"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+BudgetBookDetailsLayout/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/title_bottom_border"
-                android:layout_marginTop="@dimen/default_top_border"
-                android:text="@string/title_allBookingsView"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+BudgetBookDetailsLayout/allNameLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+BudgetBookDetailsLayout/noDayBookingsLabel"
+                android:id="@+BudgetBookDetailsLayout/noBookingsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

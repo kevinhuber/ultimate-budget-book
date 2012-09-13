@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import de.g18.ubb.android.client.binding.BindingUtils;
 import de.g18.ubb.android.client.preferences.Preferences;
 import de.g18.ubb.android.client.shared.ApplicationStateStore;
+import de.g18.ubb.android.client.shared.binding.BindingUtils;
 import de.g18.ubb.common.domain.AbstractModel;
 
 /**
@@ -89,7 +89,7 @@ public abstract class AbstractActivity<_Model extends AbstractModel> extends Fra
     protected final <_ComponentType extends View> _ComponentType bind(AbstractModel aModel, String aPropertyname, int aComponentId,
                                                                       Class<? extends _ComponentType> aComponentType) {
         _ComponentType component = (_ComponentType) findViewById(aComponentId);
-        BindingUtils.bind(component, getModel(), aPropertyname);
+        BindingUtils.bind(component, aModel, aPropertyname);
         return component;
     }
 
