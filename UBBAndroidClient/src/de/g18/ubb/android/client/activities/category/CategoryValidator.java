@@ -32,7 +32,7 @@ public class CategoryValidator extends AbstractValidator<Category> {
     private boolean isCategoryNameAlreadyUsed(String aName) {
         List<Category> categories = ApplicationStateStore.getInstance().getBudgetBook().getCategories();
         for (Category c : categories) {
-            if (ObjectUtil.equals(aName, c.getName())) {
+            if (!ObjectUtil.equals(c, getModel()) && ObjectUtil.equals(aName, c.getName())) {
                 return true;
             }
         }
