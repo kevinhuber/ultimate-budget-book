@@ -89,7 +89,7 @@ public abstract class AbstractActivity<_Model extends AbstractModel> extends Fra
     protected final <_ComponentType extends View> _ComponentType bind(AbstractModel aModel, String aPropertyname, int aComponentId,
                                                                       Class<? extends _ComponentType> aComponentType) {
         _ComponentType component = (_ComponentType) findViewById(aComponentId);
-        BindingUtils.bind(component, getModel(), aPropertyname);
+        BindingUtils.bind(component, aModel, aPropertyname);
         return component;
     }
 
