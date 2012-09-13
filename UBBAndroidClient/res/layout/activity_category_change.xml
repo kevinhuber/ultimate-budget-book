@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+CategoryChangeLayout/title"
         android:layout_width="wrap_content"
@@ -14,19 +14,19 @@
         android:layout_marginTop="@dimen/default_top_border"
         android:text="@string/tv_overchange"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <TableLayout
         android:id="@+CategoryChangeLayout/formContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border" >
-
+
         <TableRow
             android:id="@+CategoryChangeLayout/nameContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
+
             <TextView
                 android:id="@+CategoryChangeLayout/nameLabel"
                 android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
         </TableRow>
 
     </TableLayout>
-
+
     <Button
         android:id="@+CategoryChangeLayout/changeButton"
         android:layout_width="match_parent"

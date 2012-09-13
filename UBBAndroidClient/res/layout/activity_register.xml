@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+RegisterLayout/title"
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         android:gravity="center"
         android:text="@string/t_ueberschrift"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <TableLayout
         android:id="@+RegisterLayout/formContainer"
         android:layout_width="match_parent"
@@ -23,12 +23,12 @@
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border"
         android:orientation="vertical" >
-
+
         <TableRow
             android:id="@+RegisterLayout/nameContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
+
             <TextView
                 android:id="@+RegisterLayout/name_label"
                 android:layout_width="wrap_content"
@@ -48,12 +48,12 @@
                 <requestFocus />
             </EditText>
         </TableRow>
-
+
         <TableRow
             android:id="@+RegisterLayout/emailContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
+
             <TextView
                 android:id="@+RegisterLayout/email_label"
                 android:layout_width="wrap_content"
@@ -70,12 +70,12 @@
                 android:ems="10"
                 android:inputType="textEmailAddress" />
         </TableRow>
-
+
         <TableRow
             android:id="@+RegisterLayout/passwordContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
+
             <TextView
                 android:id="@+RegisterLayout/password_label"
                 android:layout_width="wrap_content"
@@ -93,12 +93,12 @@
                 android:inputType="textPassword" >
             </EditText>
         </TableRow>
-
+
         <TableRow
             android:id="@+RegisterLayout/passwordCheckContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
+
             <TextView
                 android:id="@+RegisterLayout/passwordCheck_label"
                 android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
                 android:inputType="textPassword" />
         </TableRow>
     </TableLayout>
-
+
     <Button
         android:id="@+RegisterLayout/register"
         android:layout_width="match_parent"

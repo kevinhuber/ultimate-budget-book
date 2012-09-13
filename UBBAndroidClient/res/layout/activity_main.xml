@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/default_border"
     android:paddingTop="@dimen/default_border"
     tools:context=".MainActivity" >
-
+
     <TextView
         android:id="@+MainLayout/title"
         android:layout_width="wrap_content"
@@ -18,13 +18,13 @@
         android:layout_marginTop="@dimen/default_top_border"
         android:text="@string/b_login"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <LinearLayout
         android:id="@+MainLayout/editTextContainer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
+
         <EditText
             android:id="@+MainLayout/email"
             android:layout_width="fill_parent"
@@ -35,7 +35,7 @@
             
             <requestFocus />
         </EditText>
-
+
         <EditText
             android:id="@+MainLayout/password"
             android:layout_width="fill_parent"
@@ -45,34 +45,34 @@
             android:text="@string/e_loginpassword" />
 
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+MainLayout/buttonContainer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10pt"
         android:orientation="vertical" >
-
+
         <CheckBox
             android:id="@+MainLayout/stayLoggedIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/stayLoggedIn" />
-
+
         <Button
             android:id="@+MainLayout/login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/b_login" />
-
+
         <Button
             android:id="@+MainLayout/register"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="@string/b_loginregister" />
-
+
         <EditText
             android:id="@+MainLayout/serverAddress"
             android:layout_width="match_parent"
