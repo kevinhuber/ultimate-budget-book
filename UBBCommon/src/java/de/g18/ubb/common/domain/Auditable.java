@@ -17,12 +17,12 @@ public interface Auditable extends Identifiable {
     void setCreateTime(Date aNewValue);
     Date getCreateTime();
 
-    void setCreateUser(User aNewValue);
-    User getCreateUser();
+    void setCreateUser(UserExtract aNewValue);
+    UserExtract getCreateUser();
 
     void setChangeTime(Date aNewValue);
     Date getChangeTime();
 
-    void setChangeUser(User aNewValue);
-    User getChangeUser();
+    void setChangeUser(UserExtract aNewValue);
+    UserExtract getChangeUser();
 }

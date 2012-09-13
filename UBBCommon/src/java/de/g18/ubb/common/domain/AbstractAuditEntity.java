@@ -18,10 +18,10 @@ public abstract class AbstractAuditEntity extends AbstractEntity implements Audi
     private static final long serialVersionUID = 1L;
 
     private Date createTime;
-    private User createUser;
+    private UserExtract createUser;
 
     private Date changeTime;
-    private User changeUser;
+    private UserExtract changeUser;
 
 
     public AbstractAuditEntity() {
@@ -43,15 +43,15 @@ public abstract class AbstractAuditEntity extends AbstractEntity implements Audi
 
     @Override
     @Column(nullable = false)
-    public final void setCreateUser(User aNewValue) {
-        User oldValue = getCreateUser();
+    public final void setCreateUser(UserExtract aNewValue) {
+        UserExtract oldValue = getCreateUser();
         createUser = aNewValue;
         fireChange(PROPERTY_CREATE_USER, oldValue, getCreateUser());
     }
 
     @Override
     @Column(nullable = false)
-    public final User getCreateUser() {
+    public final UserExtract getCreateUser() {
         return createUser;
     }
 
@@ -69,14 +69,14 @@ public abstract class AbstractAuditEntity extends AbstractEntity implements Audi
     }
 
     @Override
-    public final void setChangeUser(User aNewValue) {
-        User oldValue = getChangeUser();
+    public final void setChangeUser(UserExtract aNewValue) {
+        UserExtract oldValue = getChangeUser();
         changeUser = aNewValue;
         fireChange(PROPERTY_CHANGE_USER, oldValue, getChangeUser());
     }
 
     @Override
-    public final User getChangeUser() {
+    public final UserExtract getChangeUser() {
         return changeUser;
     }
 

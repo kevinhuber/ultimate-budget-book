@@ -8,7 +8,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.domain.AbstractModel;
-import de.g18.ubb.common.domain.User;
+import de.g18.ubb.common.domain.UserExtract;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
@@ -43,7 +43,7 @@ final class EditTextConnector extends AbstractPropertyConnector<Object, EditText
 		} else if (double.class.isAssignableFrom(propertyType)
 				    || Double.class.isAssignableFrom(propertyType)) {
 			updateModel(StringUtil.isEmpty(aEditable.toString()) ? 0.0D : Double.parseDouble(aEditable.toString()));
-		} else if (User.class.isAssignableFrom(propertyType)) {
+		} else if (UserExtract.class.isAssignableFrom(propertyType)) {
 			throw new IllegalStateException("Benutzer können nicht editiert werden!");
 		} else {
 			updateModel(aEditable.toString());
@@ -53,11 +53,11 @@ final class EditTextConnector extends AbstractPropertyConnector<Object, EditText
     @Override
     void updateComponent(Object aNewValue) {
     	Class<?> propertyType = getPropertyAccessor().getGetter().getReturnType();
-		if (User.class.isAssignableFrom(propertyType)) {
-			getComponent().setText(aNewValue == null ? null : ((User) aNewValue).getEmail());
+		if (UserExtract.class.isAssignableFrom(propertyType)) {
+			getComponent().setText(aNewValue == null ? null : ((UserExtract) aNewValue).getEmail());
 		} else if (Date.class.isAssignableFrom(propertyType)) {
 			SimpleDateFormat sdf = new SimpleDateFormat(UBBConstants.DATE_FORMAT);
-			getComponent().setText(aNewValue == null ? null : (sdf.format( (Date) aNewValue)));
+			getComponent().setText(aNewValue == null ? null : sdf.format( (Date) aNewValue));
 		} else {
 			getComponent().setText(aNewValue == null ? null : StringUtil.toString(aNewValue));
 		}

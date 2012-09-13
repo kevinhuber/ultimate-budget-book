@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import de.g18.ubb.common.domain.Auditable;
 import de.g18.ubb.common.domain.Identifiable;
 import de.g18.ubb.common.domain.User;
+import de.g18.ubb.common.domain.UserExtract;
 import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.util.EntityUtil;
 import de.g18.ubb.server.service.local.UserServiceLocal;
@@ -77,13 +78,12 @@ abstract public class AbstractPersistanceBean<_Entity extends Identifiable> {
      */
     protected final void updateFields(Auditable aEntity) {
         Date currentTime = Calendar.getInstance().getTime();
-        if (EntityUtil.isPersistent(aEntity)) {
-            aEntity.setChangeTime(currentTime);
-            aEntity.setChangeUser(getCurrentUser());
-        } else {
+        if (!EntityUtil.isPersistent(aEntity)) {
             aEntity.setCreateTime(currentTime);
-            aEntity.setCreateUser(getCurrentUser());
+            aEntity.setCreateUser(new UserExtract(getCurrentUser()));
         }
+        aEntity.setChangeTime(currentTime);
+        aEntity.setChangeUser(new UserExtract(getCurrentUser()));
     }
 
     /**
