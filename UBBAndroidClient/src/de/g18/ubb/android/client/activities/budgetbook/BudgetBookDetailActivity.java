@@ -13,7 +13,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.ViewFlipper;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.action.AbstractWaitTask;
@@ -23,6 +22,7 @@ import de.g18.ubb.android.client.activities.booking.ContextDrivenBookingsLists;
 import de.g18.ubb.android.client.activities.booking.CreateBookingActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.shared.adapter.BookingsAdapter;
+import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 
@@ -35,6 +35,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
 	private GestureDetector gestureDetector;
+
+    private OverviewNameModel nameModel;
 
 	private BookingsAdapter dayAdapter;
 	private BookingsAdapter weekAdapter;
@@ -51,6 +53,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        nameModel = new OverviewNameModel();
+
         dayAdapter = new BookingsAdapter(this);
         weekAdapter = new BookingsAdapter(this);
         monthAdapter = new BookingsAdapter(this);
@@ -65,10 +69,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
     private void initBindings() {
         bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.nameLabel);
-        bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.weekNameLabel);
-        bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.monthNameLabel);
-        bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.yearNameLabel);
-        bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.allNameLabel);
+        bind(nameModel, OverviewNameModel.PROPERTY_NAME, R.BudgetBookDetailsLayout.title);
     }
 
     private void initGestureComponent() {
@@ -185,10 +186,11 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateDayDetailsView() {
+	    nameModel.setName("Tagesansicht");
 		if (dayAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+			findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel).setVisibility(View.GONE);
 			ListView listView = getMyDayListView();
 			listView.setAdapter(dayAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
@@ -202,10 +204,11 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateWeekDetailsView() {
+        nameModel.setName("Wochenansicht");
 		if (weekAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+			findViewById(R.BudgetBookDetailsLayout.noWeekBookingsLabel).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			findViewById(R.BudgetBookDetailsLayout.noWeekBookingsLabel).setVisibility(View.GONE);
 
 			ListView listView = getMyWeekListView();
 			listView.setAdapter(weekAdapter);
@@ -220,10 +223,11 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateMonthDetailsView() {
+        nameModel.setName("Monatsansicht");
 		if (monthAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+			findViewById(R.BudgetBookDetailsLayout.noMonthBookingsLabel).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			findViewById(R.BudgetBookDetailsLayout.noMonthBookingsLabel).setVisibility(View.GONE);
 
 			ListView listView = getMyMonthListView();
 			listView.setAdapter(monthAdapter);
@@ -238,10 +242,11 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateYearDetailsView() {
+        nameModel.setName("Jahresansicht");
 		if (yearAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.VISIBLE);
+			findViewById(R.BudgetBookDetailsLayout.noYearBookingsLabel).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			findViewById(R.BudgetBookDetailsLayout.noYearBookingsLabel).setVisibility(View.GONE);
 
 			ListView listView = getMyYearListView();
 			listView.setAdapter(yearAdapter);
@@ -256,11 +261,11 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void updateAllDetailsView() {
+        nameModel.setName("Gesamtansicht");
 		if (allAdapter.isEmpty()) {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel))
-					.setVisibility(View.VISIBLE);
+			findViewById(R.BudgetBookDetailsLayout.noBookingsLabel).setVisibility(View.VISIBLE);
 		} else {
-			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
+			findViewById(R.BudgetBookDetailsLayout.noBookingsLabel).setVisibility(View.GONE);
 
 			ListView listView = getMyAllBookingsListView();
 			listView.setAdapter(allAdapter);
@@ -392,5 +397,28 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			}
 			return null;
 		}
+	}
+
+	private static final class OverviewNameModel extends AbstractModel {
+
+        private static final long serialVersionUID = 1L;
+
+        public static final String PROPERTY_NAME = "name";
+
+	    private String name;
+
+
+	    public OverviewNameModel() {
+	    }
+
+	    public void setName(String aNewValue) {
+	        String oldValue = getName();
+	        name = aNewValue;
+	        fireChange(PROPERTY_NAME, oldValue, getName());
+	    }
+
+	    public String getName() {
+	        return name;
+	    }
 	}
 }
