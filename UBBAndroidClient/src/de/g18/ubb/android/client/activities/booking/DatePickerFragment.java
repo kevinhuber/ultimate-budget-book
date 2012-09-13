@@ -19,6 +19,9 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
 	private Button datePickerButton;
 
+	public DatePickerFragment(Button aDatePickerButton) {
+		datePickerButton = aDatePickerButton;
+	}
 
 	public void setDate(Date aDate) {
 		date = aDate;
@@ -44,7 +47,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 		setDate(cal.getTime());
 
 		SimpleDateFormat sdf = new SimpleDateFormat(UBBConstants.DATE_FORMAT);
-		datePickerButton = (Button) getActivity().findViewById(R.BookingCreate.datePicker_Button);
+		//wird nun via constructor gesetzt
+		//datePickerButton = (Button) getActivity().findViewById(R.BookingCreate.datePicker_Button);
 		datePickerButton.setText(sdf.format(getDate()));
 	}
 

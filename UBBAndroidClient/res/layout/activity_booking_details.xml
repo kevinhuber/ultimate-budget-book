@@ -237,7 +237,16 @@
                     android:layout_weight="1" />
             </TableRow>
         </TableLayout>
-
+        
+         <Button
+            android:id="@+BookingDetail/change_booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_border"
+            android:layout_marginRight="@dimen/default_border"
+            android:layout_marginTop="@dimen/default_top_border"
+            android:text="@string/b_change_mode_booking" />
+        
         <Button
             android:id="@+BookingDetail/update_booking"
             android:layout_width="match_parent"

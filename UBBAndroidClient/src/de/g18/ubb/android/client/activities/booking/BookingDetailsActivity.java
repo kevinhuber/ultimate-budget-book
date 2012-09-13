@@ -6,6 +6,7 @@ import java.util.List;
 
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
+import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.android.client.shared.adapter.EnumAdapter;
 import de.g18.ubb.android.client.utils.UBBConstants;
@@ -32,14 +33,14 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 	private CategoryAdapter categoryAdapter;
 	private SimpleDateFormat sdf;
 	private EnumAdapter<BookingType> bookingTypeAdapter;
-	private Button datePickerButton;
+	private Button datePickerButton, changeMode;
 	private boolean editMode;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_details);
-        dateFragment = new DatePickerFragment();
+        dateFragment = new DatePickerFragment((Button) findViewById(R.BookingDetail.datePicker_Button));
 		dateFragment.setDate(getModel().getBookingTime());
 		sdf = new SimpleDateFormat(UBBConstants.DATE_FORMAT);
 		
@@ -67,12 +68,13 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 	}
     
     private void initComponents() {
-    	
     	categorySpinner.setAdapter(categoryAdapter);
         bookingTypeSpinner.setAdapter(bookingTypeAdapter);
         
         datePickerButton = (Button) findViewById(R.BookingDetail.datePicker_Button);
 		datePickerButton.setText(sdf.format(getModel().getBookingTime()));
+		
+		changeMode = (Button) findViewById(R.BookingDetail.change_booking);
     }
     
     private void enableDisableElements(){
@@ -88,19 +90,18 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
     }
     
     private void setEditTextViewState(EditText aEditTextView,  boolean aBool){
-    	aEditTextView.setFocusable(aBool);
     	aEditTextView.setEnabled(aBool);
+    	aEditTextView.setFocusable(aBool);
     }
     
     private void setButtonViewState(Button aButtonView,  boolean aBool){
-    	aButtonView.setFocusable(aBool);
     	aButtonView.setEnabled(aBool);
+    	aButtonView.setFocusable(aBool);
     }
     
-    
     private void setSpinnerViewState(Spinner aSpinnerView, boolean aBool){
-    	aSpinnerView.setFocusable(aBool);
     	aSpinnerView.setEnabled(aBool);
+    	aSpinnerView.setFocusable(aBool);
     }
     
 	private List<Category> getAllCategorysForCurrentBudgetBook() {
@@ -137,7 +138,7 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 
 	@Override
 	protected String getSubmitWaitMessage() {
-		return "Buchung wird erstellt...";
+		return "Buchung wird aktualisiert...";
 	}
 
 	@Override
@@ -165,7 +166,18 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 	
 	private void initEventHandling() {
 		datePickerButton.setOnClickListener(new DatePickerButtonListener());
+		changeMode.setOnClickListener(new ChangeModeButtonListener());
 	}
+	
+	 @Override
+	    protected void postSubmit() {
+	        super.postSubmit();
+
+	        if (!isSubmitSuccessfull()) {
+	            return;
+	        }
+	        switchActivity(BudgetBookDetailActivity.class);
+	    }
 
 	// -------------------------------------------------------------------------
 	// Inner Classes
@@ -175,6 +187,19 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 
 		public void onClick(View aView) {
 			showDatePickerDialog(aView);
+		}
+	}
+	
+	private final class ChangeModeButtonListener implements OnClickListener {
+
+		public void onClick(View aView) {
+			//toogle enable/disable
+			if(editMode){
+				editMode = false;
+			}else {
+				editMode = true;
+			}
+			enableDisableElements();
 		}
 	}
 

@@ -62,7 +62,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		dateFragment = new DatePickerFragment();
+		dateFragment = new DatePickerFragment((Button) findViewById(R.BookingCreate.datePicker_Button));
 		dateFragment.setDate(Calendar.getInstance().getTime());
 		sdf = new SimpleDateFormat(UBBConstants.DATE_FORMAT);
 		
