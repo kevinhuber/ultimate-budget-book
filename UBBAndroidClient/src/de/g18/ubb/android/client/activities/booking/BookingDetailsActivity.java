@@ -11,8 +11,10 @@ import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.android.client.shared.adapter.EnumAdapter;
 import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.domain.Booking;
+import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.domain.enumType.BookingType;
+import de.g18.ubb.common.service.exception.NotFoundExcpetion;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 import android.os.Bundle;
@@ -39,7 +41,6 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_booking_details);
         dateFragment = new DatePickerFragment((Button) findViewById(R.BookingDetail.datePicker_Button));
 		dateFragment.setDate(getModel().getBookingTime());
 		sdf = new SimpleDateFormat(UBBConstants.DATE_FORMAT);
@@ -132,7 +133,16 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 	@Override
 	protected String submit() {
 		Booking updatedBooking = getApplicationStateStore().getBooking();
-		ServiceRepository.getBookingService().saveAndLoad(updatedBooking);
+		updatedBooking = ServiceRepository.getBookingService().saveAndLoad(updatedBooking);
+		getApplicationStateStore().setBooking(updatedBooking);
+		
+		BudgetBook budgetBook;
+		try {
+			budgetBook = ServiceRepository.getBudgetBookService().load(getApplicationStateStore().getBudgetBook().getId());
+		} catch (NotFoundExcpetion e) {
+			return "Aktualisierung konnte nicht abgeschlossen werden!";
+		}
+		getApplicationStateStore().setBudgetBook(budgetBook);
 		return StringUtil.EMPTY;
 	}
 
@@ -168,17 +178,8 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 		datePickerButton.setOnClickListener(new DatePickerButtonListener());
 		changeMode.setOnClickListener(new ChangeModeButtonListener());
 	}
+
 	
-	 @Override
-	    protected void postSubmit() {
-	        super.postSubmit();
-
-	        if (!isSubmitSuccessfull()) {
-	            return;
-	        }
-	        switchActivity(BudgetBookDetailActivity.class);
-	    }
-
 	// -------------------------------------------------------------------------
 	// Inner Classes
 	// -------------------------------------------------------------------------
@@ -193,7 +194,7 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 	private final class ChangeModeButtonListener implements OnClickListener {
 
 		public void onClick(View aView) {
-			//toogle enable/disable
+			//toggle enable/disable
 			if(editMode){
 				editMode = false;
 			}else {
