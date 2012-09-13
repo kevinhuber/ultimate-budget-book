@@ -1,11 +1,14 @@
 package de.g18.ubb.android.client.activities.category;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
+import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
@@ -68,16 +71,6 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
         return StringUtil.EMPTY;
     }
 
-    @Override
-    protected void postSubmit() {
-        super.postSubmit();
-
-        if (!isSubmitSuccessfull()) {
-            return;
-        }
-        switchActivity(CategoryOverviewActivity.class);
-    }
-
 
 	// -------------------------------------------------------------------------
     // Inner Classes
@@ -86,9 +79,17 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
 	private final class DeleteButtonListener implements OnClickListener{
 
 		public void onClick(View v) {
-			ServiceRepository.getCategoryService().remove(getModel());
+		    BudgetBook budgetBook = getApplicationStateStore().getBudgetBook();
+		    List<Category> categories = budgetBook.getCategories();
+		    categories.remove(getModel());
+		    budgetBook.setCategories(categories);
+
+			budgetBook = ServiceRepository.getBudgetBookService().saveAndLoad(budgetBook);
+
 			getApplicationStateStore().setCategory(null);
-			switchActivity(CategoryOverviewActivity.class);
+			getApplicationStateStore().setBudgetBook(budgetBook);
+
+			finish();
 		}
 	}
 }

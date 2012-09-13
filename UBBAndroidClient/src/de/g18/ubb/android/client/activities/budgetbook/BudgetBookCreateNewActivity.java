@@ -97,15 +97,6 @@ public class BudgetBookCreateNewActivity extends AbstractValidationFormularActiv
         return StringUtil.EMPTY;
     }
 
-    @Override
-    protected void postSubmit() {
-        super.postSubmit();
-
-        if (isSubmitSuccessfull()) {
-            switchActivity(BudgetBookOverviewActivity.class);
-        }
-    }
-
 
 	// -------------------------------------------------------------------------
 	// Inner Classes
