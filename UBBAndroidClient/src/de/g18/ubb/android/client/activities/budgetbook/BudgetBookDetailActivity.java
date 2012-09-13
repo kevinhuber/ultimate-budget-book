@@ -2,7 +2,6 @@ package de.g18.ubb.android.client.activities.budgetbook;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -24,10 +23,6 @@ import de.g18.ubb.android.client.activities.booking.ContextDrivenBookingsLists;
 import de.g18.ubb.android.client.activities.booking.CreateBookingActivity;
 import de.g18.ubb.android.client.activities.category.CategoryOverviewActivity;
 import de.g18.ubb.android.client.shared.adapter.BookingsAdapter;
-import de.g18.ubb.android.client.shared.adapter.BookingsDayListAdapter;
-import de.g18.ubb.android.client.shared.adapter.BookingsMonthListAdapter;
-import de.g18.ubb.android.client.shared.adapter.BookingsWeekListAdapter;
-import de.g18.ubb.android.client.shared.adapter.BookingsYearListAdapter;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 
@@ -41,10 +36,10 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	private GestureDetector gestureDetector;
 
-	private BookingsDayListAdapter dayAdapter;
-	private BookingsWeekListAdapter weekAdapter;
-	private BookingsMonthListAdapter monthAdapter;
-	private BookingsYearListAdapter yearAdapter;
+	private BookingsAdapter dayAdapter;
+	private BookingsAdapter weekAdapter;
+	private BookingsAdapter monthAdapter;
+	private BookingsAdapter yearAdapter;
 	private BookingsAdapter allAdapter;
 
 	@Override
@@ -137,10 +132,10 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	private void setAdaptersForFilteredViews() {
-		dayAdapter = new BookingsDayListAdapter(this);
-		weekAdapter = new BookingsWeekListAdapter(this);
-		monthAdapter = new BookingsMonthListAdapter(this);
-		yearAdapter = new BookingsYearListAdapter(this);
+		dayAdapter = new BookingsAdapter(this);
+		weekAdapter = new BookingsAdapter(this);
+		monthAdapter = new BookingsAdapter(this);
+		yearAdapter = new BookingsAdapter(this);
 		allAdapter = new BookingsAdapter(this);
 	}
 

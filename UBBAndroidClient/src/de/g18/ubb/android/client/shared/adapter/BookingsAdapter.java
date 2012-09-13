@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.shared.adapter.BookingsAdapter.BookingTag;
@@ -43,6 +42,7 @@ public final class BookingsAdapter extends AbstractAdapter<Booking, BookingTag> 
         aTag.name.setText(aEntry.getBookingName());
         aTag.amount.setText(Float.toString(aEntry.getAmount()) + " " + UBBConstants.CURRENCY_EURO_SIGN);
     }
+
 
     // -------------------------------------------------------------------------
     // Inner Classes
