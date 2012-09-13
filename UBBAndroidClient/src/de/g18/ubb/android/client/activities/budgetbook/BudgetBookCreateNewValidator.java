@@ -5,6 +5,9 @@ import de.g18.ubb.android.client.validation.ValidationUtil;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
+/**
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
+ */
 public class BudgetBookCreateNewValidator extends
 		AbstractValidator<BudgetBookCreateNewModel> {
 
@@ -37,6 +40,11 @@ public class BudgetBookCreateNewValidator extends
 		return ValidationUtil.createEmptyMessage();
 	}
 
+	/**
+	 * Überprüft ob eine Email valide ist
+	 * 
+	 * @return Gibt true zurück wenn die Email-Addresse valide ist
+	 */
 	private boolean checkIfEmailIsValid() {
 		for (String user : getModel().getAssignedUsers()) {
 			boolean emailIsValid = ValidationUtil.isValidEMail(user);
@@ -48,6 +56,11 @@ public class BudgetBookCreateNewValidator extends
         return true;
 	}
 
+	/**
+	 * Überprüft ob der Benutzer bereits exestiert
+	 * 
+	 * @return Gibt true zurück wenn es schon einen benutzer mit dieser Email gibt
+	 */
 	private boolean checkIfUserExists() {
 		for (String user : getModel().getAssignedUsers()) {
 			boolean userExists = ServiceRepository.getUserService().isEMailInUse(user);

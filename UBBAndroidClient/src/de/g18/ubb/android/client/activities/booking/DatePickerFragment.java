@@ -1,5 +1,6 @@
 package de.g18.ubb.android.client.activities.booking;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +14,14 @@ import android.widget.DatePicker;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.utils.UBBConstants;
 
+/**
+ *  Stellt ein Fragment zur Verfügung über das sich in der aufrufenden Activity
+ *  das Datum mittels eines {@link DatePickerDialog} festlegen lässt.
+ *  
+ *  Braucht als Argument einen Button über den das Fragment aufgerufen wird.
+ *  
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
+ */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
 	private Date date;

@@ -26,6 +26,11 @@ import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.BudgetBook;
 
+/**
+ * Stelllt eine Activity zur Verfügung um die Details eines haushaltsbuches darzustellen.
+ * 
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
+ */
 public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	private DynamicLayoutId dynamicViewLayoutID;
@@ -38,12 +43,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
     private OverviewNameModel nameModel;
 
-	private BookingsAdapter dayAdapter;
-	private BookingsAdapter weekAdapter;
-	private BookingsAdapter monthAdapter;
-	private BookingsAdapter yearAdapter;
-	private BookingsAdapter allAdapter;
-
+	private BookingsAdapter dayAdapter, allAdapter, yearAdapter, monthAdapter, weekAdapter;
 
 	@Override
 	protected BudgetBook createModel() {
@@ -96,6 +96,12 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		return true;
 	}
 
+	/**
+	 * Hält die Information über die aktuell angezeigte {@link ListView}
+	 * 
+	 * @return liefert einen Enum zurück der Aufschluss darüber gibt welche {@link ListView} aktuell angezeigt wird.
+	 * 
+	 */
 	protected DynamicLayoutId getDynamicLinearLayoutID() {
 		return dynamicViewLayoutID;
 	}
@@ -104,6 +110,10 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		dynamicViewLayoutID = aNewValue;
 	}
 
+	/**
+	 * Liefert die Layout ID des {@link LinearLayout } zurück,
+	 *  in dem wiederum die {@link ListView} angezeigt wird
+	 */
 	protected int getLinearLayoutID() {
 		switch (getDynamicLinearLayoutID()) {
 		case DAY:
@@ -131,26 +141,51 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		return R.layout.activity_budget_book_detail;
 	}
 
+	/**
+	 * Gibt die {@link ListView} die zur Anzeige der Buchungen eines Tages genutzt wird zurück
+	 * 
+	 * @return {@link ListView}
+	 */
 	protected ListView getMyDayListView() {
 		ListView list = (ListView) findViewById(R.BudgetBookDetailsLayout.bookingsDayListView);
 		return list;
 	}
 
+	/**
+	 * Gibt die {@link ListView} die zur Anzeige der Buchungen einer Woche genutzt wird zurück
+	 * 
+	 * @return {@link ListView}
+	 */
 	protected ListView getMyWeekListView() {
 		ListView list = (ListView) findViewById(R.BudgetBookDetailsLayout.bookingsWeekListView);
 		return list;
 	}
 
+	/**
+	 * Gibt die {@link ListView} die zur Anzeige der Buchungen eines Monats genutzt wird zurück
+	 * 
+	 * @return {@link ListView}
+	 */
 	protected ListView getMyMonthListView() {
 		ListView list = (ListView) findViewById(R.BudgetBookDetailsLayout.bookingsMonthListView);
 		return list;
 	}
 
+	/**
+	 * Gibt die {@link ListView} die zur Anzeige der Buchungen eines Jahres genutzt wird zurück
+	 * 
+	 * @return {@link ListView}
+	 */
 	protected ListView getMyYearListView() {
 		ListView list = (ListView) findViewById(R.BudgetBookDetailsLayout.bookingsYearListView);
 		return list;
 	}
 
+	/**
+	 * Gibt die {@link ListView} die zur Anzeige aller Buchungen genutzt wird zurück
+	 * 
+	 * @return {@link ListView}
+	 */
 	protected ListView getMyAllBookingsListView() {
 		ListView list = (ListView) findViewById(R.BudgetBookDetailsLayout.bookingsAllBookingsListView);
 		return list;
@@ -186,6 +221,9 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		}
 	}
 
+	/**
+	 * Aktuallisiert die Tagesanischt und die dort angezeigten Buchungen
+	 */
 	private void updateDayDetailsView() {
 	    nameModel.setName("Tagesansicht");
 		if (dayAdapter.isEmpty()) {
@@ -204,6 +242,9 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		}
 	}
 
+	/**
+	 * Aktuallisiert die Wochenansicht und die dort angezeigten Buchungen
+	 */
 	private void updateWeekDetailsView() {
         nameModel.setName("Wochenansicht");
 		if (weekAdapter.isEmpty()) {
@@ -223,6 +264,9 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		}
 	}
 
+	/**
+	 * Aktuallisiert die Monatsansicht und die dort angezeigten Buchungen
+	 */
 	private void updateMonthDetailsView() {
         nameModel.setName("Monatsansicht");
 		if (monthAdapter.isEmpty()) {
@@ -242,6 +286,9 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		}
 	}
 
+	/**
+	 * Aktuallisiert die Jahresansicht und die dort angezeigten Buchungen
+	 */
 	private void updateYearDetailsView() {
         nameModel.setName("Jahresansicht");
 		if (yearAdapter.isEmpty()) {
@@ -261,6 +308,9 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		}
 	}
 
+	/**
+	 * Aktuallisiert die Gesamtansicht und die dort angezeigten Buchungen
+	 */
 	private void updateAllDetailsView() {
         nameModel.setName("Gesamtansicht");
 		if (allAdapter.isEmpty()) {
@@ -376,6 +426,11 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		}
 	}
 
+	/**
+	 * Hält alle möglichen {@link ListView} Zustände fest
+	 * @author Sebastian.Kopatz
+	 *
+	 */
 	private enum DynamicLayoutId {
 
 		DAY(0), WEEK(1), MONTH(2), YEAR(3), ALL(4);

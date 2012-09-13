@@ -29,6 +29,11 @@ import android.support.v4.app.NavUtils;
 import android.text.InputFilter;
 import android.text.Spanned;
 
+/**
+ * Eine Activity zur Anzeige der Detailinformationen einer Buchung
+ * 
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
+ */
 public class BookingDetailsActivity extends AbstractValidationFormularActivity<Booking, BookingCreateValidator> {
 
 	private EditText bookingName, bookingChangeTime, bookingAmount, bookingCreateUser, bookingChangeUser, bookingCreateTime;
@@ -57,6 +62,9 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
        
     }
     
+    /**
+     * Festlegen der Bindings des Formulars
+     */
     private void initBindings() {
     	bookingName = (EditText) bind(Booking.PROPERTY_BOOKING_NAME, R.BookingDetail.name_input);
         bookingAmount = (EditText) bind(Booking.PROPERTY_AMOUNT, R.BookingDetail.betrag_input);
@@ -68,6 +76,9 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
         bookingTypeSpinner = (Spinner) bind(Booking.PROPERTY_TYPE, R.BookingDetail.booking_type_spinner);
 	}
     
+    /**
+     * Weitere Initialisierung einzelner Komponenten des Formulars dieser Activity
+     */
     private void initComponents() {
     	categorySpinner.setAdapter(categoryAdapter);
         bookingTypeSpinner.setAdapter(bookingTypeAdapter);
@@ -77,6 +88,10 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 		
     }
     
+    /**
+     * 
+     * @return Gibt eine Liste aller angelegten Kategorien für das aktuell ausgewählte {@link BudgetBook} 
+     */
 	private List<Category> getAllCategorysForCurrentBudgetBook() {
 		return getApplicationStateStore().getBudgetBook().getCategories();
 	}

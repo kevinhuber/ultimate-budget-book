@@ -16,7 +16,10 @@ import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 
 /**
- * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
+ * Diese Activity stelllt dem aktuell angemeldetem Benutzer, all ihm zugewiesenen Haushaltsbücher
+ * in Form einer Selektierbaren Liste dar.
+ * 
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
  */
 public class BudgetBookOverviewActivity extends AbstractActivity<BudgetBookOverviewModel> {
 

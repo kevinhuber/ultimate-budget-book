@@ -21,6 +21,11 @@ import de.g18.ubb.common.service.exception.UserWithEMailNotFound;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
+/**
+ * Stellt eine Activity zur Verfügung mit der sich neue Haushaltsbücher anlegen lassen.
+ * 
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
+ */
 public class BudgetBookCreateNewActivity extends AbstractValidationFormularActivity<BudgetBookCreateNewModel,
                                                                                     BudgetBookCreateNewValidator> {
 

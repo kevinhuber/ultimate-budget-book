@@ -8,7 +8,7 @@ import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.domain.BudgetBook;
 
 /**
- * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
  */
 public final class BudgetBookOverviewModel extends AbstractModel {
 

@@ -27,6 +27,11 @@ import de.g18.ubb.common.domain.enumType.BookingType;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
+/**
+ * Erzeugt eine Activity zur Buchung Erstellung
+ * 
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
+ */
 public class CreateBookingActivity extends AbstractValidationFormularActivity<Booking, BookingCreateValidator> {
 
 	private Button datePickerButton;
@@ -75,6 +80,9 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 		initEventHandling();
 	}
 
+	/**
+	 * Initialisiert und bindet die Felder des Formulares
+	 */
 	private void initBindings() {
 	    bind(Booking.PROPERTY_AMOUNT, R.BookingCreate.betrag_input);
         bind(Booking.PROPERTY_CATEGORY, R.BookingCreate.category_spinner);
@@ -98,6 +106,9 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * @return Liefert eine Liste vom Typ {@link Category} zurück
+	 */
 	private List<Category> getAllCategorysForCurrentBudgetBook() {
 		return getApplicationStateStore().getBudgetBook().getCategories();
 	}

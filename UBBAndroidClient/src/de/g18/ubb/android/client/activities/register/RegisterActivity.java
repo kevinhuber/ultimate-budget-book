@@ -8,6 +8,11 @@ import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
+/**
+ * Activity zur Anzeige des Registrierungsformulares
+ * @author Sebastian.Kopatz
+ *
+ */
 public class RegisterActivity extends AbstractValidationFormularActivity<RegisterModel, RegisterValidator> {
 
     @Override

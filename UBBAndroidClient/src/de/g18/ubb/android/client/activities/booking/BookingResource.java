@@ -4,6 +4,10 @@ import java.text.MessageFormat;
 
 import de.g18.ubb.common.resource.Resource;
 
+/** Enum mit den einzelnen Feldern des Formulares
+ * 
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
+ */
 public enum BookingResource implements Resource {
 
 	FIELD_TYP("Buchungstyp"),

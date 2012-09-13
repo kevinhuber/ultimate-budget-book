@@ -6,7 +6,7 @@ import java.util.List;
 import de.g18.ubb.common.domain.AbstractModel;
 
 /**
- * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
  */
 public class BudgetBookCreateNewModel extends AbstractModel {
 
@@ -22,6 +22,11 @@ public class BudgetBookCreateNewModel extends AbstractModel {
 	public BudgetBookCreateNewModel(){
 	}
 
+	/**
+	 * Legt den Namen des Haushaltsbuches fest
+	 * 
+	 * @param aNewValue Akzeptiert ein String als Namen für das Haushaltbuch
+	 */
 	public void setName(String aNewValue) {
 		String oldValue = getName();
 		name = aNewValue;
@@ -32,12 +37,17 @@ public class BudgetBookCreateNewModel extends AbstractModel {
 		return name;
 	}
 
+	
     public void setAssignedUsers(List<String> aNewValue) {
         List<String> oldValue = getAssignedUsers();
         assignedUsers = aNewValue;
         fireChange(PROPERTY_ASSIGNED_USERS, oldValue, getAssignedUsers());
     }
 
+    /**
+     * 
+     * @return Liefert eine Liste mit Benutzernamen vom Typ String zurück
+     */
     public List<String> getAssignedUsers() {
         if (assignedUsers == null) {
             assignedUsers = new ArrayList<String>();

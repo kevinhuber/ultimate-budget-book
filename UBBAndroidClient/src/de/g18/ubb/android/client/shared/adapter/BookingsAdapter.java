@@ -14,6 +14,11 @@ import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.enumType.BookingType;
 import de.g18.ubb.common.util.StringUtil;
 
+/**
+ * bereitet einzelne Buchungen so auf, das der Namen und der Betrag dargestellt werden können.
+ * 
+ * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
+ */
 public final class BookingsAdapter extends AbstractAdapter<Booking, BookingTag> {
 
 	public BookingsAdapter(Context aContext) {
