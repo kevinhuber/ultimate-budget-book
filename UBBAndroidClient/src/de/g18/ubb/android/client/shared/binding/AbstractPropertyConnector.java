@@ -1,4 +1,4 @@
-package de.g18.ubb.android.client.binding;
+package de.g18.ubb.android.client.shared.binding;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

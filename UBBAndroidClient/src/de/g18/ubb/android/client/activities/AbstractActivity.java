@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import de.g18.ubb.android.client.binding.BindingUtils;
 import de.g18.ubb.android.client.preferences.Preferences;
 import de.g18.ubb.android.client.shared.ApplicationStateStore;
+import de.g18.ubb.android.client.shared.binding.BindingUtils;
 import de.g18.ubb.common.domain.AbstractModel;
 
 /**
