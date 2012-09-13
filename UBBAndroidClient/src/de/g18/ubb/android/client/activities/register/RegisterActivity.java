@@ -52,7 +52,7 @@ public class RegisterActivity extends AbstractValidationFormularActivity<Registe
 
     @Override
     protected void postSubmit() {
-        super.postSubmit();
+        showValidationMessages();
 
         if (!isSubmitSuccessfull()) {
             return;

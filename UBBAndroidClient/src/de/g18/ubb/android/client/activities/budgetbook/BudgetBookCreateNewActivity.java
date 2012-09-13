@@ -81,29 +81,24 @@ public class BudgetBookCreateNewActivity extends AbstractValidationFormularActiv
     }
 
     @Override
+    protected void preSubmit() {
+        // fügt den ersten benutzer hinzu, im normal fall ist dies der
+        // angemeldete benutzer
+        getModel().getAssignedUsers().clear();
+        for (EditText budgetBookOwnerEntry : budgetBookOwner) {
+            getModel().getAssignedUsers().add(budgetBookOwnerEntry.getText().toString());
+        }
+    }
+
+    @Override
     protected String submit() {
         try {
             BudgetBookService service = ServiceRepository.getBudgetBookService();
-
-            // fügt den ersten benutzer hinzu, im normal fall ist dies der
-            // angemeldete benutzer
-            for (EditText budgetBookOwnerEntry : budgetBookOwner) {
-                getModel().getAssignedUsers().add(budgetBookOwnerEntry.getText().toString());
-            }
             service.createNew(getModel().getName(), getModel().getAssignedUsers());
         } catch (UserWithEMailNotFound e) {
             return "Es wurde kein Benutzer mit der E-Mail '" + e.getEMail() + "' gefunden!";
         }
         return StringUtil.EMPTY;
-    }
-
-    @Override
-    protected void postSubmit() {
-        super.postSubmit();
-
-        if (isSubmitSuccessfull()) {
-            switchActivity(BudgetBookOverviewActivity.class);
-        }
     }
 
 

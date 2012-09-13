@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
-import de.g18.ubb.android.client.activities.budgetbook.BudgetBookDetailActivity;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.android.client.shared.adapter.EnumAdapter;
 import de.g18.ubb.android.client.utils.UBBConstants;
@@ -33,7 +32,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 	private Button datePickerButton;
 
 	private DatePickerFragment dateFragment;
-	
+
 	private SimpleDateFormat sdf;
 
 	private EnumAdapter<BookingType> bookingTypeAdapter;
@@ -65,7 +64,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 		dateFragment = new DatePickerFragment((Button) findViewById(R.BookingCreate.datePicker_Button));
 		dateFragment.setDate(Calendar.getInstance().getTime());
 		sdf = new SimpleDateFormat(UBBConstants.DATE_FORMAT);
-		
+
         categoryAdapter = new CategoryAdapter(this, getAllCategorysForCurrentBudgetBook());
 
         List<BookingType> enumList = Arrays.asList(BookingType.values());
@@ -142,16 +141,6 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
         return StringUtil.EMPTY;
     }
 
-    @Override
-    protected void postSubmit() {
-        super.postSubmit();
-
-        if (!isSubmitSuccessfull()) {
-            return;
-        }
-        switchActivity(BudgetBookDetailActivity.class);
-    }
-    
 
 	// -------------------------------------------------------------------------
 	// Inner Classes

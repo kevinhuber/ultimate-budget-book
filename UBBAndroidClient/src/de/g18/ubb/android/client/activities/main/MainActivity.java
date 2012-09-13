@@ -93,7 +93,7 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
 
     @Override
     protected void postSubmit() {
-        super.postSubmit();
+        showValidationMessages();
 
         if (!isSubmitSuccessfull()) {
             return;

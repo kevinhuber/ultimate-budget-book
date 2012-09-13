@@ -61,14 +61,4 @@ public class CategoryCreateActivity extends AbstractValidationFormularActivity<C
         getApplicationStateStore().setBudgetBook(budgetBook);
         return StringUtil.EMPTY;
     }
-
-    @Override
-    protected void postSubmit() {
-        super.postSubmit();
-
-        if (!isSubmitSuccessfull()) {
-            return;
-        }
-        switchActivity(CategoryOverviewActivity.class);
-    }
 }

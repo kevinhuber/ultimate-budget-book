@@ -86,6 +86,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
     protected void onResume() {
         super.onResume();
 
+        setModel(getApplicationStateStore().getBudgetBook());
         new BookingsLoadTask().run();
     }
 

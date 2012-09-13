@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+CategoryCreateLayout/title"
         android:layout_width="wrap_content"
@@ -14,19 +14,19 @@
         android:layout_marginTop="@dimen/default_top_border"
         android:text="@string/createCategoryTitle"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <TableLayout
         android:id="@+CategoryCreateLayout/formContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_border"
         android:layout_marginRight="@dimen/default_border" >
-
+
         <TableRow
             android:id="@+CategoryCreateLayout/nameContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
+
             <TextView
                 android:id="@+CategoryCreateLayout/nameLabel"
                 android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                 android:inputType="text" />
         </TableRow>
     </TableLayout>
-
+
     <Button
         android:id="@+CategoryCreateLayout/createButton"
         android:layout_width="match_parent"

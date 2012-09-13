@@ -41,7 +41,14 @@ public abstract class AbstractValidationFormularActivity<_Model extends Abstract
     }
 
     protected void postSubmit() {
-        if (!isSubmitSuccessfull()) {
+        showValidationMessages();
+        if (isSubmitSuccessfull()) {
+            finish();
+        }
+    }
+
+    protected void showValidationMessages() {
+        if (StringUtil.isNotEmpty(getSubmitErrorMessage())) {
             Toast.makeText(getApplicationContext(), getSubmitErrorMessage(), Toast.LENGTH_LONG).show();
         }
     }
