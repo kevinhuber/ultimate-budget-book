@@ -42,10 +42,51 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	private BookingsAdapter yearAdapter;
 	private BookingsAdapter allAdapter;
 
+
 	@Override
 	protected BudgetBook createModel() {
 		return getApplicationStateStore().getBudgetBook();
 	}
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        dayAdapter = new BookingsAdapter(this);
+        weekAdapter = new BookingsAdapter(this);
+        monthAdapter = new BookingsAdapter(this);
+        yearAdapter = new BookingsAdapter(this);
+        allAdapter = new BookingsAdapter(this);
+
+        setDynamicLinearLayoutID(DynamicLayoutId.DAY);
+
+        initBindings();
+        initGestureComponent();
+    }
+
+    private void initBindings() {
+        bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.nameLabel);
+        bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.weekNameLabel);
+        bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.monthNameLabel);
+        bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.yearNameLabel);
+        bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.allNameLabel);
+    }
+
+    private void initGestureComponent() {
+        gestureDetector = new GestureDetector(this, new BudgetBookDetailGestureDetector());
+        ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBookDetailsLayout.detailsViewFlipper);
+        vf.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        new BookingsLoadTask().run();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,51 +154,6 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		return list;
 	}
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setAdaptersForFilteredViews();
-
-		setDynamicLinearLayoutID(DynamicLayoutId.DAY);
-
-		initBindings();
-		initGestureComponent();
-	}
-
-	@Override
-	protected void onResume() {
-	    super.onResume();
-
-        new BookingsLoadTask().run();
-	}
-
-	private void setAdaptersForFilteredViews() {
-		dayAdapter = new BookingsAdapter(this);
-		weekAdapter = new BookingsAdapter(this);
-		monthAdapter = new BookingsAdapter(this);
-		yearAdapter = new BookingsAdapter(this);
-		allAdapter = new BookingsAdapter(this);
-	}
-
-	private void initBindings() {
-		bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.nameLabel);
-		bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.weekNameLabel);
-		bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.monthNameLabel);
-		bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.yearNameLabel);
-		bind(BudgetBook.PROPERTY_NAME, R.BudgetBookDetailsLayout.allNameLabel);
-	}
-
-	private void initGestureComponent() {
-		gestureDetector = new GestureDetector(this,
-				new BudgetBookDetailGestureDetector());
-		ViewFlipper vf = (ViewFlipper) findViewById(R.BudgetBookDetailsLayout.detailsViewFlipper);
-		vf.setOnTouchListener(new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				return gestureDetector.onTouchEvent(event);
-			}
-		});
-	}
-
 	private void showDetailsOnView() {
 		// über getDynamicLinearLayoutID() wissen wir in welcher view wir uns
 		// befinden
@@ -194,7 +190,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 		} else {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
 			ListView listView = getMyDayListView();
-			listView.setAdapter(this.dayAdapter);
+			listView.setAdapter(dayAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -212,7 +208,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
 
 			ListView listView = getMyWeekListView();
-			listView.setAdapter(this.weekAdapter);
+			listView.setAdapter(weekAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
@@ -230,7 +226,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
 
 			ListView listView = getMyMonthListView();
-			listView.setAdapter(this.monthAdapter);
+			listView.setAdapter(monthAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
@@ -248,7 +244,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
 
 			ListView listView = getMyYearListView();
-			listView.setAdapter(this.yearAdapter);
+			listView.setAdapter(yearAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -267,7 +263,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			((TextView) findViewById(R.BudgetBookDetailsLayout.noDayBookingsLabel)).setVisibility(View.GONE);
 
 			ListView listView = getMyAllBookingsListView();
-			listView.setAdapter(this.allAdapter);
+			listView.setAdapter(allAdapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
