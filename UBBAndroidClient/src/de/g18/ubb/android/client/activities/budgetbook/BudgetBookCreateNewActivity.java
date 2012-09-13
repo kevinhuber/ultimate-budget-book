@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -112,6 +113,7 @@ public class BudgetBookCreateNewActivity extends AbstractValidationFormularActiv
 			try {
 				LinearLayout layout = (LinearLayout) findViewById(R.BudgetBookCreateLayout.userFieldsContainer);
 				EditText temp = new EditText(BudgetBookCreateNewActivity.this);
+				temp.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 				temp.setLayoutParams(new LayoutParams(
 						android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 

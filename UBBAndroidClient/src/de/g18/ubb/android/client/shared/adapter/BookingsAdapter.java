@@ -12,6 +12,7 @@ import de.g18.ubb.android.client.shared.adapter.BookingsAdapter.BookingTag;
 import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.domain.Booking;
 import de.g18.ubb.common.domain.enumType.BookingType;
+import de.g18.ubb.common.util.StringUtil;
 
 public final class BookingsAdapter extends AbstractAdapter<Booking, BookingTag> {
 
@@ -33,14 +34,16 @@ public final class BookingsAdapter extends AbstractAdapter<Booking, BookingTag> 
 
     @Override
     protected void updateTag(BookingTag aTag, Booking aEntry) {
+        String ammountPrefix = StringUtil.EMPTY;
     	if (aEntry.getType() == BookingType.SPENDING) {
+    	    ammountPrefix = "-";
 			aTag.amount.setTextColor(Color.RED);
 		} else {
 			aTag.amount.setTextColor(Color.BLACK);
 		}
 
         aTag.name.setText(aEntry.getBookingName());
-        aTag.amount.setText(Float.toString(aEntry.getAmount()) + " " + UBBConstants.CURRENCY_EURO_SIGN);
+        aTag.amount.setText(ammountPrefix + Float.toString(aEntry.getAmount()) + " " + UBBConstants.CURRENCY_EURO_SIGN);
     }
 
 
