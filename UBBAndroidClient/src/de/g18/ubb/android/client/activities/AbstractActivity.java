@@ -33,9 +33,13 @@ public abstract class AbstractActivity<_Model extends AbstractModel> extends Fra
      */
     public final _Model getModel() {
         if (model == null) {
-            model = createModel();
+            setModel(createModel());
         }
         return model;
+    }
+
+    public void setModel(_Model aNewValue) {
+        model = aNewValue;
     }
 
     /**

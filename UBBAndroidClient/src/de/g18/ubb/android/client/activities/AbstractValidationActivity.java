@@ -19,6 +19,12 @@ public abstract class AbstractValidationActivity<_Model extends AbstractModel,
         return validator;
     }
 
+    @Override
+    public void setModel(_Model aNewValue) {
+        super.setModel(aNewValue);
+        validator = null;
+    }
+
     // -------------------------------------------------------------------------
     // Abstract behavior
     // -------------------------------------------------------------------------
