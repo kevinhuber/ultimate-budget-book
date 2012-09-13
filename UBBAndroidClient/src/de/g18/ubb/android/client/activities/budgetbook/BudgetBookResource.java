@@ -5,11 +5,10 @@ import java.text.MessageFormat;
 import de.g18.ubb.common.resource.Resource;
 
 /**
- * Hällt alle möglichen Fehlermeldungs texte für die Formular Validierung bereit.
+ * Hält alle möglichen Fehlermeldungs-Texte für die Formular Validierung bereit.
  * Im Spezielen sind hier alle Felder eines Haushaltsbuches inkl. erweiterter Messages definiert
- * 
- * @author Sebastian.Kopatz
  *
+ * @author Sebastian.Kopatz
  */
 public enum BudgetBookResource implements Resource {
 

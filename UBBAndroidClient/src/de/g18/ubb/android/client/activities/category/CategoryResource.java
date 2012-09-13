@@ -2,10 +2,14 @@ package de.g18.ubb.android.client.activities.category;
 
 import java.text.MessageFormat;
 
+import android.app.Activity;
+import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.resource.Resource;
 
 /**
- * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
+ * {@link Resource} für {@link Activity}s die mit {@link Category}s arbeiten.
+ *
+ * @author Daniel Fels
  */
 public enum CategoryResource implements Resource {
 

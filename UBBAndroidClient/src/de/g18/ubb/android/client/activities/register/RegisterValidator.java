@@ -1,14 +1,16 @@
 package de.g18.ubb.android.client.activities.register;
 
-
 import de.g18.ubb.android.client.validation.AbstractValidator;
 import de.g18.ubb.android.client.validation.ValidationUtil;
+import de.g18.ubb.android.client.validation.Validator;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.ObjectUtil;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
- * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
+ * {@link Validator} für die {@link RegisterActivity}.
+ *
+ * @author Sebastian.Kopatz
  */
 public class RegisterValidator extends AbstractValidator<RegisterModel> {
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ViewFlipper;
 import de.g18.ubb.android.client.R;
@@ -28,7 +29,7 @@ import de.g18.ubb.common.domain.BudgetBook;
 
 /**
  * Stelllt eine Activity zur Verfügung um die Details eines haushaltsbuches darzustellen.
- * 
+ *
  * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
  */
 public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
@@ -44,6 +45,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
     private OverviewNameModel nameModel;
 
 	private BookingsAdapter dayAdapter, allAdapter, yearAdapter, monthAdapter, weekAdapter;
+
 
 	@Override
 	protected BudgetBook createModel() {
@@ -86,7 +88,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
     protected void onResume() {
         super.onResume();
 
-        setModel(getApplicationStateStore().getBudgetBook());
+        reset();
         new BookingsLoadTask().run();
     }
 
@@ -98,9 +100,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	/**
 	 * Hält die Information über die aktuell angezeigte {@link ListView}
-	 * 
+	 *
 	 * @return liefert einen Enum zurück der Aufschluss darüber gibt welche {@link ListView} aktuell angezeigt wird.
-	 * 
 	 */
 	protected DynamicLayoutId getDynamicLinearLayoutID() {
 		return dynamicViewLayoutID;
@@ -111,8 +112,8 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	}
 
 	/**
-	 * Liefert die Layout ID des {@link LinearLayout } zurück,
-	 *  in dem wiederum die {@link ListView} angezeigt wird
+	 * Liefert die Layout ID des {@link LinearLayout} zurück,
+	 * in dem wiederum die {@link ListView} angezeigt wird
 	 */
 	protected int getLinearLayoutID() {
 		switch (getDynamicLinearLayoutID()) {
@@ -143,7 +144,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	/**
 	 * Gibt die {@link ListView} die zur Anzeige der Buchungen eines Tages genutzt wird zurück
-	 * 
+	 *
 	 * @return {@link ListView}
 	 */
 	protected ListView getMyDayListView() {
@@ -153,7 +154,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	/**
 	 * Gibt die {@link ListView} die zur Anzeige der Buchungen einer Woche genutzt wird zurück
-	 * 
+	 *
 	 * @return {@link ListView}
 	 */
 	protected ListView getMyWeekListView() {
@@ -163,7 +164,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	/**
 	 * Gibt die {@link ListView} die zur Anzeige der Buchungen eines Monats genutzt wird zurück
-	 * 
+	 *
 	 * @return {@link ListView}
 	 */
 	protected ListView getMyMonthListView() {
@@ -173,7 +174,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	/**
 	 * Gibt die {@link ListView} die zur Anzeige der Buchungen eines Jahres genutzt wird zurück
-	 * 
+	 *
 	 * @return {@link ListView}
 	 */
 	protected ListView getMyYearListView() {
@@ -183,7 +184,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 
 	/**
 	 * Gibt die {@link ListView} die zur Anzeige aller Buchungen genutzt wird zurück
-	 * 
+	 *
 	 * @return {@link ListView}
 	 */
 	protected ListView getMyAllBookingsListView() {

@@ -1,5 +1,6 @@
-package de.g18.ubb.android.client.activities.main;
+package de.g18.ubb.android.client.activities.login;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,9 +13,11 @@ import de.g18.ubb.android.client.communication.WebServiceProvider;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
+ * {@link Activity} zum anmelden am Web-Service.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public final class MainActivity extends AbstractValidationFormularActivity<MainActivityModel, MainActivityValidator> {
+public final class LoginActivity extends AbstractValidationFormularActivity<LoginActivityModel, LoginActivityValidator> {
 
     static {
         WebServiceProvider.register();
@@ -30,13 +33,13 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
     }
 
     @Override
-    protected MainActivityModel createModel() {
-        return new MainActivityModel();
+    protected LoginActivityModel createModel() {
+        return new LoginActivityModel();
     }
 
     @Override
-    protected MainActivityValidator createValidator() {
-        return new MainActivityValidator(getModel());
+    protected LoginActivityValidator createValidator() {
+        return new LoginActivityValidator(getModel());
     }
 
     @Override
@@ -59,10 +62,10 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
     }
 
     private void bindComponents() {
-        bind(MainActivityModel.PROPERTY_PASSWORD, R.MainLayout.password);
-        bind(MainActivityModel.PROPERTY_EMAIL, R.MainLayout.email);
-        bind(MainActivityModel.PROPERTY_STAY_LOGGED_IN, R.MainLayout.stayLoggedIn);
-        bind(MainActivityModel.PROPERTY_SERVER_ADDRESS, R.MainLayout.serverAddress);
+        bind(LoginActivityModel.PROPERTY_PASSWORD, R.MainLayout.password);
+        bind(LoginActivityModel.PROPERTY_EMAIL, R.MainLayout.email);
+        bind(LoginActivityModel.PROPERTY_STAY_LOGGED_IN, R.MainLayout.stayLoggedIn);
+        bind(LoginActivityModel.PROPERTY_SERVER_ADDRESS, R.MainLayout.serverAddress);
     }
 
     private void initEventHandling() {
@@ -86,7 +89,7 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
         boolean loginSuccessfull = WebServiceProvider.authentificate(getModel().getEMail(),
                                                                      getModel().getPassword());
         if (!loginSuccessfull) {
-            return MainActivityResource.MESSAGE_LOGIN_FAILED.formatted();
+            return LoginResource.MESSAGE_LOGIN_FAILED.formatted();
         }
         return StringUtil.EMPTY;
     }
@@ -108,7 +111,7 @@ public final class MainActivity extends AbstractValidationFormularActivity<MainA
 
     @Override
     protected String getSubmitWaitMessage() {
-        return MainActivityResource.MESSAGE_LOGIN.formatted();
+        return LoginResource.MESSAGE_LOGIN.formatted();
     }
 
 

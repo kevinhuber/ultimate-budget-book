@@ -29,7 +29,7 @@ import de.g18.ubb.common.util.StringUtil;
 
 /**
  * Erzeugt eine Activity zur Buchung Erstellung
- * 
+ *
  * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
  */
 public class CreateBookingActivity extends AbstractValidationFormularActivity<Booking, BookingCreateValidator> {
@@ -42,6 +42,7 @@ public class CreateBookingActivity extends AbstractValidationFormularActivity<Bo
 
 	private EnumAdapter<BookingType> bookingTypeAdapter;
 	private ArrayAdapter<Category> categoryAdapter;
+
 
     @Override
     protected Booking createModel() {

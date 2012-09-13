@@ -3,7 +3,9 @@ package de.g18.ubb.android.client.activities.register;
 import de.g18.ubb.common.domain.AbstractModel;
 
 /**
- * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
+ * {@link AbstractModel} für die {@link RegisterActivity}.
+ *
+ * @author Sebastian.Kopatz
  */
 public final class RegisterModel extends AbstractModel {
 

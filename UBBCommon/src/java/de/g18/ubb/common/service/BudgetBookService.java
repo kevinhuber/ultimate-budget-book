@@ -55,17 +55,13 @@ public interface BudgetBookService {
 
     /**
      * Lädt ein {@link BudgetBook} anhand der übergebenen Id aus der Datenbank und gibt es zurück.
-     *
-     * TODO (huber): Bedenklich!
      */
     @POST
     @Path(METHOD_LOAD)
     BudgetBook load(Long aId) throws NotFoundExcpetion;
-    
+
     /**
      * Persistiert die übergebene Entität in der Datenbank und gibt die Persistierte Entität wieder zurück.
-     *
-     * TODO (huber): Bedenklich!
      */
     @PUT
     @Path(METHOD_SAVE_AND_LOAD)

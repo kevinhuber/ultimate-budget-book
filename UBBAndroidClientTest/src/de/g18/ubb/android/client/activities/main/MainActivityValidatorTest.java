@@ -1,5 +1,8 @@
 package de.g18.ubb.android.client.activities.main;
 
+import de.g18.ubb.android.client.activities.login.LoginActivityModel;
+import de.g18.ubb.android.client.activities.login.LoginActivityValidator;
+import de.g18.ubb.android.client.activities.login.LoginResource;
 import de.g18.ubb.android.client.communication.MockServiceProvider;
 import de.g18.ubb.android.client.validation.AbstractValidatorTestCase;
 import de.g18.ubb.android.client.validation.ValidationUtil;
@@ -8,7 +11,7 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class MainActivityValidatorTest  extends AbstractValidatorTestCase<MainActivityModel, MainActivityValidator> {
+public class MainActivityValidatorTest  extends AbstractValidatorTestCase<LoginActivityModel, LoginActivityValidator> {
 
     @Override
     public void setUpTestCase() throws Exception {
@@ -16,21 +19,21 @@ public class MainActivityValidatorTest  extends AbstractValidatorTestCase<MainAc
     }
 
     @Override
-    protected MainActivityModel createValidModel() {
-        MainActivityModel model = new MainActivityModel();
+    protected LoginActivityModel createValidModel() {
+        LoginActivityModel model = new LoginActivityModel();
         model.setEMail("test@mail.com");
         model.setPassword("validPassword");
         return model;
     }
 
     @Override
-    protected MainActivityValidator createValidator() {
-        return new MainActivityValidator(getModel());
+    protected LoginActivityValidator createValidator() {
+        return new LoginActivityValidator(getModel());
     }
 
     public void testEMailMandatory() {
         getModel().setEMail(StringUtil.EMPTY);
-        assertValidationMustNotBeEmpty(MainActivityResource.FIELD_EMAIL);
+        assertValidationMustNotBeEmpty(LoginResource.FIELD_EMAIL);
     }
 
     public void testEMailFormat() {
@@ -73,6 +76,6 @@ public class MainActivityValidatorTest  extends AbstractValidatorTestCase<MainAc
 
     public void testPasswordMandatory() {
         getModel().setPassword(StringUtil.EMPTY);
-        assertValidationMustNotBeEmpty(MainActivityResource.FIELD_PASSWORD);
+        assertValidationMustNotBeEmpty(LoginResource.FIELD_PASSWORD);
     }
 }

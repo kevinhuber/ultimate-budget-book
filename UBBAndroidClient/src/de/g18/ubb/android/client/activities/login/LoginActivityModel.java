@@ -1,11 +1,13 @@
-package de.g18.ubb.android.client.activities.main;
+package de.g18.ubb.android.client.activities.login;
 
 import de.g18.ubb.common.domain.AbstractModel;
 
 /**
+ * {@link AbstractModel} für die {@link LoginActivity}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public class MainActivityModel extends AbstractModel {
+public class LoginActivityModel extends AbstractModel {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,7 +22,7 @@ public class MainActivityModel extends AbstractModel {
     private boolean stayLoggedInChecked;
 
 
-    public MainActivityModel() {
+    public LoginActivityModel() {
     }
 
     public void setEMail(String aNewValue) {

@@ -5,7 +5,9 @@ import java.text.MessageFormat;
 import de.g18.ubb.common.resource.Resource;
 
 /**
- * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
+ * {@link Resource} für die {@link RegisterActivity}.
+ *
+ * @author Sebastian.Kopatz
  */
 public enum RegisterResource implements Resource {
 

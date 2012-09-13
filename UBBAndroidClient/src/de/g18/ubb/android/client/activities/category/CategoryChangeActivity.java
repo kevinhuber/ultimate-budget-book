@@ -2,17 +2,22 @@ package de.g18.ubb.android.client.activities.category;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import de.g18.ubb.android.client.R;
+import de.g18.ubb.android.client.action.AbstractWaitAction;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
+/**
+ * {@link Activity} zum ändern einer bestehenden {@link Category}.
+ *
+ * @author Daniel Fels
+ */
 public class CategoryChangeActivity extends AbstractValidationFormularActivity<Category, CategoryValidator> {
 
 	private Button b_delete;
@@ -76,20 +81,25 @@ public class CategoryChangeActivity extends AbstractValidationFormularActivity<C
     // Inner Classes
     // -------------------------------------------------------------------------
 
-	private final class DeleteButtonListener implements OnClickListener{
+	private final class DeleteButtonListener extends AbstractWaitAction {
 
-		public void onClick(View v) {
-		    BudgetBook budgetBook = getApplicationStateStore().getBudgetBook();
-		    List<Category> categories = budgetBook.getCategories();
-		    categories.remove(getModel());
-		    budgetBook.setCategories(categories);
+        public DeleteButtonListener() {
+            super(CategoryChangeActivity.this, "Kategorie wird gelöscht...");
+        }
 
-			budgetBook = ServiceRepository.getBudgetBookService().saveAndLoad(budgetBook);
+        @Override
+        protected void execute() {
+            BudgetBook budgetBook = getApplicationStateStore().getBudgetBook();
+            List<Category> categories = budgetBook.getCategories();
+            categories.remove(getModel());
+            budgetBook.setCategories(categories);
 
-			getApplicationStateStore().setCategory(null);
-			getApplicationStateStore().setBudgetBook(budgetBook);
+            budgetBook = ServiceRepository.getBudgetBookService().saveAndLoad(budgetBook);
 
-			finish();
-		}
+            getApplicationStateStore().setCategory(null);
+            getApplicationStateStore().setBudgetBook(budgetBook);
+
+            finish();
+        }
 	}
 }

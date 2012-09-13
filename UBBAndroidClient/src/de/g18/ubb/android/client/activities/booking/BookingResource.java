@@ -5,7 +5,7 @@ import java.text.MessageFormat;
 import de.g18.ubb.common.resource.Resource;
 
 /** Enum mit den einzelnen Feldern des Formulares
- * 
+ *
  * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
  */
 public enum BookingResource implements Resource {
@@ -17,7 +17,6 @@ public enum BookingResource implements Resource {
 	FIELD_NAME("Bezeichnung"),
 
     VALIDATION_AMMOUNT_MUST_BE_POSITIV("Der Betrag muss positiv sein!"),
-
     ;
 
     private final String unformattedValue;

@@ -5,12 +5,15 @@ import java.util.List;
 import de.g18.ubb.android.client.shared.ApplicationStateStore;
 import de.g18.ubb.android.client.validation.AbstractValidator;
 import de.g18.ubb.android.client.validation.ValidationUtil;
+import de.g18.ubb.android.client.validation.Validator;
 import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.util.ObjectUtil;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
- * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
+ * {@link Validator} für die {@link CategoryCreateActivity} und {@link CategoryChangeActivity}.
+ *
+ * @author Daniel Fels
  */
 public class CategoryValidator extends AbstractValidator<Category> {
 

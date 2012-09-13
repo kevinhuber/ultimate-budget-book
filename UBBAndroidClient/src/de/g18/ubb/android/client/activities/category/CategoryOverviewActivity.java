@@ -2,6 +2,7 @@ package de.g18.ubb.android.client.activities.category;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,9 +13,16 @@ import android.widget.ListView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractActivity;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
+import de.g18.ubb.common.domain.AbstractModel;
+import de.g18.ubb.common.domain.BudgetBook;
 import de.g18.ubb.common.domain.Category;
 
-public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewModel> {
+/**
+ * {@link Activity} zum anzeigen aller {@link Category}s zu einem {@link BudgetBook}.
+ *
+ * @author Daniel Fels
+ */
+public class CategoryOverviewActivity extends AbstractActivity<AbstractModel> {
 
     private Button createNewCategoryButton;
     private ListView lv;
@@ -23,8 +31,8 @@ public class CategoryOverviewActivity extends AbstractActivity<CategoryOverviewM
 
 
     @Override
-    protected CategoryOverviewModel createModel() {
-        return new CategoryOverviewModel();
+    protected AbstractModel createModel() {
+        return null;
     }
 
     @Override

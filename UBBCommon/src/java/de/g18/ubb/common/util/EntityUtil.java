@@ -9,6 +9,9 @@ import de.g18.ubb.common.domain.Identifiable;
  */
 public final class EntityUtil {
 
+    private EntityUtil() {
+        // prevent instantiation
+    }
 
     /**
      * Null-Safe Prüfung ob die "id" der übergebenen Entität leer ist.

@@ -10,7 +10,7 @@ import de.g18.ubb.common.util.StringUtil;
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public abstract class AbstractValidatorTestCase<_Model extends AbstractModel,
-                                                _Validator extends AbstractValidator<_Model>> extends TestCase {
+                                                _Validator extends Validator<_Model>> extends TestCase {
 
     private _Model model;
     private _Validator validator;

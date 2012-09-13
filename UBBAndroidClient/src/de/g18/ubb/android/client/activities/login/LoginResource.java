@@ -1,13 +1,15 @@
-package de.g18.ubb.android.client.activities.main;
+package de.g18.ubb.android.client.activities.login;
 
 import java.text.MessageFormat;
 
 import de.g18.ubb.common.resource.Resource;
 
 /**
+ * {@link Resource} für die {@link LoginActivity}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public enum MainActivityResource implements Resource {
+public enum LoginResource implements Resource {
 
     FIELD_EMAIL("EMail"),
     FIELD_PASSWORD("Passwort"),
@@ -20,7 +22,7 @@ public enum MainActivityResource implements Resource {
     private final String unformattedValue;
 
 
-    private MainActivityResource(String aUnformattedValue) {
+    private LoginResource(String aUnformattedValue) {
         unformattedValue = aUnformattedValue;
     }
 

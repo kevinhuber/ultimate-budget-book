@@ -3,11 +3,10 @@ package de.g18.ubb.android.client.validation;
 import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.util.StringUtil;
 
-
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public abstract class AbstractValidator<_Model extends AbstractModel> {
+public abstract class AbstractValidator<_Model extends AbstractModel> implements Validator<_Model> {
 
     private _Model model;
     private String validationResult;
@@ -22,8 +21,6 @@ public abstract class AbstractValidator<_Model extends AbstractModel> {
         return getValidationResult();
     }
 
-    protected abstract String computeValidationResult();
-
     public final boolean hasErrors() {
         return StringUtil.isNotEmpty(validationResult);
     }
@@ -35,4 +32,10 @@ public abstract class AbstractValidator<_Model extends AbstractModel> {
     public final _Model getModel() {
         return model;
     }
+
+    // -------------------------------------------------------------------------
+    // Abstract behavior
+    // -------------------------------------------------------------------------
+
+    protected abstract String computeValidationResult();
 }

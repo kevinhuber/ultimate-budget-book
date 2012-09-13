@@ -2,6 +2,7 @@ package de.g18.ubb.android.client.activities.category;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.os.Bundle;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
@@ -10,6 +11,11 @@ import de.g18.ubb.common.domain.Category;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 
+/**
+ * {@link Activity} zum erstellen einer neuen {@link Category}.
+ *
+ * @author Daniel Fels
+ */
 public class CategoryCreateActivity extends AbstractValidationFormularActivity<Category, CategoryValidator> {
 
     @Override

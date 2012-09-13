@@ -11,7 +11,6 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * Activity zur Anzeige des Registrierungsformulares
  * @author Sebastian.Kopatz
- *
  */
 public class RegisterActivity extends AbstractValidationFormularActivity<RegisterModel, RegisterValidator> {
 

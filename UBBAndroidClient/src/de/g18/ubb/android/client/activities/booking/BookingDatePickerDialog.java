@@ -4,19 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import de.g18.ubb.android.client.utils.UBBConstants;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.widget.DatePicker;
-
+import de.g18.ubb.android.client.utils.UBBConstants;
 
 /**
  * Erzeugt einen eigenen {@link DatePickerDialog } über den sich das Datum eines {@link DatePicker} festlegen lässt
- * 
+ *
  * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
  */
 public class BookingDatePickerDialog extends DatePickerDialog {
-	
+
 	private final int minYear = 1960;
 	private final int minMonth = 0;
 	private final int minDay = 1;
@@ -27,11 +26,11 @@ public class BookingDatePickerDialog extends DatePickerDialog {
 
 	private final Calendar mCalendar;
 	private final SimpleDateFormat formatter;
-	
+
 /**
- * Über den Konstruktor der Klasse lässt sich ein Startdatum, 
+ * Über den Konstruktor der Klasse lässt sich ein Startdatum,
  * der Context und ein Callback festlegen
- * 
+ *
  * @param context
  * @param callBack
  * @param year

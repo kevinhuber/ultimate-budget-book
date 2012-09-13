@@ -11,9 +11,9 @@ import de.g18.ubb.common.domain.AbstractModel;
 /**
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
-public final class BindingUtils {
+public final class Bindings {
 
-    private BindingUtils() {
+    private Bindings() {
         // prevent instantiation
     }
 

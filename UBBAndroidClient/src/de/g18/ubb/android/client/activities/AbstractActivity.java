@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import de.g18.ubb.android.client.preferences.Preferences;
 import de.g18.ubb.android.client.shared.ApplicationStateStore;
-import de.g18.ubb.android.client.shared.binding.BindingUtils;
+import de.g18.ubb.android.client.shared.binding.Bindings;
 import de.g18.ubb.common.domain.AbstractModel;
 
 /**
@@ -33,13 +33,23 @@ public abstract class AbstractActivity<_Model extends AbstractModel> extends Fra
      */
     public final _Model getModel() {
         if (model == null) {
-            setModel(createModel());
+            model = createModel();
         }
         return model;
     }
 
-    public void setModel(_Model aNewValue) {
-        model = aNewValue;
+    /**
+     * Setzt alle Daten der {@link Activity} zurück.
+     */
+    protected void reset() {
+        resetModel();
+    }
+
+    /**
+     * Setzt das Model zurück auf <code>null</code>
+     */
+    protected final void resetModel() {
+        model = null;
     }
 
     /**
@@ -72,31 +82,15 @@ public abstract class AbstractActivity<_Model extends AbstractModel> extends Fra
      * Bindet eine Property des Models anhand ihres Namens an eine {@link View} anhand ihrer id
      * und gibt die gebundene {@link View} zurück.
      */
-    protected final View bind(AbstractModel aModel, String aPropertyname, int aComponentId) {
-        return bind(aModel, aPropertyname, aComponentId, View.class);
+    protected final View bind(AbstractModel aModel, String aPropertyname, int aViewId) {
+        View view = findViewById(aViewId);
+        Bindings.bind(view, aModel, aPropertyname);
+        return view;
     }
 
     /**
-     * Bindet eine Property des Models anhand ihres Namens an eine {@link View} anhand ihrer id
-     * und gibt die gebundene und gecastete {@link View} zurück.
+     * Gibt eine Instanz des {@link ApplicationStateStore} zurück.
      */
-    protected final <_ComponentType extends View> _ComponentType bind(String aPropertyname, int aComponentId,
-                                                                      Class<? extends _ComponentType> aComponentType) {
-        return bind(getModel(), aPropertyname, aComponentId, aComponentType);
-    }
-
-    /**
-     * Bindet eine Property des Models anhand ihres Namens an eine {@link View} anhand ihrer id
-     * und gibt die gebundene und gecastete {@link View} zurück.
-     */
-    @SuppressWarnings("unchecked")
-    protected final <_ComponentType extends View> _ComponentType bind(AbstractModel aModel, String aPropertyname, int aComponentId,
-                                                                      Class<? extends _ComponentType> aComponentType) {
-        _ComponentType component = (_ComponentType) findViewById(aComponentId);
-        BindingUtils.bind(component, aModel, aPropertyname);
-        return component;
-    }
-
     protected final ApplicationStateStore getApplicationStateStore() {
         return ApplicationStateStore.getInstance();
     }

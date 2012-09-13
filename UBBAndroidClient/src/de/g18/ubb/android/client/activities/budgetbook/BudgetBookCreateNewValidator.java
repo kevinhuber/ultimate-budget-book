@@ -8,10 +8,10 @@ import de.g18.ubb.common.util.StringUtil;
 /**
  * @author <a href="mailto:skopatz@gmx.net">Sebastian Kopatz</a>
  */
-public class BudgetBookCreateNewValidator extends
-		AbstractValidator<BudgetBookCreateNewModel> {
+public class BudgetBookCreateNewValidator extends AbstractValidator<BudgetBookCreateNewModel> {
 
 	private String currentUser;
+
 
 	private void setCurrentUser(String aUser) {
 		currentUser = aUser;
@@ -42,7 +42,7 @@ public class BudgetBookCreateNewValidator extends
 
 	/**
 	 * Überprüft ob eine Email valide ist
-	 * 
+	 *
 	 * @return Gibt true zurück wenn die Email-Addresse valide ist
 	 */
 	private boolean checkIfEmailIsValid() {
@@ -58,7 +58,7 @@ public class BudgetBookCreateNewValidator extends
 
 	/**
 	 * Überprüft ob der Benutzer bereits exestiert
-	 * 
+	 *
 	 * @return Gibt true zurück wenn es schon einen benutzer mit dieser Email gibt
 	 */
 	private boolean checkIfUserExists() {

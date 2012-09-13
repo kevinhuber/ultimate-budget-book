@@ -18,6 +18,10 @@ public final class ServiceRepository {
     private static ServiceProvider serviceProvider;
 
 
+    private ServiceRepository() {
+        // prevent instantiation
+    }
+
     /**
      * Gibt eine Instanz des {@link BookingService} zurück.
      */
