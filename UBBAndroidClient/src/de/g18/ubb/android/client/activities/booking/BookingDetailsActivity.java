@@ -2,13 +2,9 @@ package de.g18.ubb.android.client.activities.booking;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import de.g18.ubb.android.client.R;
-import de.g18.ubb.android.client.R.layout;
-import de.g18.ubb.android.client.R.menu;
 import de.g18.ubb.android.client.activities.AbstractValidationFormularActivity;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter;
 import de.g18.ubb.android.client.shared.adapter.EnumAdapter;
@@ -19,35 +15,32 @@ import de.g18.ubb.common.domain.enumType.BookingType;
 import de.g18.ubb.common.service.repository.ServiceRepository;
 import de.g18.ubb.common.util.StringUtil;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.support.v4.app.NavUtils;
-import android.text.InputFilter;
-import android.text.Spanned;
 
 public class BookingDetailsActivity extends AbstractValidationFormularActivity<Booking, BookingCreateValidator> {
 
-	private EditText bookingName;
-	private EditText bookingAmount;
-	private EditText bookingCreateUser;
-	private EditText bookingChangeUser;
-	private EditText bookingCreateTime;
-	private EditText bookingChangeTime;
+	private EditText bookingName, bookingChangeTime, bookingAmount, bookingCreateUser, bookingChangeUser, bookingCreateTime;
+	private Spinner categorySpinner, bookingTypeSpinner;
 	private DatePickerFragment dateFragment;
 	private CategoryAdapter categoryAdapter;
 	private SimpleDateFormat sdf;
 	private EnumAdapter<BookingType> bookingTypeAdapter;
+	private Button datePickerButton;
+	private boolean editMode;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_details);
         dateFragment = new DatePickerFragment();
-		dateFragment.setDate(Calendar.getInstance().getTime());
+		dateFragment.setDate(getModel().getBookingTime());
 		sdf = new SimpleDateFormat(UBBConstants.DATE_FORMAT);
 		
         categoryAdapter = new CategoryAdapter(this, getAllCategorysForCurrentBudgetBook());
@@ -55,58 +48,60 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
         List<BookingType> enumList = Arrays.asList(BookingType.values());
         bookingTypeAdapter = new EnumAdapter<BookingType>(this, enumList);
 
-        
-        initComponents();
         initBindings();
-    }
-
-    private void initComponents() {
-    	bookingName = (EditText) findViewById(R.BookingDetail.name_input);
-    	bookingName.setText(getModel().getBookingName());
-//    	bookingName.setFilters(new InputFilter[] {
-//    		    new InputFilter() {
-//    		        public CharSequence filter(CharSequence src, int start,
-//    		                int end, Spanned dst, int dstart, int dend) {
-//    		                return src.length() < 1 ? dst.subSequence(dstart, dend) : "";
-//    		        }
-//    		    }
-//    		});
-    	
-    	bookingAmount = (EditText) findViewById(R.BookingDetail.betrag_input);
-    	bookingAmount.setText(String.valueOf(getModel().getAmount()));
-    	
-    	bookingCreateUser = (EditText) findViewById(R.BookingDetail.create_user_input);
-    	bookingCreateUser.setText(getModel().getCreateUser().getName());
-    	
-    	bookingChangeUser = (EditText) findViewById(R.BookingDetail.change_user_input);
-    	
-    	if(getModel().getChangeUser() != null){
-    		bookingChangeUser.setText(getModel().getChangeUser().getName());
-    	}
-    	
-    	bookingCreateTime = (EditText) findViewById(R.BookingDetail.create_time_input);
-    	bookingCreateTime.setText(sdf.format(getModel().getCreateTime().getTime()));
-    	
-    	bookingChangeTime = (EditText) findViewById(R.BookingDetail.changed_time_input);
-    	if(getModel().getChangeTime() != null){
-    		bookingChangeTime.setText(sdf.format(getModel().getChangeTime().getTime()));
-    	}
-    	
-    	 Spinner categorySpinner = (Spinner) findViewById(R.BookingDetail.category_spinner);
-         categorySpinner.setAdapter(categoryAdapter);
-
-         Spinner bookingTypeSpinner = (Spinner) findViewById(R.BookingDetail.booking_type_spinner);
-         bookingTypeSpinner.setAdapter(bookingTypeAdapter);
-         //vorauswahl einbauen
-         bookingTypeSpinner.setSelection(getModel().getType().ordinal());
+        initComponents();
+        enableDisableElements();
+        initEventHandling();
+       
     }
     
     private void initBindings() {
-	    bind(Booking.PROPERTY_AMOUNT, R.BookingDetail.betrag_input);
-        bind(Booking.PROPERTY_CATEGORY, R.BookingDetail.category_spinner);
-        bind(Booking.PROPERTY_TYPE, R.BookingDetail.booking_type_spinner);
-        bind(Booking.PROPERTY_BOOKING_NAME, R.BookingDetail.name_input);
+    	bookingName = (EditText) bind(Booking.PROPERTY_BOOKING_NAME, R.BookingDetail.name_input);
+        bookingAmount = (EditText) bind(Booking.PROPERTY_AMOUNT, R.BookingDetail.betrag_input);
+        bookingCreateUser = (EditText) bind(Booking.PROPERTY_CREATE_USER, R.BookingDetail.create_user_input);
+        bookingChangeTime = (EditText) bind(Booking.PROPERTY_CHANGE_TIME, R.BookingDetail.changed_time_input);
+        bookingChangeUser = (EditText) bind(Booking.PROPERTY_CHANGE_USER, R.BookingDetail.change_user_input);
+        bookingCreateTime = (EditText) bind(Booking.PROPERTY_CREATE_TIME, R.BookingDetail.create_time_input);
+        categorySpinner = (Spinner) bind(Booking.PROPERTY_CATEGORY, R.BookingDetail.category_spinner);
+        bookingTypeSpinner = (Spinner) bind(Booking.PROPERTY_TYPE, R.BookingDetail.booking_type_spinner);
 	}
+    
+    private void initComponents() {
+    	
+    	categorySpinner.setAdapter(categoryAdapter);
+        bookingTypeSpinner.setAdapter(bookingTypeAdapter);
+        
+        datePickerButton = (Button) findViewById(R.BookingDetail.datePicker_Button);
+		datePickerButton.setText(sdf.format(getModel().getBookingTime()));
+    }
+    
+    private void enableDisableElements(){
+    	setEditTextViewState(bookingName, editMode);
+    	setEditTextViewState(bookingAmount, editMode);
+    	setEditTextViewState(bookingCreateUser, editMode);
+    	setEditTextViewState(bookingChangeTime, editMode);
+    	setEditTextViewState(bookingChangeUser, editMode);
+    	setEditTextViewState(bookingCreateTime, editMode);
+    	setSpinnerViewState(categorySpinner, editMode);
+    	setSpinnerViewState(bookingTypeSpinner, editMode);
+    	setButtonViewState(datePickerButton, editMode);
+    }
+    
+    private void setEditTextViewState(EditText aEditTextView,  boolean aBool){
+    	aEditTextView.setFocusable(aBool);
+    	aEditTextView.setEnabled(aBool);
+    }
+    
+    private void setButtonViewState(Button aButtonView,  boolean aBool){
+    	aButtonView.setFocusable(aBool);
+    	aButtonView.setEnabled(aBool);
+    }
+    
+    
+    private void setSpinnerViewState(Spinner aSpinnerView, boolean aBool){
+    	aSpinnerView.setFocusable(aBool);
+    	aSpinnerView.setEnabled(aBool);
+    }
     
 	private List<Category> getAllCategorysForCurrentBudgetBook() {
 		return getApplicationStateStore().getBudgetBook().getCategories();
@@ -117,7 +112,6 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
         getMenuInflater().inflate(R.menu.activity_booking_details, menu);
         return true;
     }
-
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -159,6 +153,29 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 	@Override
 	protected int getLayoutId() {
 		return R.layout.activity_booking_details;
+	}
+	
+	public void showDatePickerDialog(View v) {
+		dateFragment.show(getSupportFragmentManager(), "datePicker");
+	}
+	
+	public void changeDatePickerButton(){
+		datePickerButton.setText(dateFragment.getDate().toString());
+	}
+	
+	private void initEventHandling() {
+		datePickerButton.setOnClickListener(new DatePickerButtonListener());
+	}
+
+	// -------------------------------------------------------------------------
+	// Inner Classes
+	// -------------------------------------------------------------------------
+
+	private final class DatePickerButtonListener implements OnClickListener {
+
+		public void onClick(View aView) {
+			showDatePickerDialog(aView);
+		}
 	}
 
 }
