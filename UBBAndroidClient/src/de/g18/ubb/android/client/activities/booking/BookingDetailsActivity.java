@@ -81,10 +81,10 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
     private void enableDisableElements(){
     	setEditTextViewState(bookingName, editMode);
     	setEditTextViewState(bookingAmount, editMode);
-    	setEditTextViewState(bookingCreateUser, editMode);
-    	setEditTextViewState(bookingChangeTime, editMode);
-    	setEditTextViewState(bookingChangeUser, editMode);
-    	setEditTextViewState(bookingCreateTime, editMode);
+    	setEditTextViewState(bookingCreateUser, false);
+    	setEditTextViewState(bookingChangeTime, false);
+    	setEditTextViewState(bookingChangeUser, false);
+    	setEditTextViewState(bookingCreateTime, false);
     	setSpinnerViewState(categorySpinner, editMode);
     	setSpinnerViewState(bookingTypeSpinner, editMode);
     	setButtonViewState(datePickerButton, editMode);
