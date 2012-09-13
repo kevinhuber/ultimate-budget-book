@@ -47,7 +47,6 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 	private BookingsYearListAdapter yearAdapter;
 	private BookingsAdapter allAdapter;
 
-
 	@Override
 	protected BudgetBook createModel() {
 		return getApplicationStateStore().getBudgetBook();
@@ -204,6 +203,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					getApplicationStateStore().setBooking((Booking)arg0.getAdapter().getItem(arg2));
 					switchToDetailBookingActivity();
 				}
 			});
@@ -221,6 +221,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
+					getApplicationStateStore().setBooking((Booking)arg0.getAdapter().getItem(arg2));
 					switchToDetailBookingActivity();
 				}
 			});
@@ -238,6 +239,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
+					getApplicationStateStore().setBooking((Booking)arg0.getAdapter().getItem(arg2));
 					switchToDetailBookingActivity();
 				}
 			});
@@ -255,6 +257,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					getApplicationStateStore().setBooking((Booking)arg0.getAdapter().getItem(arg2));
 					switchToDetailBookingActivity();
 				}
 			});
@@ -273,7 +276,7 @@ public class BudgetBookDetailActivity extends AbstractActivity<BudgetBook> {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
-					//arg0.getAdapter().getItem(arg2)
+					getApplicationStateStore().setBooking((Booking)arg0.getAdapter().getItem(arg2));
 					switchToDetailBookingActivity();
 				}
 			});

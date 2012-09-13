@@ -47,7 +47,7 @@ public class ApplicationStateStore {
 		category = aNewValue;
 	}
 	
-	public Booking geBooking() {
+	public Booking getBooking() {
 		return booking;
 	}
 
