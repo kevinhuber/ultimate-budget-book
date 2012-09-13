@@ -85,11 +85,11 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
     	}
     	
     	bookingCreateTime = (EditText) findViewById(R.BookingDetail.create_time_input);
-    	bookingCreateTime.setText(getModel().getCreateTime().toString());
+    	bookingCreateTime.setText(sdf.format(getModel().getCreateTime().getTime()));
     	
     	bookingChangeTime = (EditText) findViewById(R.BookingDetail.changed_time_input);
     	if(getModel().getChangeTime() != null){
-    		bookingChangeTime.setText(getModel().getChangeTime().toString());
+    		bookingChangeTime.setText(sdf.format(getModel().getChangeTime().getTime()));
     	}
     	
     	 Spinner categorySpinner = (Spinner) findViewById(R.BookingDetail.category_spinner);
