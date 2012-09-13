@@ -20,24 +20,10 @@ public class BookingCreateValidator extends AbstractValidator<Booking> {
 	@Override
 	protected String computeValidationResult() {
 		if (StringUtil.isEmpty(getModel().getBookingName())) {
-			return ValidationUtil
-					.createMustNotBeEmptyMessage(BookingResource.FIELD_NAME);
+			return ValidationUtil.createMustNotBeEmptyMessage(BookingResource.FIELD_NAME);
 		}
-		if (getModel().getAmount() == 0.0F) {
-			return ValidationUtil
-					.createMustNotBeEmptyMessage(BookingResource.FIELD_BETRAG);
-		}
-		if (getModel().getType().name() == "REVENUE") {
-			if (getModel().getAmount() < 0.0F) {
-				return BookingResource.MESSAGE_CREATE_AMOUNT_REVENUE_NEGATIVE
-						.formatted();
-			}
-		}
-		if (getModel().getType().name() == "SPENDING") {
-			if (getModel().getAmount() > 0.0F) {
-				return BookingResource.MESSAGE_CREATE_AMOUNT_SPENDING_POSITIVE
-						.formatted();
-			}
+		if (getModel().getAmount() <= 0.0F) {
+            return BookingResource.VALIDATION_AMMOUNT_MUST_BE_POSITIV.formatted();
 		}
 		return ValidationUtil.createEmptyMessage();
 	}
