@@ -97,7 +97,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="text" >
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:editable="false" >
+
                 </EditText>
             </TableRow>
 
@@ -120,8 +123,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:editable="false"
                     android:ems="10"
+                    android:enabled="false"
                     android:inputType="text" >
+
                 </EditText>
             </TableRow>
 
@@ -144,8 +150,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:editable="false"
                     android:ems="10"
+                    android:enabled="false"
                     android:inputType="text" >
+
                 </EditText>
             </TableRow>
 
@@ -168,8 +177,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:editable="false"
                     android:ems="10"
+                    android:enabled="false"
                     android:inputType="text" >
+
                 </EditText>
             </TableRow>
 
@@ -237,15 +249,6 @@
                     android:layout_weight="1" />
             </TableRow>
         </TableLayout>
-        
-         <Button
-            android:id="@+BookingDetail/change_booking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_border"
-            android:layout_marginRight="@dimen/default_border"
-            android:layout_marginTop="@dimen/default_top_border"
-            android:text="@string/b_change_mode_booking" />
         
         <Button
             android:id="@+BookingDetail/update_booking"

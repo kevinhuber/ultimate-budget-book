@@ -26,6 +26,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.support.v4.app.NavUtils;
+import android.text.InputFilter;
+import android.text.Spanned;
 
 public class BookingDetailsActivity extends AbstractValidationFormularActivity<Booking, BookingCreateValidator> {
 
@@ -35,8 +37,7 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 	private CategoryAdapter categoryAdapter;
 	private SimpleDateFormat sdf;
 	private EnumAdapter<BookingType> bookingTypeAdapter;
-	private Button datePickerButton, changeMode;
-	private boolean editMode;
+	private Button datePickerButton;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,6 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 
         initBindings();
         initComponents();
-        enableDisableElements();
         initEventHandling();
        
     }
@@ -75,34 +75,6 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
         datePickerButton = (Button) findViewById(R.BookingDetail.datePicker_Button);
 		datePickerButton.setText(sdf.format(getModel().getBookingTime()));
 		
-		changeMode = (Button) findViewById(R.BookingDetail.change_booking);
-    }
-    
-    private void enableDisableElements(){
-    	setEditTextViewState(bookingName, editMode);
-    	setEditTextViewState(bookingAmount, editMode);
-    	setEditTextViewState(bookingCreateUser, false);
-    	setEditTextViewState(bookingChangeTime, false);
-    	setEditTextViewState(bookingChangeUser, false);
-    	setEditTextViewState(bookingCreateTime, false);
-    	setSpinnerViewState(categorySpinner, editMode);
-    	setSpinnerViewState(bookingTypeSpinner, editMode);
-    	setButtonViewState(datePickerButton, editMode);
-    }
-    
-    private void setEditTextViewState(EditText aEditTextView,  boolean aBool){
-    	aEditTextView.setEnabled(aBool);
-    	aEditTextView.setFocusable(aBool);
-    }
-    
-    private void setButtonViewState(Button aButtonView,  boolean aBool){
-    	aButtonView.setEnabled(aBool);
-    	aButtonView.setFocusable(aBool);
-    }
-    
-    private void setSpinnerViewState(Spinner aSpinnerView, boolean aBool){
-    	aSpinnerView.setEnabled(aBool);
-    	aSpinnerView.setFocusable(aBool);
     }
     
 	private List<Category> getAllCategorysForCurrentBudgetBook() {
@@ -176,7 +148,6 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 	
 	private void initEventHandling() {
 		datePickerButton.setOnClickListener(new DatePickerButtonListener());
-		changeMode.setOnClickListener(new ChangeModeButtonListener());
 	}
 
 	
@@ -191,17 +162,4 @@ public class BookingDetailsActivity extends AbstractValidationFormularActivity<B
 		}
 	}
 	
-	private final class ChangeModeButtonListener implements OnClickListener {
-
-		public void onClick(View aView) {
-			//toggle enable/disable
-			if(editMode){
-				editMode = false;
-			}else {
-				editMode = true;
-			}
-			enableDisableElements();
-		}
-	}
-
 }
