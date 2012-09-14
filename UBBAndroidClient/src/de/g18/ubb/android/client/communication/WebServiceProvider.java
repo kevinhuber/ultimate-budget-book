@@ -27,6 +27,9 @@ import de.g18.ubb.common.util.ObjectUtil;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
+ * Implementierung des {@link ServiceProvider}-Interface, welche Services über einen WebService zu verfügung stellt.
+ * Services-Calls werden in einen seperaten Thread ausgelagert, um den Main-Thread nicht zu überlasten.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class WebServiceProvider implements ServiceProvider {
@@ -133,6 +136,10 @@ public final class WebServiceProvider implements ServiceProvider {
         getInstance().serverAddress = aNewServerAddress;
     }
 
+    /**
+     * Versucht sich mit den übergebenen Daten am Web-Service zu authentifizieren und gibt true zurück, falls die
+     * authentifizierung erfolgreich war.
+     */
     public static boolean authentificate(String aUsername, String aPassword) {
         HttpClient client = createAuthentificatedHttpClient(aUsername, aPassword);
         if (!isAuthentificatedClient(client)) {
