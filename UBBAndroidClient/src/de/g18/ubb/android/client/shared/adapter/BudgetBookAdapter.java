@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.shared.adapter.BudgetBookAdapter.BudgetBookTag;
@@ -13,6 +14,8 @@ import de.g18.ubb.android.client.utils.UBBConstants;
 import de.g18.ubb.common.domain.BudgetBook;
 
 /**
+ * Klasse zum darstellen von {@link BudgetBook}s in einer {@link AdapterView}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class BudgetBookAdapter extends AbstractAdapter<BudgetBook, BudgetBookTag> {

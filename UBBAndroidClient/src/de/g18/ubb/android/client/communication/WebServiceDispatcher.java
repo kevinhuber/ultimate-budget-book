@@ -11,6 +11,11 @@ import de.g18.ubb.android.client.utils.AsyncTaskUtils;
 import de.g18.ubb.common.service.exception.ServiceException;
 
 /**
+ * Proxy-Objekt für Services, welches Methoden-aufrufe am Service in einen seperaten Thread auslagert
+ * um den Main-Thread nicht zu belasten.
+ * Service-aufrufe, die über diesen {@link InvocationHandler} abgewickelt werden lassen den Thread solange warten,
+ * bis diese abgeschloßen sind.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class WebServiceDispatcher implements InvocationHandler {

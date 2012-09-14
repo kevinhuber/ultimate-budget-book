@@ -27,6 +27,6 @@ public class LoginActivityValidator extends AbstractValidator<LoginActivityModel
         if (StringUtil.isEmpty(getModel().getPassword())) {
             return ValidationUtil.createMustNotBeEmptyMessage(LoginResource.FIELD_PASSWORD);
         }
-        return ValidationUtil.createEmptyMessage();
+        return StringUtil.EMPTY;
     }
 }

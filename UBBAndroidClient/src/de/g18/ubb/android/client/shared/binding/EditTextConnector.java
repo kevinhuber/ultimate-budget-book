@@ -12,6 +12,8 @@ import de.g18.ubb.common.domain.UserExtract;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
+ * Klasse zum anbinden einer Model-Property an einen {@link EditText}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 final class EditTextConnector extends AbstractPropertyConnector<Object, EditText> implements TextWatcher {

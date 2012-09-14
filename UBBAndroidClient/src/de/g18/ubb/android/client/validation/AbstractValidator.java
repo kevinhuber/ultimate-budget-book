@@ -4,6 +4,8 @@ import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.util.StringUtil;
 
 /**
+ * Abstrakte implementierung der {@link Validator}-Interfaces.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public abstract class AbstractValidator<_Model extends AbstractModel> implements Validator<_Model> {

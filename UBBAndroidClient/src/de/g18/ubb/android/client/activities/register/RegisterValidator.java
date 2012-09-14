@@ -41,6 +41,6 @@ public class RegisterValidator extends AbstractValidator<RegisterModel> {
         if (ServiceRepository.getUserService().isEMailInUse(getModel().getEMail())) {
             return RegisterResource.VALIDATION_EMAIL_ALREADY_USED.formatted();
         }
-        return ValidationUtil.createEmptyMessage();
+        return StringUtil.EMPTY;
     }
 }

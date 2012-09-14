@@ -4,8 +4,9 @@ import android.annotation.TargetApi;
 import android.os.AsyncTask;
 import android.os.Build;
 
-
 /**
+ * Klasse zum ausführen von {@link AsyncTask}s auf Android 2.3 und höher.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class AsyncTaskUtils {
@@ -14,7 +15,9 @@ public final class AsyncTaskUtils {
         // prevent instantiation
     }
 
-
+    /**
+     * Führt die übergebene {@link AsyncTask} auf Android 2.3 und höher aus.
+     */
     public static <_Params, _Progress, _Result> AsyncTask<_Params, _Progress, _Result> dispatchExecution(AsyncTask<_Params, _Progress, _Result> aTask,
                                                                                                          _Params... aExecutionParameters) {
         if (Build.VERSION.SDK_INT >= 11) {

@@ -37,7 +37,7 @@ public class BudgetBookCreateNewValidator extends AbstractValidator<BudgetBookCr
 		if (!checkIfUserExists()) {
 			return BudgetBookResource.MESSAGE_ADD_NOT_EXISTING_USER.formatted(getCurrentUser());
 		}
-		return ValidationUtil.createEmptyMessage();
+		return StringUtil.EMPTY;
 	}
 
 	/**

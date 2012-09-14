@@ -5,12 +5,15 @@ import java.util.List;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import de.g18.ubb.android.client.R;
 import de.g18.ubb.android.client.shared.adapter.CategoryAdapter.CategoryTag;
 import de.g18.ubb.common.domain.Category;
 
 /**
+ * Klasse zum darstellen von {@link Category}s in einer {@link AdapterView}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public final class CategoryAdapter extends AbstractAdapter<Category, CategoryTag> {

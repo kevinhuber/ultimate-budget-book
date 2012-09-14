@@ -5,6 +5,8 @@ import java.text.MessageFormat;
 import de.g18.ubb.common.resource.Resource;
 
 /**
+ * {@link Resource} für allgemeine Validierungsfehler.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public enum CommonValidationResource implements Resource {

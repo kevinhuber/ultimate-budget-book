@@ -8,6 +8,8 @@ import de.g18.ubb.common.domain.AbstractModel;
 import de.g18.ubb.common.util.ObjectUtil;
 
 /**
+ * Klasse zum anbinden einer Model-Property an eine {@link AdapterView}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 final class AdapterViewConnector extends AbstractPropertyConnector<Object, AdapterView<?>> implements OnItemSelectedListener {

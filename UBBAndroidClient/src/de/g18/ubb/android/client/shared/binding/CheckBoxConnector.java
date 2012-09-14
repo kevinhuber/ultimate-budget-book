@@ -6,6 +6,8 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import de.g18.ubb.common.domain.AbstractModel;
 
 /**
+ * Klasse zum anbinden einer Model-Property an eine {@link CheckBox}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 final class CheckBoxConnector extends AbstractPropertyConnector<Boolean, CheckBox> implements OnCheckedChangeListener {

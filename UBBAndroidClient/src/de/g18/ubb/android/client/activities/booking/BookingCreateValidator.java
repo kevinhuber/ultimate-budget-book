@@ -25,6 +25,6 @@ public class BookingCreateValidator extends AbstractValidator<Booking> {
 		if (getModel().getAmount() <= 0.0F) {
             return BookingResource.VALIDATION_AMMOUNT_MUST_BE_POSITIV.formatted();
 		}
-		return ValidationUtil.createEmptyMessage();
+		return StringUtil.EMPTY;
 	}
 }

@@ -10,14 +10,18 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 /**
+ * Abstrakte implementierung des {@link ArrayAdapter}s, zum darstellen von listen in einer {@link AdapterView}.
+ *
  * @author <a href="mailto:kevinhuber.kh@gmail.com">Kevin Huber</a>
  */
 public abstract class AbstractAdapter<_EntryType, _TagType> extends ArrayAdapter<_EntryType> {
 
     private final int layoutId;
+
 
     public AbstractAdapter(Context aContext, int aLayoutId) {
         this(aContext, aLayoutId, new ArrayList<_EntryType>());
@@ -71,7 +75,13 @@ public abstract class AbstractAdapter<_EntryType, _TagType> extends ArrayAdapter
     // Abstract behavior
     // -------------------------------------------------------------------------
 
+    /**
+     * Erstellt das Tag, welches an die übergebene View gebunden wird.
+     */
     protected abstract _TagType createTag(View aConvertView);
 
+    /**
+     * Aktualisiert die Werte des übergebenen Tag mit denen ausdem übergebenen Entry.
+     */
     protected abstract void updateTag(_TagType aTag, _EntryType aEntry);
 }
